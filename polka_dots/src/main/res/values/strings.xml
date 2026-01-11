@@ -1,0 +1,15 @@
+<resources>
+
+    <string name="polka_dots_tool_name">Polka dots</string>
+
+    <string name="step_in_meters">User model</string>
+    <string name="prefix">Prefix</string>
+    <string name="starting_number">Starting number</string>
+    <string name="choose_points_color">Choose the color of selected points</string>
+    <string name="is_color_from_model">Take the color from the model</string>
+    <string name="is_prefix_from_model">Take the color from the model</string>
+    <string name="is_model_retained">Keep the input model</string>
+    <string name="is_reversed_order">Reversed order</string>
+    <string name="process_model">Process the model</string>
+    <string name="app_name" translatable="false">Polka dots</string>
+</resources>
