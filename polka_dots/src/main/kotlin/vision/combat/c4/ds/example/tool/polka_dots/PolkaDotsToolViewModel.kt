@@ -26,6 +26,7 @@ import vision.combat.c4.model.location.LineLocation
 import vision.combat.c4.model.location.PointLocation
 import vision.combat.c4.model.location.VisualAttributes
 import vision.combat.c4.model.location.Volume
+import vision.combat.c4.model.overlay.OverlayModel
 import vision.combat.c4.model.randomId
 import kotlin.uuid.ExperimentalUuidApi
 
@@ -45,9 +46,14 @@ internal class PolkaDotsToolViewModel(
         }
     }
 
-    private fun breakIntoPoints(stepValue: Double, prefix: String, color: Color, startingNumber: Int) {
-        val model = modelInteractor.selectedModel.value
-        val geoPoints: List<GeoPoint>? = when (model?.geographicLocation) {
+    private fun breakIntoPoints(
+        stepValue: Double,
+        prefix: String,
+        color: Color,
+        startingNumber: Int,
+        model: BattlespaceConceptModel
+    ) {
+        val geoPoints: List<GeoPoint>? = when (model.geographicLocation) {
             is Volume -> {
                 when (model.geographicLocation) {
                     is Approximable -> {
@@ -56,46 +62,41 @@ internal class PolkaDotsToolViewModel(
 
                         generateGridInsidePolygon(polygon, boundingBox, stepValue)
                     }
-
                     else -> null
                 }
             }
-
             is ArcLocation, is ArrowLocation, is LineLocation -> {
                 breakApproximableIntoPoints(model.geographicLocation as Approximable, stepValue)
             }
-
             else -> {
                 null
             }
         }
-        if (!geoPoints.isNullOrEmpty() && model != null) {
+        if (!geoPoints.isNullOrEmpty()) {
             geoPointsToModels(modelInteractor, geoPoints, model, prefix, color, startingNumber)
 
         }
     }
 
     fun process() {
-        val step = uiState.distance.toDoubleOrNull()
-        val startingNumber = uiState.startingNumber.toIntOrNull()
-        val model = modelInteractor.selectedModel.value
+        val step = uiState.distance.toDoubleOrNull() ?: return
+        val startingNumber = uiState.startingNumber.toIntOrNull() ?: return
+        val model = modelInteractor.selectedModel.value ?: return
 
         val prefix = if (uiState.isPrefixFromModel) {
-            model?.name ?: ""
+            model.name ?: ""
         } else {
             uiState.prefix
         }
 
         val color = if (uiState.isColorFromModel) {
-            val colorInt = model?.location?.visualAttributes?.lineColor ?: 0
+            val colorInt = model.location.visualAttributes?.lineColor ?: 0
             Color(colorInt)
         } else {
             uiState.color
         }
 
-        if (step != null && startingNumber != null) {
-            breakIntoPoints(step, prefix, color, startingNumber)
-        }
+        breakIntoPoints(step, prefix, color, startingNumber, model)
     }
 
 
@@ -138,7 +139,6 @@ internal class PolkaDotsToolViewModel(
         step: Double,
     ): List<GeoPoint> {
         val gridPoints = mutableListOf<GeoPoint>()
-
         var currentLat = bounds.bottomLeft
 
         while (currentLat.lat <= bounds.topRight.lat) {
@@ -150,12 +150,10 @@ internal class PolkaDotsToolViewModel(
                 }
 
                 currentPoint = GeoMath.calculatePoint(currentPoint, 90.0, step)
-
                 if (currentPoint.lon <= currentPoint.lon - 0.0001) break
             }
 
             currentLat = GeoMath.calculatePoint(currentLat, 0.0, step)
-
             if (currentLat.lat <= currentLat.lat - 0.0001) break
         }
 
@@ -211,7 +209,6 @@ internal class PolkaDotsToolViewModel(
             ).apply {
                 name = "$prefix ${startingNumber + index + 1}"
                 symbolKey = 2045
-                metadata = model.metadata
             }
             model.container.forEach {
                 modelInteractor.consumeModel(
@@ -227,10 +224,32 @@ internal class PolkaDotsToolViewModel(
                 attachToDefault = true
             )
         }
-        if (!uiState.isModelRetained) {
+        if (uiState.isModelDeleted) {
             modelInteractor.deleteModel(model)
         }
         modelInteractor.commitChanges()
+    }
+
+    fun layerToModels(layer: OverlayModel) {
+        val step = uiState.distance.toDoubleOrNull() ?: return
+        val startingNumber = uiState.startingNumber.toIntOrNull() ?: return
+
+        layer.content.forEach {
+            val prefix = if (uiState.isPrefixFromModel) {
+                it.name ?: ""
+            } else {
+                uiState.prefix
+            }
+
+            val color = if (uiState.isColorFromModel) {
+                val colorInt = it.location.visualAttributes?.lineColor ?: 0
+                Color(colorInt)
+            } else {
+                uiState.color
+            }
+
+            breakIntoPoints(step, prefix, color, startingNumber, it)
+        }
     }
 
     data class UiState(
@@ -241,7 +260,7 @@ internal class PolkaDotsToolViewModel(
         val isReversedOrder: Boolean = false,
         val isColorFromModel: Boolean = false,
         val isPrefixFromModel: Boolean = false,
-        val isModelRetained: Boolean = false,
+        val isModelDeleted: Boolean = false,
         val selectedModel: BattlespaceConceptModel? = null,
     )
 
@@ -274,7 +293,7 @@ internal class PolkaDotsToolViewModel(
     }
 
     fun updateIsModelRetained(newIsModelRetained: Boolean) {
-        uiState = uiState.copy(isModelRetained = newIsModelRetained)
+        uiState = uiState.copy(isModelDeleted = newIsModelRetained)
     }
 
     fun updateSelectedModel(selectedModel: BattlespaceConceptModel?) {

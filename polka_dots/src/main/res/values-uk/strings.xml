@@ -1,13 +1,13 @@
 <resources>
 
-    <string name="polka_dots_tool_name">Горошок 0.1.60</string>
+    <string name="polka_dots_tool_name">Горошок 0.1.74</string>
     <string name="step_in_meters">Крок в метрах</string>
     <string name="prefix">Префікс</string>
     <string name="starting_number">Початковий номер</string>
     <string name="choose_points_color">Обрати колір утворених точок</string>
     <string name="is_color_from_model">Брати колір з позначки</string>
     <string name="is_prefix_from_model">Брати префікс з позначки</string>
-    <string name="is_model_retained">Залишати вихідну позначку</string>
+    <string name="is_model_deleted">Видаляти обрану позначку</string>
     <string name="is_reversed_order">Зворотній порядок</string>
-    <string name="process_model">Обробити обрану модель</string>
+    <string name="select_the_model">Оберіть модель</string>
 </resources>
