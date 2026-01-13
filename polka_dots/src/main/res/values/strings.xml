@@ -8,8 +8,8 @@
     <string name="choose_points_color">Choose the color of selected points</string>
     <string name="is_color_from_model">Take the color from the model</string>
     <string name="is_prefix_from_model">Take the color from the model</string>
-    <string name="is_model_retained">Keep the input model</string>
+    <string name="is_model_deleted">Delete the selected model</string>
     <string name="is_reversed_order">Reversed order</string>
-    <string name="process_model">Process the model</string>
+    <string name="select_the_model">Select the model</string>
     <string name="app_name" translatable="false">Polka dots</string>
 </resources>
