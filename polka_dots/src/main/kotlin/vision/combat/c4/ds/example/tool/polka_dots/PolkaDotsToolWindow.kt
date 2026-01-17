@@ -12,19 +12,26 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.PlaylistAddCheck
 import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.Checklist
+import androidx.compose.material.icons.filled.PublishedWithChanges
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.flow.Flow
 import vision.combat.c4.ds.sdk.ui.component.ColorSelector
 import vision.combat.c4.ds.sdk.ui.component.WindowScaffold
 import vision.combat.c4.ds.sdk.ui.component.bar.BackNavTopAppBar
 import vision.combat.c4.ds.sdk.ui.component.checkable.SwitchField
 import vision.combat.c4.ds.sdk.ui.component.text.OutlinedTextInputField
+import vision.combat.c4.ds.sdk.ui.util.showToast
 import vision.combat.c4.ds.sdk.ui.viewmodel.diViewModel
-import vision.combat.c4.ds.tool.sample.window.R
+import vision.combat.c4.ds.tool.sample.polka_dots.R
 
 @Composable
 internal fun PolkaDotsToolWindow(viewModel: PolkaDotsToolViewModel = diViewModel()) {
@@ -32,6 +39,8 @@ internal fun PolkaDotsToolWindow(viewModel: PolkaDotsToolViewModel = diViewModel
         uiState = viewModel.uiState,
         viewModel = viewModel
     )
+
+    EffectHandler(viewModel.effects)
 }
 
 @Composable
@@ -112,14 +121,35 @@ private fun PolkaTopAppBar(viewModel: PolkaDotsToolViewModel) {
         actions = {
             IconButton(
                 onClick = { viewModel.process() },
-                enabled = viewModel.uiState.selectedModel != null,
-                modifier = Modifier.padding(horizontal = 8.dp)
             ) {
                 Icon(
-                    imageVector = Icons.Filled.Check,
+                    imageVector = Icons.Filled.PublishedWithChanges,
+                    contentDescription = stringResource(R.string.select_the_model),
+                )
+            }
+            IconButton(
+                onClick = { viewModel.massProcess() },
+            ) {
+                Icon(
+                    imageVector = Icons.AutoMirrored.Filled.PlaylistAddCheck,
                     contentDescription = stringResource(R.string.select_the_model),
                 )
             }
         },
     )
+}
+
+@Composable
+private fun EffectHandler(effectFlow: Flow<PolkaEffect>) {
+    val context = LocalContext.current
+
+    LaunchedEffect(effectFlow, context) {
+        effectFlow.collect { effect ->
+            val message = when (effect) {
+                PolkaEffect.ModelNotSelected -> R.string.no_model_selected
+                PolkaEffect.NoLayers -> R.string.no_layers
+            }
+            context.showToast(message)
+        }
+    }
 }

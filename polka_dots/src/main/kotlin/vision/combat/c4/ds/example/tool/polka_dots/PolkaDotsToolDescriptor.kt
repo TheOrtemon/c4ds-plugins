@@ -6,7 +6,7 @@ import vision.combat.c4.ds.sdk.tool.ToolContext
 import vision.combat.c4.ds.sdk.tool.ToolDescriptor
 import vision.combat.c4.ds.sdk.tool.ToolId
 import vision.combat.c4.ds.sdk.tool.ToolParams
-import vision.combat.c4.ds.tool.sample.window.R
+import vision.combat.c4.ds.tool.sample.polka_dots.R
 
 class PolkaDotsToolDescriptor(toolContext: ToolContext) : ToolDescriptor(toolContext) {
 

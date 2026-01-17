@@ -13,7 +13,7 @@ kotlin {
 }
 
 android {
-    namespace = "vision.combat.c4.ds.tool.sample.window"
+    namespace = "vision.combat.c4.ds.tool.sample.polka_dots"
     compileSdk = 35
 
     defaultConfig {
