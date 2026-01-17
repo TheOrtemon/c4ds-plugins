@@ -30,12 +30,13 @@ internal fun AliasingToolWindow(viewModel: AliasingToolViewModel = diViewModel()
     EffectHandler(viewModel.effects)
 
     val context = LocalContext.current
-
-    val assets = context
-        .resources
-        .getStringArray(R.array.alias_assets_list)
-        .toList()
-    viewModel.initAssets(assets)
+    LaunchedEffect(viewModel, context) {
+        val assets = context
+                .resources
+                .getStringArray(R.array.alias_assets_list)
+                .toList()
+        viewModel.initAssets(assets)
+    }
 }
 
 @Composable
