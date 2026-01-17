@@ -28,3 +28,4 @@ rootProject.name = "c4ds-tool-samples"
 include(":overlay")
 include(":window")
 include(":polka_dots")
+include(":aliasing")
