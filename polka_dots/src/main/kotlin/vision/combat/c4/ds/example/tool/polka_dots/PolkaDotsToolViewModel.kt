@@ -7,9 +7,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.merge
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import vision.combat.c4.ds.sdk.domain.interactor.CommonModelInteractor
 import vision.combat.c4.ds.sdk.domain.interactor.selectedModelUpdatedEvent
 import vision.combat.c4.ds.sdk.domain.util.distanceTo
@@ -31,10 +35,9 @@ import vision.combat.c4.model.randomId
 import kotlin.uuid.ExperimentalUuidApi
 
 
-internal class PolkaDotsToolViewModel(
-    private val modelInteractor: CommonModelInteractor,
-) : ViewModel() {
-
+internal class PolkaDotsToolViewModel(private val modelInteractor: CommonModelInteractor): ViewModel() {
+    private val _effects = MutableSharedFlow<PolkaEffect>()
+    val effects: SharedFlow<PolkaEffect> = _effects.asSharedFlow()
     var uiState by mutableStateOf(UiState())
         private set
 
@@ -44,6 +47,10 @@ internal class PolkaDotsToolViewModel(
                 .onEach { updateSelectedModel(it) }
                 .launchIn(viewModelScope)
         }
+    }
+
+    private fun emitEffect(effect: PolkaEffect) {
+        viewModelScope.launch { _effects.emit(effect) }
     }
 
     private fun breakIntoPoints(
@@ -74,14 +81,14 @@ internal class PolkaDotsToolViewModel(
         }
         if (!geoPoints.isNullOrEmpty()) {
             geoPointsToModels(modelInteractor, geoPoints, model, prefix, color, startingNumber)
-
         }
     }
 
     fun process() {
         val step = uiState.distance.toDoubleOrNull() ?: return
         val startingNumber = uiState.startingNumber.toIntOrNull() ?: return
-        val model = modelInteractor.selectedModel.value ?: return
+        val model = modelInteractor.selectedModel.value ?:
+            return emitEffect(PolkaEffect.ModelNotSelected)
 
         val prefix = if (uiState.isPrefixFromModel) {
             model.name ?: ""
@@ -207,7 +214,7 @@ internal class PolkaDotsToolViewModel(
                     )
                 }
             ).apply {
-                name = "$prefix ${startingNumber + index + 1}"
+                name = "$prefix${startingNumber + index + 1}"
                 symbolKey = 2045
             }
             model.container.forEach {
@@ -228,6 +235,16 @@ internal class PolkaDotsToolViewModel(
             modelInteractor.deleteModel(model)
         }
         modelInteractor.commitChanges()
+    }
+
+    fun massProcess() {
+        val selectedModel = modelInteractor.selectedModel.value ?:
+            return emitEffect(PolkaEffect.ModelNotSelected)
+        selectedModel.container
+            .ifEmpty {
+                return emitEffect(PolkaEffect.NoLayers)
+            }
+            .forEach { layerToModels(it) }
     }
 
     fun layerToModels(layer: OverlayModel) {
@@ -299,4 +316,9 @@ internal class PolkaDotsToolViewModel(
     fun updateSelectedModel(selectedModel: BattlespaceConceptModel?) {
         uiState = uiState.copy(selectedModel = selectedModel)
     }
+}
+
+sealed class PolkaEffect {
+    data object ModelNotSelected : PolkaEffect()
+    data object NoLayers : PolkaEffect()
 }
