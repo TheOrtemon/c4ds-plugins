@@ -49,10 +49,15 @@ private fun WindowContent(uiState: AliasingToolViewModel.UiState, viewModel: Ali
             stringResource(R.string.is_randomized),
             onCheckedChange = { viewModel.updateIsRandomized(it) }
         )
+        SwitchField(
+            initialValue = uiState.isRandomColor,
+            stringResource(R.string.is_random_color),
+            onCheckedChange = { viewModel.updateIsRandomColor(it) }
+        )
         if (!uiState.isRandomized) {
             OutlinedTextInputField(
                 value = uiState.aliasList,
-                label = stringResource(R.string.alias_list_text),
+                label = stringResource(R.string.alias_input_list),
                 modifier = Modifier
                     .fillMaxWidth()
                     .defaultMinSize(minHeight = 260.dp),

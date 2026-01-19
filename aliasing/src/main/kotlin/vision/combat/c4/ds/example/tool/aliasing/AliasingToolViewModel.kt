@@ -3,6 +3,7 @@ package vision.combat.c4.ds.example.tool.aliasing
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.graphics.toArgb
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -10,6 +11,7 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import vision.combat.c4.ds.sdk.domain.interactor.CommonModelInteractor
+import vision.combat.c4.ds.sdk.ui.component.ColorSelectorDefaults.Colors
 import vision.combat.c4.model.overlay.OverlayModel
 
 internal class AliasingToolViewModel(
@@ -55,6 +57,11 @@ internal class AliasingToolViewModel(
 
         layersContent.zip(aliasList).forEach { (model, name) ->
             model.name = name
+            if (uiState.isRandomColor) {
+                val randomColor = Colors.random().toArgb()
+                model.location.visualAttributes?.fillColor = randomColor
+                model.location.visualAttributes?.lineColor = randomColor
+            }
             modelInteractor.consumeModel(model)
         }
 
@@ -65,6 +72,7 @@ internal class AliasingToolViewModel(
     data class UiState(
         val aliasList: String = "",
         val isRandomized: Boolean = false,
+        val isRandomColor: Boolean = false,
         val assetAliasList: List<String> = emptyList()
     )
 
@@ -74,6 +82,10 @@ internal class AliasingToolViewModel(
 
     fun updateIsRandomized(flag: Boolean) {
         uiState = uiState.copy(isRandomized = flag)
+    }
+
+    fun updateIsRandomColor(flag: Boolean) {
+        uiState = uiState.copy(isRandomColor = flag)
     }
 
     fun initAssets(assetList: List<String>) {

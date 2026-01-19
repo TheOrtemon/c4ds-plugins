@@ -11,7 +11,7 @@ import vision.combat.c4.ds.tool.sample.aliasing.R
 class AliasingToolDescriptor(toolContext: ToolContext) : ToolDescriptor(toolContext) {
 
     override val id: ToolId = ID
-    override val iconResId: Int = R.drawable.ic_tool
+    override val iconResId: Int = R.drawable.baseline_local_offer_24
     override val nameResId: Int = R.string.aliasing_tool_name
 
     override fun createTool(toolContext: ToolContext, di: DI, params: ToolParams?): AbstractTool {
