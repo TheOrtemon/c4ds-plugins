@@ -1,7 +1,7 @@
 <resources>
 
     <string name="app_name" translatable="false">Polka dots</string>
-    <string name="polka_dots_tool_name">Polka dots</string>
+    <string name="polka_dots_plugin_tool_name">Polka dots</string>
 
     <string name="step_in_meters">User model</string>
     <string name="prefix">Prefix</string>
