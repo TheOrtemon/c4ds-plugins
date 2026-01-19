@@ -148,6 +148,7 @@ private fun EffectHandler(effectFlow: Flow<PolkaEffect>) {
             val message = when (effect) {
                 PolkaEffect.ModelNotSelected -> R.string.no_model_selected
                 PolkaEffect.NoLayers -> R.string.no_layers
+                PolkaEffect.Done -> R.string.done
             }
             context.showToast(message)
         }

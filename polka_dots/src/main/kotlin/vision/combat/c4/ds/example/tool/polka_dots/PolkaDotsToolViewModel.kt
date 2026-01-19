@@ -104,6 +104,7 @@ internal class PolkaDotsToolViewModel(private val modelInteractor: CommonModelIn
         }
 
         breakIntoPoints(step, prefix, color, startingNumber, model)
+        emitEffect(PolkaEffect.Done)
     }
 
 
@@ -245,6 +246,7 @@ internal class PolkaDotsToolViewModel(private val modelInteractor: CommonModelIn
                 return emitEffect(PolkaEffect.NoLayers)
             }
             .forEach { layerToModels(it) }
+        emitEffect(PolkaEffect.Done)
     }
 
     fun layerToModels(layer: OverlayModel) {
@@ -321,4 +323,5 @@ internal class PolkaDotsToolViewModel(private val modelInteractor: CommonModelIn
 sealed class PolkaEffect {
     data object ModelNotSelected : PolkaEffect()
     data object NoLayers : PolkaEffect()
+    data object Done : PolkaEffect()
 }

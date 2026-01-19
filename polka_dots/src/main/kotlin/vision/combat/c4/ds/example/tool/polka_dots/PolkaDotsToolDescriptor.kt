@@ -11,7 +11,7 @@ import vision.combat.c4.ds.tool.sample.polka_dots.R
 class PolkaDotsToolDescriptor(toolContext: ToolContext) : ToolDescriptor(toolContext) {
 
     override val id: ToolId = ID
-    override val iconResId: Int = R.drawable.ic_tool
+    override val iconResId: Int = R.drawable.baseline_grain_24
     override val nameResId: Int = R.string.polka_dots_tool_name
 
     override fun createTool(toolContext: ToolContext, di: DI, params: ToolParams?): AbstractTool {
