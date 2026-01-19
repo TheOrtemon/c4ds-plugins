@@ -1,12 +1,13 @@
 <resources>
 
-    <string name="aliasing_tool_name">Називайло 0.1.2</string>
-    <string name="alias_list_text">Список назв для позначок</string>
+    <string name="aliasing_tool_name">Називайло 0.1.6</string>
+    <string name="alias_input_list">Список назв для позначок</string>
     <string name="select_the_model">Оберіть модель</string>
     <string name="no_model_selected">Позначку не обрано</string>
     <string name="no_layers">Жоден шар не містить цієї позначки</string>
     <string name="no_aliases">Відсутні назви для позначок</string>
     <string name="not_enough_aliases">Недостатньо назв для всіх позначок</string>
     <string name="done">Готово</string>
-    <string name="is_randomized">Обрати назви для позначок випадково</string>
+    <string name="is_randomized">Обрати назви позначок випадково</string>
+    <string name="is_random_color">Обрати колір позначок випадково</string>
 </resources>
