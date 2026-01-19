@@ -14,4 +14,5 @@
     <string name="select_the_model">Select the model</string>
     <string name="no_model_selected">No model is selected</string>
     <string name="no_layers">No layer contains this model</string>
+    <string name="done">Done</string>
 </resources>
