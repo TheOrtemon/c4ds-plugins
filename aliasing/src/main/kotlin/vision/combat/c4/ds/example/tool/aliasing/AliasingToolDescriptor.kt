@@ -12,7 +12,7 @@ class AliasingToolDescriptor(toolContext: ToolContext) : ToolDescriptor(toolCont
 
     override val id: ToolId = ID
     override val iconResId: Int = R.drawable.baseline_local_offer_24
-    override val nameResId: Int = R.string.aliasing_tool_name
+    override val nameResId: Int = R.string.the_aliasing_tool_name
 
     override fun createTool(toolContext: ToolContext, di: DI, params: ToolParams?): AbstractTool {
         return AliasingTool(toolContext, this, di, params)

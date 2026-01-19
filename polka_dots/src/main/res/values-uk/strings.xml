@@ -1,6 +1,6 @@
 <resources>
 
-    <string name="polka_dots_tool_name">Горошок 0.1.83</string>
+    <string name="polka_dots_plugin_tool_name">Горошок 0.1.84</string>
     <string name="step_in_meters">Крок в метрах</string>
     <string name="prefix">Префікс</string>
     <string name="starting_number">Початковий №</string>

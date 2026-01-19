@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="alias_assets_list">
+    <string-array name="embedded_alias_list_ukrainian">
         <item>Євген</item>
         <item>Євнух</item>
         <item>Єврей</item>

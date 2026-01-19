@@ -33,7 +33,7 @@ internal fun AliasingToolWindow(viewModel: AliasingToolViewModel = diViewModel()
     LaunchedEffect(viewModel, context) {
         val assets = context
                 .resources
-                .getStringArray(R.array.alias_assets_list)
+                .getStringArray(R.array.embedded_alias_list_ukrainian)
                 .toList()
         viewModel.initAssets(assets)
     }
@@ -46,18 +46,18 @@ private fun WindowContent(uiState: AliasingToolViewModel.UiState, viewModel: Ali
     ) {
         SwitchField(
             initialValue = uiState.isRandomized,
-            stringResource(R.string.is_randomized),
+            stringResource(R.string.the_is_randomized),
             onCheckedChange = { viewModel.updateIsRandomized(it) }
         )
         SwitchField(
             initialValue = uiState.isRandomColor,
-            stringResource(R.string.is_random_color),
+            stringResource(R.string.the_is_model_colors_randomized),
             onCheckedChange = { viewModel.updateIsRandomColor(it) }
         )
         if (!uiState.isRandomized) {
             OutlinedTextInputField(
                 value = uiState.aliasList,
-                label = stringResource(R.string.alias_input_list),
+                label = stringResource(R.string.user_input_alias_list),
                 modifier = Modifier
                     .fillMaxWidth()
                     .defaultMinSize(minHeight = 260.dp),
@@ -71,7 +71,7 @@ private fun WindowContent(uiState: AliasingToolViewModel.UiState, viewModel: Ali
 @Composable
 private fun AliasingTopAppBar(viewModel: AliasingToolViewModel) {
     BackNavTopAppBar(
-        title = stringResource(R.string.aliasing_tool_name),
+        title = stringResource(R.string.the_aliasing_tool_name),
         actions = {
             IconButton(
                 onClick = {

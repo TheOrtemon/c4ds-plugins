@@ -117,7 +117,7 @@ private fun WindowContent(uiState: PolkaDotsToolViewModel.UiState, viewModel: Po
 @Composable
 private fun PolkaTopAppBar(viewModel: PolkaDotsToolViewModel) {
     BackNavTopAppBar(
-        title = stringResource(R.string.polka_dots_tool_name),
+        title = stringResource(R.string.polka_dots_plugin_tool_name),
         actions = {
             IconButton(
                 onClick = { viewModel.process() },
