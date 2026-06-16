@@ -96,3 +96,54 @@ Once your app is installed, the ComBat 4 Dismounted Soldier app should automatic
 Click to watch
 
 [![Demo video. Click to watch](https://github.com/user-attachments/assets/e077a04b-35c4-4d77-bd7b-672d552a4f26)](https://youtu.be/6AOOwTl_N9Y)
+
+---
+
+## Plugin isolation smoke tests
+
+The `overlay` sample includes a built-in isolation smoke to verify that the host correctly
+isolates plugin assets from the host's own `assets/` folder.
+
+### Asset isolation
+
+`OverlayTool.onStart()` opens `assets/overlay/sample.txt` via `toolContext.assets`.
+If the host is serving the correct plugin-scoped `AssetManager`, you will see:
+
+```
+OverlayTool: [ASSET SMOKE] Read 'overlay/sample.txt' from plugin (NNN bytes) — isolation OK
+```
+
+If the host is accidentally serving its own `AssetManager` (regression), the open call throws
+`FileNotFoundException` and you will see an `[ASSET SMOKE] FAILED` error line instead.
+
+### Native `.so` isolation
+
+To also exercise `nativeLibraryDir` isolation:
+
+1. Add a CMake target to `overlay/build.gradle.kts`:
+   ```kotlin
+   android {
+       defaultConfig {
+           ndk { abiFilters += listOf("arm64-v8a", "x86_64") }
+       }
+       externalNativeBuild { cmake { path("src/main/cpp/CMakeLists.txt") } }
+   }
+   ```
+2. Create `src/main/cpp/CMakeLists.txt` + a trivial `native-lib.cpp`:
+   ```cpp
+   #include <jni.h>
+   extern "C" JNIEXPORT jstring JNICALL
+   Java_vision_combat_c4_ds_example_tool_overlay_OverlayTool_nativeHello(JNIEnv* env, jobject) {
+       return env->NewStringUTF("hello from plugin .so");
+   }
+   ```
+3. In `OverlayTool.onStart()` call `System.loadLibrary("native-lib")` and invoke the JNI method.
+
+The `ToolPackageCache` in the host already passes `nativeLibraryDir` as `libPath` to the
+`PathClassLoader`, so `System.loadLibrary` will find the unpacked `.so` automatically when
+`android:extractNativeLibs="true"` is set in the plugin's manifest.
+
+> **Important:** The bundled `:c4ds-tool:template` tool runs **in-process on the host context**.
+> It cannot exercise plugin-only `AssetManager`, `FallbackResources`, `ToolPackageCache`, or
+> `nativeLibraryDir` isolation. Always use an external plugin APK (like this `overlay` sample)
+> for isolation testing.

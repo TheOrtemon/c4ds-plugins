@@ -1,0 +1,1 @@
+If this text is visible in logcat the host correctly resolved the plugin's assets/ folder.

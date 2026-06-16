@@ -23,6 +23,18 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        // Limit to the two most common ABIs to keep build times reasonable.
+        // arm64-v8a covers production devices; x86_64 covers emulators.
+        ndk {
+            abiFilters += listOf("arm64-v8a", "x86_64")
+        }
+
+        externalNativeBuild {
+            cmake {
+                cppFlags += "-std=c++17"
+            }
+        }
     }
 
     buildTypes {
@@ -37,9 +49,29 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
+
+    // Wire CMake so Gradle knows where to find the JNI sources.
+    // NDK and CMake must be installed (sdkmanager "ndk;version" "cmake;version").
+    externalNativeBuild {
+        cmake {
+            path = file("src/main/cpp/CMakeLists.txt")
+            version = "3.22.1"
+        }
+    }
+
     buildFeatures {
         compose = true
         buildConfig = true
+    }
+
+    // AGP 8+ requires jniLibs.useLegacyPackaging instead of android:extractNativeLibs in
+    // the manifest. This ensures the .so is extracted to nativeLibraryDir at install time
+    // so the host's PathClassLoader (libPath = nativeLibraryDir) resolves liboverlay_jni.so
+    // via System.loadLibrary("overlay_jni").
+    packaging {
+        jniLibs {
+            useLegacyPackaging = true
+        }
     }
 }
 
