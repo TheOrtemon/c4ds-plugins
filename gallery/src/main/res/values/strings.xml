@@ -6,7 +6,6 @@
     <string name="section_windows">Windows</string>
     <string name="section_map">Map</string>
     <string name="section_map_overlays">Map Overlays &amp; Status</string>
-    <string name="section_host_ui_chrome">Host UI Chrome</string>
     <string name="section_ui_components">UI Components</string>
     <string name="section_model_map_data">Model &amp; Map Data</string>
     <string name="section_lifecycle">Lifecycle &amp; Services</string>

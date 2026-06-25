@@ -125,7 +125,7 @@ object SampleCatalog {
         // ── HOST UI CHROME ───────────────────────────────────────────────────
         SampleEntry(
             id = "endbar",
-            section = SampleSection.HOST_UI_CHROME,
+            section = SampleSection.MAP_OVERLAYS,
             nameResId = R.string.endbar_tool_name,
             descResId = R.string.endbar_desc,
             apisResId = R.string.endbar_apis,

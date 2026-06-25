@@ -6,7 +6,6 @@
     <string name="section_windows">Вікна</string>
     <string name="section_map">Карта</string>
     <string name="section_map_overlays">Оверлеї карти та статус</string>
-    <string name="section_host_ui_chrome">Хром UI хосту</string>
     <string name="section_ui_components">UI-компоненти</string>
     <string name="section_model_map_data">Модель та дані карти</string>
     <string name="section_lifecycle">Lifecycle та служби</string>
