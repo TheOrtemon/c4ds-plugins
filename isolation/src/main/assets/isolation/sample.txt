@@ -1,0 +1,14 @@
+This file is bundled inside the :isolation plugin APK.
+
+It is intentionally NOT present in the host APK.
+
+When the NativeTool reads this file via:
+    toolContext.assets.open("isolation/sample.txt")
+
+it proves that ToolContext.getAssets() returns THIS plugin's AssetManager — not the host's.
+
+If the host's AssetManager were returned instead, the open() call would throw
+FileNotFoundException because the host APK does not contain "isolation/sample.txt".
+
+Isolation verified: per-APK AssetManager correctly scoped to the plugin APK.
+

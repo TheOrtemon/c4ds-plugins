@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name" translatable="false">Isolation Sample</string>
+    <string name="native_tool_name">Native / Cross-APK</string>
+    <string name="native_jni_label">JNI result:</string>
+    <string name="native_asset_label">Asset read result:</string>
+    <string name="native_not_loaded">Not loaded</string>
+    <string name="native_cross_apk_explainer">This tool lives in the :isolation APK. It verifies cross-APK classloader isolation, native .so loading from plugin nativeLibraryDir, and plugin AssetManager via toolContext.assets.</string>
+</resources>
+

@@ -1,0 +1,184 @@
+<resources>
+    <string name="app_name" translatable="false">Галерея зразків</string>
+
+    <!-- Catalog / Hub -->
+    <string name="catalog_tool_name">Галерея зразків</string>
+    <string name="section_windows">Вікна</string>
+    <string name="section_map">Карта</string>
+    <string name="section_status_bars">Статус і панелі</string>
+    <string name="section_model_lifecycle">Модель і lifecycle</string>
+    <string name="section_resources_isolation">Ресурси та ізоляція</string>
+    <string name="catalog_launch">Запустити</string>
+    <string name="catalog_details">Деталі</string>
+    <string name="catalog_sdk_apis_label">SDK API</string>
+    <string name="catalog_source_label">Пакет джерела</string>
+
+    <!-- Window Simple -->
+    <string name="window_simple_tool_name">Вікно — Просте</string>
+    <string name="window_simple_desc">Мінімальний інструмент з вікном, SDK-форми введення та інтерактором моделі.</string>
+    <string name="window_simple_apis">ToolComponent.Window, WindowScaffold, BackNavTopAppBar, DistanceInput, SpeedInput, AltitudeInput, AngleInput, CoordinatesInputWithSystem, CommonModelInteractor</string>
+    <string name="window_simple_section_model">Модель</string>
+    <string name="window_simple_section_inputs">Поля введення</string>
+    <string name="window_simple_user_model">Модель користувача</string>
+    <string name="window_simple_selected_model">Обрана модель</string>
+    <string name="window_simple_model_name">Назва</string>
+    <string name="window_simple_coordinates">Координати</string>
+    <string name="window_simple_not_selected">Модель не обрано</string>
+    <string name="window_simple_unselect">Скинути вибір</string>
+    <string name="window_simple_unselected_toast">Вибір моделі скинуто</string>
+    <string name="window_simple_value_not_specified">Значення не вказано</string>
+
+    <!-- Window Navigation -->
+    <string name="window_nav_tool_name">Вікно — Навігація</string>
+    <string name="window_nav_desc">Багатоекранне вікно з AppNavHost, DI-модулем та SharedPreferences.</string>
+    <string name="window_nav_apis">AppNavHost, Route, BackNavigationButton, subDI, SharedPreferences, ToolManager.activate</string>
+    <string name="window_nav_home_title">Головна</string>
+    <string name="window_nav_home_desc">Це багатоекранний інструмент з навігацією між екранами та збереженими налаштуваннями.</string>
+    <string name="window_nav_go_settings">Перейти до налаштувань</string>
+    <string name="window_nav_launch_simple">Запустити Window Simple</string>
+    <string name="window_nav_settings_title">Налаштування</string>
+    <string name="window_nav_settings_open_on_top">Відкривати Simple поверх поточного</string>
+
+    <!-- Dialog -->
+    <string name="dialog_tool_name">Діалог</string>
+    <string name="dialog_desc">Усі чотири варіанти ToolDialog через AbstractTool.showDialog / dismissDialog.</string>
+    <string name="dialog_apis">ToolDialog.Confirmation, ToolDialog.Destructive, ToolDialog.Info, ToolDialog.Custom, AbstractTool.showDialog, AbstractTool.dismissDialog</string>
+    <string name="dialog_show_confirmation">Показати Confirmation</string>
+    <string name="dialog_show_destructive">Показати Destructive</string>
+    <string name="dialog_show_info">Показати Info</string>
+    <string name="dialog_show_custom">Показати Custom</string>
+    <string name="dialog_confirm_title">Підтвердіть дію</string>
+    <string name="dialog_confirm_body">Ви впевнені, що хочете продовжити?</string>
+    <string name="dialog_confirm_yes">Так</string>
+    <string name="dialog_confirm_cancel">Скасувати</string>
+    <string name="dialog_destructive_title">Видалити елемент</string>
+    <string name="dialog_destructive_body">Цю дію неможливо скасувати.</string>
+    <string name="dialog_destructive_confirm">Видалити</string>
+    <string name="dialog_info_title">Інформація</string>
+    <string name="dialog_info_body">Це інформаційне повідомлення від інструменту плагіну.</string>
+    <string name="dialog_custom_title">Власний діалог</string>
+    <string name="dialog_dismiss">Закрити</string>
+
+    <!-- Overlay -->
+    <string name="overlay_tool_name">Overlay</string>
+    <string name="overlay_desc">Composable-оверлей на карті, що зчитує позицію курсору та модель користувача.</string>
+    <string name="overlay_apis">ToolComponent.Overlay, CommonMapInteractor.selectedPosition, CommonModelInteractor.userModel, CommonLocaleSettingsInteractor</string>
+    <string name="overlay_cursor_position">Позиція курсору:</string>
+    <string name="overlay_user_model">Модель користувача:</string>
+    <string name="overlay_not_available">Недоступно</string>
+
+    <!-- Map -->
+    <string name="map_tool_name">Карта (AbstractMapTool)</string>
+    <string name="map_desc">Обробка тапів на карті та малювання шарів за допомогою AbstractMapTool.</string>
+    <string name="map_apis">AbstractMapTool, SelectDragCallback, addRenderable, RenderableLayer, ToolComponent.Status, CommonMapInteractor.focusOnLocation</string>
+    <string name="map_status_tap_hint">Торкніться карти для розміщення маркера</string>
+    <string name="map_last_tap">Останній тап:</string>
+    <string name="map_no_tap_yet">Тапів ще не було</string>
+
+    <!-- MapWindow -->
+    <string name="mapwindow_tool_name">MapWindow</string>
+    <string name="mapwindow_desc">Вбудована вторинна карта у вікні інструменту через ToolComponent.MapWindow.</string>
+    <string name="mapwindow_apis">ToolComponent.MapWindow, mapWindow factory, MapView, MapController, MapWindow.mapEndBarButtons, MapWindow.navBarContent</string>
+    <string name="mapwindow_mode_lookat">LookAt</string>
+    <string name="mapwindow_mode_fpv">FPV</string>
+    <string name="mapwindow_zoom_in">Збільшити</string>
+    <string name="mapwindow_zoom_out">Зменшити</string>
+
+    <!-- Status -->
+    <string name="status_tool_name">Статус</string>
+    <string name="status_desc">Мінімальний ToolComponent.Status з відображенням координат і азимуту.</string>
+    <string name="status_apis">ToolComponent.Status, statusComponent, Status.shouldShowCoordinates, Status.shouldShowAzimuth</string>
+    <string name="status_coords_label">Координати:</string>
+    <string name="status_azimuth_label">Азимут:</string>
+
+    <!-- Expandable Status -->
+    <string name="expandable_status_tool_name">Розгортаний статус</string>
+    <string name="expandable_status_desc">Розгортаний варіант ToolComponent.Status з перемикачем isExpanded та прапором shouldShowAbove.</string>
+    <string name="expandable_status_apis">ToolComponent.ExpandableStatus, expandableStatusComponent, ExpandableStatus.isExpanded, ExpandableStatus.shouldShowAbove</string>
+    <string name="expandable_status_collapse">Згорнути</string>
+    <string name="expandable_status_expand">Розгорнути</string>
+    <string name="expandable_status_show_above">Показати вище</string>
+    <string name="expandable_status_toggle_cd">Перемкнути розгортаний статус</string>
+    <string name="expandable_status_position">Позиція:</string>
+
+    <!-- Underlay -->
+    <string name="underlay_tool_name">Underlay</string>
+    <string name="underlay_desc">ToolComponent.Underlay — composable, що відображається під картою.</string>
+    <string name="underlay_apis">ToolComponent.Underlay, requiredComponent</string>
+    <string name="underlay_label">Шар Underlay — відображається під картою</string>
+
+    <!-- End Bar -->
+    <string name="endbar_tool_name">EndBar</string>
+    <string name="endbar_desc">Повний EndBar API — кнопки дії, перемикання та меню з елементами і слайдером.</string>
+    <string name="endbar_apis">AbstractTool.endBar, EndBarActionButton, EndBarToggleButton, EndBarMenuButton, EndBarMenuScope.Checkable, EndBarMenuScope.Slider</string>
+    <string name="endbar_action_cd">Дія EndBar (painter плагіну)</string>
+    <string name="endbar_toggle_cd">Перемикач EndBar (painter плагіну)</string>
+    <string name="endbar_menu_cd">Меню EndBar (painter плагіну)</string>
+    <string name="endbar_menu_option_a">Варіант A</string>
+    <string name="endbar_slider_label">Слайдер</string>
+    <string name="endbar_current_toggle">Стан перемикача:</string>
+    <string name="endbar_current_slider">Значення слайдера:</string>
+    <string name="endbar_explainer">Відкрийте EndBar збоку хосту. Використовуйте кнопки дії, перемикання і меню. Стан відображається нижче.</string>
+    <string name="endbar_action_fired">Дію виконано</string>
+
+    <!-- Model -->
+    <string name="model_tool_name">Модель (CommonModelInteractor)</string>
+    <string name="model_desc">CommonModelInteractor: спостереження, вибір, створення та видалення BCM-моделей.</string>
+    <string name="model_apis">CommonModelInteractor, getAllModels, selectedModel, userModel, selectModel, unselectModel, createModel, deleteModel, isReadOnly</string>
+    <string name="model_section_selected">Обрана модель</string>
+    <string name="model_section_user">Модель користувача</string>
+    <string name="model_section_all">Усі моделі</string>
+    <string name="model_no_models">Моделей немає</string>
+    <string name="model_select">Обрати</string>
+    <string name="model_unselect">Скинути вибір</string>
+    <string name="model_create">Створити маркер</string>
+    <string name="model_delete">Видалити</string>
+    <string name="model_read_only_warning">Режим читання: створення/видалення вимкнено</string>
+    <string name="model_not_selected">Не обрано</string>
+
+    <!-- Service -->
+    <string name="service_tool_name">Служба (autoStart)</string>
+    <string name="service_desc">Lifecycle AbstractToolService з autoStart=true та ToolNotificationManager.</string>
+    <string name="service_apis">ToolDescriptor.createService, ToolDescriptor.autoStart, AbstractToolService, ToolNotificationManager</string>
+    <string name="service_running">Служба: АКТИВНА</string>
+    <string name="service_stopped">Служба: ЗУПИНЕНА</string>
+    <string name="service_events">Подій:</string>
+    <string name="service_last_event">Остання подія:</string>
+    <string name="service_none">—</string>
+
+    <!-- Resources / Config -->
+    <string name="config_tool_name">Ресурси — Конфігурація</string>
+    <string name="config_desc">Ресурси з кваліфікаторами конфігурації: локаль, нічний режим, шрифт, raw.</string>
+    <string name="config_apis">stringResource з values-uk/values-night, LocalConfiguration, FontFamily(Font(R.font.*)), context.resources.openRawResource</string>
+    <string name="config_mode">ДЕННИЙ режим (uk)</string>
+    <string name="config_font_label">Шрифт плагіну (R.font.sample_font):</string>
+    <string name="config_raw_label">Raw-ресурс плагіну (R.raw.sample_note):</string>
+    <string name="config_font_sample">Швидка коричнева лисиця перескочила через ледачого пса — шрифт плагіну</string>
+    <string name="config_explainer">Увімкніть темний режим або змініть локаль — рядок і іконка вище мають оновитися живцем.</string>
+
+    <!-- Resources / Material -->
+    <string name="material_tool_name">Ресурси — Material</string>
+    <string name="material_desc">Compose Material-віджети, скомпільовані у плагін, працюють через CompositionFallbackContext.</string>
+    <string name="material_apis">M2 Scaffold, SnackbarHost, AlertDialog, DropdownMenu, Slider (скомпільовані у плагін), CompositionFallbackContext</string>
+    <string name="material_show_snackbar">Показати Snackbar</string>
+    <string name="material_show_dialog">Показати AlertDialog</string>
+    <string name="material_dialog_title">AlertDialog — композиція плагіну</string>
+    <string name="material_dialog_body">Цей діалог відображається кодом плагіну в CompositionFallbackContext.</string>
+    <string name="material_dropdown_label">Демонстрація DropdownMenu</string>
+    <string name="material_slider_label">Демонстрація Slider</string>
+    <string name="material_explainer">Віджети M2 (Scaffold, SnackbarHost, AlertDialog, DropdownMenu, Slider) в коді плагіну. Якщо ID рядків хосту вирішуються без Resources$NotFoundException — ізоляція працює.</string>
+
+    <!-- Resources / Collision -->
+    <string name="collision_tool_name">Ресурси — Колізія R.string</string>
+    <string name="collision_desc">Значення R.string плагіну мають пріоритет над однойменними рядками хосту.</string>
+    <string name="collision_apis">FallbackResources (внутрішній — прозорий для авторів плагінів)</string>
+    <string name="settings">ПЛАГІН settings (ізоляція перемагає)</string>
+    <string name="collision_explainer">Плагін має R.string.settings, що збігається з однойменним рядком хосту. FallbackResources(plugin, host) гарантує відображення значення плагіну — підтверджуючи пріоритет плагіну.</string>
+
+    <!-- Native (cross-APK) -->
+    <string name="native_cross_apk_title">Native / Cross-APK</string>
+    <string name="native_cross_apk_desc">Співіснування кількох APK, ізоляція classloader, native .so, AssetManager плагіну.</string>
+    <string name="native_cross_apk_apis">ToolContext.assets (plugin AssetManager), System.loadLibrary, ToolManager.resolveToolId, ToolComponent.Window</string>
+    <string name="native_cross_apk_not_installed">APK ізоляції не встановлено — перейдіть до Деталей для інструкцій.</string>
+</resources>
+

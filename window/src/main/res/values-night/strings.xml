@@ -1,0 +1,4 @@
+<resources>
+    <!--Config (case c) — night-mode override-->
+    <string name="config_mode">NIGHT mode active</string>
+</resources>

@@ -1,0 +1,184 @@
+<resources>
+    <string name="app_name" translatable="false">Sample Gallery</string>
+
+    <!-- Catalog / Hub -->
+    <string name="catalog_tool_name">Sample Gallery</string>
+    <string name="section_windows">Windows</string>
+    <string name="section_map">Map</string>
+    <string name="section_status_bars">Status &amp; Bars</string>
+    <string name="section_model_lifecycle">Model &amp; Lifecycle</string>
+    <string name="section_resources_isolation">Resources &amp; Isolation</string>
+    <string name="catalog_launch">Launch</string>
+    <string name="catalog_details">Details</string>
+    <string name="catalog_sdk_apis_label">SDK APIs</string>
+    <string name="catalog_source_label">Source subpackage</string>
+
+    <!-- Window Simple -->
+    <string name="window_simple_tool_name">Window — Simple</string>
+    <string name="window_simple_desc">Minimum viable window tool with SDK form inputs and model interactor.</string>
+    <string name="window_simple_apis">ToolComponent.Window, WindowScaffold, BackNavTopAppBar, DistanceInput, SpeedInput, AltitudeInput, AngleInput, CoordinatesInputWithSystem, CommonModelInteractor</string>
+    <string name="window_simple_section_model">Model</string>
+    <string name="window_simple_section_inputs">Measurement Inputs</string>
+    <string name="window_simple_user_model">User model</string>
+    <string name="window_simple_selected_model">Selected model</string>
+    <string name="window_simple_model_name">Name</string>
+    <string name="window_simple_coordinates">Coordinates</string>
+    <string name="window_simple_not_selected">Model not selected</string>
+    <string name="window_simple_unselect">Unselect model</string>
+    <string name="window_simple_unselected_toast">Model unselected</string>
+    <string name="window_simple_value_not_specified">Value not specified</string>
+
+    <!-- Window Navigation -->
+    <string name="window_nav_tool_name">Window — Navigation</string>
+    <string name="window_nav_desc">Multi-screen window using AppNavHost, tool-scoped DI module, and SharedPreferences.</string>
+    <string name="window_nav_apis">AppNavHost, Route, BackNavigationButton, subDI, SharedPreferences, ToolManager.activate</string>
+    <string name="window_nav_home_title">Home</string>
+    <string name="window_nav_home_desc">This is a multi-screen window tool demonstrating navigation between screens and persisted settings.</string>
+    <string name="window_nav_go_settings">Go to Settings</string>
+    <string name="window_nav_launch_simple">Launch Window Simple</string>
+    <string name="window_nav_settings_title">Settings</string>
+    <string name="window_nav_settings_open_on_top">Open Simple tool on top</string>
+
+    <!-- Dialog -->
+    <string name="dialog_tool_name">Dialog</string>
+    <string name="dialog_desc">Demonstrates all four ToolDialog variants using AbstractTool.showDialog / dismissDialog.</string>
+    <string name="dialog_apis">ToolDialog.Confirmation, ToolDialog.Destructive, ToolDialog.Info, ToolDialog.Custom, AbstractTool.showDialog, AbstractTool.dismissDialog</string>
+    <string name="dialog_show_confirmation">Show Confirmation</string>
+    <string name="dialog_show_destructive">Show Destructive</string>
+    <string name="dialog_show_info">Show Info</string>
+    <string name="dialog_show_custom">Show Custom</string>
+    <string name="dialog_confirm_title">Confirm action</string>
+    <string name="dialog_confirm_body">Are you sure you want to proceed?</string>
+    <string name="dialog_confirm_yes">Yes</string>
+    <string name="dialog_confirm_cancel">Cancel</string>
+    <string name="dialog_destructive_title">Delete item</string>
+    <string name="dialog_destructive_body">This action cannot be undone.</string>
+    <string name="dialog_destructive_confirm">Delete</string>
+    <string name="dialog_info_title">Information</string>
+    <string name="dialog_info_body">This is an informational message from the plugin tool.</string>
+    <string name="dialog_custom_title">Custom Dialog</string>
+    <string name="dialog_dismiss">Dismiss</string>
+
+    <!-- Overlay -->
+    <string name="overlay_tool_name">Overlay</string>
+    <string name="overlay_desc">Map overlay composable reading cursor position and user model.</string>
+    <string name="overlay_apis">ToolComponent.Overlay, CommonMapInteractor.selectedPosition, CommonModelInteractor.userModel, CommonLocaleSettingsInteractor</string>
+    <string name="overlay_cursor_position">Cursor position:</string>
+    <string name="overlay_user_model">User model:</string>
+    <string name="overlay_not_available">Not available</string>
+
+    <!-- Map -->
+    <string name="map_tool_name">Map (AbstractMapTool)</string>
+    <string name="map_desc">Map tap callbacks and renderable layer drawing using AbstractMapTool.</string>
+    <string name="map_apis">AbstractMapTool, SelectDragCallback, addRenderable, RenderableLayer, ToolComponent.Status, CommonMapInteractor.focusOnLocation</string>
+    <string name="map_status_tap_hint">Tap the map to place a marker</string>
+    <string name="map_last_tap">Last tap:</string>
+    <string name="map_no_tap_yet">No tap yet</string>
+
+    <!-- MapWindow -->
+    <string name="mapwindow_tool_name">MapWindow</string>
+    <string name="mapwindow_desc">Embedded secondary map inside a tool window via ToolComponent.MapWindow.</string>
+    <string name="mapwindow_apis">ToolComponent.MapWindow, mapWindow factory, MapView, MapController, MapWindow.mapEndBarButtons, MapWindow.navBarContent</string>
+    <string name="mapwindow_mode_lookat">LookAt</string>
+    <string name="mapwindow_mode_fpv">FPV</string>
+    <string name="mapwindow_zoom_in">Zoom in</string>
+    <string name="mapwindow_zoom_out">Zoom out</string>
+
+    <!-- Status -->
+    <string name="status_tool_name">Status</string>
+    <string name="status_desc">Minimal ToolComponent.Status with coordinates and azimuth display flags.</string>
+    <string name="status_apis">ToolComponent.Status, statusComponent, Status.shouldShowCoordinates, Status.shouldShowAzimuth</string>
+    <string name="status_coords_label">Coordinates:</string>
+    <string name="status_azimuth_label">Azimuth:</string>
+
+    <!-- Expandable Status -->
+    <string name="expandable_status_tool_name">Expandable Status</string>
+    <string name="expandable_status_desc">Expandable variant of ToolComponent.Status with isExpanded toggle and shouldShowAbove flag.</string>
+    <string name="expandable_status_apis">ToolComponent.ExpandableStatus, expandableStatusComponent, ExpandableStatus.isExpanded, ExpandableStatus.shouldShowAbove</string>
+    <string name="expandable_status_collapse">Collapse</string>
+    <string name="expandable_status_expand">Expand</string>
+    <string name="expandable_status_show_above">Show above</string>
+    <string name="expandable_status_toggle_cd">Toggle expandable status</string>
+    <string name="expandable_status_position">Position:</string>
+
+    <!-- Underlay -->
+    <string name="underlay_tool_name">Underlay</string>
+    <string name="underlay_desc">ToolComponent.Underlay — a composable rendered behind the map.</string>
+    <string name="underlay_apis">ToolComponent.Underlay, requiredComponent</string>
+    <string name="underlay_label">Underlay layer — rendered behind the map</string>
+
+    <!-- End Bar -->
+    <string name="endbar_tool_name">EndBar</string>
+    <string name="endbar_desc">Full EndBar API — action, toggle, and menu button with items and slider.</string>
+    <string name="endbar_apis">AbstractTool.endBar, EndBarActionButton, EndBarToggleButton, EndBarMenuButton, EndBarMenuScope.Checkable, EndBarMenuScope.Slider</string>
+    <string name="endbar_action_cd">EndBar action (plugin painter)</string>
+    <string name="endbar_toggle_cd">EndBar toggle (plugin painter)</string>
+    <string name="endbar_menu_cd">EndBar menu (plugin painter)</string>
+    <string name="endbar_menu_option_a">Option A</string>
+    <string name="endbar_slider_label">Slider</string>
+    <string name="endbar_current_toggle">Toggle state:</string>
+    <string name="endbar_current_slider">Slider value:</string>
+    <string name="endbar_explainer">Open the EndBar on the side of the host UI. Use action, toggle and menu buttons. State is reflected below.</string>
+    <string name="endbar_action_fired">Action fired</string>
+
+    <!-- Model -->
+    <string name="model_tool_name">Model (CommonModelInteractor)</string>
+    <string name="model_desc">CommonModelInteractor: observe, select, create, and delete BCM models.</string>
+    <string name="model_apis">CommonModelInteractor, getAllModels, selectedModel, userModel, selectModel, unselectModel, createModel, deleteModel, isReadOnly</string>
+    <string name="model_section_selected">Selected model</string>
+    <string name="model_section_user">User model</string>
+    <string name="model_section_all">All models</string>
+    <string name="model_no_models">No models available</string>
+    <string name="model_select">Select</string>
+    <string name="model_unselect">Unselect</string>
+    <string name="model_create">Create marker model</string>
+    <string name="model_delete">Delete</string>
+    <string name="model_read_only_warning">Read-only mode: create/delete disabled</string>
+    <string name="model_not_selected">Not selected</string>
+
+    <!-- Service -->
+    <string name="service_tool_name">Service (autoStart)</string>
+    <string name="service_desc">AbstractToolService lifecycle with autoStart=true and ToolNotificationManager.</string>
+    <string name="service_apis">ToolDescriptor.createService, ToolDescriptor.autoStart, AbstractToolService, ToolNotificationManager</string>
+    <string name="service_running">Service: RUNNING</string>
+    <string name="service_stopped">Service: STOPPED</string>
+    <string name="service_events">Events:</string>
+    <string name="service_last_event">Last event:</string>
+    <string name="service_none">—</string>
+
+    <!-- Resources / Config -->
+    <string name="config_tool_name">Resources — Config</string>
+    <string name="config_desc">Config-qualified resources: locale, night mode, font, and raw resource reactivity.</string>
+    <string name="config_apis">stringResource with values-uk/values-night, LocalConfiguration, FontFamily(Font(R.font.*)), context.resources.openRawResource</string>
+    <string name="config_mode">DAY mode (en)</string>
+    <string name="config_font_label">Plugin font (R.font.sample_font):</string>
+    <string name="config_raw_label">Plugin raw resource (R.raw.sample_note):</string>
+    <string name="config_font_sample">The quick brown fox jumps over the lazy dog — plugin font</string>
+    <string name="config_explainer">Toggle system dark mode or switch locale — the string and icon above should update live.</string>
+
+    <!-- Resources / Material -->
+    <string name="material_tool_name">Resources — Material</string>
+    <string name="material_desc">Plugin-compiled Compose Material widgets work via CompositionFallbackContext.</string>
+    <string name="material_apis">M2 Scaffold, SnackbarHost, AlertDialog, DropdownMenu, Slider (plugin-compiled), CompositionFallbackContext</string>
+    <string name="material_show_snackbar">Show Snackbar</string>
+    <string name="material_show_dialog">Show AlertDialog</string>
+    <string name="material_dialog_title">AlertDialog — plugin composition</string>
+    <string name="material_dialog_body">This dialog is rendered by plugin-compiled code inside CompositionFallbackContext.</string>
+    <string name="material_dropdown_label">DropdownMenu demo</string>
+    <string name="material_slider_label">Slider demo</string>
+    <string name="material_explainer">M2 widgets (Scaffold, SnackbarHost, AlertDialog, DropdownMenu, Slider) composed inside plugin code. If host string IDs resolve without Resources$NotFoundException — isolation is working.</string>
+
+    <!-- Resources / Collision -->
+    <string name="collision_tool_name">Resources — R.string Collision</string>
+    <string name="collision_desc">Plugin R.string values take priority over identically-named host strings.</string>
+    <string name="collision_apis">FallbackResources (internal — transparent to plugin authors)</string>
+    <string name="settings">PLUGIN settings (isolation wins)</string>
+    <string name="collision_explainer">Plugin owns R.string.settings which collides with the host\'s identically-named string. FallbackResources(plugin, host) ensures the plugin value is shown — proving plugin-first resolution.</string>
+
+    <!-- Native (cross-APK) — shown on catalog detail screen for isolation sample -->
+    <string name="native_cross_apk_title">Native / Cross-APK</string>
+    <string name="native_cross_apk_desc">Cross-APK coexistence, per-APK classloader isolation, native .so, plugin AssetManager.</string>
+    <string name="native_cross_apk_apis">ToolContext.assets (plugin AssetManager), System.loadLibrary from plugin nativeLibraryDir, ToolManager.resolveToolId, ToolComponent.Window</string>
+    <string name="native_cross_apk_not_installed">Isolation APK not installed — tap Details for instructions.</string>
+</resources>
+
