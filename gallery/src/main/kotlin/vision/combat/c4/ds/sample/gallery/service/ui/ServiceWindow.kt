@@ -6,8 +6,8 @@ import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -26,13 +26,13 @@ internal fun ServiceWindow(sharedState: ServiceSharedState) {
 
 @Composable
 private fun ColumnScope.ServiceContent(sharedState: ServiceSharedState) {
-    val eventCount by sharedState.eventCount.collectAsState()
-    val lastEvent by sharedState.lastEventTime.collectAsState()
+    val eventCount by sharedState.eventCount.collectAsStateWithLifecycle()
+    val lastEvent by sharedState.lastEventTime.collectAsStateWithLifecycle()
 
     Text(
         text = stringResource(R.string.service_running),
         style = MaterialTheme.typography.h6,
-        color = MaterialTheme.colors.primary,
+        color = MaterialTheme.colors.onSurface,
         modifier = Modifier.padding(bottom = 16.dp),
     )
     Card(elevation = 2.dp, modifier = Modifier.padding(bottom = 8.dp)) {

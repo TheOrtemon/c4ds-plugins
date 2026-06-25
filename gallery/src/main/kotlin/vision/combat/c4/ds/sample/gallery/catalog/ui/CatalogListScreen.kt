@@ -2,7 +2,9 @@ package vision.combat.c4.ds.sample.gallery.catalog.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -36,6 +38,12 @@ internal fun CatalogListScreen(
     val toolManager by rememberInstance<ToolManager>()
 
     WindowScaffold(
+        // The catalog body is a LazyColumn, which must own its own scrolling — disable the
+        // scaffold's default verticalScroll wrapper to avoid nesting a lazy list inside a
+        // vertically scrollable parent (infinite-height measure crash).
+        scrollable = false,
+        // Let the LazyColumn own all padding so top/bottom breathing room scrolls with content.
+        contentPaddingValues = PaddingValues(0.dp),
         topAppBar = {
             BackNavTopAppBar(title = stringResource(R.string.catalog_tool_name))
         },
@@ -54,10 +62,14 @@ private fun CatalogList(
     onNavigateToDetail: (String) -> Unit,
 ) {
     val entriesBySection = SampleCatalog.entries.groupBy { it.section }
+    val sectionsWithEntries = SampleSection.entries.filter { entriesBySection[it]?.isNotEmpty() == true }
 
-    LazyColumn {
-        for (section in SampleSection.entries) {
-            val sectionEntries = entriesBySection[section] ?: continue
+    LazyColumn(
+        modifier = Modifier.fillMaxSize(),
+        contentPadding = PaddingValues(vertical = 12.dp),
+    ) {
+        sectionsWithEntries.forEachIndexed { index, section ->
+            val sectionEntries = entriesBySection[section] ?: return@forEachIndexed
 
             item(key = section.name) {
                 SectionHeader(section)
@@ -71,8 +83,10 @@ private fun CatalogList(
                 )
             }
 
-            item(key = "${section.name}_divider") {
-                Divider(modifier = Modifier.padding(vertical = 4.dp))
+            if (index < sectionsWithEntries.lastIndex) {
+                item(key = "${section.name}_divider") {
+                    Divider(modifier = Modifier.padding(vertical = 12.dp))
+                }
             }
         }
     }
@@ -87,7 +101,7 @@ private fun SectionHeader(section: SampleSection) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp, vertical = 8.dp),
-        color = MaterialTheme.colors.primary,
+        color = MaterialTheme.colors.onSurface,
     )
 }
 

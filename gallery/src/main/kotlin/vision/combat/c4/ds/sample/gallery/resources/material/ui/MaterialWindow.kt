@@ -45,6 +45,8 @@ private fun ColumnScope.MaterialContent() {
     var dropdownExpanded by remember { mutableStateOf(false) }
     var sliderValue by remember { mutableFloatStateOf(0.5f) }
 
+    val snackbarMsg = stringResource(R.string.material_snackbar_message)
+
     Text(
         text = stringResource(R.string.material_explainer),
         style = MaterialTheme.typography.body2,
@@ -58,9 +60,7 @@ private fun ColumnScope.MaterialContent() {
     ) { innerPadding ->
         Box(modifier = Modifier.padding(innerPadding)) {
             Button(
-                onClick = {
-                    scope.launch { snackbarHostState.showSnackbar("Snackbar from plugin — host R resolved OK") }
-                },
+                onClick = { scope.launch { snackbarHostState.showSnackbar(snackbarMsg) } },
                 modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp),
             ) {
                 Text(stringResource(R.string.material_show_snackbar))
@@ -78,10 +78,14 @@ private fun ColumnScope.MaterialContent() {
     Text(stringResource(R.string.material_dropdown_label), style = MaterialTheme.typography.caption)
     Box {
         Button(onClick = { dropdownExpanded = true }, modifier = Modifier.fillMaxWidth()) {
-            Text("Open DropdownMenu")
+            Text(stringResource(R.string.material_dropdown_open))
         }
         DropdownMenu(expanded = dropdownExpanded, onDismissRequest = { dropdownExpanded = false }) {
-            listOf("Alpha", "Beta", "Gamma").forEach { item ->
+            listOf(
+                stringResource(R.string.material_dropdown_alpha),
+                stringResource(R.string.material_dropdown_beta),
+                stringResource(R.string.material_dropdown_gamma),
+            ).forEach { item ->
                 DropdownMenuItem(onClick = { dropdownExpanded = false }) { Text(item) }
             }
         }
@@ -99,8 +103,11 @@ private fun ColumnScope.MaterialContent() {
             onDismissRequest = { showDialog = false },
             title = { Text(stringResource(R.string.material_dialog_title)) },
             text = { Text(stringResource(R.string.material_dialog_body)) },
-            confirmButton = { Button(onClick = { showDialog = false }) { Text("OK") } },
+            confirmButton = {
+                Button(onClick = { showDialog = false }) {
+                    Text(stringResource(R.string.material_ok))
+                }
+            },
         )
     }
 }
-

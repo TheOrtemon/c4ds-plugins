@@ -1,6 +1,8 @@
 package vision.combat.c4.ds.sample.gallery.catalog
 
 import vision.combat.c4.ds.sample.gallery.R
+import vision.combat.c4.ds.sample.gallery.components.ComponentsListsToolDescriptor
+import vision.combat.c4.ds.sample.gallery.components.ComponentsToolDescriptor
 import vision.combat.c4.ds.sample.gallery.dialog.DialogToolDescriptor
 import vision.combat.c4.ds.sample.gallery.endbar.EndBarSampleToolDescriptor
 import vision.combat.c4.ds.sample.gallery.expandablestatus.ExpandableStatusToolDescriptor
@@ -17,6 +19,7 @@ import vision.combat.c4.ds.sample.gallery.underlay.UnderlayToolDescriptor
 import vision.combat.c4.ds.sample.gallery.window.navigation.WindowNavToolDescriptor
 import vision.combat.c4.ds.sample.gallery.window.simple.WindowSimpleToolDescriptor
 import vision.combat.c4.ds.sdk.tool.ToolManager
+import vision.combat.c4.ds.sdk.tool.activate
 
 /**
  * Registry of all gallery samples.
@@ -40,7 +43,7 @@ object SampleCatalog {
             descResId = R.string.window_simple_desc,
             apisResId = R.string.window_simple_apis,
             sourceSubpackage = "window/simple",
-            launch = { mgr -> mgr.activate<WindowSimpleToolDescriptor>(ToolManager.FLAG_COMPONENT_ON_TOP) },
+            launch = { mgr -> mgr.activate<WindowSimpleToolDescriptor>(flags = ToolManager.FLAG_COMPONENT_ON_TOP) },
         ),
         SampleEntry(
             id = "window_nav",
@@ -49,7 +52,7 @@ object SampleCatalog {
             descResId = R.string.window_nav_desc,
             apisResId = R.string.window_nav_apis,
             sourceSubpackage = "window/navigation",
-            launch = { mgr -> mgr.activate<WindowNavToolDescriptor>(ToolManager.FLAG_COMPONENT_ON_TOP) },
+            launch = { mgr -> mgr.activate<WindowNavToolDescriptor>(flags = ToolManager.FLAG_COMPONENT_ON_TOP) },
         ),
         SampleEntry(
             id = "dialog",
@@ -58,7 +61,27 @@ object SampleCatalog {
             descResId = R.string.dialog_desc,
             apisResId = R.string.dialog_apis,
             sourceSubpackage = "dialog",
-            launch = { mgr -> mgr.activate<DialogToolDescriptor>(ToolManager.FLAG_COMPONENT_ON_TOP) },
+            launch = { mgr -> mgr.activate<DialogToolDescriptor>(flags = ToolManager.FLAG_COMPONENT_ON_TOP) },
+        ),
+
+        // ── COMPONENTS ───────────────────────────────────────────────────────
+        SampleEntry(
+            id = "components",
+            section = SampleSection.COMPONENTS,
+            nameResId = R.string.components_tool_name,
+            descResId = R.string.components_desc,
+            apisResId = R.string.components_apis,
+            sourceSubpackage = "components",
+            launch = { mgr -> mgr.activate<ComponentsToolDescriptor>(flags = ToolManager.FLAG_COMPONENT_ON_TOP) },
+        ),
+        SampleEntry(
+            id = "components_lists",
+            section = SampleSection.COMPONENTS,
+            nameResId = R.string.components_lists_tool_name,
+            descResId = R.string.components_lists_desc,
+            apisResId = R.string.components_lists_apis,
+            sourceSubpackage = "components",
+            launch = { mgr -> mgr.activate<ComponentsListsToolDescriptor>(flags = ToolManager.FLAG_COMPONENT_ON_TOP) },
         ),
 
         // ── MAP ─────────────────────────────────────────────────────────────
@@ -69,7 +92,7 @@ object SampleCatalog {
             descResId = R.string.overlay_desc,
             apisResId = R.string.overlay_apis,
             sourceSubpackage = "overlay",
-            launch = { mgr -> mgr.activate<OverlaySampleToolDescriptor>(ToolManager.FLAG_COMPONENT_ON_TOP) },
+            launch = { mgr -> mgr.activate<OverlaySampleToolDescriptor>(flags = ToolManager.FLAG_COMPONENT_ON_TOP) },
         ),
         SampleEntry(
             id = "map",
@@ -78,7 +101,7 @@ object SampleCatalog {
             descResId = R.string.map_desc,
             apisResId = R.string.map_apis,
             sourceSubpackage = "map",
-            launch = { mgr -> mgr.activate<MapToolDescriptor>(ToolManager.FLAG_COMPONENT_ON_TOP) },
+            launch = { mgr -> mgr.activate<MapToolDescriptor>(flags = ToolManager.FLAG_COMPONENT_ON_TOP) },
         ),
         SampleEntry(
             id = "mapwindow",
@@ -87,7 +110,7 @@ object SampleCatalog {
             descResId = R.string.mapwindow_desc,
             apisResId = R.string.mapwindow_apis,
             sourceSubpackage = "mapwindow",
-            launch = { mgr -> mgr.activate<MapWindowToolDescriptor>(ToolManager.FLAG_COMPONENT_ON_TOP) },
+            launch = { mgr -> mgr.activate<MapWindowToolDescriptor>(flags = ToolManager.FLAG_COMPONENT_ON_TOP) },
         ),
 
         // ── STATUS & BARS ────────────────────────────────────────────────────
@@ -98,7 +121,7 @@ object SampleCatalog {
             descResId = R.string.status_desc,
             apisResId = R.string.status_apis,
             sourceSubpackage = "status",
-            launch = { mgr -> mgr.activate<StatusToolDescriptor>(ToolManager.FLAG_COMPONENT_ON_TOP) },
+            launch = { mgr -> mgr.activate<StatusToolDescriptor>(flags = ToolManager.FLAG_COMPONENT_ON_TOP) },
         ),
         SampleEntry(
             id = "expandable_status",
@@ -107,7 +130,7 @@ object SampleCatalog {
             descResId = R.string.expandable_status_desc,
             apisResId = R.string.expandable_status_apis,
             sourceSubpackage = "expandablestatus",
-            launch = { mgr -> mgr.activate<ExpandableStatusToolDescriptor>(ToolManager.FLAG_COMPONENT_ON_TOP) },
+            launch = { mgr -> mgr.activate<ExpandableStatusToolDescriptor>(flags = ToolManager.FLAG_COMPONENT_ON_TOP) },
         ),
         SampleEntry(
             id = "underlay",
@@ -116,7 +139,7 @@ object SampleCatalog {
             descResId = R.string.underlay_desc,
             apisResId = R.string.underlay_apis,
             sourceSubpackage = "underlay",
-            launch = { mgr -> mgr.activate<UnderlayToolDescriptor>(ToolManager.FLAG_COMPONENT_ON_TOP) },
+            launch = { mgr -> mgr.activate<UnderlayToolDescriptor>(flags = ToolManager.FLAG_COMPONENT_ON_TOP) },
         ),
         SampleEntry(
             id = "endbar",
@@ -125,7 +148,7 @@ object SampleCatalog {
             descResId = R.string.endbar_desc,
             apisResId = R.string.endbar_apis,
             sourceSubpackage = "endbar",
-            launch = { mgr -> mgr.activate<EndBarSampleToolDescriptor>(ToolManager.FLAG_COMPONENT_ON_TOP) },
+            launch = { mgr -> mgr.activate<EndBarSampleToolDescriptor>(flags = ToolManager.FLAG_COMPONENT_ON_TOP) },
         ),
 
         // ── MODEL & LIFECYCLE ─────────────────────────────────────────────────
@@ -136,7 +159,7 @@ object SampleCatalog {
             descResId = R.string.model_desc,
             apisResId = R.string.model_apis,
             sourceSubpackage = "model",
-            launch = { mgr -> mgr.activate<ModelToolDescriptor>(ToolManager.FLAG_COMPONENT_ON_TOP) },
+            launch = { mgr -> mgr.activate<ModelToolDescriptor>(flags = ToolManager.FLAG_COMPONENT_ON_TOP) },
         ),
         SampleEntry(
             id = "service",
@@ -145,7 +168,7 @@ object SampleCatalog {
             descResId = R.string.service_desc,
             apisResId = R.string.service_apis,
             sourceSubpackage = "service",
-            launch = { mgr -> mgr.activate<ServiceToolDescriptor>(ToolManager.FLAG_COMPONENT_ON_TOP) },
+            launch = { mgr -> mgr.activate<ServiceToolDescriptor>(flags = ToolManager.FLAG_COMPONENT_ON_TOP) },
         ),
 
         // ── RESOURCES & ISOLATION ─────────────────────────────────────────────
@@ -156,7 +179,7 @@ object SampleCatalog {
             descResId = R.string.config_desc,
             apisResId = R.string.config_apis,
             sourceSubpackage = "resources/config",
-            launch = { mgr -> mgr.activate<ConfigToolDescriptor>(ToolManager.FLAG_COMPONENT_ON_TOP) },
+            launch = { mgr -> mgr.activate<ConfigToolDescriptor>(flags = ToolManager.FLAG_COMPONENT_ON_TOP) },
         ),
         SampleEntry(
             id = "resources_material",
@@ -165,7 +188,7 @@ object SampleCatalog {
             descResId = R.string.material_desc,
             apisResId = R.string.material_apis,
             sourceSubpackage = "resources/material",
-            launch = { mgr -> mgr.activate<MaterialToolDescriptor>(ToolManager.FLAG_COMPONENT_ON_TOP) },
+            launch = { mgr -> mgr.activate<MaterialToolDescriptor>(flags = ToolManager.FLAG_COMPONENT_ON_TOP) },
         ),
         SampleEntry(
             id = "resources_collision",
@@ -174,7 +197,7 @@ object SampleCatalog {
             descResId = R.string.collision_desc,
             apisResId = R.string.collision_apis,
             sourceSubpackage = "resources/collision",
-            launch = { mgr -> mgr.activate<CollisionToolDescriptor>(ToolManager.FLAG_COMPONENT_ON_TOP) },
+            launch = { mgr -> mgr.activate<CollisionToolDescriptor>(flags = ToolManager.FLAG_COMPONENT_ON_TOP) },
         ),
         SampleEntry(
             id = "native_cross_apk",

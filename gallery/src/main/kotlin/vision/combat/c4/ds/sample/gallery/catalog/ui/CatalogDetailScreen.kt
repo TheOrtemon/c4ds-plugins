@@ -9,12 +9,15 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import vision.combat.c4.ds.sample.gallery.R
 import vision.combat.c4.ds.sample.gallery.catalog.SampleCatalog
+import vision.combat.c4.ds.sample.gallery.catalog.SampleEntry
 import vision.combat.c4.ds.sdk.ui.component.WindowScaffold
-import vision.combat.c4.ds.sdk.ui.component.bar.BackNavTopAppBar
+import vision.combat.c4.ds.sdk.ui.component.bar.BackNavigationButton
+import vision.combat.c4.ds.sdk.ui.component.bar.TopAppBar
 
 @Composable
 internal fun CatalogDetailScreen(
@@ -28,9 +31,9 @@ internal fun CatalogDetailScreen(
 
     WindowScaffold(
         topAppBar = {
-            BackNavTopAppBar(
+            TopAppBar(
                 title = stringResource(entry.nameResId),
-                onBack = onBack,
+                navigationIcon = { BackNavigationButton(onBack) },
             )
         },
         content = { DetailContent(entry) },
@@ -38,7 +41,7 @@ internal fun CatalogDetailScreen(
 }
 
 @Composable
-private fun ColumnScope.DetailContent(entry: vision.combat.c4.ds.sample.gallery.catalog.SampleEntry) {
+private fun ColumnScope.DetailContent(entry: SampleEntry) {
     Text(
         text = stringResource(entry.descResId),
         style = MaterialTheme.typography.body1,
@@ -70,7 +73,7 @@ private fun ColumnScope.DetailContent(entry: vision.combat.c4.ds.sample.gallery.
         Text(
             text = entry.sourceSubpackage,
             style = MaterialTheme.typography.body2,
-            fontFamily = androidx.compose.ui.text.font.FontFamily.Monospace,
+            fontFamily = FontFamily.Monospace,
         )
     }
 }

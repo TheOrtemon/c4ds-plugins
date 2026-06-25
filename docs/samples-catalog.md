@@ -186,13 +186,13 @@ Registry implementation: [`SampleCatalog.kt`](../gallery/src/main/kotlin/vision/
 
 | | |
 |---|---|
-| **Purpose** | Background tool service with notification and auto-start |
+| **Purpose** | Background tool service with notification |
 | **Descriptor** | `vision.combat.c4.ds.sample.gallery.service.ServiceToolDescriptor` |
 | **Source** | `gallery/.../service/` |
 
-**SDK APIs:** `AbstractToolService`, `autoStart` on descriptor, `ToolNotificationManager`, foreground service lifecycle.
+**SDK APIs:** `AbstractToolService`, `ToolNotificationManager`, foreground service lifecycle.
 
-**Verify:** After installing gallery APK (without launching service tool manually), service is already running → open tool window → counter increments → notification visible.
+**Verify:** Launch service tool from hub → open tool window → service starts → counter increments → notification visible.
 
 ---
 

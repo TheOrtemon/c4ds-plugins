@@ -6,13 +6,14 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.flow.Flow
 import org.kodein.di.compose.rememberInstance
+import vision.combat.c4.ds.sample.gallery.BuildConfig
 import vision.combat.c4.ds.sample.gallery.R
 import vision.combat.c4.ds.sample.gallery.window.navigation.ui.HomeViewModel.Action
 import vision.combat.c4.ds.sample.gallery.window.navigation.ui.HomeViewModel.Event
@@ -24,12 +25,11 @@ import vision.combat.c4.ds.sdk.ui.component.bar.BackNavTopAppBar
 import vision.combat.c4.ds.sdk.ui.component.button.Button
 import vision.combat.c4.ds.sdk.ui.component.button.TextButton
 import vision.combat.c4.ds.sdk.ui.viewmodel.diViewModel
-import vision.combat.c4.ds.sample.gallery.BuildConfig
 
 @Composable
 internal fun HomeScreen(navigateToSettings: () -> Unit) {
     val viewModel = diViewModel<HomeViewModel>()
-    val uiState by viewModel.uiState.collectAsState()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     ScreenContent(
         uiState = uiState,

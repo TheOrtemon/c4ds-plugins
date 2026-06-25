@@ -23,6 +23,10 @@
     <string name="window_simple_selected_model">Selected model</string>
     <string name="window_simple_model_name">Name</string>
     <string name="window_simple_coordinates">Coordinates</string>
+    <string name="window_simple_distance">Distance</string>
+    <string name="window_simple_speed">Speed</string>
+    <string name="window_simple_altitude">Altitude</string>
+    <string name="window_simple_azimuth">Azimuth</string>
     <string name="window_simple_not_selected">Model not selected</string>
     <string name="window_simple_unselect">Unselect model</string>
     <string name="window_simple_unselected_toast">Model unselected</string>
@@ -38,6 +42,7 @@
     <string name="window_nav_launch_simple">Launch Window Simple</string>
     <string name="window_nav_settings_title">Settings</string>
     <string name="window_nav_settings_open_on_top">Open Simple tool on top</string>
+    <string name="window_nav_settings_open_on_top_desc">When enabled, the Window Simple tool opens on top of the current window.</string>
 
     <!-- Dialog -->
     <string name="dialog_tool_name">Dialog</string>
@@ -57,6 +62,7 @@
     <string name="dialog_info_title">Information</string>
     <string name="dialog_info_body">This is an informational message from the plugin tool.</string>
     <string name="dialog_custom_title">Custom Dialog</string>
+    <string name="dialog_custom_body">This is a custom dialog composed inside a ToolDialog.Custom block.</string>
     <string name="dialog_dismiss">Dismiss</string>
 
     <!-- Overlay -->
@@ -66,6 +72,7 @@
     <string name="overlay_cursor_position">Cursor position:</string>
     <string name="overlay_user_model">User model:</string>
     <string name="overlay_not_available">Not available</string>
+    <string name="overlay_close">Close</string>
 
     <!-- Map -->
     <string name="map_tool_name">Map (AbstractMapTool)</string>
@@ -100,12 +107,16 @@
     <string name="expandable_status_show_above">Show above</string>
     <string name="expandable_status_toggle_cd">Toggle expandable status</string>
     <string name="expandable_status_position">Position:</string>
+    <string name="expandable_status_pos_below">Below</string>
+    <string name="expandable_status_pos_above">Above</string>
 
     <!-- Underlay -->
     <string name="underlay_tool_name">Underlay</string>
     <string name="underlay_desc">ToolComponent.Underlay — a composable rendered behind the map.</string>
     <string name="underlay_apis">ToolComponent.Underlay, requiredComponent</string>
     <string name="underlay_label">Underlay layer — rendered behind the map</string>
+    <string name="underlay_close_cd">Close underlay</string>
+    <string name="underlay_close">Close</string>
 
     <!-- End Bar -->
     <string name="endbar_tool_name">EndBar</string>
@@ -123,8 +134,8 @@
 
     <!-- Model -->
     <string name="model_tool_name">Model (CommonModelInteractor)</string>
-    <string name="model_desc">CommonModelInteractor: observe, select, create, and delete BCM models.</string>
-    <string name="model_apis">CommonModelInteractor, getAllModels, selectedModel, userModel, selectModel, unselectModel, createModel, deleteModel, isReadOnly</string>
+    <string name="model_desc">CommonModelInteractor: observe, select, and unselect BCM models.</string>
+    <string name="model_apis">CommonModelInteractor, getAllModels, selectedModel, userModel, selectModel, unselectModel, isReadOnly</string>
     <string name="model_section_selected">Selected model</string>
     <string name="model_section_user">User model</string>
     <string name="model_section_all">All models</string>
@@ -137,9 +148,9 @@
     <string name="model_not_selected">Not selected</string>
 
     <!-- Service -->
-    <string name="service_tool_name">Service (autoStart)</string>
-    <string name="service_desc">AbstractToolService lifecycle with autoStart=true and ToolNotificationManager.</string>
-    <string name="service_apis">ToolDescriptor.createService, ToolDescriptor.autoStart, AbstractToolService, ToolNotificationManager</string>
+    <string name="service_tool_name">Service (AbstractToolService)</string>
+    <string name="service_desc">AbstractToolService lifecycle with ToolNotificationManager.</string>
+    <string name="service_apis">ToolDescriptor.createService, AbstractToolService, ToolNotificationManager</string>
     <string name="service_running">Service: RUNNING</string>
     <string name="service_stopped">Service: STOPPED</string>
     <string name="service_events">Events:</string>
@@ -148,13 +159,13 @@
 
     <!-- Resources / Config -->
     <string name="config_tool_name">Resources — Config</string>
-    <string name="config_desc">Config-qualified resources: locale, night mode, font, and raw resource reactivity.</string>
-    <string name="config_apis">stringResource with values-uk/values-night, LocalConfiguration, FontFamily(Font(R.font.*)), context.resources.openRawResource</string>
-    <string name="config_mode">DAY mode (en)</string>
+    <string name="config_desc">Config-qualified resources: locale (values-uk), plugin font, and raw resource reactivity.</string>
+    <string name="config_apis">stringResource with values-uk, LocalConfiguration, FontFamily(Font(R.font.*)), context.resources.openRawResource</string>
+    <string name="config_mode">Locale: en</string>
     <string name="config_font_label">Plugin font (R.font.sample_font):</string>
     <string name="config_raw_label">Plugin raw resource (R.raw.sample_note):</string>
     <string name="config_font_sample">The quick brown fox jumps over the lazy dog — plugin font</string>
-    <string name="config_explainer">Toggle system dark mode or switch locale — the string and icon above should update live.</string>
+    <string name="config_explainer">Switch the system locale to Ukrainian — the text above switches to the values-uk variant, demonstrating per-plugin locale resources.</string>
 
     <!-- Resources / Material -->
     <string name="material_tool_name">Resources — Material</string>
@@ -167,6 +178,12 @@
     <string name="material_dropdown_label">DropdownMenu demo</string>
     <string name="material_slider_label">Slider demo</string>
     <string name="material_explainer">M2 widgets (Scaffold, SnackbarHost, AlertDialog, DropdownMenu, Slider) composed inside plugin code. If host string IDs resolve without Resources$NotFoundException — isolation is working.</string>
+    <string name="material_ok">OK</string>
+    <string name="material_dropdown_open">Open dropdown menu</string>
+    <string name="material_dropdown_alpha">Alpha</string>
+    <string name="material_dropdown_beta">Beta</string>
+    <string name="material_dropdown_gamma">Gamma</string>
+    <string name="material_snackbar_message">Snackbar from plugin — host R resolved OK</string>
 
     <!-- Resources / Collision -->
     <string name="collision_tool_name">Resources — R.string Collision</string>
@@ -174,6 +191,79 @@
     <string name="collision_apis">FallbackResources (internal — transparent to plugin authors)</string>
     <string name="settings">PLUGIN settings (isolation wins)</string>
     <string name="collision_explainer">Plugin owns R.string.settings which collides with the host\'s identically-named string. FallbackResources(plugin, host) ensures the plugin value is shown — proving plugin-first resolution.</string>
+
+    <!-- Components -->
+    <string name="section_components">UI Components</string>
+    <string name="components_tool_name">Components Showcase</string>
+    <string name="components_desc">Scrollable showcase of selected public SDK UI components: buttons, inputs, dialogs, sliders, and more.</string>
+    <string name="components_apis">Button, OutlinedButton, TextButton, DestructiveButton, PrimaryProgressButton, AppFab, SegmentedButtonRow, OutlinedTextInputField, IntegerStepper, SimpleDropDownField, OutlinedDropDownField, SliderWithLabel, CheckBoxField, SwitchField, RadioGroup, AppDialog, DistanceInput, SpeedInput, AltitudeInput, AngleInput, CoordinatesInputWithSystem, TopAppBar, AppBarActionButton, Banner, Carousel, ColorSelector, Tooltip</string>
+    <!-- Components — section labels -->
+    <string name="components_buttons">Buttons</string>
+    <string name="components_segmented">Segmented Control</string>
+    <string name="components_text_input">Text Input</string>
+    <string name="components_stepper">Integer Stepper</string>
+    <string name="components_dropdowns">Dropdowns</string>
+    <string name="components_slider">Slider</string>
+    <string name="components_checkable">Checkbox / Switch</string>
+    <string name="components_radio">Radio Group</string>
+    <string name="components_dialog">Dialog</string>
+    <string name="components_measurement">Measurement Inputs</string>
+    <string name="components_coordinates">Coordinate Input</string>
+    <string name="components_top_app_bar">Top App Bar</string>
+    <string name="components_banner">Banner</string>
+    <string name="components_carousel">Carousel</string>
+    <string name="components_color_selector">Color Selector</string>
+    <string name="components_tooltip">Tooltip</string>
+    <string name="components_fab">FAB</string>
+    <!-- Components — demo labels -->
+    <string name="components_btn_primary">Primary Button</string>
+    <string name="components_btn_outlined">Outlined Button</string>
+    <string name="components_btn_text">Text Button</string>
+    <string name="components_btn_destructive">Destructive Button</string>
+    <string name="components_btn_progress">Progress Button</string>
+    <string name="components_text_input_label">Enter text</string>
+    <string name="components_stepper_label">Count</string>
+    <string name="components_checkbox_label">Checkbox option</string>
+    <string name="components_switch_label">Switch option</string>
+    <string name="components_dialog_open">Open Dialog</string>
+    <string name="components_dialog_title">Sample Dialog</string>
+    <string name="components_dialog_body">This is a sample AppDialog with header and a confirm button.</string>
+    <string name="components_dialog_close">Close</string>
+    <string name="components_measurement_distance">Distance</string>
+    <string name="components_measurement_speed">Speed</string>
+    <string name="components_measurement_altitude">Altitude</string>
+    <string name="components_measurement_azimuth">Azimuth</string>
+    <string name="components_top_app_bar_desc">TopAppBar with AppBarActionButton rendered inline as a demo row.</string>
+    <string name="components_top_app_bar_sample_title">App Bar Demo</string>
+    <string name="components_top_app_bar_action">Action</string>
+    <string name="components_banner_info">Info: this is a Banner with MessageType.Info.</string>
+    <string name="components_banner_warning">Warning: this is a Banner with MessageType.Warning.</string>
+    <string name="components_banner_error">Error: Banner with MessageType.Error and an action.</string>
+    <string name="components_banner_action">Retry</string>
+    <string name="components_color_selector_label">Pick a color</string>
+    <string name="components_tooltip_desc">Tap the button to toggle a Tooltip popup.</string>
+    <string name="components_tooltip_show">Toggle Tooltip</string>
+    <string name="components_tooltip_content">Hello from Tooltip!</string>
+    <string name="components_fab_cd">Add</string>
+    <!-- Components — dropdown options -->
+    <string name="components_dropdown_option_a">Alpha</string>
+    <string name="components_dropdown_option_b">Beta</string>
+    <string name="components_dropdown_option_c">Gamma</string>
+    <string name="components_dropdown_option_d">Delta</string>
+    <!-- Components — radio options -->
+    <string name="components_radio_option_1">Option 1</string>
+    <string name="components_radio_option_2">Option 2</string>
+    <string name="components_radio_option_3">Option 3</string>
+    <!-- Components — carousel items -->
+    <string name="components_carousel_item_1">Carousel — first slide</string>
+    <string name="components_carousel_item_2">Carousel — second slide</string>
+    <string name="components_carousel_item_3">Carousel — third slide</string>
+    <!-- Components Lists -->
+    <string name="components_lists_tool_name">Components — Lists</string>
+    <string name="components_lists_desc">Pull-to-refresh and swipe-to-reveal using RevealableLazyColumn.</string>
+    <string name="components_lists_apis">RevealableLazyColumn, RevealMenuButton, RevealMenuScope, PullToRefreshIndicator (built-in)</string>
+    <string name="components_lists_action_edit">Edit</string>
+    <string name="components_lists_action_delete">Delete</string>
 
     <!-- Native (cross-APK) — shown on catalog detail screen for isolation sample -->
     <string name="native_cross_apk_title">Native / Cross-APK</string>

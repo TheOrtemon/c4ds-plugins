@@ -1,18 +1,20 @@
 package vision.combat.c4.ds.sample.gallery.model.ui
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Card
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.Divider
+import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Place
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -20,15 +22,15 @@ import vision.combat.c4.ds.sample.gallery.R
 import vision.combat.c4.ds.sample.gallery.model.ModelViewModel
 import vision.combat.c4.ds.sdk.ui.component.WindowScaffold
 import vision.combat.c4.ds.sdk.ui.component.bar.BackNavTopAppBar
-import vision.combat.c4.ds.sdk.ui.component.button.Button
-import vision.combat.c4.ds.sdk.ui.component.button.DestructiveButton
 import vision.combat.c4.ds.sdk.ui.component.button.TextButton
+import vision.combat.c4.ds.sdk.ui.component.list.ListItem
+import vision.combat.c4.ds.sdk.ui.component.list.ListItemDefaults
 import vision.combat.c4.ds.sdk.ui.viewmodel.diViewModel
 import vision.combat.c4.model.BattlespaceConceptModel
 
 @Composable
 internal fun ModelWindow(viewModel: ModelViewModel = diViewModel()) {
-    val uiState by viewModel.uiState.collectAsState()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     WindowScaffold(
         topAppBar = { BackNavTopAppBar(title = stringResource(R.string.model_tool_name)) },
@@ -47,9 +49,14 @@ private fun ColumnScope.ModelContent(uiState: ModelViewModel.UiState, viewModel:
         )
     }
 
-    Text(stringResource(R.string.model_section_selected), style = MaterialTheme.typography.h6)
+    Text(
+        text = stringResource(R.string.model_section_selected),
+        style = MaterialTheme.typography.h6,
+        color = MaterialTheme.colors.onSurface,
+    )
     Text(
         text = uiState.selectedModel?.name ?: stringResource(R.string.model_not_selected),
+        color = MaterialTheme.colors.onSurface,
         modifier = Modifier.padding(bottom = 4.dp),
     )
     if (uiState.selectedModel != null) {
@@ -61,39 +68,39 @@ private fun ColumnScope.ModelContent(uiState: ModelViewModel.UiState, viewModel:
 
     Divider(modifier = Modifier.padding(vertical = 8.dp))
 
-    Text(stringResource(R.string.model_section_user), style = MaterialTheme.typography.h6)
+    Text(
+        text = stringResource(R.string.model_section_user),
+        style = MaterialTheme.typography.h6,
+        color = MaterialTheme.colors.onSurface,
+    )
     Text(
         text = uiState.userModel?.name ?: stringResource(R.string.model_not_selected),
+        color = MaterialTheme.colors.onSurface,
         modifier = Modifier.padding(bottom = 8.dp),
     )
 
     Divider(modifier = Modifier.padding(vertical = 8.dp))
 
-    Row {
-        Text(
-            text = stringResource(R.string.model_section_all),
-            style = MaterialTheme.typography.h6,
-            modifier = Modifier.weight(1f),
-        )
-        Button(
-            label = stringResource(R.string.model_create),
-            onClick = { viewModel.createModel() },
-            enabled = !uiState.isReadOnly,
-        )
-    }
-
+    Text(
+        text = stringResource(R.string.model_section_all),
+        style = MaterialTheme.typography.h6,
+        color = MaterialTheme.colors.onSurface,
+        modifier = Modifier.padding(bottom = 8.dp),
+    )
+    // Non-lazy iteration inside WindowScaffold's scrollable column — a lazy list inside
+    // WindowScaffold's default verticalScroll crashes with infinite-height measure.
+    // The list is capped to a small preview limit so non-lazy is fine.
     if (uiState.allModels.isEmpty()) {
-        Text(stringResource(R.string.model_no_models))
+        Text(
+            text = stringResource(R.string.model_no_models),
+            color = MaterialTheme.colors.onSurface,
+        )
     } else {
-        LazyColumn {
-            items(uiState.allModels) { model ->
-                ModelRow(
-                    model = model,
-                    isReadOnly = uiState.isReadOnly,
-                    onSelect = { viewModel.selectModel(model.id) },
-                    onDelete = { viewModel.deleteModel(model.id) },
-                )
-            }
+        uiState.allModels.forEach { model ->
+            ModelRow(
+                model = model,
+                onSelect = { viewModel.selectModel(model) },
+            )
         }
     }
 }
@@ -101,24 +108,36 @@ private fun ColumnScope.ModelContent(uiState: ModelViewModel.UiState, viewModel:
 @Composable
 private fun ModelRow(
     model: BattlespaceConceptModel,
-    isReadOnly: Boolean,
     onSelect: () -> Unit,
-    onDelete: () -> Unit,
 ) {
-    Card(
-        elevation = 1.dp,
-        modifier = Modifier.fillMaxWidth().padding(vertical = 2.dp),
-    ) {
-        Row(modifier = Modifier.padding(8.dp)) {
+    ListItem(
+        headline = {
             Text(
                 text = model.name ?: model.id.toString(),
-                modifier = Modifier.weight(1f),
+                style = MaterialTheme.typography.body1,
+                color = MaterialTheme.colors.onSurface,
+                modifier = Modifier.fillMaxWidth(),
             )
-            TextButton(label = stringResource(R.string.model_select), onClick = onSelect)
-            if (!isReadOnly) {
-                DestructiveButton(label = stringResource(R.string.model_delete), onClick = onDelete)
+        },
+        supportingText = {
+            Text(
+                text = model.id.toString(),
+                style = MaterialTheme.typography.caption,
+                color = MaterialTheme.colors.onSurface.copy(alpha = 0.7f),
+                modifier = Modifier.fillMaxWidth(),
+            )
+        },
+        leadingIcon = {
+            Box(modifier = Modifier.size(ListItemDefaults.LeadingIconSize)) {
+                Icon(
+                    painter = rememberVectorPainter(Icons.Default.Place),
+                    contentDescription = null,
+                    tint = MaterialTheme.colors.onSurface,
+                    modifier = Modifier.matchParentSize(),
+                )
             }
-        }
-    }
+        },
+        onItemClick = onSelect,
+        canGoForward = false,
+    )
 }
-

@@ -54,7 +54,7 @@ private fun ColumnScope.CollisionContent() {
     Text(
         text = "Plugin-first resolution: the value shown above comes from the plugin APK, not the host.",
         style = MaterialTheme.typography.caption,
-        color = MaterialTheme.colors.primary,
+        color = MaterialTheme.colors.onSurface,
     )
 }
 

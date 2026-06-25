@@ -16,5 +16,7 @@
     <tool-descriptor name="vision.combat.c4.ds.sample.gallery.resources.config.ConfigToolDescriptor" />
     <tool-descriptor name="vision.combat.c4.ds.sample.gallery.resources.material.MaterialToolDescriptor" />
     <tool-descriptor name="vision.combat.c4.ds.sample.gallery.resources.collision.CollisionToolDescriptor" />
+    <tool-descriptor name="vision.combat.c4.ds.sample.gallery.components.ComponentsToolDescriptor" />
+    <tool-descriptor name="vision.combat.c4.ds.sample.gallery.components.ComponentsListsToolDescriptor" />
 </combat-tools>
 

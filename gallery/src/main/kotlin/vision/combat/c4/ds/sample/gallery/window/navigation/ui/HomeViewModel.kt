@@ -2,12 +2,13 @@ package vision.combat.c4.ds.sample.gallery.window.navigation.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import vision.combat.c4.ds.sample.gallery.window.navigation.data.WindowNavRepository
 import vision.combat.c4.ds.sdk.tool.ToolId
@@ -19,8 +20,8 @@ internal class HomeViewModel(
     private val _uiState = MutableStateFlow(UiState())
     val uiState: StateFlow<UiState> = _uiState
 
-    private val _event = MutableSharedFlow<Event>()
-    val event = _event.asSharedFlow()
+    private val _event = Channel<Event>(Channel.BUFFERED)
+    val event: Flow<Event> = _event.receiveAsFlow()
 
     init {
         repository.observeOpenOnTop(viewModelScope)
@@ -35,7 +36,7 @@ internal class HomeViewModel(
     }
 
     private fun emitEvent(event: Event) {
-        viewModelScope.launch { _event.emit(event) }
+        viewModelScope.launch { _event.send(event) }
     }
 
     data class UiState(val openOnTop: Boolean = false)

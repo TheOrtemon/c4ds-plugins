@@ -12,11 +12,14 @@ import vision.combat.c4.ds.sdk.tool.ToolParams
 import vision.combat.c4.ds.sdk.tool.requiredComponent
 
 /**
- * Demonstrates AbstractToolService + autoStart.
+ * Demonstrates AbstractToolService lifecycle.
  *
- * SDK APIs: ToolDescriptor.createService, ToolDescriptor.autoStart = true,
- *           AbstractToolService (onStart/onStop, coroutine scope),
+ * SDK APIs: ToolDescriptor.createService,
+ *           AbstractToolService (init-time coroutineScope, onDestroy),
  *           ToolNotificationManager.
+ *
+ * Note: AbstractToolService has no onStart/onStop hooks. Work starts in init{}
+ * and is cancelled automatically when coroutineScope is disposed on onDestroy().
  *
  * SDK files:
  *   c4ds-sdk/src/main/kotlin/vision/combat/c4/ds/sdk/tool/ToolDescriptor.kt
@@ -26,7 +29,6 @@ class ServiceToolDescriptor(toolContext: ToolContext) : ToolDescriptor(toolConte
     override val nameResId: Int = R.string.service_tool_name
     override val iconResId: Int = R.drawable.ic_service
     override val categories: List<String> = emptyList()
-    override val autoStart: Boolean = true
 
     // Shared state instance — both tool and service access it.
     private val sharedState = ServiceSharedState()
@@ -36,7 +38,7 @@ class ServiceToolDescriptor(toolContext: ToolContext) : ToolDescriptor(toolConte
     }
 
     override fun createService(toolContext: ToolContext, di: DI): AbstractToolService {
-        return ServiceSampleService(toolContext, di, sharedState)
+        return ServiceSampleService(toolContext, this, di, sharedState)
     }
 }
 

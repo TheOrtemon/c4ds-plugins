@@ -13,8 +13,8 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Switch
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -27,7 +27,7 @@ import vision.combat.c4.ds.sdk.ui.viewmodel.diViewModel
 
 @Composable
 internal fun SettingsScreen(viewModel: SettingsViewModel = diViewModel()) {
-    val uiState by viewModel.uiState.collectAsState()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     WindowScaffold(
         topAppBar = { BackNavTopAppBar(title = stringResource(R.string.window_nav_settings_title)) },
@@ -51,7 +51,7 @@ internal fun SettingsScreen(viewModel: SettingsViewModel = diViewModel()) {
                         style = MaterialTheme.typography.subtitle1,
                     )
                     Text(
-                        text = stringResource(R.string.window_nav_home_desc),
+                        text = stringResource(R.string.window_nav_settings_open_on_top_desc),
                         style = MaterialTheme.typography.caption,
                         color = LocalContentColor.current.copy(ContentAlpha.disabled),
                     )

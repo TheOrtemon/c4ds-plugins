@@ -15,6 +15,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import android.widget.Toast
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -33,7 +34,6 @@ import vision.combat.c4.ds.sdk.ui.component.measurement.AltitudeInput
 import vision.combat.c4.ds.sdk.ui.component.measurement.AngleInput
 import vision.combat.c4.ds.sdk.ui.component.measurement.DistanceInput
 import vision.combat.c4.ds.sdk.ui.component.measurement.SpeedInput
-import vision.combat.c4.ds.sdk.ui.util.showToast
 import vision.combat.c4.ds.sdk.ui.viewmodel.diViewModel
 
 @Composable
@@ -115,25 +115,25 @@ private fun ColumnScope.MeasurementInputsDemo() {
     DistanceInput(
         distanceMetres = distance,
         onValueChange = { distance = it },
-        label = stringResource(R.string.window_simple_coordinates),
+        label = stringResource(R.string.window_simple_distance),
         modifier = Modifier.fillMaxWidth(),
     )
     SpeedInput(
         speedMps = speed,
         onValueChange = { speed = it },
-        label = "Speed",
+        label = stringResource(R.string.window_simple_speed),
         modifier = Modifier.fillMaxWidth(),
     )
     AltitudeInput(
         altitudeMetres = altitude,
         onValueChange = { altitude = it },
-        label = "Altitude",
+        label = stringResource(R.string.window_simple_altitude),
         modifier = Modifier.fillMaxWidth(),
     )
     AngleInput(
         angleDegrees = azimuth,
         onValueChange = { azimuth = it },
-        label = "Azimuth",
+        label = stringResource(R.string.window_simple_azimuth),
         modifier = Modifier.fillMaxWidth(),
     )
 }
@@ -141,10 +141,12 @@ private fun ColumnScope.MeasurementInputsDemo() {
 @Composable
 private fun EventHandler(eventFlow: Flow<Event>) {
     val context = LocalContext.current
+    val unselectedMessage = stringResource(R.string.window_simple_unselected_toast)
     LaunchedEffect(eventFlow, context) {
         eventFlow.collect { event ->
             when (event) {
-                is Event.ModelUnselected -> context.showToast(R.string.window_simple_unselected_toast)
+                is Event.ModelUnselected ->
+                    Toast.makeText(context, unselectedMessage, Toast.LENGTH_SHORT).show()
             }
         }
     }

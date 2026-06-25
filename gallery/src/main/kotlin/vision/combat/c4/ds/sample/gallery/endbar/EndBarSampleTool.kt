@@ -1,9 +1,11 @@
 package vision.combat.c4.ds.sample.gallery.endbar
 
+import android.widget.Toast
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import org.kodein.di.DI
@@ -59,10 +61,12 @@ internal class EndBarSampleTool(
     }
 
     override val endBar by endBar {
+        val context = LocalContext.current
+        val actionFiredMessage = stringResource(R.string.endbar_action_fired)
         EndBarActionButton(
             icon = painterResource(R.drawable.ic_end_bar),
             contentDescription = stringResource(R.string.endbar_action_cd),
-            onClick = { /* action no-op in sample */ },
+            onClick = { Toast.makeText(context, actionFiredMessage, Toast.LENGTH_SHORT).show() },
         )
         EndBarToggleButton(
             icon = painterResource(R.drawable.ic_end_bar),
@@ -72,20 +76,20 @@ internal class EndBarSampleTool(
         )
         EndBarMenuButton(
             icon = painterResource(R.drawable.ic_end_bar),
+            title = stringResource(R.string.endbar_menu_cd),
             contentDescription = stringResource(R.string.endbar_menu_cd),
         ) {
             Checkable(
-                label = stringResource(R.string.endbar_menu_option_a),
+                title = stringResource(R.string.endbar_menu_option_a),
                 isChecked = toggleState,
                 onClick = { toggleState = !toggleState },
             )
             Slider(
-                label = stringResource(R.string.endbar_slider_label),
+                title = stringResource(R.string.endbar_slider_label),
                 value = sliderValue,
                 onValueChange = { sliderValue = it },
-                valueRange = 0f..1f,
+                range = 0f..1f,
             )
         }
     }
 }
-

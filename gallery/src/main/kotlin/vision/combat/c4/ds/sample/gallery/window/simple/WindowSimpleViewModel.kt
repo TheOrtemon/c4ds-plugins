@@ -3,14 +3,14 @@ package vision.combat.c4.ds.sample.gallery.window.simple
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import earth.worldwind.geom.Location
-import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.merge
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import vision.combat.c4.ds.sdk.domain.interactor.CommonModelInteractor
@@ -26,8 +26,8 @@ internal class WindowSimpleViewModel(
     private val _uiState = MutableStateFlow(produceState())
     val uiState: StateFlow<UiState> = _uiState
 
-    private val _event = MutableSharedFlow<Event>()
-    val event: SharedFlow<Event> = _event.asSharedFlow()
+    private val _event = Channel<Event>(Channel.BUFFERED)
+    val event: Flow<Event> = _event.receiveAsFlow()
 
     init {
         with(modelInteractor) {
@@ -65,7 +65,7 @@ internal class WindowSimpleViewModel(
     }
 
     private fun emitEvent(event: Event) {
-        viewModelScope.launch { _event.emit(event) }
+        viewModelScope.launch { _event.send(event) }
     }
 
     data class UiState(
@@ -78,12 +78,12 @@ internal class WindowSimpleViewModel(
         )
     }
 
-    sealed class Action {
-        data object ClearSelection : Action()
+    sealed interface Action {
+        data object ClearSelection : Action
     }
 
-    sealed class Event {
-        data object ModelUnselected : Event()
+    sealed interface Event {
+        data object ModelUnselected : Event
     }
 }
 

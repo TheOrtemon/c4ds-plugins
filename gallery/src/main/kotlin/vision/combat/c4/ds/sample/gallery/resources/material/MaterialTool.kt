@@ -18,7 +18,7 @@ import vision.combat.c4.ds.sdk.tool.requiredComponent
  *           Plugin-compiled: M2 Scaffold, SnackbarHost, AlertDialog, DropdownMenu, Slider.
  *
  * SDK files (internal, not callable from plugins):
- *   c4ds-sdk-core/host/src/main/kotlin/vision/combat/c4/ds/sdk/host/CompositionFallbackContext.kt
+ *   c4ds-sdk-core/internal/src/main/kotlin/vision/combat/c4/ds/sdk/host/CompositionFallbackContext.kt
  */
 class MaterialToolDescriptor(toolContext: ToolContext) : ToolDescriptor(toolContext) {
     override val nameResId: Int = R.string.material_tool_name

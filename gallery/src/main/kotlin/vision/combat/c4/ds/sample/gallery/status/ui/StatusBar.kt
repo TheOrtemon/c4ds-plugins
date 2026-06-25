@@ -15,7 +15,7 @@ internal fun StatusBar() {
     val position by mapInteractor.selectedPosition.collectAsState(initial = null)
 
     Text(
-        text = position?.let { "${stringResource(R.string.status_coords_label)} ${it.latitude.degrees}°, ${it.longitude.degrees}°" }
+        text = position?.let { "${stringResource(R.string.status_coords_label)} ${it.latitude.inDegrees}°, ${it.longitude.inDegrees}°" }
             ?: stringResource(R.string.status_coords_label),
     )
 }

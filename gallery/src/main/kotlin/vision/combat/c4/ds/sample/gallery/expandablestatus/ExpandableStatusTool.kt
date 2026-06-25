@@ -21,7 +21,8 @@ internal class ExpandableStatusTool(
     params: ToolParams?,
 ) : AbstractTool(toolContext, toolDescriptor, parentDI, params) {
 
-    private val expandableStatus by expandableStatusComponent(
+    override val expandableStatus: ToolComponent.ExpandableStatus by expandableStatusComponent(
+        isDefault = true,
         isExpanded = false,
         shouldShowAbove = false,
     ) {

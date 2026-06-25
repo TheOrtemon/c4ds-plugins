@@ -23,6 +23,10 @@
     <string name="window_simple_selected_model">Обрана модель</string>
     <string name="window_simple_model_name">Назва</string>
     <string name="window_simple_coordinates">Координати</string>
+    <string name="window_simple_distance">Дистанція</string>
+    <string name="window_simple_speed">Швидкість</string>
+    <string name="window_simple_altitude">Висота</string>
+    <string name="window_simple_azimuth">Азимут</string>
     <string name="window_simple_not_selected">Модель не обрано</string>
     <string name="window_simple_unselect">Скинути вибір</string>
     <string name="window_simple_unselected_toast">Вибір моделі скинуто</string>
@@ -38,6 +42,7 @@
     <string name="window_nav_launch_simple">Запустити Window Simple</string>
     <string name="window_nav_settings_title">Налаштування</string>
     <string name="window_nav_settings_open_on_top">Відкривати Simple поверх поточного</string>
+    <string name="window_nav_settings_open_on_top_desc">Якщо ввімкнено, інструмент Window Simple відкривається поверх поточного вікна.</string>
 
     <!-- Dialog -->
     <string name="dialog_tool_name">Діалог</string>
@@ -57,6 +62,7 @@
     <string name="dialog_info_title">Інформація</string>
     <string name="dialog_info_body">Це інформаційне повідомлення від інструменту плагіну.</string>
     <string name="dialog_custom_title">Власний діалог</string>
+    <string name="dialog_custom_body">Це власний діалог, складений у блоці ToolDialog.Custom.</string>
     <string name="dialog_dismiss">Закрити</string>
 
     <!-- Overlay -->
@@ -66,6 +72,7 @@
     <string name="overlay_cursor_position">Позиція курсору:</string>
     <string name="overlay_user_model">Модель користувача:</string>
     <string name="overlay_not_available">Недоступно</string>
+    <string name="overlay_close">Закрити</string>
 
     <!-- Map -->
     <string name="map_tool_name">Карта (AbstractMapTool)</string>
@@ -100,12 +107,16 @@
     <string name="expandable_status_show_above">Показати вище</string>
     <string name="expandable_status_toggle_cd">Перемкнути розгортаний статус</string>
     <string name="expandable_status_position">Позиція:</string>
+    <string name="expandable_status_pos_below">Знизу</string>
+    <string name="expandable_status_pos_above">Зверху</string>
 
     <!-- Underlay -->
     <string name="underlay_tool_name">Underlay</string>
     <string name="underlay_desc">ToolComponent.Underlay — composable, що відображається під картою.</string>
     <string name="underlay_apis">ToolComponent.Underlay, requiredComponent</string>
     <string name="underlay_label">Шар Underlay — відображається під картою</string>
+    <string name="underlay_close_cd">Закрити underlay</string>
+    <string name="underlay_close">Закрити</string>
 
     <!-- End Bar -->
     <string name="endbar_tool_name">EndBar</string>
@@ -123,8 +134,8 @@
 
     <!-- Model -->
     <string name="model_tool_name">Модель (CommonModelInteractor)</string>
-    <string name="model_desc">CommonModelInteractor: спостереження, вибір, створення та видалення BCM-моделей.</string>
-    <string name="model_apis">CommonModelInteractor, getAllModels, selectedModel, userModel, selectModel, unselectModel, createModel, deleteModel, isReadOnly</string>
+    <string name="model_desc">CommonModelInteractor: спостереження, вибір та скасування вибору BCM-моделей.</string>
+    <string name="model_apis">CommonModelInteractor, getAllModels, selectedModel, userModel, selectModel, unselectModel, isReadOnly</string>
     <string name="model_section_selected">Обрана модель</string>
     <string name="model_section_user">Модель користувача</string>
     <string name="model_section_all">Усі моделі</string>
@@ -137,9 +148,9 @@
     <string name="model_not_selected">Не обрано</string>
 
     <!-- Service -->
-    <string name="service_tool_name">Служба (autoStart)</string>
-    <string name="service_desc">Lifecycle AbstractToolService з autoStart=true та ToolNotificationManager.</string>
-    <string name="service_apis">ToolDescriptor.createService, ToolDescriptor.autoStart, AbstractToolService, ToolNotificationManager</string>
+    <string name="service_tool_name">Служба (AbstractToolService)</string>
+    <string name="service_desc">Lifecycle AbstractToolService та ToolNotificationManager.</string>
+    <string name="service_apis">ToolDescriptor.createService, AbstractToolService, ToolNotificationManager</string>
     <string name="service_running">Служба: АКТИВНА</string>
     <string name="service_stopped">Служба: ЗУПИНЕНА</string>
     <string name="service_events">Подій:</string>
@@ -148,13 +159,13 @@
 
     <!-- Resources / Config -->
     <string name="config_tool_name">Ресурси — Конфігурація</string>
-    <string name="config_desc">Ресурси з кваліфікаторами конфігурації: локаль, нічний режим, шрифт, raw.</string>
-    <string name="config_apis">stringResource з values-uk/values-night, LocalConfiguration, FontFamily(Font(R.font.*)), context.resources.openRawResource</string>
-    <string name="config_mode">ДЕННИЙ режим (uk)</string>
+    <string name="config_desc">Ресурси з кваліфікаторами конфігурації: локаль (values-uk), шрифт плагіну, raw-ресурс.</string>
+    <string name="config_apis">stringResource з values-uk, LocalConfiguration, FontFamily(Font(R.font.*)), context.resources.openRawResource</string>
+    <string name="config_mode">Локаль: uk</string>
     <string name="config_font_label">Шрифт плагіну (R.font.sample_font):</string>
     <string name="config_raw_label">Raw-ресурс плагіну (R.raw.sample_note):</string>
     <string name="config_font_sample">Швидка коричнева лисиця перескочила через ледачого пса — шрифт плагіну</string>
-    <string name="config_explainer">Увімкніть темний режим або змініть локаль — рядок і іконка вище мають оновитися живцем.</string>
+    <string name="config_explainer">Змініть системну мову на українську — текст вище переключиться на варіант values-uk, демонструючи локалізацію ресурсів плагіну.</string>
 
     <!-- Resources / Material -->
     <string name="material_tool_name">Ресурси — Material</string>
@@ -167,6 +178,12 @@
     <string name="material_dropdown_label">Демонстрація DropdownMenu</string>
     <string name="material_slider_label">Демонстрація Slider</string>
     <string name="material_explainer">Віджети M2 (Scaffold, SnackbarHost, AlertDialog, DropdownMenu, Slider) в коді плагіну. Якщо ID рядків хосту вирішуються без Resources$NotFoundException — ізоляція працює.</string>
+    <string name="material_ok">OK</string>
+    <string name="material_dropdown_open">Відкрити випадаюче меню</string>
+    <string name="material_dropdown_alpha">Альфа</string>
+    <string name="material_dropdown_beta">Бета</string>
+    <string name="material_dropdown_gamma">Гамма</string>
+    <string name="material_snackbar_message">Snackbar від плагіну — R хосту вирішено успішно</string>
 
     <!-- Resources / Collision -->
     <string name="collision_tool_name">Ресурси — Колізія R.string</string>
@@ -174,6 +191,79 @@
     <string name="collision_apis">FallbackResources (внутрішній — прозорий для авторів плагінів)</string>
     <string name="settings">ПЛАГІН settings (ізоляція перемагає)</string>
     <string name="collision_explainer">Плагін має R.string.settings, що збігається з однойменним рядком хосту. FallbackResources(plugin, host) гарантує відображення значення плагіну — підтверджуючи пріоритет плагіну.</string>
+
+    <!-- Components -->
+    <string name="section_components">UI-компоненти</string>
+    <string name="components_tool_name">Вітрина компонентів</string>
+    <string name="components_desc">Скролюваний огляд вибраних публічних UI-компонентів SDK: кнопки, поля введення, діалоги, слайдери тощо.</string>
+    <string name="components_apis">Button, OutlinedButton, TextButton, DestructiveButton, PrimaryProgressButton, AppFab, SegmentedButtonRow, OutlinedTextInputField, IntegerStepper, SimpleDropDownField, OutlinedDropDownField, SliderWithLabel, CheckBoxField, SwitchField, RadioGroup, AppDialog, DistanceInput, SpeedInput, AltitudeInput, AngleInput, CoordinatesInputWithSystem, TopAppBar, AppBarActionButton, Banner, Carousel, ColorSelector, Tooltip</string>
+    <!-- Components — section labels -->
+    <string name="components_buttons">Кнопки</string>
+    <string name="components_segmented">Сегментований контрол</string>
+    <string name="components_text_input">Текстове поле</string>
+    <string name="components_stepper">Цілочисельний степпер</string>
+    <string name="components_dropdowns">Випадаючі списки</string>
+    <string name="components_slider">Слайдер</string>
+    <string name="components_checkable">Чекбокс / Перемикач</string>
+    <string name="components_radio">Радіогрупа</string>
+    <string name="components_dialog">Діалог</string>
+    <string name="components_measurement">Поля вимірювань</string>
+    <string name="components_coordinates">Введення координат</string>
+    <string name="components_top_app_bar">Верхня панель застосунку</string>
+    <string name="components_banner">Банер</string>
+    <string name="components_carousel">Карусель</string>
+    <string name="components_color_selector">Вибір кольору</string>
+    <string name="components_tooltip">Підказка</string>
+    <string name="components_fab">FAB</string>
+    <!-- Components — demo labels -->
+    <string name="components_btn_primary">Основна кнопка</string>
+    <string name="components_btn_outlined">Контурна кнопка</string>
+    <string name="components_btn_text">Текстова кнопка</string>
+    <string name="components_btn_destructive">Деструктивна кнопка</string>
+    <string name="components_btn_progress">Кнопка з прогресом</string>
+    <string name="components_text_input_label">Введіть текст</string>
+    <string name="components_stepper_label">Кількість</string>
+    <string name="components_checkbox_label">Варіант чекбокса</string>
+    <string name="components_switch_label">Варіант перемикача</string>
+    <string name="components_dialog_open">Відкрити діалог</string>
+    <string name="components_dialog_title">Приклад діалогу</string>
+    <string name="components_dialog_body">Це приклад AppDialog із заголовком та кнопкою підтвердження.</string>
+    <string name="components_dialog_close">Закрити</string>
+    <string name="components_measurement_distance">Дистанція</string>
+    <string name="components_measurement_speed">Швидкість</string>
+    <string name="components_measurement_altitude">Висота</string>
+    <string name="components_measurement_azimuth">Азимут</string>
+    <string name="components_top_app_bar_desc">TopAppBar з AppBarActionButton — відображається вбудованим рядком для демонстрації.</string>
+    <string name="components_top_app_bar_sample_title">Демо панелі</string>
+    <string name="components_top_app_bar_action">Дія</string>
+    <string name="components_banner_info">Інфо: це банер з MessageType.Info.</string>
+    <string name="components_banner_warning">Попередження: це банер з MessageType.Warning.</string>
+    <string name="components_banner_error">Помилка: банер з MessageType.Error та дією.</string>
+    <string name="components_banner_action">Повторити</string>
+    <string name="components_color_selector_label">Оберіть колір</string>
+    <string name="components_tooltip_desc">Натисніть кнопку, щоб переключити спливаючу підказку.</string>
+    <string name="components_tooltip_show">Перемкнути підказку</string>
+    <string name="components_tooltip_content">Привіт із Tooltip!</string>
+    <string name="components_fab_cd">Додати</string>
+    <!-- Components — dropdown options -->
+    <string name="components_dropdown_option_a">Альфа</string>
+    <string name="components_dropdown_option_b">Бета</string>
+    <string name="components_dropdown_option_c">Гамма</string>
+    <string name="components_dropdown_option_d">Дельта</string>
+    <!-- Components — radio options -->
+    <string name="components_radio_option_1">Варіант 1</string>
+    <string name="components_radio_option_2">Варіант 2</string>
+    <string name="components_radio_option_3">Варіант 3</string>
+    <!-- Components — carousel items -->
+    <string name="components_carousel_item_1">Карусель — перший слайд</string>
+    <string name="components_carousel_item_2">Карусель — другий слайд</string>
+    <string name="components_carousel_item_3">Карусель — третій слайд</string>
+    <!-- Components Lists -->
+    <string name="components_lists_tool_name">Компоненти — Списки</string>
+    <string name="components_lists_desc">Pull-to-refresh та swipe-to-reveal через RevealableLazyColumn.</string>
+    <string name="components_lists_apis">RevealableLazyColumn, RevealMenuButton, RevealMenuScope, PullToRefreshIndicator (вбудований)</string>
+    <string name="components_lists_action_edit">Редагувати</string>
+    <string name="components_lists_action_delete">Видалити</string>
 
     <!-- Native (cross-APK) -->
     <string name="native_cross_apk_title">Native / Cross-APK</string>

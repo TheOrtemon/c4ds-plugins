@@ -1,149 +1,164 @@
-# C4DS Tool Samples
+# c4ds Tool Samples
 
-This repository contains a set of external ComBat 4 Dismounted Soldier tools to help you learn about the integration process. Each sample demonstrates different use cases, complexity levels, and APIs.
+This repository contains **two sample plugin APKs** that cover the full public SDK surface for external ComBat 4 Dismounted Soldier tool authors. Each sample is a copy-pasteable reference implementation you can launch from an in-app **Sample Gallery** hub.
 
-<img width="1000" alt="Intro" src="https://github.com/user-attachments/assets/06c47964-0ebf-4cf3-80dc-6ac2a0639202" />
+<img width="1000" alt="Sample Gallery hub in ComBat 4" src="https://github.com/user-attachments/assets/06c47964-0ebf-4cf3-80dc-6ac2a0639202" />
 
 ## Disclaimer
+
 This is an early version and may contain bugs or incomplete features.  
 Feedback and contributions are welcome!  
 If you encounter any issues, please [open an issue](https://github.com/ComBatVision/c4ds-tool-samples/issues).
 
-## Requirements
-To try out these sample tools, you need to: 
-- have the [ComBat 4 Dismounted Soldier](https://play.google.com/store/apps/details?id=vision.combat.c4.ds) app installed on your device.
-- have access to the Maven private repository. You may request access by writing to [support@combat.vision](mailto:support@combat.vision").
-- use the latest available version of the C4DS SDK. Check out the latest version on [Nexus Repository](https://nexus.combat.vision/#browse/browse:maven-sdk:vision%2Fcombat%2Fc4ds-sdk) (you'll have to login using the same credentials obtained in the previous step).
-- use the same versions of core frameworks and libraries as the host app to maintain binary compatibility:
-  
-- ```
-  kotlin = "2.4.0"
-  compose = "1.11.2"
-  ```
-
-## Setup
-- Add your Nexus credentials to the `gradle.properties` file, either in the `~/.gradle/` directory of your user or in the root of your project:
-
-  ```
-  c4ds_sdk_username=<username>
-  c4ds_sdk_password=<password>
-  ```
-- Configure your project to use the Nexus private repository. To do so, add the following code to your root `build.gradle.kts` file:
-  ```Kotlin
-  subprojects {
-      repositories {
-          google()
-          mavenCentral()
-          maven {
-              url = uri("https://nexus.combat.vision/repository/maven-sdk/")
-              credentials {
-                  username = System.getProperty("c4ds_sdk_username") ?: rootProject.properties["c4ds_sdk_username"].toString()
-                  password = System.getProperty("c4ds_sdk_password") ?: rootProject.properties["c4ds_sdk_password"].toString()
-              }
-          }
-      }
-  }
-  ```
-- Add dependencies to your `build.gradle` file:
-  ```Kotlin
-  dependencies {
-      compileOnly(libs.combat.ds.sdk)
-      runtimeOnly(libs.combat.ds.sdk.runtine)
-  }
-  ```
-
-## Getting Started
-
-The app divides the screen into several UI areas (Tool Components), each of which can be accessed from your tool:
-- **Overlay** (red area) - can be used to display any heads-up content over the main map.
-- **Status** (blue area) - can be used to display a small amount of non-critical information. The Status area can also be expandable.
-- **Window** (green area) - can be used to build screens that will be displayed on the right (or bottom) panel. It can have nested navigation. There is also a sub-variant of the Window component named `MapWindowComponent`, which is designed to be used with the secondary map in the window.
-- **Underlay** (whole area under the main map) - primarily used for AR tools.
-
-The app also allows you to declare custom buttons on the right side of the main map (yellow area). To do so, you should override the `AbstractTool.endBarButtons` property.
-
-<img width="1000" alt="Screen layout" src="https://github.com/user-attachments/assets/109fb109-a89b-4a34-ac54-ea7ab66966dc" />
-
-## Integration
-1. Create a new class for your tool (e.g. [OverlayTool](https://github.com/ComBatVision/c4ds-tool-samples/blob/main/overlay/src/main/kotlin/vision/combat/c4/ds/example/tool/overlay/OverlayTool.kt)) that extends `AbstractTool` class.
-2. Create a new class for your tool descriptor (e.g., [OverlayToolDescriptor](https://github.com/ComBatVision/c4ds-tool-samples/blob/main/overlay/src/main/kotlin/vision/combat/c4/ds/example/tool/overlay/OverlayToolDescriptor.kt)) that extends `ToolDescriptor` class. It's responsible for providing the tool's name and icon that will be displayed in the **Tools** list as well as creating a new instance of your tool via overridden `createTool` method.
-3. Create a new *.xml file (e.g., [combat_tools.xml](https://github.com/ComBatVision/c4ds-tool-samples/blob/main/overlay/src/main/res/xml/combat_tools.xml)) that will list all your tool descriptors.
-
-   ```xml
-   <?xml version="1.0" encoding="utf-8"?>
-   <combat-tools>
-       <tool-descriptor name="vision.combat.c4.ds.example.tool.overlay.OverlayToolDescriptor" />
-   </combat-tools>
-   ```
-4. Declare the created `*.xml` file in your `AndroidManifest.xml` as meta-data under the name `vision.combat.c4.ds.sdk.DECLARED_TOOLS`.
-
-   ```xml
-   <meta-data
-        android:name="vision.combat.c4.ds.sdk.DECLARED_TOOLS"
-        android:resource="@xml/combat_tools" />
-   ```
-
-## Building
-Your project does NOT need to have an Activity. To run the app, simply select `Nothing` in **Launch options**. You need also check **Always install with package manager**, otherwise you may not see your changes.
-
-<img width="500" alt="Run Configurations" src="https://github.com/user-attachments/assets/726d2066-f4d9-48d7-9aea-a1b14727e427" />
-
-Once your app is installed, the ComBat 4 Dismounted Soldier app should automatically refresh the **Tools** list and display your tool. The host app usually applies your changes immediately after your tool re-activation; however, in some cases, you may need to kill and restart the app.
-
-<img width="1000" alt="Installed tools" src="https://github.com/user-attachments/assets/019a24eb-0fc9-46aa-b943-7139fb7857e2" />
+---
 
 ## Demo
-Click to watch
 
-[![Demo video. Click to watch](https://github.com/user-attachments/assets/e077a04b-35c4-4d77-bd7b-672d552a4f26)](https://youtu.be/6AOOwTl_N9Y)
+[![Demo video — click to watch on YouTube](https://github.com/user-attachments/assets/e077a04b-35c4-4d77-bd7b-672d552a4f26)](https://youtu.be/6AOOwTl_N9Y)
 
 ---
 
-## Plugin isolation smoke tests
+## Documentation
 
-The `overlay` sample includes a built-in isolation smoke to verify that the host correctly
-isolates plugin assets from the host's own `assets/` folder.
+| Document | Contents |
+|---|---|
+| **[Getting started](docs/getting-started.md)** | Requirements, Gradle/Nexus setup, tool screen layout, integration steps, Android Studio run config |
+| **[Samples catalog](docs/samples-catalog.md)** | Every sample: purpose, SDK APIs, source paths, verification steps |
+| **[Plugin isolation](docs/plugin-isolation.md)** | Asset/JNI smoke tests, isolation cases (a–h), cross-APK activation |
 
-### Asset isolation
+---
 
-`OverlayTool.onStart()` opens `assets/overlay/sample.txt` via `toolContext.assets`.
-If the host is serving the correct plugin-scoped `AssetManager`, you will see:
+## Quick start
+
+### Prerequisites
+
+| Item | Requirement |
+|---|---|
+| Host app | [ComBat 4 DS](https://play.google.com/store/apps/details?id=vision.combat.c4.ds) |
+| Maven access | [support@combat.vision](mailto:support@combat.vision) → [Nexus SDK](https://nexus.combat.vision/#browse/browse:maven-sdk:vision%2Fcombat%2Fc4ds-sdk) |
+| SDK | `c4ds-sdk` `0.5.0` (see `gradle/libs.versions.toml`) |
+| Kotlin / Compose | `2.4.0` / `1.11.2` — must match host for binary compatibility |
+| NDK + CMake | Only for `:isolation` |
+
+Add Nexus credentials to `~/.gradle/gradle.properties`:
+
+```properties
+c4ds_sdk_username=<your-username>
+c4ds_sdk_password=<your-password>
+```
+
+Full setup: **[Getting started → Gradle setup](docs/getting-started.md#gradle-setup)**
+
+### Build and install
+
+```bash
+./gradlew :gallery:assembleRelease :isolation:assembleRelease
+adb install -r gallery/build/outputs/apk/release/gallery-release.apk
+adb install -r isolation/build/outputs/apk/release/isolation-release.apk
+```
+
+Neither APK declares an Activity. Install both, launch ComBat 4, then open **Sample Gallery** from the Tools list.
+
+---
+
+## Tool screen layout
+
+The host divides the screen into tool components your tool can declare:
+
+| Component | Use |
+|---|---|
+| **Overlay** (red) | Heads-up content over the main map |
+| **Status** (blue) | Bottom info strip; expandable variant available |
+| **Window** (green) | Side/bottom panel screens with optional navigation |
+| **MapWindow** | Window variant with embedded secondary map |
+| **Underlay** | Full layer under the main map (e.g. AR) |
+| **End bar** (yellow) | Custom buttons on the map's right edge |
+
+<img width="1000" alt="Tool component screen layout" src="https://github.com/user-attachments/assets/109fb109-a89b-4a34-ac54-ea7ab66966dc" />
+
+Details: **[Getting started → Tool screen layout](docs/getting-started.md#tool-screen-layout)**
+
+---
+
+## Repository layout
 
 ```
-OverlayTool: [ASSET SMOKE] Read 'overlay/sample.txt' from plugin (NNN bytes) — isolation OK
+c4ds-tool-samples/
+├── gallery/          # Main APK — Sample Gallery hub + 15 feature samples
+├── isolation/        # Second APK — JNI + asset isolation (cross-APK activation)
+└── docs/             # Author documentation (this README links there)
 ```
 
-If the host is accidentally serving its own `AssetManager` (regression), the open call throws
-`FileNotFoundException` and you will see an `[ASSET SMOKE] FAILED` error line instead.
+Only **Sample Gallery** (`CatalogToolDescriptor`) appears in the host launcher. All other gallery tools use `categories = emptyList()` and launch from the hub via `ToolManager`.
 
-### Native `.so` isolation
+---
 
-To also exercise `nativeLibraryDir` isolation:
+## Sample overview
 
-1. Add a CMake target to `overlay/build.gradle.kts`:
-   ```kotlin
-   android {
-       defaultConfig {
-           ndk { abiFilters += listOf("arm64-v8a", "x86_64") }
-       }
-       externalNativeBuild { cmake { path("src/main/cpp/CMakeLists.txt") } }
-   }
-   ```
-2. Create `src/main/cpp/CMakeLists.txt` + a trivial `native-lib.cpp`:
-   ```cpp
-   #include <jni.h>
-   extern "C" JNIEXPORT jstring JNICALL
-   Java_vision_combat_c4_ds_example_tool_overlay_OverlayTool_nativeHello(JNIEnv* env, jobject) {
-       return env->NewStringUTF("hello from plugin .so");
-   }
-   ```
-3. In `OverlayTool.onStart()` call `System.loadLibrary("native-lib")` and invoke the JNI method.
+### `:gallery` — 15 feature samples + hub
 
-The `ToolPackageCache` in the host already passes `nativeLibraryDir` as `libPath` to the
-`PathClassLoader`, so `System.loadLibrary` will find the unpacked `.so` automatically when
-`android:extractNativeLibs="true"` is set in the plugin's manifest.
+| Sample | Section | SDK surface |
+|---|---|---|
+| Window Simple | Windows | `ToolComponent.Window`, `WindowScaffold`, SDK inputs, `CommonModelInteractor` |
+| Window Navigation | Windows | `AppNavHost`, `Route`, `subDI`, `SharedPreferences` |
+| Dialog | Windows | `ToolDialog` variants, `showDialog` / `dismissDialog` |
+| Overlay | Map | `ToolComponent.Overlay`, `CommonMapInteractor`, `CommonModelInteractor` |
+| Map | Map | `AbstractMapTool`, `RenderableLayer`, `SelectDragCallback`, `ToolComponent.Status` |
+| MapWindow | Map | `ToolComponent.MapWindow`, embedded `MapView`, `MapController` |
+| Status | Status & Bars | `ToolComponent.Status`, `shouldShowCoordinates`, `shouldShowAzimuth` |
+| Expandable Status | Status & Bars | `ToolComponent.ExpandableStatus`, `isExpanded`, `shouldShowAbove` |
+| Underlay | Status & Bars | `ToolComponent.Underlay` |
+| End Bar | Status & Bars | `EndBarActionButton`, `EndBarToggleButton`, `EndBarMenuButton` |
+| Model | Model & Lifecycle | `CommonModelInteractor` CRUD, `isReadOnly` |
+| Service | Model & Lifecycle | `AbstractToolService`, `ToolNotificationManager` |
+| Resources / Config | Resources & Isolation | Locale, night, config-qualified resources, font, raw |
+| Resources / Material | Resources & Isolation | Plugin M2 widgets, `CompositionFallbackContext` |
+| Resources / Collision | Resources & Isolation | Plugin-first `R.string` resolution |
 
-> **Important:** The bundled `:c4ds-tool:template` tool runs **in-process on the host context**.
-> It cannot exercise plugin-only `AssetManager`, `FallbackResources`, `ToolPackageCache`, or
-> `nativeLibraryDir` isolation. Always use an external plugin APK (like this `overlay` sample)
-> for isolation testing.
+Per-sample verification and source paths: **[Samples catalog](docs/samples-catalog.md)**
+
+### `:isolation` — cross-APK native sample
+
+| Sample | SDK surface |
+|---|---|
+| Native / Cross-APK | Per-APK `ClassLoader`, `nativeLibraryDir` `.so`, plugin `AssetManager`, `ToolManager.resolveToolId` |
+
+Smoke tests and logcat expectations: **[Plugin isolation](docs/plugin-isolation.md)**
+
+---
+
+## Integration (summary)
+
+1. Create an Android **Application** module (no Activity).
+2. Add `compileOnly(libs.combat.ds.sdk)` + `runtimeOnly(libs.combat.ds.sdk.runtime)`.
+3. Subclass `ToolDescriptor` + `AbstractTool`.
+4. Create `res/xml/combat_tools.xml` listing descriptor FQCNs.
+5. Add `vision.combat.c4.ds.sdk.DECLARED_TOOLS` meta-data to `AndroidManifest.xml`.
+
+Step-by-step with code examples: **[Getting started → Integration guide](docs/getting-started.md#integration-guide)**
+
+### Building from Android Studio
+
+Select **Nothing** as launch option and enable **Always install with package manager**.
+
+<img width="500" alt="Run configuration" src="https://github.com/user-attachments/assets/726d2066-f4d9-48d7-9aea-a1b14727e427" />
+
+After install, your tool appears in the host Tools list (gallery shows only **Sample Gallery**):
+
+<img width="1000" alt="Installed tools" src="https://github.com/user-attachments/assets/019a24eb-0fc9-46aa-b943-7139fb7857e2" />
+
+---
+
+## Plugin isolation (summary)
+
+| Case | Sample | Proves |
+|---|---|---|
+| (a) | Resources / Material | M2 composition fallback |
+| (b) | Resources / Collision | Plugin `R.string` over host |
+| (c) | Resources / Config | Live locale/night reactivity |
+| (d) | Manual upgrade test | State survives `versionCode` bump |
+| (e) | Resources / Config | Plugin font + raw resources |
+| (g) | End Bar | Plugin drawables in end bar |
+| (h) | `:isolation` Native Tool | Cross-APK `.so`, assets, ClassLoader |
+
+Full procedures: **[Plugin isolation](docs/plugin-isolation.md)**

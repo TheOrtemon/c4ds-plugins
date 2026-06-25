@@ -183,11 +183,6 @@ See [Building from Android Studio](#building-from-android-studio) below.
 
 In this repo, only **Sample Gallery** (`CatalogToolDescriptor`) sets `categories = listOf(CATEGORY_LAUNCHER)`. All other gallery tools use `categories = emptyList()` and are opened from the hub via `ToolManager.activate<T>()`. Copy this pattern when you want a single entry point for multiple tools in one APK.
 
-### Further reading
-
-- ComBat tool architecture (HOW): [`c4ds/docs/architecture/tool-architecture.md`](https://github.com/ComBatVision/c4ds/blob/main/docs/architecture/tool-architecture.md)
-- Architecture decisions (WHY): [`c4ds/docs/architecture/tool-architecture-decisions.md`](https://github.com/ComBatVision/c4ds/blob/main/docs/architecture/tool-architecture-decisions.md)
-
 ---
 
 ## Building from Android Studio

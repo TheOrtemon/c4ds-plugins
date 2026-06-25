@@ -17,7 +17,7 @@ import vision.combat.c4.ds.sdk.tool.requiredComponent
  *           Plugin declares R.string.settings = "PLUGIN settings (isolation wins)".
  *
  * SDK files (internal):
- *   c4ds-sdk-core/host/src/main/kotlin/vision/combat/c4/ds/sdk/host/FallbackResources.kt
+ *   c4ds-sdk-core/internal/src/main/kotlin/vision/combat/c4/ds/sdk/host/FallbackResources.kt
  */
 class CollisionToolDescriptor(toolContext: ToolContext) : ToolDescriptor(toolContext) {
     override val nameResId: Int = R.string.collision_tool_name

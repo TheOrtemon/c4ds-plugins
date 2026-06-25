@@ -1,7 +1,0 @@
-Plugin-isolation edge case (e): font + raw composition fallback.
-
-This text is read at composition time from R.raw.sample_note via LocalContext.current.resources.
-The plugin's own ResourcesCompat context (CompositionFallbackContext / FallbackResources) resolves
-both R.font.sample_font (Roboto Regular, OFL) and R.raw.sample_note from the plugin APK — not the host.
-
-If you see this text, plugin-owned raw resources are resolving correctly.

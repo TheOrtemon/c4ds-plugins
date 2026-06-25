@@ -1,27 +1,22 @@
-package vision.combat.c4.ds.sample.gallery.status
+package vision.combat.c4.ds.sample.gallery.components
 
 import org.kodein.di.DI
-import vision.combat.c4.ds.sample.gallery.status.ui.StatusBar
+import vision.combat.c4.ds.sample.gallery.components.ui.ComponentsWindow
 import vision.combat.c4.ds.sdk.tool.AbstractTool
 import vision.combat.c4.ds.sdk.tool.ToolComponent
 import vision.combat.c4.ds.sdk.tool.ToolContext
 import vision.combat.c4.ds.sdk.tool.ToolDescriptor
 import vision.combat.c4.ds.sdk.tool.ToolParams
-import vision.combat.c4.ds.sdk.tool.statusComponent
+import vision.combat.c4.ds.sdk.tool.requiredComponent
 
-internal class StatusTool(
+internal class ComponentsTool(
     toolContext: ToolContext,
     toolDescriptor: ToolDescriptor,
     parentDI: DI,
     params: ToolParams?,
 ) : AbstractTool(toolContext, toolDescriptor, parentDI, params) {
 
-    override val status: ToolComponent.Status by statusComponent(
-        isDefault = true,
-        shouldShowCoordinates = true,
-        shouldShowAzimuth = true,
-    ) {
-        StatusBar()
+    override val window: ToolComponent.Window by requiredComponent {
+        ComponentsWindow()
     }
 }
-

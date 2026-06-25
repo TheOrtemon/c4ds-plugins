@@ -11,11 +11,10 @@ import vision.combat.c4.ds.sdk.tool.ToolParams
 import vision.combat.c4.ds.sdk.tool.requiredComponent
 
 /**
- * Demonstrates config-qualified resources: locale, night mode, font, raw.
+ * Demonstrates config-qualified resources: locale (values-uk), plugin font, and raw resource.
  *
- * SDK APIs: Plugin stringResource with values-uk/values-night/values-night-uk,
+ * SDK APIs: Plugin stringResource with values-uk,
  *           LocalConfiguration (recomposition on config change),
- *           painterResource with drawable-night qualifier,
  *           FontFamily(Font(R.font.*)), context.resources.openRawResource.
  *
  * SDK files: (resource API is Android SDK; plugin context isolation is c4ds-specific)
