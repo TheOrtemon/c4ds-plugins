@@ -5,13 +5,18 @@
     <string name="catalog_tool_name">Галерея зразків</string>
     <string name="section_windows">Вікна</string>
     <string name="section_map">Карта</string>
-    <string name="section_status_bars">Статус і панелі</string>
-    <string name="section_model_lifecycle">Модель і lifecycle</string>
+    <string name="section_map_overlays">Оверлеї карти та статус</string>
+    <string name="section_host_ui_chrome">Хром UI хосту</string>
+    <string name="section_ui_components">UI-компоненти</string>
+    <string name="section_model_map_data">Модель та дані карти</string>
+    <string name="section_lifecycle">Lifecycle та служби</string>
     <string name="section_resources_isolation">Ресурси та ізоляція</string>
     <string name="catalog_launch">Запустити</string>
     <string name="catalog_details">Деталі</string>
     <string name="catalog_sdk_apis_label">SDK API</string>
     <string name="catalog_source_label">Пакет джерела</string>
+    <string name="catalog_section_expand">Розгорнути секцію</string>
+    <string name="catalog_section_collapse">Згорнути секцію</string>
 
     <!-- Window Simple -->
     <string name="window_simple_tool_name">Вікно — Просте</string>
@@ -192,11 +197,7 @@
     <string name="settings">ПЛАГІН settings (ізоляція перемагає)</string>
     <string name="collision_explainer">Плагін має R.string.settings, що збігається з однойменним рядком хосту. FallbackResources(plugin, host) гарантує відображення значення плагіну — підтверджуючи пріоритет плагіну.</string>
 
-    <!-- Components -->
-    <string name="section_components">UI-компоненти</string>
-    <string name="components_tool_name">Вітрина компонентів</string>
-    <string name="components_desc">Скролюваний огляд вибраних публічних UI-компонентів SDK: кнопки, поля введення, діалоги, слайдери тощо.</string>
-    <string name="components_apis">Button, OutlinedButton, TextButton, DestructiveButton, PrimaryProgressButton, AppFab, SegmentedButtonRow, OutlinedTextInputField, IntegerStepper, SimpleDropDownField, OutlinedDropDownField, SliderWithLabel, CheckBoxField, SwitchField, RadioGroup, AppDialog, DistanceInput, SpeedInput, AltitudeInput, AngleInput, CoordinatesInputWithSystem, TopAppBar, AppBarActionButton, Banner, Carousel, ColorSelector, Tooltip</string>
+    <!-- Components — demo strings (used by folded demos in UI Catalog) -->
     <!-- Components — section labels -->
     <string name="components_buttons">Кнопки</string>
     <string name="components_segmented">Сегментований контрол</string>
@@ -258,12 +259,116 @@
     <string name="components_carousel_item_1">Карусель — перший слайд</string>
     <string name="components_carousel_item_2">Карусель — другий слайд</string>
     <string name="components_carousel_item_3">Карусель — третій слайд</string>
-    <!-- Components Lists -->
-    <string name="components_lists_tool_name">Компоненти — Списки</string>
-    <string name="components_lists_desc">Pull-to-refresh та swipe-to-reveal через RevealableLazyColumn.</string>
-    <string name="components_lists_apis">RevealableLazyColumn, RevealMenuButton, RevealMenuScope, PullToRefreshIndicator (вбудований)</string>
+    <!-- Components Lists — action strings used by folded Lists demo in UI Catalog -->
     <string name="components_lists_action_edit">Редагувати</string>
     <string name="components_lists_action_delete">Видалити</string>
+
+    <!-- UI Catalog -->
+    <string name="ui_catalog_tool_name">Каталог UI</string>
+    <string name="ui_catalog_desc">Навігаційний каталог винесених публічних SDK-компонентів форм, кожен у кількох станах.</string>
+    <string name="ui_catalog_apis">InlineMessage, HeaderField, ExpandableField, FormFieldBox, NestedForm, HostilitySelector</string>
+    <!-- UI Catalog — entries -->
+    <string name="ui_catalog_inline_message_name">InlineMessage</string>
+    <string name="ui_catalog_inline_message_desc">Анімований вбудований підпис інфо / помилки, що з\'являється та зникає під полем.</string>
+    <string name="ui_catalog_header_field_name">HeaderField</string>
+    <string name="ui_catalog_header_field_desc">Клікабельний рядок-заголовок секції з підписом та слотом для іконки.</string>
+    <string name="ui_catalog_expandable_field_name">ExpandableField</string>
+    <string name="ui_catalog_expandable_field_desc">Заголовок, що розгортає та згортає вміст з анімованою стрілкою.</string>
+    <string name="ui_catalog_form_field_box_name">FormFieldBox</string>
+    <string name="ui_catalog_form_field_box_desc">Обгортка поля, що розміщує вміст разом з повідомленням про помилку або підказкою.</string>
+    <string name="ui_catalog_nested_form_name">NestedForm</string>
+    <string name="ui_catalog_nested_form_desc">Вкладена підформа з вертикальним роздільником на початковому краї.</string>
+    <string name="ui_catalog_hostility_selector_name">HostilitySelector</string>
+    <string name="ui_catalog_hostility_selector_desc">Горизонтальна прокручувана стрічка вибору іконок з винесеним слотом елемента.</string>
+    <!-- UI Catalog — state labels -->
+    <string name="ui_catalog_state_info">Інфо</string>
+    <string name="ui_catalog_state_error">Помилка</string>
+    <string name="ui_catalog_state_default">За замовчуванням</string>
+    <string name="ui_catalog_state_supporting">Допоміжний текст</string>
+    <string name="ui_catalog_state_enabled">Активний (одиночний вибір)</string>
+    <string name="ui_catalog_state_disabled">Вимкнено з помилкою</string>
+    <!-- UI Catalog — demo content -->
+    <string name="ui_catalog_inline_info_text">Це інформаційна підказка.</string>
+    <string name="ui_catalog_inline_error_text">Це значення є обов\'язковим.</string>
+    <string name="ui_catalog_toggle_message">Перемкнути повідомлення</string>
+    <string name="ui_catalog_header_label">Заголовок секції</string>
+    <string name="ui_catalog_header_clicks">Кліків по заголовку: %1$d</string>
+    <string name="ui_catalog_expandable_label">Розгортана секція</string>
+    <string name="ui_catalog_expandable_content">Прихований вміст, що відкривається при розгортанні.</string>
+    <string name="ui_catalog_field_label">Назва</string>
+    <string name="ui_catalog_field_value_default">Альфа</string>
+    <string name="ui_catalog_field_value_supporting">Чарлі</string>
+    <string name="ui_catalog_form_field_box_error">Назва не може бути порожньою.</string>
+    <string name="ui_catalog_form_field_box_supporting">Як показано на карті.</string>
+    <string name="ui_catalog_nested_parent_label">Батьківське поле</string>
+    <string name="ui_catalog_nested_parent_value">Батьківське</string>
+    <string name="ui_catalog_nested_child_label">Вкладене поле</string>
+    <string name="ui_catalog_nested_child_value">Вкладене</string>
+    <!-- HeaderField extra state labels -->
+    <string name="ui_catalog_header_label_custom_color">Заголовок з кастомним фоном</string>
+    <string name="ui_catalog_header_label_default_shape">Заголовок зі стандартною формою</string>
+    <!-- NestedForm extra state labels -->
+    <string name="ui_catalog_nested_state_one_level">Один рівень вкладення</string>
+    <string name="ui_catalog_nested_state_two_levels">Два рівні вкладення</string>
+    <string name="ui_catalog_nested_deep_label">Глибоке вкладене поле</string>
+    <string name="ui_catalog_nested_deep_value">Глибоке</string>
+    <string name="ui_catalog_hostility_label">Належність</string>
+    <string name="ui_catalog_hostility_readonly_label">Належність (лише читання)</string>
+    <string name="ui_catalog_hostility_error">Оберіть належність.</string>
+
+    <!-- UI Catalog — lists demo -->
+    <string name="ui_catalog_list_item">Елемент %1$d</string>
+
+    <!-- UI Catalog — folded showcase category entries -->
+    <string name="ui_catalog_buttons_name">Кнопки</string>
+    <string name="ui_catalog_buttons_desc">Button, OutlinedButton, TextButton, DestructiveButton, PrimaryProgressButton, AppFab, TopAppBar з AppBarActionButton.</string>
+    <string name="ui_catalog_inputs_name">Поля введення</string>
+    <string name="ui_catalog_inputs_desc">OutlinedTextInputField, IntegerStepper, SimpleDropDownField, OutlinedDropDownField, поля вимірювань (дистанція/швидкість/висота/кут), введення координат.</string>
+    <string name="ui_catalog_selection_name">Вибір</string>
+    <string name="ui_catalog_selection_desc">SegmentedButtonRow, SliderWithLabel, CheckBoxField, SwitchField, RadioGroup, ColorSelector.</string>
+    <string name="ui_catalog_feedback_name">Зворотній зв\'язок</string>
+    <string name="ui_catalog_feedback_desc">AppDialog, Banner (Info/Warning/Error), Carousel, Tooltip.</string>
+    <string name="ui_catalog_lists_name">Revealable списки</string>
+    <string name="ui_catalog_lists_desc">RevealableLazyColumn з pull-to-refresh та swipe-to-reveal (редагування/видалення).</string>
+
+    <!-- Map Interactor -->
+    <string name="map_interactor_tool_name">Інтерактор карти (CommonMapInteractor)</string>
+    <string name="map_interactor_desc">CommonMapInteractor: зчитування камери, режим відображення, приціл, закріплення курсору, фокусування, магнітні корекції.</string>
+    <string name="map_interactor_apis">CommonMapInteractor, mapNavigatorEvent, camera, lookAt, selectedPosition, isLookAtAboveHorizon, mapDisplayMode, updateMapDisplayMode, arDistanceLimit, setArDistanceLimit, isReticleVisible, setReticleVisible, isCursorPinned, pinCursor, unpinCursor, isMapVisible, setMapVisible, focusOnLocation, focusOnSector, getDeclination, getConvergence, getAngleCorrection</string>
+    <!-- Map Interactor — sections -->
+    <string name="map_interactor_section_camera">Камера та LookAt</string>
+    <string name="map_interactor_section_display_mode">Режим відображення</string>
+    <string name="map_interactor_section_controls">Приціл та курсор</string>
+    <string name="map_interactor_section_focus">Фокусування</string>
+    <string name="map_interactor_section_corrections">Корекції в точці LookAt</string>
+    <!-- Map Interactor — readout labels -->
+    <string name="map_interactor_camera_lat">Широта камери</string>
+    <string name="map_interactor_camera_lon">Довгота камери</string>
+    <string name="map_interactor_camera_alt">Висота камери</string>
+    <string name="map_interactor_camera_heading">Курс</string>
+    <string name="map_interactor_camera_tilt">Нахил</string>
+    <string name="map_interactor_lookat_lat">Широта LookAt</string>
+    <string name="map_interactor_lookat_lon">Довгота LookAt</string>
+    <string name="map_interactor_above_horizon">Вище горизонту</string>
+    <string name="map_interactor_selected_pos">Обрана позиція</string>
+    <!-- Map Interactor — display modes -->
+    <string name="map_interactor_mode_normal">Normal</string>
+    <string name="map_interactor_mode_ar">AR</string>
+    <string name="map_interactor_mode_vr">VR</string>
+    <string name="map_interactor_ar_distance">Ліміт дистанції AR (м)</string>
+    <!-- Map Interactor — controls -->
+    <string name="map_interactor_reticle">Приціл видимий</string>
+    <string name="map_interactor_map_visible">Карта видима</string>
+    <string name="map_interactor_pin_cursor">Закріпити курсор</string>
+    <string name="map_interactor_unpin_cursor">Відкріпити курсор</string>
+    <string name="map_interactor_cursor_pinned">Курсор закріплено</string>
+    <!-- Map Interactor — focus -->
+    <string name="map_interactor_focus_location">Фокус на Київ</string>
+    <string name="map_interactor_focus_sector">Фокус на сектор</string>
+    <!-- Map Interactor — corrections -->
+    <string name="map_interactor_declination">Магнітне схилення</string>
+    <string name="map_interactor_convergence">Збіжність меридіанів</string>
+    <string name="map_interactor_angle_correction">Кутова корекція</string>
 
     <!-- Native (cross-APK) -->
     <string name="native_cross_apk_title">Native / Cross-APK</string>

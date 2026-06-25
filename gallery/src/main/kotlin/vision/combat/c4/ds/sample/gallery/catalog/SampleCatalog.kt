@@ -1,12 +1,11 @@
 package vision.combat.c4.ds.sample.gallery.catalog
 
 import vision.combat.c4.ds.sample.gallery.R
-import vision.combat.c4.ds.sample.gallery.components.ComponentsListsToolDescriptor
-import vision.combat.c4.ds.sample.gallery.components.ComponentsToolDescriptor
 import vision.combat.c4.ds.sample.gallery.dialog.DialogToolDescriptor
 import vision.combat.c4.ds.sample.gallery.endbar.EndBarSampleToolDescriptor
 import vision.combat.c4.ds.sample.gallery.expandablestatus.ExpandableStatusToolDescriptor
 import vision.combat.c4.ds.sample.gallery.map.MapToolDescriptor
+import vision.combat.c4.ds.sample.gallery.mapinteractor.MapInteractorToolDescriptor
 import vision.combat.c4.ds.sample.gallery.mapwindow.MapWindowToolDescriptor
 import vision.combat.c4.ds.sample.gallery.model.ModelToolDescriptor
 import vision.combat.c4.ds.sample.gallery.overlay.OverlaySampleToolDescriptor
@@ -15,6 +14,7 @@ import vision.combat.c4.ds.sample.gallery.resources.config.ConfigToolDescriptor
 import vision.combat.c4.ds.sample.gallery.resources.material.MaterialToolDescriptor
 import vision.combat.c4.ds.sample.gallery.service.ServiceToolDescriptor
 import vision.combat.c4.ds.sample.gallery.status.StatusToolDescriptor
+import vision.combat.c4.ds.sample.gallery.uicatalog.UiCatalogToolDescriptor
 import vision.combat.c4.ds.sample.gallery.underlay.UnderlayToolDescriptor
 import vision.combat.c4.ds.sample.gallery.window.navigation.WindowNavToolDescriptor
 import vision.combat.c4.ds.sample.gallery.window.simple.WindowSimpleToolDescriptor
@@ -64,36 +64,7 @@ object SampleCatalog {
             launch = { mgr -> mgr.activate<DialogToolDescriptor>(flags = ToolManager.FLAG_COMPONENT_ON_TOP) },
         ),
 
-        // ── COMPONENTS ───────────────────────────────────────────────────────
-        SampleEntry(
-            id = "components",
-            section = SampleSection.COMPONENTS,
-            nameResId = R.string.components_tool_name,
-            descResId = R.string.components_desc,
-            apisResId = R.string.components_apis,
-            sourceSubpackage = "components",
-            launch = { mgr -> mgr.activate<ComponentsToolDescriptor>(flags = ToolManager.FLAG_COMPONENT_ON_TOP) },
-        ),
-        SampleEntry(
-            id = "components_lists",
-            section = SampleSection.COMPONENTS,
-            nameResId = R.string.components_lists_tool_name,
-            descResId = R.string.components_lists_desc,
-            apisResId = R.string.components_lists_apis,
-            sourceSubpackage = "components",
-            launch = { mgr -> mgr.activate<ComponentsListsToolDescriptor>(flags = ToolManager.FLAG_COMPONENT_ON_TOP) },
-        ),
-
         // ── MAP ─────────────────────────────────────────────────────────────
-        SampleEntry(
-            id = "overlay",
-            section = SampleSection.MAP,
-            nameResId = R.string.overlay_tool_name,
-            descResId = R.string.overlay_desc,
-            apisResId = R.string.overlay_apis,
-            sourceSubpackage = "overlay",
-            launch = { mgr -> mgr.activate<OverlaySampleToolDescriptor>(flags = ToolManager.FLAG_COMPONENT_ON_TOP) },
-        ),
         SampleEntry(
             id = "map",
             section = SampleSection.MAP,
@@ -112,11 +83,29 @@ object SampleCatalog {
             sourceSubpackage = "mapwindow",
             launch = { mgr -> mgr.activate<MapWindowToolDescriptor>(flags = ToolManager.FLAG_COMPONENT_ON_TOP) },
         ),
+        SampleEntry(
+            id = "underlay",
+            section = SampleSection.MAP,
+            nameResId = R.string.underlay_tool_name,
+            descResId = R.string.underlay_desc,
+            apisResId = R.string.underlay_apis,
+            sourceSubpackage = "underlay",
+            launch = { mgr -> mgr.activate<UnderlayToolDescriptor>(flags = ToolManager.FLAG_COMPONENT_ON_TOP) },
+        ),
 
-        // ── STATUS & BARS ────────────────────────────────────────────────────
+        // ── MAP OVERLAYS ─────────────────────────────────────────────────────
+        SampleEntry(
+            id = "overlay",
+            section = SampleSection.MAP_OVERLAYS,
+            nameResId = R.string.overlay_tool_name,
+            descResId = R.string.overlay_desc,
+            apisResId = R.string.overlay_apis,
+            sourceSubpackage = "overlay",
+            launch = { mgr -> mgr.activate<OverlaySampleToolDescriptor>(flags = ToolManager.FLAG_COMPONENT_ON_TOP) },
+        ),
         SampleEntry(
             id = "status",
-            section = SampleSection.STATUS_AND_BARS,
+            section = SampleSection.MAP_OVERLAYS,
             nameResId = R.string.status_tool_name,
             descResId = R.string.status_desc,
             apisResId = R.string.status_apis,
@@ -125,25 +114,18 @@ object SampleCatalog {
         ),
         SampleEntry(
             id = "expandable_status",
-            section = SampleSection.STATUS_AND_BARS,
+            section = SampleSection.MAP_OVERLAYS,
             nameResId = R.string.expandable_status_tool_name,
             descResId = R.string.expandable_status_desc,
             apisResId = R.string.expandable_status_apis,
             sourceSubpackage = "expandablestatus",
             launch = { mgr -> mgr.activate<ExpandableStatusToolDescriptor>(flags = ToolManager.FLAG_COMPONENT_ON_TOP) },
         ),
-        SampleEntry(
-            id = "underlay",
-            section = SampleSection.STATUS_AND_BARS,
-            nameResId = R.string.underlay_tool_name,
-            descResId = R.string.underlay_desc,
-            apisResId = R.string.underlay_apis,
-            sourceSubpackage = "underlay",
-            launch = { mgr -> mgr.activate<UnderlayToolDescriptor>(flags = ToolManager.FLAG_COMPONENT_ON_TOP) },
-        ),
+
+        // ── HOST UI CHROME ───────────────────────────────────────────────────
         SampleEntry(
             id = "endbar",
-            section = SampleSection.STATUS_AND_BARS,
+            section = SampleSection.HOST_UI_CHROME,
             nameResId = R.string.endbar_tool_name,
             descResId = R.string.endbar_desc,
             apisResId = R.string.endbar_apis,
@@ -151,10 +133,21 @@ object SampleCatalog {
             launch = { mgr -> mgr.activate<EndBarSampleToolDescriptor>(flags = ToolManager.FLAG_COMPONENT_ON_TOP) },
         ),
 
-        // ── MODEL & LIFECYCLE ─────────────────────────────────────────────────
+        // ── UI COMPONENTS ────────────────────────────────────────────────────
+        SampleEntry(
+            id = "ui_catalog",
+            section = SampleSection.UI_COMPONENTS,
+            nameResId = R.string.ui_catalog_tool_name,
+            descResId = R.string.ui_catalog_desc,
+            apisResId = R.string.ui_catalog_apis,
+            sourceSubpackage = "uicatalog",
+            launch = { mgr -> mgr.activate<UiCatalogToolDescriptor>(flags = ToolManager.FLAG_COMPONENT_ON_TOP) },
+        ),
+
+        // ── MODEL & MAP DATA ─────────────────────────────────────────────────
         SampleEntry(
             id = "model",
-            section = SampleSection.MODEL_AND_LIFECYCLE,
+            section = SampleSection.MODEL_AND_MAP_DATA,
             nameResId = R.string.model_tool_name,
             descResId = R.string.model_desc,
             apisResId = R.string.model_apis,
@@ -162,8 +155,19 @@ object SampleCatalog {
             launch = { mgr -> mgr.activate<ModelToolDescriptor>(flags = ToolManager.FLAG_COMPONENT_ON_TOP) },
         ),
         SampleEntry(
+            id = "map_interactor",
+            section = SampleSection.MODEL_AND_MAP_DATA,
+            nameResId = R.string.map_interactor_tool_name,
+            descResId = R.string.map_interactor_desc,
+            apisResId = R.string.map_interactor_apis,
+            sourceSubpackage = "mapinteractor",
+            launch = { mgr -> mgr.activate<MapInteractorToolDescriptor>(flags = ToolManager.FLAG_COMPONENT_ON_TOP) },
+        ),
+
+        // ── LIFECYCLE ─────────────────────────────────────────────────────────
+        SampleEntry(
             id = "service",
-            section = SampleSection.MODEL_AND_LIFECYCLE,
+            section = SampleSection.LIFECYCLE,
             nameResId = R.string.service_tool_name,
             descResId = R.string.service_desc,
             apisResId = R.string.service_apis,
@@ -215,4 +219,3 @@ object SampleCatalog {
         ),
     )
 }
-

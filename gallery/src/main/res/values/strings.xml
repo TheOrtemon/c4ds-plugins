@@ -5,13 +5,18 @@
     <string name="catalog_tool_name">Sample Gallery</string>
     <string name="section_windows">Windows</string>
     <string name="section_map">Map</string>
-    <string name="section_status_bars">Status &amp; Bars</string>
-    <string name="section_model_lifecycle">Model &amp; Lifecycle</string>
+    <string name="section_map_overlays">Map Overlays &amp; Status</string>
+    <string name="section_host_ui_chrome">Host UI Chrome</string>
+    <string name="section_ui_components">UI Components</string>
+    <string name="section_model_map_data">Model &amp; Map Data</string>
+    <string name="section_lifecycle">Lifecycle &amp; Services</string>
     <string name="section_resources_isolation">Resources &amp; Isolation</string>
     <string name="catalog_launch">Launch</string>
     <string name="catalog_details">Details</string>
     <string name="catalog_sdk_apis_label">SDK APIs</string>
     <string name="catalog_source_label">Source subpackage</string>
+    <string name="catalog_section_expand">Expand section</string>
+    <string name="catalog_section_collapse">Collapse section</string>
 
     <!-- Window Simple -->
     <string name="window_simple_tool_name">Window — Simple</string>
@@ -192,11 +197,7 @@
     <string name="settings">PLUGIN settings (isolation wins)</string>
     <string name="collision_explainer">Plugin owns R.string.settings which collides with the host\'s identically-named string. FallbackResources(plugin, host) ensures the plugin value is shown — proving plugin-first resolution.</string>
 
-    <!-- Components -->
-    <string name="section_components">UI Components</string>
-    <string name="components_tool_name">Components Showcase</string>
-    <string name="components_desc">Scrollable showcase of selected public SDK UI components: buttons, inputs, dialogs, sliders, and more.</string>
-    <string name="components_apis">Button, OutlinedButton, TextButton, DestructiveButton, PrimaryProgressButton, AppFab, SegmentedButtonRow, OutlinedTextInputField, IntegerStepper, SimpleDropDownField, OutlinedDropDownField, SliderWithLabel, CheckBoxField, SwitchField, RadioGroup, AppDialog, DistanceInput, SpeedInput, AltitudeInput, AngleInput, CoordinatesInputWithSystem, TopAppBar, AppBarActionButton, Banner, Carousel, ColorSelector, Tooltip</string>
+    <!-- Components — demo strings (used by folded demos in UI Catalog) -->
     <!-- Components — section labels -->
     <string name="components_buttons">Buttons</string>
     <string name="components_segmented">Segmented Control</string>
@@ -258,12 +259,116 @@
     <string name="components_carousel_item_1">Carousel — first slide</string>
     <string name="components_carousel_item_2">Carousel — second slide</string>
     <string name="components_carousel_item_3">Carousel — third slide</string>
-    <!-- Components Lists -->
-    <string name="components_lists_tool_name">Components — Lists</string>
-    <string name="components_lists_desc">Pull-to-refresh and swipe-to-reveal using RevealableLazyColumn.</string>
-    <string name="components_lists_apis">RevealableLazyColumn, RevealMenuButton, RevealMenuScope, PullToRefreshIndicator (built-in)</string>
+    <!-- Components Lists — action strings used by folded Lists demo in UI Catalog -->
     <string name="components_lists_action_edit">Edit</string>
     <string name="components_lists_action_delete">Delete</string>
+
+    <!-- UI Catalog -->
+    <string name="ui_catalog_tool_name">UI Catalog</string>
+    <string name="ui_catalog_desc">Navigable catalog of promoted public SDK form components, each shown in several states.</string>
+    <string name="ui_catalog_apis">InlineMessage, HeaderField, ExpandableField, FormFieldBox, NestedForm, HostilitySelector</string>
+    <!-- UI Catalog — entries -->
+    <string name="ui_catalog_inline_message_name">InlineMessage</string>
+    <string name="ui_catalog_inline_message_desc">Animated inline info / error caption that appears and disappears below a field.</string>
+    <string name="ui_catalog_header_field_name">HeaderField</string>
+    <string name="ui_catalog_header_field_desc">Clickable section header row with a label and a trailing icon slot.</string>
+    <string name="ui_catalog_expandable_field_name">ExpandableField</string>
+    <string name="ui_catalog_expandable_field_desc">Header that expands and collapses its content with an animated chevron.</string>
+    <string name="ui_catalog_form_field_box_name">FormFieldBox</string>
+    <string name="ui_catalog_form_field_box_desc">Field wrapper laying out content plus an error or supporting message.</string>
+    <string name="ui_catalog_nested_form_name">NestedForm</string>
+    <string name="ui_catalog_nested_form_desc">Indented sub-form drawn with a vertical divider on the leading edge.</string>
+    <string name="ui_catalog_hostility_selector_name">HostilitySelector</string>
+    <string name="ui_catalog_hostility_selector_desc">Horizontally-scrolling selectable icon strip with a hoisted item slot.</string>
+    <!-- UI Catalog — state labels -->
+    <string name="ui_catalog_state_info">Info</string>
+    <string name="ui_catalog_state_error">Error</string>
+    <string name="ui_catalog_state_default">Default</string>
+    <string name="ui_catalog_state_supporting">Supporting text</string>
+    <string name="ui_catalog_state_enabled">Enabled (single-select)</string>
+    <string name="ui_catalog_state_disabled">Disabled with error</string>
+    <!-- UI Catalog — demo content -->
+    <string name="ui_catalog_inline_info_text">This is an informational hint.</string>
+    <string name="ui_catalog_inline_error_text">This value is required.</string>
+    <string name="ui_catalog_toggle_message">Toggle message</string>
+    <string name="ui_catalog_header_label">Section header</string>
+    <string name="ui_catalog_header_clicks">Header clicks: %1$d</string>
+    <string name="ui_catalog_expandable_label">Expandable section</string>
+    <string name="ui_catalog_expandable_content">Hidden content revealed when expanded.</string>
+    <string name="ui_catalog_field_label">Name</string>
+    <string name="ui_catalog_field_value_default">Alpha</string>
+    <string name="ui_catalog_field_value_supporting">Charlie</string>
+    <string name="ui_catalog_form_field_box_error">Name must not be empty.</string>
+    <string name="ui_catalog_form_field_box_supporting">As shown on the map.</string>
+    <string name="ui_catalog_nested_parent_label">Parent field</string>
+    <string name="ui_catalog_nested_parent_value">Parent</string>
+    <string name="ui_catalog_nested_child_label">Nested field</string>
+    <string name="ui_catalog_nested_child_value">Child</string>
+    <!-- HeaderField extra state labels -->
+    <string name="ui_catalog_header_label_custom_color">Custom background header</string>
+    <string name="ui_catalog_header_label_default_shape">Default shape header</string>
+    <!-- NestedForm extra state labels -->
+    <string name="ui_catalog_nested_state_one_level">One level of nesting</string>
+    <string name="ui_catalog_nested_state_two_levels">Two levels of nesting</string>
+    <string name="ui_catalog_nested_deep_label">Deep nested field</string>
+    <string name="ui_catalog_nested_deep_value">Deep</string>
+    <string name="ui_catalog_hostility_label">Affiliation</string>
+    <string name="ui_catalog_hostility_readonly_label">Affiliation (read-only)</string>
+    <string name="ui_catalog_hostility_error">Select an affiliation.</string>
+
+    <!-- UI Catalog — lists demo -->
+    <string name="ui_catalog_list_item">Item %1$d</string>
+
+    <!-- UI Catalog — folded showcase category entries -->
+    <string name="ui_catalog_buttons_name">Buttons</string>
+    <string name="ui_catalog_buttons_desc">Button, OutlinedButton, TextButton, DestructiveButton, PrimaryProgressButton, AppFab, TopAppBar with AppBarActionButton.</string>
+    <string name="ui_catalog_inputs_name">Inputs</string>
+    <string name="ui_catalog_inputs_desc">OutlinedTextInputField, IntegerStepper, SimpleDropDownField, OutlinedDropDownField, measurement inputs (distance/speed/altitude/angle), coordinate input.</string>
+    <string name="ui_catalog_selection_name">Selection</string>
+    <string name="ui_catalog_selection_desc">SegmentedButtonRow, SliderWithLabel, CheckBoxField, SwitchField, RadioGroup, ColorSelector.</string>
+    <string name="ui_catalog_feedback_name">Feedback</string>
+    <string name="ui_catalog_feedback_desc">AppDialog, Banner (Info/Warning/Error), Carousel, Tooltip.</string>
+    <string name="ui_catalog_lists_name">Revealable Lists</string>
+    <string name="ui_catalog_lists_desc">RevealableLazyColumn with pull-to-refresh and swipe-to-reveal (edit/delete) actions.</string>
+
+    <!-- Map Interactor -->
+    <string name="map_interactor_tool_name">Map Interactor (CommonMapInteractor)</string>
+    <string name="map_interactor_desc">CommonMapInteractor: live camera readout, display mode, reticle, cursor pin, focus actions, and magnetic corrections.</string>
+    <string name="map_interactor_apis">CommonMapInteractor, mapNavigatorEvent, camera, lookAt, selectedPosition, isLookAtAboveHorizon, mapDisplayMode, updateMapDisplayMode, arDistanceLimit, setArDistanceLimit, isReticleVisible, setReticleVisible, isCursorPinned, pinCursor, unpinCursor, isMapVisible, setMapVisible, focusOnLocation, focusOnSector, getDeclination, getConvergence, getAngleCorrection</string>
+    <!-- Map Interactor — sections -->
+    <string name="map_interactor_section_camera">Camera &amp; LookAt</string>
+    <string name="map_interactor_section_display_mode">Display Mode</string>
+    <string name="map_interactor_section_controls">Reticle &amp; Cursor</string>
+    <string name="map_interactor_section_focus">Focus Actions</string>
+    <string name="map_interactor_section_corrections">Corrections at LookAt</string>
+    <!-- Map Interactor — readout labels -->
+    <string name="map_interactor_camera_lat">Camera latitude</string>
+    <string name="map_interactor_camera_lon">Camera longitude</string>
+    <string name="map_interactor_camera_alt">Camera altitude</string>
+    <string name="map_interactor_camera_heading">Heading</string>
+    <string name="map_interactor_camera_tilt">Tilt</string>
+    <string name="map_interactor_lookat_lat">LookAt latitude</string>
+    <string name="map_interactor_lookat_lon">LookAt longitude</string>
+    <string name="map_interactor_above_horizon">Above horizon</string>
+    <string name="map_interactor_selected_pos">Selected position</string>
+    <!-- Map Interactor — display modes -->
+    <string name="map_interactor_mode_normal">Normal</string>
+    <string name="map_interactor_mode_ar">AR</string>
+    <string name="map_interactor_mode_vr">VR</string>
+    <string name="map_interactor_ar_distance">AR distance limit (m)</string>
+    <!-- Map Interactor — controls -->
+    <string name="map_interactor_reticle">Reticle visible</string>
+    <string name="map_interactor_map_visible">Map visible</string>
+    <string name="map_interactor_pin_cursor">Pin cursor</string>
+    <string name="map_interactor_unpin_cursor">Unpin cursor</string>
+    <string name="map_interactor_cursor_pinned">Cursor pinned</string>
+    <!-- Map Interactor — focus -->
+    <string name="map_interactor_focus_location">Focus on Kyiv</string>
+    <string name="map_interactor_focus_sector">Focus sector</string>
+    <!-- Map Interactor — corrections -->
+    <string name="map_interactor_declination">Magnetic declination</string>
+    <string name="map_interactor_convergence">Grid convergence</string>
+    <string name="map_interactor_angle_correction">Angle correction</string>
 
     <!-- Native (cross-APK) — shown on catalog detail screen for isolation sample -->
     <string name="native_cross_apk_title">Native / Cross-APK</string>

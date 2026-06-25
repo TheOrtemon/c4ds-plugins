@@ -1,7 +1,6 @@
 package vision.combat.c4.ds.sample.gallery.catalog.ui
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -9,14 +8,22 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Card
-import androidx.compose.material.Divider
+import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ExpandLess
+import androidx.compose.material.icons.filled.ExpandMore
+import androidx.compose.material.icons.outlined.Info
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.produceState
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -26,10 +33,10 @@ import vision.combat.c4.ds.sample.gallery.catalog.SampleCatalog
 import vision.combat.c4.ds.sample.gallery.catalog.SampleEntry
 import vision.combat.c4.ds.sample.gallery.catalog.SampleSection
 import vision.combat.c4.ds.sdk.tool.ToolManager
+import vision.combat.c4.ds.sdk.ui.component.TextSizeIcon
 import vision.combat.c4.ds.sdk.ui.component.WindowScaffold
 import vision.combat.c4.ds.sdk.ui.component.bar.BackNavTopAppBar
-import vision.combat.c4.ds.sdk.ui.component.button.Button
-import vision.combat.c4.ds.sdk.ui.component.button.TextButton
+import vision.combat.c4.ds.sdk.ui.component.list.ListItem
 
 @Composable
 internal fun CatalogListScreen(
@@ -64,28 +71,40 @@ private fun CatalogList(
     val entriesBySection = SampleCatalog.entries.groupBy { it.section }
     val sectionsWithEntries = SampleSection.entries.filter { entriesBySection[it]?.isNotEmpty() == true }
 
+    // Track collapsed (not expanded) sections as a Set<String> — a plain Set is saveable via
+    // the standard Saver, unlike SnapshotStateMap which has no built-in Saver.
+    // All sections start expanded; toggling adds/removes the section name from the collapsed set.
+    var collapsed by rememberSaveable { mutableStateOf(emptySet<String>()) }
+
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
-        contentPadding = PaddingValues(vertical = 12.dp),
+        contentPadding = PaddingValues(vertical = 4.dp),
     ) {
-        sectionsWithEntries.forEachIndexed { index, section ->
-            val sectionEntries = entriesBySection[section] ?: return@forEachIndexed
+        sectionsWithEntries.forEach { section ->
+            val sectionEntries = entriesBySection[section] ?: return@forEach
+            val isExpanded = section.name !in collapsed
 
             item(key = section.name) {
-                SectionHeader(section)
-            }
-
-            items(sectionEntries, key = { it.id }) { entry ->
-                SampleCard(
-                    entry = entry,
-                    toolManager = toolManager,
-                    onDetails = { onNavigateToDetail(entry.id) },
+                CollapsibleSectionHeader(
+                    title = stringResource(section.titleResId),
+                    expanded = isExpanded,
+                    onToggle = {
+                        collapsed = if (isExpanded) {
+                            collapsed + section.name
+                        } else {
+                            collapsed - section.name
+                        }
+                    },
                 )
             }
 
-            if (index < sectionsWithEntries.lastIndex) {
-                item(key = "${section.name}_divider") {
-                    Divider(modifier = Modifier.padding(vertical = 12.dp))
+            if (isExpanded) {
+                items(sectionEntries, key = { it.id }) { entry ->
+                    SampleListItem(
+                        entry = entry,
+                        toolManager = toolManager,
+                        onDetails = { onNavigateToDetail(entry.id) },
+                    )
                 }
             }
         }
@@ -93,25 +112,41 @@ private fun CatalogList(
 }
 
 @Composable
-private fun SectionHeader(section: SampleSection) {
-    Text(
-        text = stringResource(section.titleResId),
-        style = MaterialTheme.typography.subtitle1,
-        fontWeight = FontWeight.Bold,
+private fun CollapsibleSectionHeader(
+    title: String,
+    expanded: Boolean,
+    onToggle: () -> Unit,
+) {
+    Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 8.dp),
-        color = MaterialTheme.colors.onSurface,
-    )
+            .clickable(onClick = onToggle)
+            .padding(horizontal = 16.dp, vertical = 10.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Text(
+            text = title,
+            style = MaterialTheme.typography.subtitle1,
+            fontWeight = FontWeight.Bold,
+            color = MaterialTheme.colors.onSurface,
+            modifier = Modifier.weight(1f),
+        )
+        Icon(
+            imageVector = if (expanded) Icons.Filled.ExpandLess else Icons.Filled.ExpandMore,
+            contentDescription = stringResource(
+                if (expanded) R.string.catalog_section_collapse else R.string.catalog_section_expand,
+            ),
+            tint = MaterialTheme.colors.onSurface,
+        )
+    }
 }
 
 @Composable
-private fun SampleCard(
+private fun SampleListItem(
     entry: SampleEntry,
     toolManager: ToolManager,
     onDetails: () -> Unit,
 ) {
-    // For cross-APK entries, check if the target is installed on each recomposition
     val isEnabled by produceState(initialValue = !entry.isCrossApk, entry.isCrossApk) {
         value = if (entry.isCrossApk) {
             entry.crossApkFqcn?.let { toolManager.resolveToolId(it) } != null
@@ -120,45 +155,53 @@ private fun SampleCard(
         }
     }
 
-    Card(
-        elevation = 2.dp,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 12.dp, vertical = 4.dp),
-    ) {
-        Column(modifier = Modifier.padding(12.dp)) {
+    val notInstalledText = if (entry.isCrossApk && !isEnabled) {
+        stringResource(R.string.native_cross_apk_not_installed)
+    } else {
+        null
+    }
+
+    ListItem(
+        headline = {
             Text(
                 text = stringResource(entry.nameResId),
-                style = MaterialTheme.typography.subtitle1,
+                style = MaterialTheme.typography.body1,
                 fontWeight = FontWeight.SemiBold,
+                color = MaterialTheme.colors.onSurface,
             )
-            Text(
-                text = stringResource(entry.descResId),
-                style = MaterialTheme.typography.body2,
-                modifier = Modifier.padding(top = 4.dp, bottom = 8.dp),
-            )
-            if (entry.isCrossApk && !isEnabled) {
+        },
+        supportingText = if (notInstalledText != null) {
+            {
                 Text(
-                    text = stringResource(R.string.native_cross_apk_not_installed),
+                    text = notInstalledText,
                     style = MaterialTheme.typography.caption,
                     color = MaterialTheme.colors.error,
-                    modifier = Modifier.padding(bottom = 8.dp),
                 )
             }
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-            ) {
-                Button(
-                    label = stringResource(R.string.catalog_launch),
-                    onClick = { entry.launch?.invoke(toolManager) },
-                    enabled = isEnabled,
-                )
-                TextButton(
-                    label = stringResource(R.string.catalog_details),
-                    onClick = onDetails,
+        } else {
+            {
+                Text(
+                    text = stringResource(entry.descResId),
+                    style = MaterialTheme.typography.body2,
+                    color = MaterialTheme.colors.onSurface,
+                    maxLines = 2,
                 )
             }
-        }
-    }
+        },
+        onItemClick = if (isEnabled) {
+            { entry.launch?.invoke(toolManager) }
+        } else {
+            null
+        },
+        enableClickable = isEnabled,
+        canGoForward = false,
+        trailingAction = {
+            TextSizeIcon(
+                painter = rememberVectorPainter(Icons.Outlined.Info),
+                contentDescription = stringResource(R.string.catalog_details),
+                onClick = onDetails,
+                tint = MaterialTheme.colors.onSurface,
+            )
+        },
+    )
 }
-

@@ -5,13 +5,16 @@ import vision.combat.c4.ds.sample.gallery.R
 
 /**
  * Sections grouping samples in the catalog list.
+ *
+ * Ordering here controls display order in [CatalogListScreen].
  */
 enum class SampleSection(@StringRes val titleResId: Int) {
     WINDOWS(R.string.section_windows),
-    COMPONENTS(R.string.section_components),
     MAP(R.string.section_map),
-    STATUS_AND_BARS(R.string.section_status_bars),
-    MODEL_AND_LIFECYCLE(R.string.section_model_lifecycle),
+    MAP_OVERLAYS(R.string.section_map_overlays),
+    HOST_UI_CHROME(R.string.section_host_ui_chrome),
+    UI_COMPONENTS(R.string.section_ui_components),
+    MODEL_AND_MAP_DATA(R.string.section_model_map_data),
+    LIFECYCLE(R.string.section_lifecycle),
     RESOURCES_AND_ISOLATION(R.string.section_resources_isolation),
 }
-

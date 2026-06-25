@@ -12,11 +12,10 @@
     <tool-descriptor name="vision.combat.c4.ds.sample.gallery.underlay.UnderlayToolDescriptor" />
     <tool-descriptor name="vision.combat.c4.ds.sample.gallery.endbar.EndBarSampleToolDescriptor" />
     <tool-descriptor name="vision.combat.c4.ds.sample.gallery.model.ModelToolDescriptor" />
+    <tool-descriptor name="vision.combat.c4.ds.sample.gallery.mapinteractor.MapInteractorToolDescriptor" />
     <tool-descriptor name="vision.combat.c4.ds.sample.gallery.service.ServiceToolDescriptor" />
     <tool-descriptor name="vision.combat.c4.ds.sample.gallery.resources.config.ConfigToolDescriptor" />
     <tool-descriptor name="vision.combat.c4.ds.sample.gallery.resources.material.MaterialToolDescriptor" />
     <tool-descriptor name="vision.combat.c4.ds.sample.gallery.resources.collision.CollisionToolDescriptor" />
-    <tool-descriptor name="vision.combat.c4.ds.sample.gallery.components.ComponentsToolDescriptor" />
-    <tool-descriptor name="vision.combat.c4.ds.sample.gallery.components.ComponentsListsToolDescriptor" />
+    <tool-descriptor name="vision.combat.c4.ds.sample.gallery.uicatalog.UiCatalogToolDescriptor" />
 </combat-tools>
-

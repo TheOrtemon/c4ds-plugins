@@ -10,9 +10,12 @@ import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.LocationOn
+import androidx.compose.material.icons.filled.MyLocation
 import androidx.compose.material.icons.filled.Place
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.ui.Modifier
@@ -20,11 +23,15 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import vision.combat.c4.ds.sample.gallery.R
 import vision.combat.c4.ds.sample.gallery.model.ModelViewModel
+import vision.combat.c4.ds.sdk.domain.model.Hostility
+import vision.combat.c4.ds.sdk.ui.component.IconWithText
 import vision.combat.c4.ds.sdk.ui.component.WindowScaffold
 import vision.combat.c4.ds.sdk.ui.component.bar.BackNavTopAppBar
 import vision.combat.c4.ds.sdk.ui.component.button.TextButton
 import vision.combat.c4.ds.sdk.ui.component.list.ListItem
 import vision.combat.c4.ds.sdk.ui.component.list.ListItemDefaults
+import vision.combat.c4.ds.sdk.ui.unit.LocalUnitFormatter
+import vision.combat.c4.ds.sdk.ui.util.renderer.rememberSymbolPainter
 import vision.combat.c4.ds.sdk.ui.viewmodel.diViewModel
 import vision.combat.c4.model.BattlespaceConceptModel
 
@@ -110,6 +117,21 @@ private fun ModelRow(
     model: BattlespaceConceptModel,
     onSelect: () -> Unit,
 ) {
+    val unitFormatter = LocalUnitFormatter.current
+
+    // Resolve MIL-STD-2525 symbol painter; fall back to a place icon if unavailable.
+    val hostility = Hostility.findByName(model.hostilityCode.name)
+    val symbolPainter = rememberSymbolPainter(
+        symbolKey = model.symbolKey,
+        hostility = hostility,
+        size = ListItemDefaults.LeadingIconSize,
+    )
+
+    // Coordinates as location label (azimuth/distance vs. user require GeoHelper math
+    // which is non-trivial without a user model; show coordinates as the supporting detail).
+    val center = model.location.center
+    val coordText = "%.4f°, %.4f°".format(center.lat, center.lon)
+
     ListItem(
         headline = {
             Text(
@@ -120,22 +142,37 @@ private fun ModelRow(
             )
         },
         supportingText = {
-            Text(
-                text = model.id.toString(),
-                style = MaterialTheme.typography.caption,
+            IconWithText(
+                painter = rememberVectorPainter(Icons.Default.LocationOn),
+                text = coordText,
                 color = MaterialTheme.colors.onSurface.copy(alpha = 0.7f),
-                modifier = Modifier.fillMaxWidth(),
             )
         },
         leadingIcon = {
             Box(modifier = Modifier.size(ListItemDefaults.LeadingIconSize)) {
-                Icon(
-                    painter = rememberVectorPainter(Icons.Default.Place),
-                    contentDescription = null,
-                    tint = MaterialTheme.colors.onSurface,
-                    modifier = Modifier.matchParentSize(),
-                )
+                if (symbolPainter != null) {
+                    Icon(
+                        painter = symbolPainter,
+                        contentDescription = null,
+                        tint = Color.Unspecified,
+                        modifier = Modifier.matchParentSize(),
+                    )
+                } else {
+                    Icon(
+                        painter = rememberVectorPainter(Icons.Default.Place),
+                        contentDescription = null,
+                        tint = MaterialTheme.colors.onSurface,
+                        modifier = Modifier.matchParentSize(),
+                    )
+                }
             }
+        },
+        contentTrailingTop = {
+            IconWithText(
+                painter = rememberVectorPainter(Icons.Default.MyLocation),
+                text = model.hostilityCode.name,
+                color = MaterialTheme.colors.onSurface.copy(alpha = 0.7f),
+            )
         },
         onItemClick = onSelect,
         canGoForward = false,
