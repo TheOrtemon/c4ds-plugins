@@ -18,7 +18,9 @@ internal class MapInteractorViewModel(
     private val mapInteractor: CommonMapInteractor,
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow(UiState())
+    private val _uiState = MutableStateFlow(
+        UiState(selectedPosition = mapInteractor.selectedPosition.value),
+    )
     val uiState: StateFlow<UiState> = _uiState.asStateFlow()
 
     init {
@@ -102,13 +104,22 @@ internal class MapInteractorViewModel(
     }
 
     fun focusOnSampleLocation() {
-        // Kyiv, Ukraine as a stable demo location
-        mapInteractor.focusOnLocation(Location.fromDegrees(50.45, 30.52))
+        mapInteractor.focusOnLocation(SAMPLE_LOCATION)
+        // Nudge the map engine to paint the camera move in the same frame.
+        mapInteractor.requestRedraw()
     }
 
     fun focusOnSampleSector() {
-        // ~10° sector around Kyiv
-        mapInteractor.focusOnSector(Sector.fromDegrees(45.0, 25.0, 10.0, 10.0))
+        // ~10° sector centered on the same Kyiv demo point as focusOnSampleLocation
+        mapInteractor.focusOnSector(sampleSector)
+        mapInteractor.requestRedraw()
+    }
+
+    override fun onCleared() {
+        mapInteractor.updateMapDisplayMode { MapDisplayMode.Normal }
+        mapInteractor.setMapVisible(true)
+        mapInteractor.setReticleVisible(false)
+        super.onCleared()
     }
 
     data class UiState(
@@ -118,7 +129,7 @@ internal class MapInteractorViewModel(
         val isCursorPinned: Boolean = false,
         val isLookAtAboveHorizon: Boolean = false,
         val isMapVisible: Boolean = true,
-        val selectedPosition: Position? = null,
+        val selectedPosition: Position,
         val cameraLatDeg: Double = 0.0,
         val cameraLonDeg: Double = 0.0,
         val cameraAltM: Double = 0.0,
@@ -130,4 +141,21 @@ internal class MapInteractorViewModel(
         val convergence: Float = 0f,
         val angleCorrection: Float = 0f,
     )
+
+    companion object {
+        // Kyiv, Ukraine — stable demo location (shared with MapWindow sample)
+        private val SAMPLE_LOCATION = Location.fromDegrees(50.45, 30.52)
+        private const val SAMPLE_SECTOR_DELTA_DEG = 10.0
+
+        private val sampleSector: Sector
+            get() {
+                val halfDelta = SAMPLE_SECTOR_DELTA_DEG / 2.0
+                return Sector.fromDegrees(
+                    SAMPLE_LOCATION.latitude.inDegrees - halfDelta,
+                    SAMPLE_LOCATION.longitude.inDegrees - halfDelta,
+                    SAMPLE_SECTOR_DELTA_DEG,
+                    SAMPLE_SECTOR_DELTA_DEG,
+                )
+            }
+    }
 }

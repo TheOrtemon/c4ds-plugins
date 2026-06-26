@@ -27,12 +27,15 @@ internal class ExpandableStatusTool(
         shouldShowAbove = false,
     ) {
         ExpandableStatusContent(
-            isExpanded = expandableStatus.isExpanded,
-            shouldShowAbove = expandableStatus.shouldShowAbove,
-            onToggleShowAbove = { expandableStatus.shouldShowAbove = it },
+            shouldShowAbove = shouldShowAbove,
+            onToggleShowAbove = { shouldShowAbove = it },
         )
     }
 
+    /**
+     * Programmatic demo of [ToolComponent.ExpandableStatus.isExpanded]; duplicates the host
+     * chevron above the status bar that toggles expand/collapse for the same component.
+     */
     override val endBar by endBar {
         EndBarToggleButton(
             icon = painterResource(R.drawable.ic_expandable_status),
@@ -42,4 +45,3 @@ internal class ExpandableStatusTool(
         )
     }
 }
-

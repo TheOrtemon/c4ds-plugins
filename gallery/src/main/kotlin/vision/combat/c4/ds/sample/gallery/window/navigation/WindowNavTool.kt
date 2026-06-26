@@ -1,7 +1,6 @@
 package vision.combat.c4.ds.sample.gallery.window.navigation
 
 import org.kodein.di.DI
-import org.kodein.di.subDI
 import vision.combat.c4.ds.sample.gallery.window.navigation.di.windowNavModule
 import vision.combat.c4.ds.sample.gallery.window.navigation.ui.WindowNavWindow
 import vision.combat.c4.ds.sdk.tool.AbstractTool
@@ -18,9 +17,7 @@ internal class WindowNavTool(
     params: ToolParams?,
 ) : AbstractTool(toolContext, toolDescriptor, parentDI, params) {
 
-    override val di: DI = subDI(super.di) {
-        import(windowNavModule)
-    }
+    override val di: DI = toolSubDI { import(windowNavModule) }
 
     override val window: ToolComponent.Window by requiredComponent {
         WindowNavWindow()

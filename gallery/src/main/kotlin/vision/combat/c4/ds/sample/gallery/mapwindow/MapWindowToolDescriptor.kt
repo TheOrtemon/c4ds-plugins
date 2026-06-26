@@ -10,9 +10,12 @@ import vision.combat.c4.ds.sdk.tool.ToolParams
 /**
  * Demonstrates ToolComponent.MapWindow with embedded map controls.
  *
+ * The host [ToolWindowScreen] already provides default zoom (and orientation) buttons
+ * via ToolWindowMapEndBar; [MapWindow.mapEndBarButtons] is for supplemental actions only.
+ *
  * SDK APIs: ToolComponent.MapWindow, mapWindow { } factory, MapView, MapController,
- *           MapWindow.mapEndBarButtons, MapWindow.navBarContent,
- *           MapController.InteractionMode, MapController.focusOnLocation.
+ *           MapWindow.mapEndBarButtons, MapWindow.navBarContent, MapWindow.focusCameraOn,
+ *           MapController.InteractionMode.
  *
  * SDK files:
  *   c4ds-sdk/src/main/kotlin/vision/combat/c4/ds/sdk/tool/ToolComponent.kt

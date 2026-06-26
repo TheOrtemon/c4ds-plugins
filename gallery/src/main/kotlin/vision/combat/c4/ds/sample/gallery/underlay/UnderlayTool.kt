@@ -17,9 +17,17 @@ import vision.combat.c4.ds.sdk.tool.requiredComponent
 import vision.combat.c4.ds.sdk.ui.component.bar.endbar.EndBarActionButton
 
 /**
- * Demonstrates ToolComponent.Underlay — composable rendered behind the map.
+ * Demonstrates [ToolComponent.Underlay] — composable rendered behind the map.
  *
- * SDK APIs: ToolComponent.Underlay, requiredComponent, AbstractTool.endBar, EndBarActionButton.
+ * This sample uses [requiredComponent] (always-on underlay). For conditional visibility,
+ * use `component(isRequired = { … })` instead — see `LiveStreamTool` in c4ds.
+ *
+ * The host enables AR map mode while any underlay is active (`MainActivity` observes
+ * underlay components). Tools that need extra setup when the underlay appears can override
+ * [AbstractTool.onComponentShown] / [AbstractTool.onComponentHidden] — see `DroneTool`.
+ *
+ * SDK APIs: ToolComponent.Underlay, requiredComponent, AbstractTool.endBar, EndBarActionButton,
+ *           ToolManager.deactivate.
  *
  * SDK files:
  *   c4ds-sdk/src/main/kotlin/vision/combat/c4/ds/sdk/tool/ToolComponent.kt

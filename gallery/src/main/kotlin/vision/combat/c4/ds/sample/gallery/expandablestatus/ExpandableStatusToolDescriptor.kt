@@ -8,7 +8,8 @@ import vision.combat.c4.ds.sdk.tool.ToolDescriptor
 import vision.combat.c4.ds.sdk.tool.ToolParams
 
 /**
- * Demonstrates ToolComponent.ExpandableStatus with programmatic expand/collapse.
+ * Demonstrates ToolComponent.ExpandableStatus; expand/collapse via the host chevron above
+ * the status bar (end-bar toggle duplicates that control for programmatic demo).
  *
  * SDK APIs: ToolComponent.ExpandableStatus, expandableStatusComponent,
  *           ExpandableStatus.isExpanded, ExpandableStatus.shouldShowAbove,

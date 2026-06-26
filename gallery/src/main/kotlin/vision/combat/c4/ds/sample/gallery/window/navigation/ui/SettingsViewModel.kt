@@ -14,10 +14,16 @@ internal class SettingsViewModel(
         .observeOpenOnTop(viewModelScope)
         .mapAndStateIn(viewModelScope) { UiState(it) }
 
-    fun setOpenOnTop(openOnTop: Boolean) {
-        repository.setOpenOnTop(openOnTop)
+    fun handleAction(action: Action) {
+        when (action) {
+            is Action.SetOpenOnTop -> repository.setOpenOnTop(action.openOnTop)
+        }
     }
 
     data class UiState(val openOnTop: Boolean = false)
+
+    sealed interface Action {
+        data class SetOpenOnTop(val openOnTop: Boolean) : Action
+    }
 }
 

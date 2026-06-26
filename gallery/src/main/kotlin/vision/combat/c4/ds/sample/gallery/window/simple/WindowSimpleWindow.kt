@@ -15,7 +15,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import android.widget.Toast
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -34,6 +33,7 @@ import vision.combat.c4.ds.sdk.ui.component.measurement.AltitudeInput
 import vision.combat.c4.ds.sdk.ui.component.measurement.AngleInput
 import vision.combat.c4.ds.sdk.ui.component.measurement.DistanceInput
 import vision.combat.c4.ds.sdk.ui.component.measurement.SpeedInput
+import vision.combat.c4.ds.sdk.ui.util.showToast
 import vision.combat.c4.ds.sdk.ui.viewmodel.diViewModel
 
 @Composable
@@ -142,11 +142,10 @@ private fun ColumnScope.MeasurementInputsDemo() {
 private fun EventHandler(eventFlow: Flow<Event>) {
     val context = LocalContext.current
     val unselectedMessage = stringResource(R.string.window_simple_unselected_toast)
-    LaunchedEffect(eventFlow, context) {
+    LaunchedEffect(eventFlow) {
         eventFlow.collect { event ->
             when (event) {
-                is Event.ModelUnselected ->
-                    Toast.makeText(context, unselectedMessage, Toast.LENGTH_SHORT).show()
+                is Event.ModelUnselected -> context.showToast(unselectedMessage)
             }
         }
     }

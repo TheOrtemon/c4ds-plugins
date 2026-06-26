@@ -98,6 +98,12 @@ private fun ColumnScope.MaterialContent() {
         modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp),
     )
 
+    /**
+     * [AlertDialog] renders in a separate popup composition where [androidx.compose.ui.platform.LocalContext]
+     * resets to the host Activity context (no [CompositionFallbackContext]). For production plugin tools,
+     * prefer [vision.combat.c4.ds.sdk.tool.ToolDialog] via [vision.combat.c4.ds.sdk.tool.AbstractTool.showDialog],
+     * or pre-resolve strings before opening the dialog (see [snackbarMsg] above).
+     */
     if (showDialog) {
         AlertDialog(
             onDismissRequest = { showDialog = false },

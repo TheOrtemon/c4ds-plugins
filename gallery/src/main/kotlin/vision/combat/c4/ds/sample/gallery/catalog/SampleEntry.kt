@@ -14,7 +14,8 @@ import vision.combat.c4.ds.sdk.tool.ToolManager
  * @param sourceSubpackage Package path shown on the detail screen (e.g. "window/simple").
  * @param isCrossApk True if this entry requires a separate APK to be installed.
  * @param crossApkFqcn If [isCrossApk], the FQCN of the target descriptor for resolveToolId.
- * @param launch Called when the user taps Launch. Null for cross-APK entries handled separately.
+ * @param launch Called when the user taps the list row to activate the sample. May be non-null for
+ *   cross-APK entries that use [ToolManager.resolveToolId] before [ToolManager.activate].
  */
 data class SampleEntry(
     val id: String,

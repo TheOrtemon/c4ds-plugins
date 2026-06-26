@@ -16,12 +16,15 @@ import vision.combat.c4.ds.sdk.domain.interactor.userModelUpdatedEvent
 import vision.combat.c4.ds.sdk.domain.util.toLocation
 import vision.combat.c4.ds.sdk.ui.util.toString
 import vision.combat.c4.model.obj.actor.person.PersonModel
+import vision.combat.c4.ds.sdk.tool.ToolManager
+import vision.combat.c4.ds.sdk.tool.deactivate
 import vision.combat.c4.unit.CoordinateSystemFormat
 
 internal class OverlaySampleViewModel(
     mapInteractor: CommonMapInteractor,
     modelInteractor: CommonModelInteractor,
     localeSettingsInteractor: CommonLocaleSettingsInteractor,
+    private val toolManager: ToolManager,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(UiState())
@@ -51,9 +54,19 @@ internal class OverlaySampleViewModel(
         _uiState.update { it.copy(selectedPosition = position.toString(coordinateSystemFormat)) }
     }
 
+    fun handleAction(action: Action) {
+        when (action) {
+            Action.Close -> toolManager.deactivate<OverlaySampleToolDescriptor>()
+        }
+    }
+
     data class UiState(
         val selectedPosition: String? = null,
         val userModel: String? = null,
     )
+
+    sealed interface Action {
+        data object Close : Action
+    }
 }
 

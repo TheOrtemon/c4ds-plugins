@@ -40,6 +40,7 @@ import vision.combat.c4.ds.sdk.ui.component.list.ListItem
 
 @Composable
 internal fun CatalogListScreen(
+    crossApkRefreshKey: Int = 0,
     onNavigateToDetail: (String) -> Unit,
 ) {
     val toolManager by rememberInstance<ToolManager>()
@@ -57,6 +58,7 @@ internal fun CatalogListScreen(
         content = {
             CatalogList(
                 toolManager = toolManager,
+                crossApkRefreshKey = crossApkRefreshKey,
                 onNavigateToDetail = onNavigateToDetail,
             )
         },
@@ -66,6 +68,7 @@ internal fun CatalogListScreen(
 @Composable
 private fun CatalogList(
     toolManager: ToolManager,
+    crossApkRefreshKey: Int,
     onNavigateToDetail: (String) -> Unit,
 ) {
     val entriesBySection = SampleCatalog.entries.groupBy { it.section }
@@ -103,6 +106,7 @@ private fun CatalogList(
                     SampleListItem(
                         entry = entry,
                         toolManager = toolManager,
+                        crossApkRefreshKey = crossApkRefreshKey,
                         onDetails = { onNavigateToDetail(entry.id) },
                     )
                 }
@@ -145,9 +149,10 @@ private fun CollapsibleSectionHeader(
 private fun SampleListItem(
     entry: SampleEntry,
     toolManager: ToolManager,
+    crossApkRefreshKey: Int,
     onDetails: () -> Unit,
 ) {
-    val isEnabled by produceState(initialValue = !entry.isCrossApk, entry.isCrossApk) {
+    val isEnabled by produceState(initialValue = !entry.isCrossApk, entry.isCrossApk, crossApkRefreshKey) {
         value = if (entry.isCrossApk) {
             entry.crossApkFqcn?.let { toolManager.resolveToolId(it) } != null
         } else {

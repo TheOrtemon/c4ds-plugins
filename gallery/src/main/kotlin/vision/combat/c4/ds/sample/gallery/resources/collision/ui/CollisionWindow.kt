@@ -45,14 +45,17 @@ private fun ColumnScope.CollisionContent() {
                 modifier = Modifier.size(32.dp).padding(end = 8.dp),
             )
             Text(
-                text = "R.string.settings = \"${stringResource(R.string.settings)}\"",
+                text = stringResource(
+                    R.string.collision_settings_line,
+                    stringResource(R.string.settings),
+                ),
                 style = MaterialTheme.typography.body1,
             )
         }
     }
 
     Text(
-        text = "Plugin-first resolution: the value shown above comes from the plugin APK, not the host.",
+        text = stringResource(R.string.collision_plugin_first_caption),
         style = MaterialTheme.typography.caption,
         color = MaterialTheme.colors.onSurface,
     )

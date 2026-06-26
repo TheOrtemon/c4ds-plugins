@@ -10,11 +10,13 @@ import vision.combat.c4.ds.sdk.tool.ToolParams
 /**
  * Demonstrates ToolComponent.Overlay with map and model interactors.
  *
- * SDK APIs: ToolComponent.Overlay, CommonMapInteractor.selectedPosition,
+ * SDK APIs: ToolComponent.Overlay, requiredComponent, AbstractTool.endBar,
+ *           EndBarActionButton, CommonMapInteractor.selectedPosition,
  *           CommonModelInteractor.userModel, CommonLocaleSettingsInteractor.
  *
  * SDK files:
  *   c4ds-sdk/src/main/kotlin/vision/combat/c4/ds/sdk/tool/ToolComponent.kt
+ *   c4ds-sdk/src/main/kotlin/vision/combat/c4/ds/sdk/tool/AbstractTool.kt
  *   c4ds-sdk-core/domain/src/commonMain/.../interactor/CommonMapInteractor.kt
  *   c4ds-sdk-core/domain/src/commonMain/.../interactor/CommonModelInteractor.kt
  */

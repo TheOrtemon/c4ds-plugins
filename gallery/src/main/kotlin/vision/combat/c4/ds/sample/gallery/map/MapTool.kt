@@ -5,7 +5,9 @@ import earth.worldwind.shape.Placemark
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import org.kodein.di.DI
+import org.kodein.di.instance
 import vision.combat.c4.ds.sample.gallery.map.ui.MapStatusBar
+import vision.combat.c4.ds.sdk.domain.interactor.CommonMapInteractor
 import vision.combat.c4.ds.sdk.tool.AbstractMapTool
 import vision.combat.c4.ds.sdk.tool.ToolComponent
 import vision.combat.c4.ds.sdk.tool.ToolContext
@@ -19,6 +21,8 @@ internal class MapTool(
     parentDI: DI,
     params: ToolParams?,
 ) : AbstractMapTool(toolContext, toolDescriptor, parentDI, params) {
+
+    private val mapInteractor: CommonMapInteractor by instance()
 
     private val _lastTap = MutableStateFlow<String?>(null)
     val lastTap = _lastTap.asStateFlow()
@@ -36,5 +40,6 @@ internal class MapTool(
             position.longitude.inDegrees,
         )
         addRenderable(Placemark(position))
+        mapInteractor.requestRedraw()
     }
 }

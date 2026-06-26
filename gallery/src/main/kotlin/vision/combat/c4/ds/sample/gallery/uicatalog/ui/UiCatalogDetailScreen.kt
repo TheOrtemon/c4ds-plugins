@@ -20,8 +20,6 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowRight
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.filled.Edit
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -82,7 +80,9 @@ import vision.combat.c4.ds.sdk.ui.component.measurement.AltitudeInput
 import vision.combat.c4.ds.sdk.ui.component.measurement.AngleInput
 import vision.combat.c4.ds.sdk.ui.component.measurement.DistanceInput
 import vision.combat.c4.ds.sdk.ui.component.measurement.SpeedInput
-import vision.combat.c4.ds.sdk.ui.component.reveal.RevealMenuButton
+import vision.combat.c4.ds.sdk.ui.component.list.ListItem
+import vision.combat.c4.ds.sdk.ui.component.reveal.DeleteMenuButton
+import vision.combat.c4.ds.sdk.ui.component.reveal.EditMenuButton
 import vision.combat.c4.ds.sdk.ui.component.reveal.RevealableLazyColumn
 import vision.combat.c4.ds.sdk.ui.component.slider.SliderWithLabel
 import vision.combat.c4.ds.sdk.ui.component.text.OutlinedTextInputField
@@ -94,8 +94,7 @@ internal fun UiCatalogDetailScreen(
 ) {
     val entry = UiCatalogRegistry.entryById(componentId)
 
-    // BLOCKER #3 fix: never call onBack() during composition. Use LaunchedEffect so the
-    // navigation happens after the composition frame, not as a side effect inside it.
+    // Never call onBack() during composition — navigate after the frame via LaunchedEffect.
     if (entry == null) {
         LaunchedEffect(componentId) { onBack() }
         return
@@ -152,29 +151,22 @@ private fun ListsDetailScreen(entry: UiCatalogEntry, onBack: () -> Unit) {
             },
             itemKey = { _, item -> item.id },
             startMenuItems = { _, _ ->
-                RevealMenuButton(
-                    painter = rememberVectorPainter(Icons.Default.Edit),
-                    caption = stringResource(R.string.components_lists_action_edit),
-                    onClick = {},
-                )
+                EditMenuButton(onClick = {})
             },
             endMenuItems = { _, _ ->
-                RevealMenuButton(
-                    painter = rememberVectorPainter(Icons.Default.Delete),
-                    caption = stringResource(R.string.components_lists_action_delete),
-                    onClick = {},
-                )
+                DeleteMenuButton(onClick = {})
             },
         ) { _, item ->
-            Text(
-                text = stringResource(R.string.ui_catalog_list_item, item.id + 1),
-                style = MaterialTheme.typography.body1,
-                color = MaterialTheme.colors.onSurface,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 12.dp),
+            ListItem(
+                headline = {
+                    Text(
+                        text = stringResource(R.string.ui_catalog_list_item, item.id + 1),
+                        style = MaterialTheme.typography.body1,
+                        color = MaterialTheme.colors.onSurface,
+                    )
+                },
+                onItemClick = {},
             )
-            Divider()
         }
     }
 }
@@ -772,14 +764,16 @@ private fun FeedbackDemo() {
                     style = MaterialTheme.typography.body2,
                     color = MaterialTheme.colors.onSurface,
                 )
-                Button(
-                    label = stringResource(R.string.components_tooltip_show),
-                    onClick = { expanded.value = !expanded.value },
-                )
-                Tooltip(expanded = expanded) {
-                    Text(
-                        text = stringResource(R.string.components_tooltip_content),
-                        modifier = Modifier.padding(8.dp),
+                Box {
+                    Tooltip(expanded = expanded) {
+                        Text(
+                            text = stringResource(R.string.components_tooltip_content),
+                            modifier = Modifier.padding(8.dp),
+                        )
+                    }
+                    Button(
+                        label = stringResource(R.string.components_tooltip_show),
+                        onClick = { expanded.value = !expanded.value },
                     )
                 }
             }

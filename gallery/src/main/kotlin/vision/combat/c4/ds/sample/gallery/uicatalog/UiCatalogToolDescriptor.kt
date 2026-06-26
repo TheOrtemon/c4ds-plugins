@@ -8,19 +8,21 @@ import vision.combat.c4.ds.sdk.tool.ToolDescriptor
 import vision.combat.c4.ds.sdk.tool.ToolParams
 
 /**
- * Catalog-launched sample showcasing the public SDK form components that were promoted from the
- * internal `:form` module into the public `:ui` module.
+ * Catalog-launched sample showcasing promoted public SDK UI components: six form-field components
+ * and five grouped showcases (Buttons, Inputs, Selection, Feedback, Lists).
  *
  * Navigation: a list of components -> a per-component detail screen that renders the component in
  * several states (see [vision.combat.c4.ds.sample.gallery.uicatalog.ui.UiCatalogWindow]).
  *
  * SDK APIs demonstrated:
- *   ui.component.field.InlineMessage,
- *   ui.component.field.HeaderField,
- *   ui.component.field.ExpandableField,
- *   ui.component.field.FormFieldBox,
- *   ui.component.field.NestedForm,
+ *   ui.component.field.InlineMessage, HeaderField, ExpandableField, FormFieldBox, NestedForm,
  *   ui.component.hostility.HostilitySelector,
+ *   ui.component.button.*, bar.TopAppBar, bar.AppBarActionButton, bar.AppFab,
+ *   ui.component.text.OutlinedTextInputField, IntegerStepper, dropdown.*, measurement.*,
+ *   coordinates.CoordinatesInputWithSystem,
+ *   SegmentedButtonRow, SliderWithLabel, checkable.*, RadioGroup, ColorSelector,
+ *   AppDialog, Banner, Carousel, Tooltip,
+ *   reveal.RevealableLazyColumn, list.ListItem, reveal.EditMenuButton, reveal.DeleteMenuButton,
  *   ui.navigation.AppNavHost, WindowScaffold, bar.BackNavTopAppBar, bar.TopAppBar
  */
 class UiCatalogToolDescriptor(toolContext: ToolContext) : ToolDescriptor(toolContext) {

@@ -4,9 +4,9 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Check
-import androidx.compose.material.icons.filled.Remove
+import androidx.compose.material.icons.filled.MyLocation
+import earth.worldwind.geom.Location
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -41,7 +41,7 @@ internal class MapWindowTool(
     override val window: ToolComponent.MapWindow by mapWindow(
         isRequired = { true },
         showMapOnActivation = true,
-        mapEndBarButtons = { ZoomButtons() },
+        mapEndBarButtons = { FocusCameraButton() },
         navBarContent = { MapWindowAppBar() },
         initialize = {
             navigationController.interactionMode = MapController.InteractionMode.LookAt
@@ -49,16 +49,14 @@ internal class MapWindowTool(
     )
 
     @Composable
-    private fun ZoomButtons() {
+    private fun FocusCameraButton() {
         EndBarActionButton(
-            icon = rememberVectorPainter(Icons.Default.Add),
-            contentDescription = stringResource(R.string.mapwindow_zoom_in),
-            onClick = { window.mapView?.navigationController?.zoomIn() },
-        )
-        EndBarActionButton(
-            icon = rememberVectorPainter(Icons.Default.Remove),
-            contentDescription = stringResource(R.string.mapwindow_zoom_out),
-            onClick = { window.mapView?.navigationController?.zoomOut() },
+            icon = rememberVectorPainter(Icons.Default.MyLocation),
+            contentDescription = stringResource(R.string.mapwindow_focus_camera),
+            onClick = {
+                // Kyiv — same stable demo location as the MapInteractor sample
+                window.focusCameraOn(Location.fromDegrees(50.45, 30.52), lockCamera = false)
+            },
         )
     }
 

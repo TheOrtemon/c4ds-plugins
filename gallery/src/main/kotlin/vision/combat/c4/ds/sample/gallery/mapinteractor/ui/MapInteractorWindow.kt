@@ -92,12 +92,13 @@ private fun MapInteractorContent(
             uiState.isLookAtAboveHorizon.toString(),
         )
 
-        uiState.selectedPosition?.let { pos ->
-            ReadoutRow(
-                stringResource(R.string.map_interactor_selected_pos),
-                "%.4f°, %.4f°".format(pos.latitude.inDegrees, pos.longitude.inDegrees),
-            )
-        }
+        ReadoutRow(
+            stringResource(R.string.map_interactor_selected_pos),
+            "%.4f°, %.4f°".format(
+                uiState.selectedPosition.latitude.inDegrees,
+                uiState.selectedPosition.longitude.inDegrees,
+            ),
+        )
 
         Divider(modifier = Modifier.padding(vertical = 8.dp))
 

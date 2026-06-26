@@ -8,10 +8,10 @@ import vision.combat.c4.ds.sdk.tool.ToolDescriptor
 import vision.combat.c4.ds.sdk.tool.ToolParams
 
 /**
- * Demonstrates ToolComponent.Status with coordinate and azimuth display.
+ * Demonstrates ToolComponent.Status with host coordinate and azimuth chrome flags.
  *
  * SDK APIs: ToolComponent.Status, statusComponent, Status.shouldShowCoordinates,
- *           Status.shouldShowAzimuth, CommonMapInteractor.selectedPosition.
+ *           Status.shouldShowAzimuth.
  *
  * SDK files:
  *   c4ds-sdk/src/main/kotlin/vision/combat/c4/ds/sdk/tool/ToolComponent.kt

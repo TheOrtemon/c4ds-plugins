@@ -20,12 +20,12 @@ internal fun EndBarSampleWindow(
 ) {
     WindowScaffold(
         topAppBar = { BackNavTopAppBar(title = stringResource(R.string.endbar_tool_name)) },
-        content = { EndBarContent(toggleState, sliderValue) },
+        content = { EndBarSamplePanel(toggleState, sliderValue) },
     )
 }
 
 @Composable
-private fun ColumnScope.EndBarContent(
+private fun ColumnScope.EndBarSamplePanel(
     toggleState: () -> Boolean,
     sliderValue: () -> Float,
 ) {

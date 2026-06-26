@@ -10,7 +10,6 @@
     <string name="section_model_map_data">Model &amp; Map Data</string>
     <string name="section_lifecycle">Lifecycle &amp; Services</string>
     <string name="section_resources_isolation">Resources &amp; Isolation</string>
-    <string name="catalog_launch">Launch</string>
     <string name="catalog_details">Details</string>
     <string name="catalog_sdk_apis_label">SDK APIs</string>
     <string name="catalog_source_label">Source subpackage</string>
@@ -20,13 +19,11 @@
     <!-- Window Simple -->
     <string name="window_simple_tool_name">Window — Simple</string>
     <string name="window_simple_desc">Minimum viable window tool with SDK form inputs and model interactor.</string>
-    <string name="window_simple_apis">ToolComponent.Window, WindowScaffold, BackNavTopAppBar, DistanceInput, SpeedInput, AltitudeInput, AngleInput, CoordinatesInputWithSystem, CommonModelInteractor</string>
-    <string name="window_simple_section_model">Model</string>
+    <string name="window_simple_apis">ToolComponent.Window, WindowScaffold, BackNavTopAppBar, diViewModel(), DistanceInput, SpeedInput, AltitudeInput, AngleInput, CoordinatesInputWithSystem, CommonModelInteractor, showToast</string>
     <string name="window_simple_section_inputs">Measurement Inputs</string>
     <string name="window_simple_user_model">User model</string>
     <string name="window_simple_selected_model">Selected model</string>
     <string name="window_simple_model_name">Name</string>
-    <string name="window_simple_coordinates">Coordinates</string>
     <string name="window_simple_distance">Distance</string>
     <string name="window_simple_speed">Speed</string>
     <string name="window_simple_altitude">Altitude</string>
@@ -39,7 +36,7 @@
     <!-- Window Navigation -->
     <string name="window_nav_tool_name">Window — Navigation</string>
     <string name="window_nav_desc">Multi-screen window using AppNavHost, tool-scoped DI module, and SharedPreferences.</string>
-    <string name="window_nav_apis">AppNavHost, Route, BackNavigationButton, subDI, SharedPreferences, ToolManager.activate</string>
+    <string name="window_nav_apis">AppNavHost, Route, BackNavigationButton, toolSubDI, SharedPreferences, ToolManager.activate</string>
     <string name="window_nav_home_title">Home</string>
     <string name="window_nav_home_desc">This is a multi-screen window tool demonstrating navigation between screens and persisted settings.</string>
     <string name="window_nav_go_settings">Go to Settings</string>
@@ -77,38 +74,33 @@
     <string name="overlay_user_model">User model:</string>
     <string name="overlay_not_available">Not available</string>
     <string name="overlay_close">Close</string>
+    <string name="overlay_close_cd">Close overlay</string>
 
     <!-- Map -->
     <string name="map_tool_name">Map (AbstractMapTool)</string>
     <string name="map_desc">Map tap callbacks and renderable layer drawing using AbstractMapTool.</string>
-    <string name="map_apis">AbstractMapTool, SelectDragCallback, addRenderable, RenderableLayer, ToolComponent.Status, CommonMapInteractor.focusOnLocation</string>
+    <string name="map_apis">AbstractMapTool, SelectDragCallback, addRenderable, RenderableLayer, ToolComponent.Status</string>
     <string name="map_status_tap_hint">Tap the map to place a marker</string>
     <string name="map_last_tap">Last tap:</string>
-    <string name="map_no_tap_yet">No tap yet</string>
 
     <!-- MapWindow -->
     <string name="mapwindow_tool_name">MapWindow</string>
-    <string name="mapwindow_desc">Embedded secondary map inside a tool window via ToolComponent.MapWindow.</string>
-    <string name="mapwindow_apis">ToolComponent.MapWindow, mapWindow factory, MapView, MapController, MapWindow.mapEndBarButtons, MapWindow.navBarContent</string>
+    <string name="mapwindow_desc">Embedded secondary map inside a tool window via ToolComponent.MapWindow. The host provides default zoom controls; this sample adds supplemental end-bar and nav-bar actions.</string>
+    <string name="mapwindow_apis">ToolComponent.MapWindow, mapWindow factory, MapView, MapController, MapWindow.mapEndBarButtons, MapWindow.navBarContent, MapWindow.focusCameraOn</string>
     <string name="mapwindow_mode_lookat">LookAt</string>
     <string name="mapwindow_mode_fpv">FPV</string>
-    <string name="mapwindow_zoom_in">Zoom in</string>
-    <string name="mapwindow_zoom_out">Zoom out</string>
+    <string name="mapwindow_focus_camera">Focus camera on demo location</string>
 
     <!-- Status -->
     <string name="status_tool_name">Status</string>
-    <string name="status_desc">Minimal ToolComponent.Status with coordinates and azimuth display flags.</string>
+    <string name="status_desc">ToolComponent.Status with shouldShowCoordinates and shouldShowAzimuth; host chrome renders coordinates and azimuth.</string>
     <string name="status_apis">ToolComponent.Status, statusComponent, Status.shouldShowCoordinates, Status.shouldShowAzimuth</string>
-    <string name="status_coords_label">Coordinates:</string>
-    <string name="status_azimuth_label">Azimuth:</string>
+    <string name="status_tool_label">Tool-only content; host renders coordinates and azimuth.</string>
 
     <!-- Expandable Status -->
     <string name="expandable_status_tool_name">Expandable Status</string>
-    <string name="expandable_status_desc">Expandable variant of ToolComponent.Status with isExpanded toggle and shouldShowAbove flag.</string>
+    <string name="expandable_status_desc">Expandable variant of ToolComponent.Status with shouldShowAbove flag. Expand and collapse via the host chevron above the status bar.</string>
     <string name="expandable_status_apis">ToolComponent.ExpandableStatus, expandableStatusComponent, ExpandableStatus.isExpanded, ExpandableStatus.shouldShowAbove</string>
-    <string name="expandable_status_collapse">Collapse</string>
-    <string name="expandable_status_expand">Expand</string>
-    <string name="expandable_status_show_above">Show above</string>
     <string name="expandable_status_toggle_cd">Toggle expandable status</string>
     <string name="expandable_status_position">Position:</string>
     <string name="expandable_status_pos_below">Below</string>
@@ -116,8 +108,8 @@
 
     <!-- Underlay -->
     <string name="underlay_tool_name">Underlay</string>
-    <string name="underlay_desc">ToolComponent.Underlay — a composable rendered behind the map.</string>
-    <string name="underlay_apis">ToolComponent.Underlay, requiredComponent</string>
+    <string name="underlay_desc">ToolComponent.Underlay — a composable rendered behind the map. The host enables AR map mode while any underlay is active.</string>
+    <string name="underlay_apis">ToolComponent.Underlay, requiredComponent, AbstractTool.endBar, EndBarActionButton, ToolManager.deactivate</string>
     <string name="underlay_label">Underlay layer — rendered behind the map</string>
     <string name="underlay_close_cd">Close underlay</string>
     <string name="underlay_close">Close</string>
@@ -138,42 +130,38 @@
 
     <!-- Model -->
     <string name="model_tool_name">Model (CommonModelInteractor)</string>
-    <string name="model_desc">CommonModelInteractor: observe, select, and unselect BCM models.</string>
+    <string name="model_desc">CommonModelInteractor: observe, select, unselect, and read-only state (no create/delete).</string>
     <string name="model_apis">CommonModelInteractor, getAllModels, selectedModel, userModel, selectModel, unselectModel, isReadOnly</string>
     <string name="model_section_selected">Selected model</string>
     <string name="model_section_user">User model</string>
     <string name="model_section_all">All models</string>
     <string name="model_no_models">No models available</string>
-    <string name="model_select">Select</string>
     <string name="model_unselect">Unselect</string>
-    <string name="model_create">Create marker model</string>
-    <string name="model_delete">Delete</string>
-    <string name="model_read_only_warning">Read-only mode: create/delete disabled</string>
+    <string name="model_read_only_warning">Read-only mode: observe and select only</string>
     <string name="model_not_selected">Not selected</string>
 
     <!-- Service -->
     <string name="service_tool_name">Service (AbstractToolService)</string>
-    <string name="service_desc">AbstractToolService lifecycle with ToolNotificationManager.</string>
-    <string name="service_apis">ToolDescriptor.createService, AbstractToolService, ToolNotificationManager</string>
-    <string name="service_running">Service: RUNNING</string>
-    <string name="service_stopped">Service: STOPPED</string>
+    <string name="service_desc">Session-scoped AbstractToolService created at session start; shares state with the tool via DI and exposes a list badge counter.</string>
+    <string name="service_apis">ToolDescriptor.createService, AbstractToolService.toolSubDI, ToolNotificationManager.counter</string>
+    <string name="service_running">Session service: active</string>
     <string name="service_events">Events:</string>
     <string name="service_last_event">Last event:</string>
     <string name="service_none">—</string>
 
     <!-- Resources / Config -->
     <string name="config_tool_name">Resources — Config</string>
-    <string name="config_desc">Config-qualified resources: locale (values-uk), plugin font, and raw resource reactivity.</string>
-    <string name="config_apis">stringResource with values-uk, LocalConfiguration, FontFamily(Font(R.font.*)), context.resources.openRawResource</string>
-    <string name="config_mode">Locale: en</string>
+    <string name="config_desc">Config-qualified resources: app language (values-uk), night mode (values-night), plugin font, and raw files.</string>
+    <string name="config_apis">stringResource (values / values-night / values-uk), FontFamily(Font(R.font.*)), context.resources.openRawResource — recomposition from host composition context</string>
+    <string name="config_mode">Mode: day</string>
     <string name="config_font_label">Plugin font (R.font.sample_font):</string>
     <string name="config_raw_label">Plugin raw resource (R.raw.sample_note):</string>
     <string name="config_font_sample">The quick brown fox jumps over the lazy dog — plugin font</string>
-    <string name="config_explainer">Switch the system locale to Ukrainian — the text above switches to the values-uk variant, demonstrating per-plugin locale resources.</string>
+    <string name="config_explainer">Toggle system dark mode — the icon and mode string above switch to the night variant. Change App language to Ukrainian in Settings — all strings switch to values-uk, demonstrating per-plugin config-qualified resources.</string>
 
     <!-- Resources / Material -->
     <string name="material_tool_name">Resources — Material</string>
-    <string name="material_desc">Plugin-compiled Compose Material widgets work via CompositionFallbackContext.</string>
+    <string name="material_desc">Plugin-compiled M2 widgets via CompositionFallbackContext; AlertDialog popups reset composition LocalContext — use ToolDialog in production.</string>
     <string name="material_apis">M2 Scaffold, SnackbarHost, AlertDialog, DropdownMenu, Slider (plugin-compiled), CompositionFallbackContext</string>
     <string name="material_show_snackbar">Show Snackbar</string>
     <string name="material_show_dialog">Show AlertDialog</string>
@@ -192,8 +180,10 @@
     <!-- Resources / Collision -->
     <string name="collision_tool_name">Resources — R.string Collision</string>
     <string name="collision_desc">Plugin R.string values take priority over identically-named host strings.</string>
-    <string name="collision_apis">FallbackResources (internal — transparent to plugin authors)</string>
+    <string name="collision_apis">CompositionFallbackContext, FallbackResources (internal — transparent to plugin authors)</string>
     <string name="settings">PLUGIN settings (isolation wins)</string>
+    <string name="collision_settings_line">R.string.settings = \"%1$s\"</string>
+    <string name="collision_plugin_first_caption">Plugin-first resolution: the value shown above comes from the plugin APK, not the host.</string>
     <string name="collision_explainer">Plugin owns R.string.settings which collides with the host\'s identically-named string. FallbackResources(plugin, host) ensures the plugin value is shown — proving plugin-first resolution.</string>
 
     <!-- Components — demo strings (used by folded demos in UI Catalog) -->
@@ -258,14 +248,11 @@
     <string name="components_carousel_item_1">Carousel — first slide</string>
     <string name="components_carousel_item_2">Carousel — second slide</string>
     <string name="components_carousel_item_3">Carousel — third slide</string>
-    <!-- Components Lists — action strings used by folded Lists demo in UI Catalog -->
-    <string name="components_lists_action_edit">Edit</string>
-    <string name="components_lists_action_delete">Delete</string>
 
     <!-- UI Catalog -->
     <string name="ui_catalog_tool_name">UI Catalog</string>
-    <string name="ui_catalog_desc">Navigable catalog of promoted public SDK form components, each shown in several states.</string>
-    <string name="ui_catalog_apis">InlineMessage, HeaderField, ExpandableField, FormFieldBox, NestedForm, HostilitySelector</string>
+    <string name="ui_catalog_desc">Navigable catalog of promoted public SDK components: six form fields plus Buttons, Inputs, Selection, Feedback, and Lists groups, each shown in several states.</string>
+    <string name="ui_catalog_apis">InlineMessage, HeaderField, ExpandableField, FormFieldBox, NestedForm, HostilitySelector, Buttons, Inputs, Selection, Feedback, Lists</string>
     <!-- UI Catalog — entries -->
     <string name="ui_catalog_inline_message_name">InlineMessage</string>
     <string name="ui_catalog_inline_message_desc">Animated inline info / error caption that appears and disappears below a field.</string>
@@ -373,6 +360,11 @@
     <string name="native_cross_apk_title">Native / Cross-APK</string>
     <string name="native_cross_apk_desc">Cross-APK coexistence, per-APK classloader isolation, native .so, plugin AssetManager.</string>
     <string name="native_cross_apk_apis">ToolContext.assets (plugin AssetManager), System.loadLibrary from plugin nativeLibraryDir, ToolManager.resolveToolId, ToolComponent.Window</string>
-    <string name="native_cross_apk_not_installed">Isolation APK not installed — tap Details for instructions.</string>
+    <string name="native_cross_apk_not_installed">Isolation APK not installed.</string>
+    <string name="catalog_cross_apk_install_label">Installation</string>
+    <string name="catalog_cross_apk_install_intro">Build and install both APKs, then open Sample Gallery from ComBat 4 Tools:</string>
+    <string name="catalog_cross_apk_install_commands">./gradlew :gallery:assembleRelease :isolation:assembleRelease\nadb install -r gallery/build/outputs/apk/release/gallery-release.apk\nadb install -r isolation/build/outputs/apk/release/isolation-release.apk</string>
+    <string name="catalog_cross_apk_install_status_installed">Status: :isolation APK is installed — return to the hub and tap this sample to launch.</string>
+    <string name="catalog_cross_apk_install_status_missing">Status: :isolation APK is not installed yet.</string>
 </resources>
 

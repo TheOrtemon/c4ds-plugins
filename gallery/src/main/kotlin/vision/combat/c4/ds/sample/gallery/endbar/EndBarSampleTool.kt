@@ -1,6 +1,5 @@
 package vision.combat.c4.ds.sample.gallery.endbar
 
-import android.widget.Toast
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -21,9 +20,13 @@ import vision.combat.c4.ds.sdk.tool.requiredComponent
 import vision.combat.c4.ds.sdk.ui.component.bar.endbar.EndBarActionButton
 import vision.combat.c4.ds.sdk.ui.component.bar.endbar.EndBarMenuButton
 import vision.combat.c4.ds.sdk.ui.component.bar.endbar.EndBarToggleButton
+import vision.combat.c4.ds.sdk.ui.util.showToast
 
 /**
- * Demonstrates the full EndBar API.
+ * Demonstrates [AbstractTool.endBar] — the tool-scoped end bar slot (action, toggle, menu buttons).
+ *
+ * Map-window end-bar buttons are a separate API: [ToolComponent.MapWindow] `mapEndBarButtons`
+ * (see the Map Window sample).
  *
  * SDK APIs: AbstractTool.endBar, EndBarActionButton, EndBarToggleButton,
  *           EndBarMenuButton, EndBarMenuScope.Checkable, EndBarMenuScope.Slider,
@@ -66,7 +69,7 @@ internal class EndBarSampleTool(
         EndBarActionButton(
             icon = painterResource(R.drawable.ic_end_bar),
             contentDescription = stringResource(R.string.endbar_action_cd),
-            onClick = { Toast.makeText(context, actionFiredMessage, Toast.LENGTH_SHORT).show() },
+            onClick = { context.showToast(actionFiredMessage) },
         )
         EndBarToggleButton(
             icon = painterResource(R.drawable.ic_end_bar),

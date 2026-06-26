@@ -47,7 +47,7 @@ internal fun DialogWindow(
                             body = confirmBody,
                             confirmLabel = confirmYes,
                             dismissLabel = confirmCancel,
-                            onConfirm = { onDismissDialog() },
+                            onConfirm = {},
                         )
                     )
                 },
@@ -58,7 +58,7 @@ internal fun DialogWindow(
                             body = destructiveBody,
                             confirmLabel = destructiveConfirm,
                             dismissLabel = confirmCancel,
-                            onConfirm = { onDismissDialog() },
+                            onConfirm = {},
                         )
                     )
                 },

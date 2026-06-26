@@ -10,7 +10,7 @@ import vision.combat.c4.ds.sdk.tool.ToolParams
 /**
  * Demonstrates multi-screen window navigation.
  *
- * SDK APIs: AppNavHost, Route, BackNavigationButton, subDI + Kodein module,
+ * SDK APIs: AppNavHost, Route, BackNavTopAppBar, toolSubDI + Kodein module,
  *           ToolManager.activate (cross-tool, same APK).
  *
  * SDK files:

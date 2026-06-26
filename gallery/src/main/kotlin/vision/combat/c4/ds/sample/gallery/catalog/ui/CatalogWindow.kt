@@ -1,6 +1,10 @@
 package vision.combat.c4.ds.sample.gallery.catalog.ui
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -14,6 +18,7 @@ private const val ARG_SAMPLE_ID = "sampleId"
 @Composable
 internal fun CatalogWindow() {
     val navController = rememberNavController()
+    var crossApkRefreshKey by remember { mutableIntStateOf(0) }
 
     AppNavHost(
         navController = navController,
@@ -21,6 +26,7 @@ internal fun CatalogWindow() {
     ) {
         composable(ROUTE_LIST) {
             CatalogListScreen(
+                crossApkRefreshKey = crossApkRefreshKey,
                 onNavigateToDetail = { sampleId ->
                     navController.navigate("detail/$sampleId")
                 },
@@ -33,7 +39,10 @@ internal fun CatalogWindow() {
             val sampleId = backStackEntry.arguments?.getString(ARG_SAMPLE_ID) ?: return@composable
             CatalogDetailScreen(
                 sampleId = sampleId,
-                onBack = { navController.popBackStack() },
+                onBack = {
+                    crossApkRefreshKey++
+                    navController.popBackStack()
+                },
             )
         }
     }

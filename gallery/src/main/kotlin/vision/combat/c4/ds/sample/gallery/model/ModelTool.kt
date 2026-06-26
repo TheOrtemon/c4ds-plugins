@@ -11,11 +11,10 @@ import vision.combat.c4.ds.sdk.tool.ToolParams
 import vision.combat.c4.ds.sdk.tool.requiredComponent
 
 /**
- * Demonstrates CommonModelInteractor: observe, select, create, delete BCM models.
+ * Demonstrates CommonModelInteractor: observe, select, unselect BCM models; read-only awareness.
  *
  * SDK APIs: CommonModelInteractor (getAllModels, selectedModel, userModel,
- *           selectModel, unselectModel, createModel, deleteModel, isReadOnly),
- *           BattlespaceConceptModel, ModelId.
+ *           selectModel, unselectModel, isReadOnly), BattlespaceConceptModel, ModelId.
  *
  * SDK files:
  *   c4ds-sdk-core/domain/src/commonMain/.../interactor/CommonModelInteractor.kt

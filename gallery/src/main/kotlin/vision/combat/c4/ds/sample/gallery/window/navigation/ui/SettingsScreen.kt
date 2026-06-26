@@ -20,48 +20,63 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import vision.combat.c4.ds.sample.gallery.R
+import vision.combat.c4.ds.sample.gallery.window.navigation.ui.SettingsViewModel.Action
 import vision.combat.c4.ds.sdk.ui.component.WindowContentDefaults.VerticalPadding
 import vision.combat.c4.ds.sdk.ui.component.WindowScaffold
 import vision.combat.c4.ds.sdk.ui.component.bar.BackNavTopAppBar
 import vision.combat.c4.ds.sdk.ui.viewmodel.diViewModel
 
 @Composable
-internal fun SettingsScreen(viewModel: SettingsViewModel = diViewModel()) {
+internal fun SettingsScreen() {
+    val viewModel = diViewModel<SettingsViewModel>()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    WindowScaffold(
-        topAppBar = { BackNavTopAppBar(title = stringResource(R.string.window_nav_settings_title)) },
-        contentPaddingValues = PaddingValues(0.dp, VerticalPadding),
-        content = {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier
-                    .clickable { viewModel.setOpenOnTop(!uiState.openOnTop) }
-                    .heightIn(min = 44.dp)
-                    .padding(horizontal = 16.dp),
-            ) {
-                Column(
-                    modifier = Modifier
-                        .weight(1f)
-                        .padding(vertical = 4.dp),
-                    verticalArrangement = Arrangement.spacedBy(4.dp),
-                ) {
-                    Text(
-                        text = stringResource(R.string.window_nav_settings_open_on_top),
-                        style = MaterialTheme.typography.subtitle1,
-                    )
-                    Text(
-                        text = stringResource(R.string.window_nav_settings_open_on_top_desc),
-                        style = MaterialTheme.typography.caption,
-                        color = LocalContentColor.current.copy(ContentAlpha.disabled),
-                    )
-                }
-                Switch(
-                    checked = uiState.openOnTop,
-                    onCheckedChange = { viewModel.setOpenOnTop(it) },
-                )
-            }
-        },
+    ScreenContent(
+        uiState = uiState,
+        onAction = viewModel::handleAction,
     )
 }
 
+@Composable
+private fun ScreenContent(
+    uiState: SettingsViewModel.UiState,
+    onAction: (Action) -> Unit,
+) {
+    WindowScaffold(
+        topAppBar = { BackNavTopAppBar(title = stringResource(R.string.window_nav_settings_title)) },
+        contentPaddingValues = PaddingValues(0.dp, VerticalPadding),
+        content = { SettingsContent(uiState, onAction) },
+    )
+}
+
+@Composable
+private fun SettingsContent(uiState: SettingsViewModel.UiState, onAction: (Action) -> Unit) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+            .clickable { onAction(Action.SetOpenOnTop(!uiState.openOnTop)) }
+            .heightIn(min = 44.dp)
+            .padding(horizontal = 16.dp),
+    ) {
+        Column(
+            modifier = Modifier
+                .weight(1f)
+                .padding(vertical = 4.dp),
+            verticalArrangement = Arrangement.spacedBy(4.dp),
+        ) {
+            Text(
+                text = stringResource(R.string.window_nav_settings_open_on_top),
+                style = MaterialTheme.typography.subtitle1,
+            )
+            Text(
+                text = stringResource(R.string.window_nav_settings_open_on_top_desc),
+                style = MaterialTheme.typography.caption,
+                color = LocalContentColor.current.copy(ContentAlpha.disabled),
+            )
+        }
+        Switch(
+            checked = uiState.openOnTop,
+            onCheckedChange = { onAction(Action.SetOpenOnTop(it)) },
+        )
+    }
+}

@@ -11,7 +11,7 @@ import vision.combat.c4.ds.sdk.tool.ToolParams
  * Demonstrates AbstractMapTool: renderable layers, SelectDragCallback, map interaction.
  *
  * SDK APIs: AbstractMapTool, SelectDragCallback, addRenderable, RenderableLayer,
- *           ToolComponent.Status, CommonMapInteractor.focusOnLocation.
+ *           ToolComponent.Status.
  *
  * SDK files:
  *   c4ds-sdk/src/main/kotlin/vision/combat/c4/ds/sdk/tool/AbstractMapTool.kt

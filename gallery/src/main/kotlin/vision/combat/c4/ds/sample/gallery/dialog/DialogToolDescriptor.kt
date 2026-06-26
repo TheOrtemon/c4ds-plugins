@@ -8,10 +8,14 @@ import vision.combat.c4.ds.sdk.tool.ToolDescriptor
 import vision.combat.c4.ds.sdk.tool.ToolParams
 
 /**
- * Demonstrates all four ToolDialog types.
+ * Demonstrates all four [ToolDialog] types for external plugin tools.
  *
- * SDK APIs: ToolDialog.Confirmation, .Destructive, .Info, .Custom,
- *           AbstractTool.showDialog(), AbstractTool.dismissDialog().
+ * Plugin tools show dialogs via [AbstractTool.showDialog] and [ToolDialog]; the host
+ * ([ToolDialogHost]) dismisses Confirmation/Destructive dialogs after [ToolDialog.Confirmation.onConfirm].
+ * Custom dialogs must call [AbstractTool.dismissDialog] from their own button handlers.
+ *
+ * Built-in app-core tools often use ViewModel-driven dialog state and render [AppDialog]
+ * directly inside the tool window instead of this API.
  *
  * SDK files:
  *   c4ds-sdk/src/main/kotlin/vision/combat/c4/ds/sdk/tool/ToolDialog.kt
