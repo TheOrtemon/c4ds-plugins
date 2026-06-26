@@ -194,7 +194,6 @@
     <string name="components_dialog">Діалог</string>
     <string name="components_measurement">Поля вимірювань</string>
     <string name="components_coordinates">Введення координат</string>
-    <string name="components_top_app_bar">Верхня панель застосунку</string>
     <string name="components_banner">Банер</string>
     <string name="components_carousel">Карусель</string>
     <string name="components_color_selector">Вибір кольору</string>
@@ -218,9 +217,6 @@
     <string name="components_measurement_speed">Швидкість</string>
     <string name="components_measurement_altitude">Висота</string>
     <string name="components_measurement_azimuth">Азимут</string>
-    <string name="components_top_app_bar_desc">TopAppBar з AppBarActionButton — відображається вбудованим рядком для демонстрації.</string>
-    <string name="components_top_app_bar_sample_title">Демо панелі</string>
-    <string name="components_top_app_bar_action">Дія</string>
     <string name="components_banner_info">Інфо: це банер з MessageType.Info.</string>
     <string name="components_banner_warning">Попередження: це банер з MessageType.Warning.</string>
     <string name="components_banner_error">Помилка: банер з MessageType.Error та дією.</string>
@@ -302,7 +298,26 @@
 
     <!-- UI Catalog — folded showcase category entries -->
     <string name="ui_catalog_buttons_name">Кнопки</string>
-    <string name="ui_catalog_buttons_desc">Button, OutlinedButton, TextButton, DestructiveButton, PrimaryProgressButton, AppFab, TopAppBar з AppBarActionButton.</string>
+    <string name="ui_catalog_buttons_desc">Button, OutlinedButton, TextButton, DestructiveButton, PrimaryProgressButton, AppFab.</string>
+    <string name="ui_catalog_top_app_bar_name">TopAppBar</string>
+    <string name="ui_catalog_top_app_bar_desc">Стабільна верхня панель SDK у різних станах: лише заголовок, кнопка назад, підзаголовок, текстова/іконкова дії, меню переповнення та пошук.</string>
+    <!-- UI Catalog — TopAppBar demo state labels -->
+    <string name="ui_catalog_top_app_bar_state_title_only">Лише заголовок (без навігації)</string>
+    <string name="ui_catalog_top_app_bar_state_back_nav">З кнопкою «Назад»</string>
+    <string name="ui_catalog_top_app_bar_state_subtitle">Із заголовком і підзаголовком</string>
+    <string name="ui_catalog_top_app_bar_state_text_action">З кінцевою текстовою кнопкою</string>
+    <string name="ui_catalog_top_app_bar_state_icon_action">З кінцевою кнопкою-іконкою</string>
+    <string name="ui_catalog_top_app_bar_state_overflow">З кількома діями та меню переповнення</string>
+    <string name="ui_catalog_top_app_bar_state_search">З пошуком</string>
+    <!-- UI Catalog — TopAppBar demo content -->
+    <string name="ui_catalog_top_app_bar_title">Панель інструмента</string>
+    <string name="ui_catalog_top_app_bar_subtitle">Другий рядок</string>
+    <string name="ui_catalog_top_app_bar_action_save">Зберегти</string>
+    <string name="ui_catalog_top_app_bar_action_edit">Редагувати</string>
+    <string name="ui_catalog_top_app_bar_action_add">Додати</string>
+    <string name="ui_catalog_top_app_bar_overflow_settings">Налаштування</string>
+    <string name="ui_catalog_top_app_bar_overflow_share">Поділитися</string>
+    <string name="ui_catalog_top_app_bar_search_placeholder">Пошук…</string>
     <string name="ui_catalog_inputs_name">Поля введення</string>
     <string name="ui_catalog_inputs_desc">OutlinedTextInputField, IntegerStepper, SimpleDropDownField, OutlinedDropDownField, поля вимірювань (дистанція/швидкість/висота/кут), введення координат.</string>
     <string name="ui_catalog_selection_name">Вибір</string>

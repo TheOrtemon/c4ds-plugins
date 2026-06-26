@@ -194,7 +194,6 @@
     <string name="components_dialog">Dialog</string>
     <string name="components_measurement">Measurement Inputs</string>
     <string name="components_coordinates">Coordinate Input</string>
-    <string name="components_top_app_bar">Top App Bar</string>
     <string name="components_banner">Banner</string>
     <string name="components_carousel">Carousel</string>
     <string name="components_color_selector">Color Selector</string>
@@ -218,9 +217,6 @@
     <string name="components_measurement_speed">Speed</string>
     <string name="components_measurement_altitude">Altitude</string>
     <string name="components_measurement_azimuth">Azimuth</string>
-    <string name="components_top_app_bar_desc">TopAppBar with AppBarActionButton rendered inline as a demo row.</string>
-    <string name="components_top_app_bar_sample_title">App Bar Demo</string>
-    <string name="components_top_app_bar_action">Action</string>
     <string name="components_banner_info">Info: this is a Banner with MessageType.Info.</string>
     <string name="components_banner_warning">Warning: this is a Banner with MessageType.Warning.</string>
     <string name="components_banner_error">Error: Banner with MessageType.Error and an action.</string>
@@ -302,7 +298,26 @@
 
     <!-- UI Catalog — folded showcase category entries -->
     <string name="ui_catalog_buttons_name">Buttons</string>
-    <string name="ui_catalog_buttons_desc">Button, OutlinedButton, TextButton, DestructiveButton, PrimaryProgressButton, AppFab, TopAppBar with AppBarActionButton.</string>
+    <string name="ui_catalog_buttons_desc">Button, OutlinedButton, TextButton, DestructiveButton, PrimaryProgressButton, AppFab.</string>
+    <string name="ui_catalog_top_app_bar_name">TopAppBar</string>
+    <string name="ui_catalog_top_app_bar_desc">Stable SDK top app bar in its different states: title only, back navigation, subtitle, text/icon actions, an overflow menu, and search.</string>
+    <!-- UI Catalog — TopAppBar demo state labels -->
+    <string name="ui_catalog_top_app_bar_state_title_only">Title only (no navigation)</string>
+    <string name="ui_catalog_top_app_bar_state_back_nav">With back navigation button</string>
+    <string name="ui_catalog_top_app_bar_state_subtitle">With title and subtitle</string>
+    <string name="ui_catalog_top_app_bar_state_text_action">With trailing text button</string>
+    <string name="ui_catalog_top_app_bar_state_icon_action">With trailing icon button</string>
+    <string name="ui_catalog_top_app_bar_state_overflow">With multiple actions and overflow menu</string>
+    <string name="ui_catalog_top_app_bar_state_search">With search</string>
+    <!-- UI Catalog — TopAppBar demo content -->
+    <string name="ui_catalog_top_app_bar_title">Tool App Bar</string>
+    <string name="ui_catalog_top_app_bar_subtitle">Secondary line</string>
+    <string name="ui_catalog_top_app_bar_action_save">Save</string>
+    <string name="ui_catalog_top_app_bar_action_edit">Edit</string>
+    <string name="ui_catalog_top_app_bar_action_add">Add</string>
+    <string name="ui_catalog_top_app_bar_overflow_settings">Settings</string>
+    <string name="ui_catalog_top_app_bar_overflow_share">Share</string>
+    <string name="ui_catalog_top_app_bar_search_placeholder">Search…</string>
     <string name="ui_catalog_inputs_name">Inputs</string>
     <string name="ui_catalog_inputs_desc">OutlinedTextInputField, IntegerStepper, SimpleDropDownField, OutlinedDropDownField, measurement inputs (distance/speed/altitude/angle), coordinate input.</string>
     <string name="ui_catalog_selection_name">Selection</string>

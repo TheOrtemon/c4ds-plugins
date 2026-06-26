@@ -52,6 +52,7 @@ private fun ColumnScope.DetailContent(entry: UiCatalogEntry) {
         UiCatalogEntry.NESTED_FORM -> NestedFormDemo()
         UiCatalogEntry.HOSTILITY_SELECTOR -> HostilitySelectorDemo()
         UiCatalogEntry.BUTTONS -> ButtonsDemo()
+        UiCatalogEntry.TOP_APP_BAR -> TopAppBarDemo()
         UiCatalogEntry.INPUTS -> InputsDemo()
         UiCatalogEntry.SELECTION -> SelectionDemo()
         UiCatalogEntry.FEEDBACK -> FeedbackDemo()

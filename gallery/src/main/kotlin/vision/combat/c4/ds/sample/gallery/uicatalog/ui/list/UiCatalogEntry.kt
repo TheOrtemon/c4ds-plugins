@@ -43,6 +43,10 @@ internal enum class UiCatalogEntry(
         nameResId = R.string.ui_catalog_buttons_name,
         descResId = R.string.ui_catalog_buttons_desc,
     ),
+    TOP_APP_BAR(
+        nameResId = R.string.ui_catalog_top_app_bar_name,
+        descResId = R.string.ui_catalog_top_app_bar_desc,
+    ),
     INPUTS(
         nameResId = R.string.ui_catalog_inputs_name,
         descResId = R.string.ui_catalog_inputs_desc,
