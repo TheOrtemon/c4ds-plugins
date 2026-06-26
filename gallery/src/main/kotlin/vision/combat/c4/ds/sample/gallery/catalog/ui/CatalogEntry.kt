@@ -2,7 +2,6 @@ package vision.combat.c4.ds.sample.gallery.catalog.ui
 
 import androidx.annotation.Keep
 import androidx.annotation.StringRes
-import kotlinx.serialization.Serializable
 import vision.combat.c4.ds.sample.gallery.R
 import vision.combat.c4.ds.sample.gallery.dialog.DialogToolDescriptor
 import vision.combat.c4.ds.sample.gallery.endbar.EndBarSampleToolDescriptor
