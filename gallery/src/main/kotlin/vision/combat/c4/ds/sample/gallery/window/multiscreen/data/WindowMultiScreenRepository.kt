@@ -9,9 +9,6 @@ import vision.combat.c4.ds.sdk.data.util.observeAsStateFlow
 internal class WindowMultiScreenRepository(
     private val sharedPreferences: SharedPreferences,
 ) {
-    fun getShowDescription(): Boolean =
-        sharedPreferences.getBoolean(KEY_SHOW_DESCRIPTION, true)
-
     fun setShowDescription(show: Boolean) {
         sharedPreferences.edit { putBoolean(KEY_SHOW_DESCRIPTION, show) }
     }

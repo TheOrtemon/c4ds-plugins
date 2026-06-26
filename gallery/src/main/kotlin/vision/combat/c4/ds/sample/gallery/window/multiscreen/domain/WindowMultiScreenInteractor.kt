@@ -1,4 +1,4 @@
-package vision.combat.c4.ds.sample.gallery.window.multiscreen
+package vision.combat.c4.ds.sample.gallery.window.multiscreen.domain
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.StateFlow

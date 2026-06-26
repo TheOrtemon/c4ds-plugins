@@ -1,4 +1,4 @@
-package vision.combat.c4.ds.sample.gallery.window.multiscreen.ui
+package vision.combat.c4.ds.sample.gallery.window.multiscreen.ui.settings
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -23,8 +23,9 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.flow.Flow
 import vision.combat.c4.ds.sample.gallery.R
-import vision.combat.c4.ds.sample.gallery.window.multiscreen.ui.SettingsViewModel.Action
-import vision.combat.c4.ds.sample.gallery.window.multiscreen.ui.SettingsViewModel.Event
+import vision.combat.c4.ds.sample.gallery.window.multiscreen.ui.settings.SettingsViewModel.Action
+import vision.combat.c4.ds.sample.gallery.window.multiscreen.ui.settings.SettingsViewModel.Event
+import vision.combat.c4.ds.sample.gallery.window.multiscreen.ui.settings.SettingsViewModel.UiState
 import vision.combat.c4.ds.sdk.ui.component.WindowContentDefaults.VerticalPadding
 import vision.combat.c4.ds.sdk.ui.component.WindowScaffold
 import vision.combat.c4.ds.sdk.ui.component.bar.BackNavTopAppBar
@@ -46,7 +47,7 @@ internal fun SettingsScreen() {
 
 @Composable
 private fun Content(
-    uiState: SettingsViewModel.UiState,
+    uiState: UiState,
     onAction: (Action) -> Unit,
 ) {
     WindowScaffold(
@@ -57,7 +58,7 @@ private fun Content(
 }
 
 @Composable
-private fun SettingsContent(uiState: SettingsViewModel.UiState, onAction: (Action) -> Unit) {
+private fun SettingsContent(uiState: UiState, onAction: (Action) -> Unit) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
