@@ -1,4 +1,4 @@
-package vision.combat.c4.ds.sample.gallery.mapwindow
+package vision.combat.c4.ds.sample.gallery.window.map
 
 import org.kodein.di.DI
 import vision.combat.c4.ds.sample.gallery.R
@@ -10,8 +10,8 @@ import vision.combat.c4.ds.sdk.tool.ToolParams
 /**
  * Demonstrates ToolComponent.MapWindow with embedded map controls.
  *
- * The host [ToolWindowScreen] already provides default zoom (and orientation) buttons
- * via ToolWindowMapEndBar; [MapWindow.mapEndBarButtons] is for supplemental actions only.
+ * The host `ToolWindowScreen` already provides default zoom (and orientation) buttons
+ * via ToolWindowMapEndBar; `MapWindow.mapEndBarButtons` is for supplemental actions only.
  *
  * SDK APIs: ToolComponent.MapWindow, mapWindow { } factory, MapView, MapController,
  *           MapWindow.mapEndBarButtons, MapWindow.navBarContent, MapWindow.focusCameraOn,
@@ -31,4 +31,3 @@ class MapWindowToolDescriptor(toolContext: ToolContext) : ToolDescriptor(toolCon
         return MapWindowTool(toolContext, this, di, params)
     }
 }
-

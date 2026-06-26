@@ -6,7 +6,7 @@ import vision.combat.c4.ds.sample.gallery.endbar.EndBarSampleToolDescriptor
 import vision.combat.c4.ds.sample.gallery.expandablestatus.ExpandableStatusToolDescriptor
 import vision.combat.c4.ds.sample.gallery.map.MapToolDescriptor
 import vision.combat.c4.ds.sample.gallery.mapinteractor.MapInteractorToolDescriptor
-import vision.combat.c4.ds.sample.gallery.mapwindow.MapWindowToolDescriptor
+import vision.combat.c4.ds.sample.gallery.window.map.MapWindowToolDescriptor
 import vision.combat.c4.ds.sample.gallery.model.ModelToolDescriptor
 import vision.combat.c4.ds.sample.gallery.overlay.OverlaySampleToolDescriptor
 import vision.combat.c4.ds.sample.gallery.resources.collision.CollisionToolDescriptor
@@ -60,7 +60,7 @@ object SampleCatalog {
             nameResId = R.string.mapwindow_tool_name,
             descResId = R.string.mapwindow_desc,
             apisResId = R.string.mapwindow_apis,
-            sourceSubpackage = "mapwindow",
+            sourceSubpackage = "window/map",
             launch = { mgr -> mgr.activate<MapWindowToolDescriptor>(flags = ToolManager.FLAG_COMPONENT_ON_TOP) },
         ),
 

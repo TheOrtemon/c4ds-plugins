@@ -1,4 +1,4 @@
-package vision.combat.c4.ds.sample.gallery.mapwindow
+package vision.combat.c4.ds.sample.gallery.window.map
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
