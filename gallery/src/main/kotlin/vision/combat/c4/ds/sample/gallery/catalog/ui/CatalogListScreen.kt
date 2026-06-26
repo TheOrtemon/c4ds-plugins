@@ -29,9 +29,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import org.kodein.di.compose.rememberInstance
 import vision.combat.c4.ds.sample.gallery.R
-import vision.combat.c4.ds.sample.gallery.catalog.SampleCatalog
-import vision.combat.c4.ds.sample.gallery.catalog.SampleEntry
-import vision.combat.c4.ds.sample.gallery.catalog.SampleSection
 import vision.combat.c4.ds.sdk.tool.ToolManager
 import vision.combat.c4.ds.sdk.ui.component.TextSizeIcon
 import vision.combat.c4.ds.sdk.ui.component.WindowScaffold
@@ -40,7 +37,6 @@ import vision.combat.c4.ds.sdk.ui.component.list.ListItem
 
 @Composable
 internal fun CatalogListScreen(
-    crossApkRefreshKey: Int = 0,
     onNavigateToDetail: (String) -> Unit,
 ) {
     val toolManager by rememberInstance<ToolManager>()
@@ -58,7 +54,6 @@ internal fun CatalogListScreen(
         content = {
             CatalogList(
                 toolManager = toolManager,
-                crossApkRefreshKey = crossApkRefreshKey,
                 onNavigateToDetail = onNavigateToDetail,
             )
         },
@@ -68,11 +63,10 @@ internal fun CatalogListScreen(
 @Composable
 private fun CatalogList(
     toolManager: ToolManager,
-    crossApkRefreshKey: Int,
     onNavigateToDetail: (String) -> Unit,
 ) {
-    val entriesBySection = SampleCatalog.entries.groupBy { it.section }
-    val sectionsWithEntries = SampleSection.entries.filter { entriesBySection[it]?.isNotEmpty() == true }
+    val entriesBySection = CatalogEntries.entries.groupBy { it.section }
+    val sectionsWithEntries = CatalogSection.entries.filter { entriesBySection[it]?.isNotEmpty() == true }
 
     // Track collapsed (not expanded) sections as a Set<String> — a plain Set is saveable via
     // the standard Saver, unlike SnapshotStateMap which has no built-in Saver.
@@ -106,7 +100,6 @@ private fun CatalogList(
                     SampleListItem(
                         entry = entry,
                         toolManager = toolManager,
-                        crossApkRefreshKey = crossApkRefreshKey,
                         onDetails = { onNavigateToDetail(entry.id) },
                     )
                 }
@@ -147,12 +140,11 @@ private fun CollapsibleSectionHeader(
 
 @Composable
 private fun SampleListItem(
-    entry: SampleEntry,
+    entry: CatalogEntry,
     toolManager: ToolManager,
-    crossApkRefreshKey: Int,
     onDetails: () -> Unit,
 ) {
-    val isEnabled by produceState(initialValue = !entry.isCrossApk, entry.isCrossApk, crossApkRefreshKey) {
+    val isEnabled by produceState(initialValue = !entry.isCrossApk, entry.isCrossApk) {
         value = if (entry.isCrossApk) {
             entry.crossApkFqcn?.let { toolManager.resolveToolId(it) } != null
         } else {

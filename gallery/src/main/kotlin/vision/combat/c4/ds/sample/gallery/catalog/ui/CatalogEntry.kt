@@ -1,4 +1,4 @@
-package vision.combat.c4.ds.sample.gallery.catalog
+package vision.combat.c4.ds.sample.gallery.catalog.ui
 
 import androidx.annotation.StringRes
 import vision.combat.c4.ds.sdk.tool.ToolManager
@@ -17,15 +17,14 @@ import vision.combat.c4.ds.sdk.tool.ToolManager
  * @param launch Called when the user taps the list row to activate the sample. May be non-null for
  *   cross-APK entries that use [ToolManager.resolveToolId] before [ToolManager.activate].
  */
-data class SampleEntry(
+data class CatalogEntry(
     val id: String,
-    val section: SampleSection,
-    @StringRes val nameResId: Int,
-    @StringRes val descResId: Int,
-    @StringRes val apisResId: Int,
+    val section: CatalogSection,
+    @param:StringRes val nameResId: Int,
+    @param:StringRes val descResId: Int,
+    @param:StringRes val apisResId: Int,
     val sourceSubpackage: String,
     val isCrossApk: Boolean = false,
     val crossApkFqcn: String? = null,
     val launch: ((ToolManager) -> Unit)? = null,
 )
-

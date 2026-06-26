@@ -1,4 +1,4 @@
-package vision.combat.c4.ds.sample.gallery.catalog
+package vision.combat.c4.ds.sample.gallery.catalog.ui
 
 import androidx.annotation.StringRes
 import vision.combat.c4.ds.sample.gallery.R
@@ -8,7 +8,7 @@ import vision.combat.c4.ds.sample.gallery.R
  *
  * Ordering here controls display order in [CatalogListScreen].
  */
-enum class SampleSection(@get:StringRes val titleResId: Int) {
+enum class CatalogSection(@get:StringRes val titleResId: Int) {
     WINDOWS(R.string.section_windows),
     MAP(R.string.section_map),
     MAP_OVERLAYS(R.string.section_map_overlays),

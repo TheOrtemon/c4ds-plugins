@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 kotlin {
@@ -53,6 +54,8 @@ configurations {
 dependencies {
     compileOnly(libs.combat.ds.sdk)
     runtimeOnly(libs.combat.ds.sdk.runtime)
+
+    compileOnly(libs.kotlinx.serialization.json)
 
     coreLibraryDesugaring(libs.android.tools.desugar)
 }

@@ -1,4 +1,4 @@
-package vision.combat.c4.ds.sample.gallery.catalog
+package vision.combat.c4.ds.sample.gallery.catalog.ui
 
 import vision.combat.c4.ds.sample.gallery.R
 import vision.combat.c4.ds.sample.gallery.dialog.DialogToolDescriptor
@@ -28,35 +28,35 @@ import vision.combat.c4.ds.sdk.tool.activate
  * For same-APK tools the reified activate<T> overload is used.
  * For the cross-APK :isolation tool, resolveToolId(fqcn) is used.
  */
-object SampleCatalog {
+object CatalogEntries {
 
     private const val ISOLATION_NATIVE_FQCN =
         "vision.combat.c4.ds.sample.isolation.nativelib.NativeToolDescriptor"
 
-    val entries: List<SampleEntry> = listOf(
+    val entries: List<CatalogEntry> = listOf(
 
         // ── WINDOWS ─────────────────────────────────────────────────────────
-        SampleEntry(
+        CatalogEntry(
             id = "window_single_screen",
-            section = SampleSection.WINDOWS,
+            section = CatalogSection.WINDOWS,
             nameResId = R.string.window_single_screen_tool_name,
             descResId = R.string.window_single_screen_desc,
             apisResId = R.string.window_single_screen_apis,
             sourceSubpackage = "window/singlescreen",
             launch = { mgr -> mgr.activate<WindowSingleScreenToolDescriptor>(flags = ToolManager.FLAG_COMPONENT_ON_TOP) },
         ),
-        SampleEntry(
+        CatalogEntry(
             id = "window_multi_screen",
-            section = SampleSection.WINDOWS,
+            section = CatalogSection.WINDOWS,
             nameResId = R.string.window_multi_screen_tool_name,
             descResId = R.string.window_multi_screen_desc,
             apisResId = R.string.window_multi_screen_apis,
             sourceSubpackage = "window/multiscreen",
             launch = { mgr -> mgr.activate<WindowMultiScreenToolDescriptor>(flags = ToolManager.FLAG_COMPONENT_ON_TOP) },
         ),
-        SampleEntry(
+        CatalogEntry(
             id = "mapwindow",
-            section = SampleSection.WINDOWS,
+            section = CatalogSection.WINDOWS,
             nameResId = R.string.mapwindow_tool_name,
             descResId = R.string.mapwindow_desc,
             apisResId = R.string.mapwindow_apis,
@@ -65,18 +65,18 @@ object SampleCatalog {
         ),
 
         // ── MAP ─────────────────────────────────────────────────────────────
-        SampleEntry(
+        CatalogEntry(
             id = "map",
-            section = SampleSection.MAP,
+            section = CatalogSection.MAP,
             nameResId = R.string.map_tool_name,
             descResId = R.string.map_desc,
             apisResId = R.string.map_apis,
             sourceSubpackage = "map",
             launch = { mgr -> mgr.activate<MapToolDescriptor>(flags = ToolManager.FLAG_COMPONENT_ON_TOP) },
         ),
-        SampleEntry(
+        CatalogEntry(
             id = "underlay",
-            section = SampleSection.MAP,
+            section = CatalogSection.MAP,
             nameResId = R.string.underlay_tool_name,
             descResId = R.string.underlay_desc,
             apisResId = R.string.underlay_apis,
@@ -85,27 +85,27 @@ object SampleCatalog {
         ),
 
         // ── MAP OVERLAYS ─────────────────────────────────────────────────────
-        SampleEntry(
+        CatalogEntry(
             id = "overlay",
-            section = SampleSection.MAP_OVERLAYS,
+            section = CatalogSection.MAP_OVERLAYS,
             nameResId = R.string.overlay_tool_name,
             descResId = R.string.overlay_desc,
             apisResId = R.string.overlay_apis,
             sourceSubpackage = "overlay",
             launch = { mgr -> mgr.activate<OverlaySampleToolDescriptor>(flags = ToolManager.FLAG_COMPONENT_ON_TOP) },
         ),
-        SampleEntry(
+        CatalogEntry(
             id = "status",
-            section = SampleSection.MAP_OVERLAYS,
+            section = CatalogSection.MAP_OVERLAYS,
             nameResId = R.string.status_tool_name,
             descResId = R.string.status_desc,
             apisResId = R.string.status_apis,
             sourceSubpackage = "status",
             launch = { mgr -> mgr.activate<StatusToolDescriptor>(flags = ToolManager.FLAG_COMPONENT_ON_TOP) },
         ),
-        SampleEntry(
+        CatalogEntry(
             id = "expandable_status",
-            section = SampleSection.MAP_OVERLAYS,
+            section = CatalogSection.MAP_OVERLAYS,
             nameResId = R.string.expandable_status_tool_name,
             descResId = R.string.expandable_status_desc,
             apisResId = R.string.expandable_status_apis,
@@ -114,9 +114,9 @@ object SampleCatalog {
         ),
 
         // ── HOST UI CHROME ───────────────────────────────────────────────────
-        SampleEntry(
+        CatalogEntry(
             id = "endbar",
-            section = SampleSection.MAP_OVERLAYS,
+            section = CatalogSection.MAP_OVERLAYS,
             nameResId = R.string.endbar_tool_name,
             descResId = R.string.endbar_desc,
             apisResId = R.string.endbar_apis,
@@ -125,9 +125,9 @@ object SampleCatalog {
         ),
 
         // ── UI COMPONENTS ────────────────────────────────────────────────────
-        SampleEntry(
+        CatalogEntry(
             id = "ui_catalog",
-            section = SampleSection.UI_COMPONENTS,
+            section = CatalogSection.UI_COMPONENTS,
             nameResId = R.string.ui_catalog_tool_name,
             descResId = R.string.ui_catalog_desc,
             apisResId = R.string.ui_catalog_apis,
@@ -136,9 +136,9 @@ object SampleCatalog {
         ),
 
         // ── HOST UI & DIALOGS ────────────────────────────────────────────────
-        SampleEntry(
+        CatalogEntry(
             id = "dialog",
-            section = SampleSection.HOST_UI,
+            section = CatalogSection.HOST_UI,
             nameResId = R.string.dialog_tool_name,
             descResId = R.string.dialog_desc,
             apisResId = R.string.dialog_apis,
@@ -147,18 +147,18 @@ object SampleCatalog {
         ),
 
         // ── MODEL & MAP DATA ─────────────────────────────────────────────────
-        SampleEntry(
+        CatalogEntry(
             id = "model",
-            section = SampleSection.MODEL_AND_MAP_DATA,
+            section = CatalogSection.MODEL_AND_MAP_DATA,
             nameResId = R.string.model_tool_name,
             descResId = R.string.model_desc,
             apisResId = R.string.model_apis,
             sourceSubpackage = "model",
             launch = { mgr -> mgr.activate<ModelToolDescriptor>(flags = ToolManager.FLAG_COMPONENT_ON_TOP) },
         ),
-        SampleEntry(
+        CatalogEntry(
             id = "map_interactor",
-            section = SampleSection.MODEL_AND_MAP_DATA,
+            section = CatalogSection.MODEL_AND_MAP_DATA,
             nameResId = R.string.map_interactor_tool_name,
             descResId = R.string.map_interactor_desc,
             apisResId = R.string.map_interactor_apis,
@@ -167,9 +167,9 @@ object SampleCatalog {
         ),
 
         // ── LIFECYCLE ─────────────────────────────────────────────────────────
-        SampleEntry(
+        CatalogEntry(
             id = "service",
-            section = SampleSection.LIFECYCLE,
+            section = CatalogSection.LIFECYCLE,
             nameResId = R.string.service_tool_name,
             descResId = R.string.service_desc,
             apisResId = R.string.service_apis,
@@ -178,36 +178,36 @@ object SampleCatalog {
         ),
 
         // ── RESOURCES & ISOLATION ─────────────────────────────────────────────
-        SampleEntry(
+        CatalogEntry(
             id = "resources_config",
-            section = SampleSection.RESOURCES_AND_ISOLATION,
+            section = CatalogSection.RESOURCES_AND_ISOLATION,
             nameResId = R.string.config_tool_name,
             descResId = R.string.config_desc,
             apisResId = R.string.config_apis,
             sourceSubpackage = "resources/config",
             launch = { mgr -> mgr.activate<ConfigToolDescriptor>(flags = ToolManager.FLAG_COMPONENT_ON_TOP) },
         ),
-        SampleEntry(
+        CatalogEntry(
             id = "resources_material",
-            section = SampleSection.RESOURCES_AND_ISOLATION,
+            section = CatalogSection.RESOURCES_AND_ISOLATION,
             nameResId = R.string.material_tool_name,
             descResId = R.string.material_desc,
             apisResId = R.string.material_apis,
             sourceSubpackage = "resources/material",
             launch = { mgr -> mgr.activate<MaterialToolDescriptor>(flags = ToolManager.FLAG_COMPONENT_ON_TOP) },
         ),
-        SampleEntry(
+        CatalogEntry(
             id = "resources_collision",
-            section = SampleSection.RESOURCES_AND_ISOLATION,
+            section = CatalogSection.RESOURCES_AND_ISOLATION,
             nameResId = R.string.collision_tool_name,
             descResId = R.string.collision_desc,
             apisResId = R.string.collision_apis,
             sourceSubpackage = "resources/collision",
             launch = { mgr -> mgr.activate<CollisionToolDescriptor>(flags = ToolManager.FLAG_COMPONENT_ON_TOP) },
         ),
-        SampleEntry(
+        CatalogEntry(
             id = "native_cross_apk",
-            section = SampleSection.RESOURCES_AND_ISOLATION,
+            section = CatalogSection.RESOURCES_AND_ISOLATION,
             nameResId = R.string.native_cross_apk_title,
             descResId = R.string.native_cross_apk_desc,
             apisResId = R.string.native_cross_apk_apis,

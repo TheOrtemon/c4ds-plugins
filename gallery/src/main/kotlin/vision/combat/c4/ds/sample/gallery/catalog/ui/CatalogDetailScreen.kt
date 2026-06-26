@@ -9,6 +9,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.produceState
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
@@ -16,36 +17,31 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import org.kodein.di.compose.rememberInstance
 import vision.combat.c4.ds.sample.gallery.R
-import vision.combat.c4.ds.sample.gallery.catalog.SampleCatalog
-import vision.combat.c4.ds.sample.gallery.catalog.SampleEntry
 import vision.combat.c4.ds.sdk.tool.ToolManager
 import vision.combat.c4.ds.sdk.ui.component.WindowScaffold
-import vision.combat.c4.ds.sdk.ui.component.bar.BackNavigationButton
-import vision.combat.c4.ds.sdk.ui.component.bar.TopAppBar
+import vision.combat.c4.ds.sdk.ui.component.bar.BackNavTopAppBar
+import vision.combat.c4.ds.sdk.ui.platform.currentOnBackPressedDispatcher
 
 @Composable
 internal fun CatalogDetailScreen(
     sampleId: String,
-    onBack: () -> Unit,
 ) {
-    val entry = SampleCatalog.entries.firstOrNull { it.id == sampleId } ?: run {
+    val backPressDispatcher = currentOnBackPressedDispatcher()
+    val onBack by rememberUpdatedState(backPressDispatcher::onBackPressed)
+
+    val entry = CatalogEntries.entries.firstOrNull { it.id == sampleId } ?: run {
         onBack()
         return
     }
 
     WindowScaffold(
-        topAppBar = {
-            TopAppBar(
-                title = stringResource(entry.nameResId),
-                navigationIcon = { BackNavigationButton(onBack) },
-            )
-        },
+        topAppBar = { BackNavTopAppBar(title = stringResource(entry.nameResId)) },
         content = { DetailContent(entry) },
     )
 }
 
 @Composable
-private fun ColumnScope.DetailContent(entry: SampleEntry) {
+private fun ColumnScope.DetailContent(entry: CatalogEntry) {
     Text(
         text = stringResource(entry.descResId),
         style = MaterialTheme.typography.body1,
@@ -87,7 +83,7 @@ private fun ColumnScope.DetailContent(entry: SampleEntry) {
 }
 
 @Composable
-private fun ColumnScope.CrossApkInstallSection(entry: SampleEntry) {
+private fun ColumnScope.CrossApkInstallSection(entry: CatalogEntry) {
     val toolManager by rememberInstance<ToolManager>()
     val isInstalled by produceState(initialValue = false, entry.crossApkFqcn) {
         value = entry.crossApkFqcn?.let { toolManager.resolveToolId(it) } != null
