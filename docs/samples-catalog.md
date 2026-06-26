@@ -13,7 +13,7 @@ Reference for every tool in this repository: what it demonstrates, where the sou
 |---|---|
 | Open **Sample Gallery** from host Tools list | Hub window with grouped cards |
 | **Launch** on a card | Activates that sample (same APK via `ToolManager.activate<T>()`; cross-APK via `resolveToolId`) |
-| **Details** on a card | Shows SDK APIs and source subpackage |
+| **Details** on a card | Shows SDK APIs, source subpackage, and cross-APK install steps when applicable |
 | Install `:isolation` APK | Enables **Native / Cross-APK** card in the Resources & Isolation section |
 
 Registry implementation: [`SampleCatalog.kt`](../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/catalog/SampleCatalog.kt)
@@ -114,13 +114,13 @@ Registry implementation: [`SampleCatalog.kt`](../gallery/src/main/kotlin/vision/
 
 | | |
 |---|---|
-| **Purpose** | Basic status bar with coordinates and azimuth |
+| **Purpose** | Status bar with host coordinate/azimuth chrome flags |
 | **Descriptor** | `vision.combat.c4.ds.sample.gallery.status.StatusToolDescriptor` |
 | **Source** | `gallery/.../status/` |
 
 **SDK APIs:** `ToolComponent.Status`, `shouldShowCoordinates`, `shouldShowAzimuth`.
 
-**Verify:** Status strip visible at bottom → coordinates and azimuth update with map interaction.
+**Verify:** Status strip visible at bottom → host coordinates and azimuth update with map interaction; tool slot shows label only.
 
 ---
 
@@ -166,33 +166,65 @@ Registry implementation: [`SampleCatalog.kt`](../gallery/src/main/kotlin/vision/
 
 ---
 
-## Model & lifecycle
+## UI Components
+
+### UI Catalog
+
+| | |
+|---|---|
+| **Purpose** | Navigable catalog of promoted public SDK form and UI components, each shown in several states |
+| **Descriptor** | `vision.combat.c4.ds.sample.gallery.uicatalog.UiCatalogToolDescriptor` |
+| **Source** | `gallery/.../uicatalog/` |
+
+**SDK APIs:** `InlineMessage`, `HeaderField`, `ExpandableField`, `FormFieldBox`, `NestedForm`, `HostilitySelector`, buttons (`Button`, `OutlinedButton`, `TextButton`, `DestructiveButton`, `PrimaryProgressButton`, `AppFab`), inputs (`OutlinedTextInputField`, measurement inputs, coordinate input), selection (`SegmentedButtonRow`, `SliderWithLabel`, `CheckBoxField`, `SwitchField`, `RadioGroup`, `ColorSelector`), feedback (`AppDialog`, `Banner`, `Carousel`, `Tooltip`), revealable lists, `AppNavHost`, `WindowScaffold`.
+
+**Verify:** Launch from hub → component list opens → tap a component → detail screen shows each documented state → back navigation returns to list.
+
+---
+
+## Model & Map Data
 
 ### Model
 
 | | |
 |---|---|
-| **Purpose** | Battlespace model CRUD via domain interactor |
+| **Purpose** | Observe, select, and unselect BCM models via domain interactor; read-only awareness |
 | **Descriptor** | `vision.combat.c4.ds.sample.gallery.model.ModelToolDescriptor` |
 | **Source** | `gallery/.../model/` |
 
-**SDK APIs:** `CommonModelInteractor` (list, select, unselect, create, delete), `isReadOnly`, `diViewModel()`.
+**SDK APIs:** `CommonModelInteractor` (getAllModels, selectedModel, userModel, selectModel, unselectModel), `isReadOnly`, `diViewModel()`.
 
-**Verify:** Model list populated → select/unselect → create and delete operations succeed (when not read-only).
+**Verify:** Model list populated → tap row to select → **Unselect** clears selection → read-only banner shown when `isReadOnly` is true.
 
 ---
+
+### Map Interactor
+
+| | |
+|---|---|
+| **Purpose** | Live `CommonMapInteractor` readout and controls for camera, display mode, reticle, cursor, focus, and magnetic corrections |
+| **Descriptor** | `vision.combat.c4.ds.sample.gallery.mapinteractor.MapInteractorToolDescriptor` |
+| **Source** | `gallery/.../mapinteractor/` |
+
+**SDK APIs:** `CommonMapInteractor`, `mapNavigatorEvent`, `camera`, `lookAt`, `selectedPosition`, `isLookAtAboveHorizon`, `mapDisplayMode`, `updateMapDisplayMode`, `arDistanceLimit`, `setArDistanceLimit`, `isReticleVisible`, `setReticleVisible`, `isCursorPinned`, `pinCursor`, `unpinCursor`, `isMapVisible`, `setMapVisible`, `focusOnLocation`, `focusOnSector`, `getDeclination`, `getConvergence`, `getAngleCorrection`.
+
+**Verify:** Launch from hub → window shows live camera/LookAt readout → switch display mode (Normal/AR/VR) → toggle reticle and map visibility → pin/unpin cursor → focus actions move the map → declination/convergence/correction values update at LookAt.
+
+---
+
+## Lifecycle & Services
 
 ### Service
 
 | | |
 |---|---|
-| **Purpose** | Background tool service with notification |
+| **Purpose** | Session-scoped tool service with shared DI state and list badge counter |
 | **Descriptor** | `vision.combat.c4.ds.sample.gallery.service.ServiceToolDescriptor` |
 | **Source** | `gallery/.../service/` |
 
-**SDK APIs:** `AbstractToolService`, `ToolNotificationManager`, foreground service lifecycle.
+**SDK APIs:** `ToolDescriptor.createService`, `AbstractToolService.toolSubDI`, `ToolNotificationManager.counter`.
 
-**Verify:** Launch service tool from hub → open tool window → service starts → counter increments → notification visible.
+**Verify:** Start session → service ticks in background → tool list badge increments → open tool window → event counter matches badge.
 
 ---
 
@@ -202,13 +234,13 @@ Registry implementation: [`SampleCatalog.kt`](../gallery/src/main/kotlin/vision/
 
 | | |
 |---|---|
-| **Purpose** | Locale, night mode, config-qualified resources, custom font, raw file |
+| **Purpose** | App language, night mode, config-qualified resources, custom font, raw file |
 | **Descriptor** | `vision.combat.c4.ds.sample.gallery.resources.config.ConfigToolDescriptor` |
 | **Source** | `gallery/.../resources/config/` |
 
-**SDK APIs:** Configuration-qualified `values`, `FontFamily(Font(R.font.sample_font))`, `openRawResource(R.raw.sample_note)`, live recomposition on locale/night change.
+**SDK APIs:** Configuration-qualified `values` / `values-night` / `values-uk`, `FontFamily(Font(R.font.sample_font))`, `openRawResource(R.raw.sample_note)` — recomposition from host composition context.
 
-**Verify:** Toggle system dark mode → mode string and icon update live → switch to Ukrainian → all strings localize.
+**Verify:** Toggle system dark mode → mode string and icon update live → change App language to Ukrainian in Settings → all strings localize.
 
 Covers isolation **case (c)** and **case (e)** — see [Plugin isolation](plugin-isolation.md).
 
@@ -262,8 +294,8 @@ Covers isolation **case (b)**.
 
 **Verify:**
 
-1. Install both `:gallery` and `:isolation` APKs.
-2. Open Sample Gallery → **Native / Cross-APK** → **Launch**.
+1. Install both `:gallery` and `:isolation` APKs (see **Details** on the hub card for install commands).
+2. Open Sample Gallery → **Native / Cross-APK** → tap the card to launch.
 3. Window shows asset content prefix and JNI result `isolation-jni/1.0`.
 4. Logcat tag `NativeTool`:
 

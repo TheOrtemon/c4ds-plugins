@@ -84,7 +84,7 @@ Details: **[Getting started → Tool screen layout](docs/getting-started.md#tool
 
 ```
 c4ds-tool-samples/
-├── gallery/          # Main APK — Sample Gallery hub + 15 feature samples
+├── gallery/          # Main APK — Sample Gallery hub + 17 feature samples
 ├── isolation/        # Second APK — JNI + asset isolation (cross-APK activation)
 └── docs/             # Author documentation (this README links there)
 ```
@@ -95,22 +95,24 @@ Only **Sample Gallery** (`CatalogToolDescriptor`) appears in the host launcher. 
 
 ## Sample overview
 
-### `:gallery` — 15 feature samples + hub
+### `:gallery` — 17 feature samples + hub
 
 | Sample | Section | SDK surface |
 |---|---|---|
 | Window Simple | Windows | `ToolComponent.Window`, `WindowScaffold`, SDK inputs, `CommonModelInteractor` |
 | Window Navigation | Windows | `AppNavHost`, `Route`, `subDI`, `SharedPreferences` |
 | Dialog | Windows | `ToolDialog` variants, `showDialog` / `dismissDialog` |
-| Overlay | Map | `ToolComponent.Overlay`, `CommonMapInteractor`, `CommonModelInteractor` |
 | Map | Map | `AbstractMapTool`, `RenderableLayer`, `SelectDragCallback`, `ToolComponent.Status` |
 | MapWindow | Map | `ToolComponent.MapWindow`, embedded `MapView`, `MapController` |
-| Status | Status & Bars | `ToolComponent.Status`, `shouldShowCoordinates`, `shouldShowAzimuth` |
-| Expandable Status | Status & Bars | `ToolComponent.ExpandableStatus`, `isExpanded`, `shouldShowAbove` |
-| Underlay | Status & Bars | `ToolComponent.Underlay` |
-| End Bar | Status & Bars | `EndBarActionButton`, `EndBarToggleButton`, `EndBarMenuButton` |
-| Model | Model & Lifecycle | `CommonModelInteractor` CRUD, `isReadOnly` |
-| Service | Model & Lifecycle | `AbstractToolService`, `ToolNotificationManager` |
+| Underlay | Map | `ToolComponent.Underlay` |
+| Overlay | Map Overlays & Status | `ToolComponent.Overlay`, `CommonMapInteractor`, `CommonModelInteractor` |
+| Status | Map Overlays & Status | `ToolComponent.Status`, `shouldShowCoordinates`, `shouldShowAzimuth` |
+| Expandable Status | Map Overlays & Status | `ToolComponent.ExpandableStatus`, `isExpanded`, `shouldShowAbove` |
+| End Bar | Map Overlays & Status | `EndBarActionButton`, `EndBarToggleButton`, `EndBarMenuButton` |
+| UI Catalog | UI Components | `InlineMessage`, `HeaderField`, `ExpandableField`, `FormFieldBox`, `NestedForm`, `HostilitySelector`, buttons, inputs, selection, feedback, lists |
+| Model | Model & Map Data | `CommonModelInteractor` CRUD, `isReadOnly` |
+| Map Interactor | Model & Map Data | `CommonMapInteractor` camera, display mode, reticle, cursor pin, focus, magnetic corrections |
+| Service | Lifecycle & Services | `AbstractToolService`, `ToolNotificationManager` |
 | Resources / Config | Resources & Isolation | Locale, night, config-qualified resources, font, raw |
 | Resources / Material | Resources & Isolation | Plugin M2 widgets, `CompositionFallbackContext` |
 | Resources / Collision | Resources & Isolation | Plugin-first `R.string` resolution |

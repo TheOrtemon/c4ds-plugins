@@ -85,7 +85,7 @@ Plugin APKs compile their own Compose Material 2 dependency. The host provides a
 
 Both host and plugin define `R.string.settings` with different text. Plugin-first resolution must show the plugin value.
 
-**Verify:** Window displays the plugin-specific settings string (defined in `gallery/.../resources/collision/res/values/strings.xml`), not the host string.
+**Verify:** Window displays the plugin-specific settings string (defined in `gallery/src/main/res/values/strings.xml`), not the host string.
 
 ---
 
@@ -94,13 +94,13 @@ Both host and plugin define `R.string.settings` with different text. Plugin-firs
 **Sample:** Resources / Config (`ConfigTool`)  
 **Source:** `gallery/.../resources/config/`
 
-Plugin UI must recompose when system configuration changes (locale, uiMode/night).
+Plugin UI must recompose when host configuration changes (app language, uiMode/night).
 
 **Verify:**
 
 1. Open Resources / Config.
 2. Toggle system dark mode → `config_mode` string and day/night icon update without restarting the tool.
-3. Switch system language to Ukrainian → all window strings switch to `values-uk`.
+3. Change **App language** to Ukrainian in Settings → all window strings switch to `values-uk`.
 
 ---
 
