@@ -189,7 +189,7 @@ val toolId = toolManager.resolveToolId("com.example.otherapk.TheirToolDescriptor
 toolId?.let { toolManager.activate(it, ToolManager.FLAG_COMPONENT_ON_TOP) }
 ```
 
-Returns `null` if the other APK is not installed — disable UI accordingly (see `SampleCatalog` isolation entry).
+Returns `null` if the other APK is not installed — disable UI accordingly (see `CatalogEntries` isolation entry).
 
 ---
 

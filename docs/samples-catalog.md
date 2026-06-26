@@ -16,7 +16,7 @@ Reference for every tool in this repository: what it demonstrates, where the sou
 | **Details** on a card | Shows SDK APIs, source subpackage, and cross-APK install steps when applicable |
 | Install `:isolation` APK | Enables **Native / Cross-APK** card in the Resources & Isolation section |
 
-Registry implementation: [`SampleCatalog.kt`](../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/catalog/SampleCatalog.kt)
+Registry implementation: [`CatalogEntries.kt`](../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/catalog/ui/CatalogEntries.kt)
 
 ---
 
@@ -55,8 +55,8 @@ Registry implementation: [`SampleCatalog.kt`](../gallery/src/main/kotlin/vision/
 | | |
 |---|---|
 | **Purpose** | Embedded secondary map inside a window panel (`ToolComponent.MapWindow`) |
-| **Descriptor** | `vision.combat.c4.ds.sample.gallery.mapwindow.MapWindowToolDescriptor` |
-| **Source** | `gallery/.../mapwindow/` |
+| **Descriptor** | `vision.combat.c4.ds.sample.gallery.window.map.MapWindowToolDescriptor` |
+| **Source** | `gallery/.../window/map/` |
 
 **SDK APIs:** `ToolComponent.MapWindow`, embedded `MapView`, `MapController`, zoom controls, map mode selector, `MapWindow.mapEndBarButtons`, `MapWindow.navBarContent`, `MapWindow.focusCameraOn`.
 
