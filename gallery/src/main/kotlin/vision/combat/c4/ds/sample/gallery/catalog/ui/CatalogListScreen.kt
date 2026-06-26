@@ -73,10 +73,7 @@ private fun CatalogList(
     // All sections start expanded; toggling adds/removes the section name from the collapsed set.
     var collapsed by rememberSaveable { mutableStateOf(emptySet<String>()) }
 
-    LazyColumn(
-        modifier = Modifier.fillMaxSize(),
-        contentPadding = PaddingValues(vertical = 4.dp),
-    ) {
+    LazyColumn(modifier = Modifier.fillMaxSize()) {
         sectionsWithEntries.forEach { section ->
             val sectionEntries = entriesBySection[section] ?: return@forEach
             val isExpanded = section.name !in collapsed
