@@ -99,11 +99,10 @@ Only **Sample Gallery** (`CatalogToolDescriptor`) appears in the host launcher. 
 
 | Sample | Section | SDK surface |
 |---|---|---|
-| Window Simple | Windows | `ToolComponent.Window`, `WindowScaffold`, SDK inputs, `CommonModelInteractor` |
-| Window Navigation | Windows | `AppNavHost`, `Route`, `subDI`, `SharedPreferences` |
-| Dialog | Windows | `ToolDialog` variants, `showDialog` / `dismissDialog` |
+| Window — Single Screen | Windows | `ToolComponent.Window`, `WindowScaffold`, `diViewModel()`, `showToast` |
+| Window — Multi-Screen | Windows | `AppNavHost`, `Route`, `subDI`, `SharedPreferences` |
+| Window — Secondary Map | Windows | `ToolComponent.MapWindow`, embedded `MapView`, `MapController` |
 | Map | Map | `AbstractMapTool`, `RenderableLayer`, `SelectDragCallback`, `ToolComponent.Status` |
-| MapWindow | Map | `ToolComponent.MapWindow`, embedded `MapView`, `MapController` |
 | Underlay | Map | `ToolComponent.Underlay` |
 | Overlay | Map Overlays & Status | `ToolComponent.Overlay`, `CommonMapInteractor`, `CommonModelInteractor` |
 | Status | Map Overlays & Status | `ToolComponent.Status`, `shouldShowCoordinates`, `shouldShowAzimuth` |

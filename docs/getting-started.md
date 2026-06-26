@@ -111,10 +111,10 @@ External tools are plain Android **Application** modules with **no Activity**. T
 
 ### Step 1 — Subclass `AbstractTool`
 
-Example: [`WindowSimpleTool.kt`](../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/window/simple/WindowSimpleTool.kt)
+Example: [`WindowSingleScreenTool.kt`](../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/window/singlescreen/WindowSingleScreenTool.kt)
 
 ```kotlin
-internal class WindowSimpleTool(
+internal class WindowSingleScreenTool(
     toolContext: ToolContext,
     descriptor: ToolDescriptor,
     di: DI,
@@ -122,7 +122,7 @@ internal class WindowSimpleTool(
 ) : AbstractTool(toolContext, descriptor, di, params) {
 
     override val window: ToolComponent.Window by requiredComponent {
-        WindowSimpleWindow()
+        WindowSingleScreenWindow()
     }
 }
 ```
@@ -131,11 +131,11 @@ Declare only the components your tool needs (`window`, `overlay`, `status`, `map
 
 ### Step 2 — Subclass `ToolDescriptor`
 
-Example: [`WindowSimpleToolDescriptor.kt`](../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/window/simple/WindowSimpleToolDescriptor.kt)
+Example: [`WindowSingleScreenToolDescriptor.kt`](../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/window/singlescreen/WindowSingleScreenToolDescriptor.kt)
 
 ```kotlin
-class WindowSimpleToolDescriptor(toolContext: ToolContext) : ToolDescriptor(toolContext) {
-    override val nameResId: Int = R.string.window_simple_tool_name
+class WindowSingleScreenToolDescriptor(toolContext: ToolContext) : ToolDescriptor(toolContext) {
+    override val nameResId: Int = R.string.window_single_screen_tool_name
     override val iconResId: Int = R.drawable.ic_window
 
     // Gallery samples hide from the host launcher; only the hub uses CATEGORY_LAUNCHER.
@@ -145,7 +145,7 @@ class WindowSimpleToolDescriptor(toolContext: ToolContext) : ToolDescriptor(tool
         toolContext: ToolContext,
         di: DI,
         params: Bundle?,
-    ): AbstractTool = WindowSimpleTool(toolContext, this, di, params)
+    ): AbstractTool = WindowSingleScreenTool(toolContext, this, di, params)
 }
 ```
 
@@ -159,7 +159,7 @@ Example: [`gallery/src/main/res/xml/combat_tools.xml`](../gallery/src/main/res/x
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <combat-tools>
-    <tool-descriptor name="vision.combat.c4.ds.sample.gallery.window.simple.WindowSimpleToolDescriptor" />
+    <tool-descriptor name="vision.combat.c4.ds.sample.gallery.window.singlescreen.WindowSingleScreenToolDescriptor" />
 </combat-tools>
 ```
 

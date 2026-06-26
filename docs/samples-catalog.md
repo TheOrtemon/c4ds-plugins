@@ -22,45 +22,45 @@ Registry implementation: [`SampleCatalog.kt`](../gallery/src/main/kotlin/vision/
 
 ## Windows
 
-### Window Simple
+### Window — Single Screen
 
 | | |
 |---|---|
-| **Purpose** | Minimum viable window tool — form inputs and model interactor |
-| **Descriptor** | `vision.combat.c4.ds.sample.gallery.window.simple.WindowSimpleToolDescriptor` |
-| **Source** | `gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/window/simple/` |
+| **Purpose** | Minimal single-screen window tool with a ViewModel-backed counter |
+| **Descriptor** | `vision.combat.c4.ds.sample.gallery.window.singlescreen.WindowSingleScreenToolDescriptor` |
+| **Source** | `gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/window/singlescreen/` |
 
-**SDK APIs:** `ToolComponent.Window`, `requiredComponent`, `WindowScaffold`, `BackNavTopAppBar`, measurement inputs (`DistanceInput`, `SpeedInput`, `AltitudeInput`, `AngleInput`, `CoordinatesInputWithSystem`), `CommonModelInteractor` (`selectedModel`, `userModel`, `unselectModel`), `diViewModel()`, `showToast`.
+**SDK APIs:** `ToolComponent.Window`, `requiredComponent`, `WindowScaffold`, `BackNavTopAppBar`, `diViewModel()`, `showToast`.
 
-**Verify:** Launch from hub → window opens → inputs accept values → model section shows selected/user model → **Unselect** shows toast.
+**Verify:** Launch from hub → window opens → **Increment** increases counter → **Reset** resets counter and shows toast.
 
 ---
 
-### Window Navigation
+### Window — Multi-Screen
 
 | | |
 |---|---|
 | **Purpose** | Multi-screen window with tool-scoped DI and persisted settings |
-| **Descriptor** | `vision.combat.c4.ds.sample.gallery.window.navigation.WindowNavToolDescriptor` |
-| **Source** | `gallery/.../window/navigation/` |
+| **Descriptor** | `vision.combat.c4.ds.sample.gallery.window.multiscreen.WindowMultiScreenToolDescriptor` |
+| **Source** | `gallery/.../window/multiscreen/` |
 
-**SDK APIs:** `AppNavHost`, `Route`, navigation transitions, `BackNavigationButton`, `subDI { import(module) }`, tool-scoped `SharedPreferences`, `ToolManager.activate<WindowSimpleToolDescriptor>(FLAG_COMPONENT_ON_TOP)`.
+**SDK APIs:** `AppNavHost`, `Route`, navigation transitions, `BackNavTopAppBar`, `subDI { import(module) }`, tool-scoped `SharedPreferences`.
 
-**Verify:** Home screen → navigate to Settings → toggle **Open Simple on top** → close and reopen tool → toggle persisted → **Launch Window Simple** opens Window Simple on top.
+**Verify:** Home screen → navigate to Settings → toggle **Show description on Home** → navigate back → description visibility matches toggle → setting persists on tool reopen.
 
 ---
 
-### Dialog
+### Window — Secondary Map
 
 | | |
 |---|---|
-| **Purpose** | All four `ToolDialog` variants |
-| **Descriptor** | `vision.combat.c4.ds.sample.gallery.dialog.DialogToolDescriptor` |
-| **Source** | `gallery/.../dialog/` |
+| **Purpose** | Embedded secondary map inside a window panel (`ToolComponent.MapWindow`) |
+| **Descriptor** | `vision.combat.c4.ds.sample.gallery.mapwindow.MapWindowToolDescriptor` |
+| **Source** | `gallery/.../mapwindow/` |
 
-**SDK APIs:** `ToolDialog.Confirmation`, `.Destructive`, `.Info`, `.Custom`, `AbstractTool.showDialog()`, `dismissDialog()`, `DialogHeader`, `ButtonsRow`.
+**SDK APIs:** `ToolComponent.MapWindow`, embedded `MapView`, `MapController`, zoom controls, map mode selector, `MapWindow.mapEndBarButtons`, `MapWindow.navBarContent`, `MapWindow.focusCameraOn`.
 
-**Verify:** Four buttons each open the correct dialog type; confirm and dismiss work for every variant.
+**Verify:** Window opens with embedded map → zoom in/out work → mode selector switches view → Focus camera button moves map.
 
 ---
 
@@ -91,20 +91,6 @@ Registry implementation: [`SampleCatalog.kt`](../gallery/src/main/kotlin/vision/
 **SDK APIs:** `AbstractMapTool`, `RenderableLayer`, `SelectDragCallback`, map tap callbacks, `ToolComponent.Status`, `shouldShowCoordinates`, `shouldShowAzimuth`.
 
 **Verify:** Tap terrain → placemark appears → status bar shows coordinates/azimuth.
-
----
-
-### MapWindow
-
-| | |
-|---|---|
-| **Purpose** | Embedded secondary map inside a window panel |
-| **Descriptor** | `vision.combat.c4.ds.sample.gallery.mapwindow.MapWindowToolDescriptor` |
-| **Source** | `gallery/.../mapwindow/` |
-
-**SDK APIs:** `ToolComponent.MapWindow`, embedded `MapView`, `MapController`, zoom controls, map mode selector.
-
-**Verify:** Window opens with embedded map → zoom in/out work → mode selector switches view.
 
 ---
 
@@ -179,6 +165,22 @@ Registry implementation: [`SampleCatalog.kt`](../gallery/src/main/kotlin/vision/
 **SDK APIs:** `InlineMessage`, `HeaderField`, `ExpandableField`, `FormFieldBox`, `NestedForm`, `HostilitySelector`, buttons (`Button`, `OutlinedButton`, `TextButton`, `DestructiveButton`, `PrimaryProgressButton`, `AppFab`), inputs (`OutlinedTextInputField`, measurement inputs, coordinate input), selection (`SegmentedButtonRow`, `SliderWithLabel`, `CheckBoxField`, `SwitchField`, `RadioGroup`, `ColorSelector`), feedback (`AppDialog`, `Banner`, `Carousel`, `Tooltip`), revealable lists, `AppNavHost`, `WindowScaffold`.
 
 **Verify:** Launch from hub → component list opens → tap a component → detail screen shows each documented state → back navigation returns to list.
+
+---
+
+## Host UI & Dialogs
+
+### Dialog
+
+| | |
+|---|---|
+| **Purpose** | All four `ToolDialog` variants |
+| **Descriptor** | `vision.combat.c4.ds.sample.gallery.dialog.DialogToolDescriptor` |
+| **Source** | `gallery/.../dialog/` |
+
+**SDK APIs:** `ToolDialog.Confirmation`, `.Destructive`, `.Info`, `.Custom`, `AbstractTool.showDialog()`, `dismissDialog()`, `DialogHeader`, `ButtonsRow`.
+
+**Verify:** Four buttons each open the correct dialog type; confirm and dismiss work for every variant.
 
 ---
 
@@ -318,7 +320,7 @@ All user-visible strings exist in `values/` and `values-uk/`. After switching sy
 
 Not tied to a single tool — validates host behavior across APK updates:
 
-1. Install `:gallery` with `versionCode = 1`. Open **Window Navigation**, set a preference.
+1. Install `:gallery` with `versionCode = 1`. Open **Window — Multi-Screen**, set a preference.
 2. Bump `versionCode` in [`gallery/build.gradle.kts`](../gallery/build.gradle.kts), rebuild, reinstall (same `applicationId`).
 3. Confirm SharedPreferences state survived and hub still lists all samples.
 

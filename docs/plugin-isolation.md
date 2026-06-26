@@ -107,15 +107,15 @@ Plugin UI must recompose when host configuration changes (app language, uiMode/n
 ### Case (d): Pinned state survives versionCode bump
 
 **Sample:** Manual procedure (not a dedicated tool)  
-**Suggested tool:** Window Navigation (persists toggle in tool-scoped `SharedPreferences`)
+**Suggested tool:** Window — Multi-Screen (persists toggle in tool-scoped `SharedPreferences`)
 
 **Procedure:**
 
 1. Set `versionCode = 1` in [`gallery/build.gradle.kts`](../gallery/build.gradle.kts). Build and install.
-2. Open **Window Navigation** → Settings → enable **Open Simple on top**.
+2. Open **Window — Multi-Screen** → Settings → enable **Show description on Home**.
 3. Bump `versionCode` to `2`. Rebuild and reinstall with `adb install -r` (same `applicationId`).
-4. Reopen Window Navigation → confirm toggle is still enabled.
-5. Confirm Sample Gallery hub lists all samples and cross-tool launch still works.
+4. Reopen Window — Multi-Screen → confirm toggle is still enabled.
+5. Confirm Sample Gallery hub lists all samples.
 
 This validates descriptor re-registration and tool-scoped storage across package-manager updates.
 
