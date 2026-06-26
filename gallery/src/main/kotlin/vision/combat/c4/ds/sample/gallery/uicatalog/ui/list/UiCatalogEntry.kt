@@ -1,8 +1,7 @@
-package vision.combat.c4.ds.sample.gallery.uicatalog
+package vision.combat.c4.ds.sample.gallery.uicatalog.ui.list
 
 import androidx.annotation.Keep
 import androidx.annotation.StringRes
-import kotlinx.serialization.Serializable
 import vision.combat.c4.ds.sample.gallery.R
 
 /**

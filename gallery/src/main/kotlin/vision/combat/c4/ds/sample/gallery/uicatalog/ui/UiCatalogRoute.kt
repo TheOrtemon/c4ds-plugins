@@ -2,7 +2,6 @@ package vision.combat.c4.ds.sample.gallery.uicatalog.ui
 
 import androidx.annotation.Keep
 import kotlinx.serialization.Serializable
-import vision.combat.c4.ds.sample.gallery.uicatalog.UiCatalogEntry
 
 @Keep
 @Serializable

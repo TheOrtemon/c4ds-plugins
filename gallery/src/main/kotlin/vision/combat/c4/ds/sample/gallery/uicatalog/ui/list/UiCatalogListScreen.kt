@@ -1,4 +1,4 @@
-package vision.combat.c4.ds.sample.gallery.uicatalog.ui
+package vision.combat.c4.ds.sample.gallery.uicatalog.ui.list
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,7 +12,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import vision.combat.c4.ds.sample.gallery.R
-import vision.combat.c4.ds.sample.gallery.uicatalog.UiCatalogEntry
 import vision.combat.c4.ds.sdk.ui.component.WindowScaffold
 import vision.combat.c4.ds.sdk.ui.component.bar.BackNavTopAppBar
 import vision.combat.c4.ds.sdk.ui.component.list.ListItem
@@ -30,10 +29,7 @@ internal fun UiCatalogListScreen(
             BackNavTopAppBar(title = stringResource(R.string.ui_catalog_tool_name))
         },
         content = {
-            LazyColumn(
-                modifier = Modifier.fillMaxSize(),
-                contentPadding = PaddingValues(vertical = 4.dp),
-            ) {
+            LazyColumn(modifier = Modifier.fillMaxSize()) {
                 items(UiCatalogEntry.entries, key = { it.name }) { entry ->
                     ComponentListItem(
                         entry = entry,
