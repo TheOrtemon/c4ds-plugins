@@ -1,4 +1,4 @@
-package vision.combat.c4.ds.sample.gallery.window.navigation.ui
+package vision.combat.c4.ds.sample.gallery.window.multiscreen.ui
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -13,17 +13,22 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Switch
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import kotlinx.coroutines.flow.Flow
 import vision.combat.c4.ds.sample.gallery.R
-import vision.combat.c4.ds.sample.gallery.window.navigation.ui.SettingsViewModel.Action
+import vision.combat.c4.ds.sample.gallery.window.multiscreen.ui.SettingsViewModel.Action
+import vision.combat.c4.ds.sample.gallery.window.multiscreen.ui.SettingsViewModel.Event
 import vision.combat.c4.ds.sdk.ui.component.WindowContentDefaults.VerticalPadding
 import vision.combat.c4.ds.sdk.ui.component.WindowScaffold
 import vision.combat.c4.ds.sdk.ui.component.bar.BackNavTopAppBar
+import vision.combat.c4.ds.sdk.ui.util.showToast
 import vision.combat.c4.ds.sdk.ui.viewmodel.diViewModel
 
 @Composable
@@ -31,19 +36,21 @@ internal fun SettingsScreen() {
     val viewModel = diViewModel<SettingsViewModel>()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    ScreenContent(
+    Content(
         uiState = uiState,
         onAction = viewModel::handleAction,
     )
+
+    EventHandler(events = viewModel.events)
 }
 
 @Composable
-private fun ScreenContent(
+private fun Content(
     uiState: SettingsViewModel.UiState,
     onAction: (Action) -> Unit,
 ) {
     WindowScaffold(
-        topAppBar = { BackNavTopAppBar(title = stringResource(R.string.window_nav_settings_title)) },
+        topAppBar = { BackNavTopAppBar(title = stringResource(R.string.window_multi_screen_settings_title)) },
         contentPaddingValues = PaddingValues(0.dp, VerticalPadding),
         content = { SettingsContent(uiState, onAction) },
     )
@@ -54,7 +61,7 @@ private fun SettingsContent(uiState: SettingsViewModel.UiState, onAction: (Actio
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
-            .clickable { onAction(Action.SetOpenOnTop(!uiState.openOnTop)) }
+            .clickable { onAction(Action.SetShowDescription(!uiState.showDescription)) }
             .heightIn(min = 44.dp)
             .padding(horizontal = 16.dp),
     ) {
@@ -65,18 +72,32 @@ private fun SettingsContent(uiState: SettingsViewModel.UiState, onAction: (Actio
             verticalArrangement = Arrangement.spacedBy(4.dp),
         ) {
             Text(
-                text = stringResource(R.string.window_nav_settings_open_on_top),
+                text = stringResource(R.string.window_multi_screen_settings_show_desc),
                 style = MaterialTheme.typography.subtitle1,
             )
             Text(
-                text = stringResource(R.string.window_nav_settings_open_on_top_desc),
+                text = stringResource(R.string.window_multi_screen_settings_show_desc_hint),
                 style = MaterialTheme.typography.caption,
                 color = LocalContentColor.current.copy(ContentAlpha.disabled),
             )
         }
         Switch(
-            checked = uiState.openOnTop,
-            onCheckedChange = { onAction(Action.SetOpenOnTop(it)) },
+            checked = uiState.showDescription,
+            onCheckedChange = { onAction(Action.SetShowDescription(it)) },
         )
+    }
+}
+
+@Composable
+private fun EventHandler(events: Flow<Event>) {
+    val context = LocalContext.current
+    val toastMessage = stringResource(R.string.window_multi_screen_settings_saved_toast)
+
+    LaunchedEffect(events) {
+        events.collect { event ->
+            when (event) {
+                Event.SettingSaved -> context.showToast(toastMessage)
+            }
+        }
     }
 }

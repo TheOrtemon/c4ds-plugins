@@ -26,17 +26,18 @@
     <string name="window_single_screen_reset">Reset</string>
     <string name="window_single_screen_reset_toast">Counter reset</string>
 
-    <!-- Window Navigation -->
-    <string name="window_nav_tool_name">Window — Navigation</string>
-    <string name="window_nav_desc">Multi-screen window using AppNavHost, tool-scoped DI module, and SharedPreferences.</string>
-    <string name="window_nav_apis">AppNavHost, Route, BackNavigationButton, toolSubDI, SharedPreferences, ToolManager.activate</string>
-    <string name="window_nav_home_title">Home</string>
-    <string name="window_nav_home_desc">This is a multi-screen window tool demonstrating navigation between screens and persisted settings.</string>
-    <string name="window_nav_go_settings">Go to Settings</string>
-    <string name="window_nav_launch_simple">Launch Window Simple</string>
-    <string name="window_nav_settings_title">Settings</string>
-    <string name="window_nav_settings_open_on_top">Open Simple tool on top</string>
-    <string name="window_nav_settings_open_on_top_desc">When enabled, the Window Simple tool opens on top of the current window.</string>
+    <!-- Window Multi Screen -->
+    <string name="window_multi_screen_tool_name">Window — Multi-Screen</string>
+    <string name="window_multi_screen_desc">Multi-screen window using AppNavHost, tool-scoped DI module, and SharedPreferences.</string>
+    <string name="window_multi_screen_apis">AppNavHost, Route, BackNavTopAppBar, toolSubDI, SharedPreferences</string>
+    <string name="window_multi_screen_home_title">Home</string>
+    <string name="window_multi_screen_home_desc">This is a multi-screen window tool demonstrating navigation between screens and a persisted setting shared across them.</string>
+    <string name="window_multi_screen_home_hint">Go to Settings to toggle the description above.</string>
+    <string name="window_multi_screen_go_settings">Settings</string>
+    <string name="window_multi_screen_settings_title">Settings</string>
+    <string name="window_multi_screen_settings_show_desc">Show description on Home</string>
+    <string name="window_multi_screen_settings_show_desc_hint">When enabled, the description paragraph is shown on the Home screen.</string>
+    <string name="window_multi_screen_settings_saved_toast">Setting saved</string>
 
     <!-- Dialog -->
     <string name="dialog_tool_name">Dialog</string>

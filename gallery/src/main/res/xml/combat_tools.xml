@@ -2,7 +2,7 @@
 <combat-tools>
     <tool-descriptor name="vision.combat.c4.ds.sample.gallery.catalog.CatalogToolDescriptor" />
     <tool-descriptor name="vision.combat.c4.ds.sample.gallery.window.singlescreen.WindowSingleScreenToolDescriptor" />
-    <tool-descriptor name="vision.combat.c4.ds.sample.gallery.window.navigation.WindowNavToolDescriptor" />
+    <tool-descriptor name="vision.combat.c4.ds.sample.gallery.window.multiscreen.WindowMultiScreenToolDescriptor" />
     <tool-descriptor name="vision.combat.c4.ds.sample.gallery.dialog.DialogToolDescriptor" />
     <tool-descriptor name="vision.combat.c4.ds.sample.gallery.overlay.OverlaySampleToolDescriptor" />
     <tool-descriptor name="vision.combat.c4.ds.sample.gallery.map.MapToolDescriptor" />

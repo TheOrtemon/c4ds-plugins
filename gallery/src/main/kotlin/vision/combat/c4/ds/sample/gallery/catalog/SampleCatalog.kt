@@ -16,7 +16,7 @@ import vision.combat.c4.ds.sample.gallery.service.ServiceToolDescriptor
 import vision.combat.c4.ds.sample.gallery.status.StatusToolDescriptor
 import vision.combat.c4.ds.sample.gallery.uicatalog.UiCatalogToolDescriptor
 import vision.combat.c4.ds.sample.gallery.underlay.UnderlayToolDescriptor
-import vision.combat.c4.ds.sample.gallery.window.navigation.WindowNavToolDescriptor
+import vision.combat.c4.ds.sample.gallery.window.multiscreen.WindowMultiScreenToolDescriptor
 import vision.combat.c4.ds.sample.gallery.window.singlescreen.WindowSingleScreenToolDescriptor
 import vision.combat.c4.ds.sdk.tool.ToolManager
 import vision.combat.c4.ds.sdk.tool.activate
@@ -46,13 +46,13 @@ object SampleCatalog {
             launch = { mgr -> mgr.activate<WindowSingleScreenToolDescriptor>(flags = ToolManager.FLAG_COMPONENT_ON_TOP) },
         ),
         SampleEntry(
-            id = "window_nav",
+            id = "window_multi_screen",
             section = SampleSection.WINDOWS,
-            nameResId = R.string.window_nav_tool_name,
-            descResId = R.string.window_nav_desc,
-            apisResId = R.string.window_nav_apis,
-            sourceSubpackage = "window/navigation",
-            launch = { mgr -> mgr.activate<WindowNavToolDescriptor>(flags = ToolManager.FLAG_COMPONENT_ON_TOP) },
+            nameResId = R.string.window_multi_screen_tool_name,
+            descResId = R.string.window_multi_screen_desc,
+            apisResId = R.string.window_multi_screen_apis,
+            sourceSubpackage = "window/multiscreen",
+            launch = { mgr -> mgr.activate<WindowMultiScreenToolDescriptor>(flags = ToolManager.FLAG_COMPONENT_ON_TOP) },
         ),
         SampleEntry(
             id = "dialog",

@@ -26,17 +26,18 @@
     <string name="window_single_screen_reset">Скинути</string>
     <string name="window_single_screen_reset_toast">Лічильник скинуто</string>
 
-    <!-- Window Navigation -->
-    <string name="window_nav_tool_name">Вікно — Навігація</string>
-    <string name="window_nav_desc">Багатоекранне вікно з AppNavHost, DI-модулем та SharedPreferences.</string>
-    <string name="window_nav_apis">AppNavHost, Route, BackNavigationButton, toolSubDI, SharedPreferences, ToolManager.activate</string>
-    <string name="window_nav_home_title">Головна</string>
-    <string name="window_nav_home_desc">Це багатоекранний інструмент з навігацією між екранами та збереженими налаштуваннями.</string>
-    <string name="window_nav_go_settings">Перейти до налаштувань</string>
-    <string name="window_nav_launch_simple">Запустити Window Simple</string>
-    <string name="window_nav_settings_title">Налаштування</string>
-    <string name="window_nav_settings_open_on_top">Відкривати Simple поверх поточного</string>
-    <string name="window_nav_settings_open_on_top_desc">Якщо ввімкнено, інструмент Window Simple відкривається поверх поточного вікна.</string>
+    <!-- Window Multi Screen -->
+    <string name="window_multi_screen_tool_name">Вікно — Кілька екранів</string>
+    <string name="window_multi_screen_desc">Багатоекранне вікно з AppNavHost, DI-модулем та SharedPreferences.</string>
+    <string name="window_multi_screen_apis">AppNavHost, Route, BackNavTopAppBar, toolSubDI, SharedPreferences</string>
+    <string name="window_multi_screen_home_title">Головна</string>
+    <string name="window_multi_screen_home_desc">Це багатоекранний інструмент з навігацією між екранами та налаштуванням, яке зберігається між ними.</string>
+    <string name="window_multi_screen_home_hint">Перейдіть до Налаштувань, щоб перемкнути опис вище.</string>
+    <string name="window_multi_screen_go_settings">Налаштування</string>
+    <string name="window_multi_screen_settings_title">Налаштування</string>
+    <string name="window_multi_screen_settings_show_desc">Показувати опис на Головній</string>
+    <string name="window_multi_screen_settings_show_desc_hint">Якщо ввімкнено, абзац з описом відображається на Головному екрані.</string>
+    <string name="window_multi_screen_settings_saved_toast">Налаштування збережено</string>
 
     <!-- Dialog -->
     <string name="dialog_tool_name">Діалог</string>
