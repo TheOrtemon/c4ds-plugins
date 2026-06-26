@@ -27,10 +27,8 @@ internal fun UiCatalogWindow() {
         composable<UiCatalogRoute.Detail> { backStackEntry ->
             val route: UiCatalogRoute.Detail = backStackEntry.toRoute()
             val entry = UiCatalogEntry.valueOf(route.entryName)
-            UiCatalogDetailScreen(
-                entry = entry,
-                onBack = { navController.popBackStack() },
-            )
+
+            UiCatalogDetailScreen(entry = entry)
         }
     }
 }
