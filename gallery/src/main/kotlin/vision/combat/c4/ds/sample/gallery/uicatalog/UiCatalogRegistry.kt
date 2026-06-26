@@ -12,13 +12,13 @@ import vision.combat.c4.ds.sample.gallery.R
  */
 internal data class UiCatalogEntry(
     val id: String,
-    @StringRes val nameResId: Int,
-    @StringRes val descResId: Int,
+    @param:StringRes val nameResId: Int,
+    @param:StringRes val descResId: Int,
 )
 
 /**
  * Static registry of the promoted public-SDK components showcased by the UI Catalog sample.
- * Demos for each [id] live in
+ * Demos for each `id` live in
  * [vision.combat.c4.ds.sample.gallery.uicatalog.ui.UiCatalogDetailScreen].
  */
 internal object UiCatalogRegistry {
