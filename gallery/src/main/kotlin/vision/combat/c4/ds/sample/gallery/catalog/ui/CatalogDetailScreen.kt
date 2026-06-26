@@ -9,7 +9,6 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.produceState
-import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
@@ -20,20 +19,11 @@ import vision.combat.c4.ds.sample.gallery.R
 import vision.combat.c4.ds.sdk.tool.ToolManager
 import vision.combat.c4.ds.sdk.ui.component.WindowScaffold
 import vision.combat.c4.ds.sdk.ui.component.bar.BackNavTopAppBar
-import vision.combat.c4.ds.sdk.ui.platform.currentOnBackPressedDispatcher
 
 @Composable
 internal fun CatalogDetailScreen(
-    sampleId: String,
+    entry: CatalogEntry,
 ) {
-    val backPressDispatcher = currentOnBackPressedDispatcher()
-    val onBack by rememberUpdatedState(backPressDispatcher::onBackPressed)
-
-    val entry = CatalogEntries.entries.firstOrNull { it.id == sampleId } ?: run {
-        onBack()
-        return
-    }
-
     WindowScaffold(
         topAppBar = { BackNavTopAppBar(title = stringResource(entry.nameResId)) },
         content = { DetailContent(entry) },

@@ -13,14 +13,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import vision.combat.c4.ds.sample.gallery.R
 import vision.combat.c4.ds.sample.gallery.uicatalog.UiCatalogEntry
-import vision.combat.c4.ds.sample.gallery.uicatalog.UiCatalogRegistry
 import vision.combat.c4.ds.sdk.ui.component.WindowScaffold
 import vision.combat.c4.ds.sdk.ui.component.bar.BackNavTopAppBar
 import vision.combat.c4.ds.sdk.ui.component.list.ListItem
 
 @Composable
 internal fun UiCatalogListScreen(
-    onNavigateToDetail: (String) -> Unit,
+    onNavigateToDetail: (UiCatalogEntry) -> Unit,
 ) {
     WindowScaffold(
         // The body is a LazyColumn, which must own its own scrolling — disable the scaffold's
@@ -35,10 +34,10 @@ internal fun UiCatalogListScreen(
                 modifier = Modifier.fillMaxSize(),
                 contentPadding = PaddingValues(vertical = 4.dp),
             ) {
-                items(UiCatalogRegistry.entries, key = { it.id }) { entry ->
+                items(UiCatalogEntry.entries, key = { it.name }) { entry ->
                     ComponentListItem(
                         entry = entry,
-                        onClick = { onNavigateToDetail(entry.id) },
+                        onClick = { onNavigateToDetail(entry) },
                     )
                 }
             }

@@ -37,7 +37,7 @@ import vision.combat.c4.ds.sdk.ui.component.list.ListItem
 
 @Composable
 internal fun CatalogListScreen(
-    onNavigateToDetail: (String) -> Unit,
+    onNavigateToDetail: (CatalogEntry) -> Unit,
 ) {
     val toolManager by rememberInstance<ToolManager>()
 
@@ -63,9 +63,9 @@ internal fun CatalogListScreen(
 @Composable
 private fun CatalogList(
     toolManager: ToolManager,
-    onNavigateToDetail: (String) -> Unit,
+    onNavigateToDetail: (CatalogEntry) -> Unit,
 ) {
-    val entriesBySection = CatalogEntries.entries.groupBy { it.section }
+    val entriesBySection = CatalogEntry.entries.groupBy { it.section }
     val sectionsWithEntries = CatalogSection.entries.filter { entriesBySection[it]?.isNotEmpty() == true }
 
     // Track collapsed (not expanded) sections as a Set<String> — a plain Set is saveable via
@@ -81,7 +81,7 @@ private fun CatalogList(
             val sectionEntries = entriesBySection[section] ?: return@forEach
             val isExpanded = section.name !in collapsed
 
-            item(key = section.name) {
+            item(key = "section_${section.name}") {
                 CollapsibleSectionHeader(
                     title = stringResource(section.titleResId),
                     expanded = isExpanded,
@@ -96,11 +96,11 @@ private fun CatalogList(
             }
 
             if (isExpanded) {
-                items(sectionEntries, key = { it.id }) { entry ->
+                items(sectionEntries, key = { "entry_${it.name}" }) { entry ->
                     SampleListItem(
                         entry = entry,
                         toolManager = toolManager,
-                        onDetails = { onNavigateToDetail(entry.id) },
+                        onDetails = { onNavigateToDetail(entry) },
                     )
                 }
             }

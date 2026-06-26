@@ -16,16 +16,16 @@ internal fun CatalogWindow() {
     ) {
         composable<CatalogRoute.List> {
             CatalogListScreen(
-                onNavigateToDetail = { sampleId ->
-                    navController.navigate(CatalogRoute.Detail(sampleId))
+                onNavigateToDetail = { entry ->
+                    navController.navigate(CatalogRoute.Detail(entry.name))
                 },
             )
         }
         composable<CatalogRoute.Detail> { backStackEntry ->
             val route: CatalogRoute.Detail = backStackEntry.toRoute()
-            CatalogDetailScreen(
-                sampleId = route.sampleId,
-            )
+            val entry = CatalogEntry.valueOf(route.entryName)
+
+            CatalogDetailScreen(entry = entry)
         }
     }
 }

@@ -21,7 +21,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowRight
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableIntStateOf
@@ -40,7 +39,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import vision.combat.c4.ds.sample.gallery.R
 import vision.combat.c4.ds.sample.gallery.uicatalog.UiCatalogEntry
-import vision.combat.c4.ds.sample.gallery.uicatalog.UiCatalogRegistry
 import vision.combat.c4.ds.sdk.ui.component.Banner
 import vision.combat.c4.ds.sdk.ui.component.Carousel
 import vision.combat.c4.ds.sdk.ui.component.ColorSelector
@@ -86,23 +84,16 @@ import vision.combat.c4.ds.sdk.ui.component.reveal.EditMenuButton
 import vision.combat.c4.ds.sdk.ui.component.reveal.RevealableLazyColumn
 import vision.combat.c4.ds.sdk.ui.component.slider.SliderWithLabel
 import vision.combat.c4.ds.sdk.ui.component.text.OutlinedTextInputField
+import kotlin.time.Duration.Companion.milliseconds
 
 @Composable
 internal fun UiCatalogDetailScreen(
-    componentId: String,
+    entry: UiCatalogEntry,
     onBack: () -> Unit,
 ) {
-    val entry = UiCatalogRegistry.entryById(componentId)
-
-    // Never call onBack() during composition — navigate after the frame via LaunchedEffect.
-    if (entry == null) {
-        LaunchedEffect(componentId) { onBack() }
-        return
-    }
-
     // The LISTS demo hosts a RevealableLazyColumn (a lazy list), which must not be nested
     // inside the scaffold's default verticalScroll. Give it its own non-scrolling scaffold.
-    if (entry.id == UiCatalogRegistry.LISTS) {
+    if (entry == UiCatalogEntry.LISTS) {
         ListsDetailScreen(entry = entry, onBack = onBack)
         return
     }
@@ -145,7 +136,7 @@ private fun ListsDetailScreen(entry: UiCatalogEntry, onBack: () -> Unit) {
             onRefresh = {
                 refreshing = true
                 scope.launch {
-                    delay(1_500)
+                    delay(1_500.milliseconds)
                     refreshing = false
                 }
             },
@@ -184,17 +175,18 @@ private fun ColumnScope.DetailContent(entry: UiCatalogEntry) {
 
     Divider(modifier = Modifier.padding(bottom = 16.dp))
 
-    when (entry.id) {
-        UiCatalogRegistry.INLINE_MESSAGE -> InlineMessageDemo()
-        UiCatalogRegistry.HEADER_FIELD -> HeaderFieldDemo()
-        UiCatalogRegistry.EXPANDABLE_FIELD -> ExpandableFieldDemo()
-        UiCatalogRegistry.FORM_FIELD_BOX -> FormFieldBoxDemo()
-        UiCatalogRegistry.NESTED_FORM -> NestedFormDemo()
-        UiCatalogRegistry.HOSTILITY_SELECTOR -> HostilitySelectorDemo()
-        UiCatalogRegistry.BUTTONS -> ButtonsDemo()
-        UiCatalogRegistry.INPUTS -> InputsDemo()
-        UiCatalogRegistry.SELECTION -> SelectionDemo()
-        UiCatalogRegistry.FEEDBACK -> FeedbackDemo()
+    when (entry) {
+        UiCatalogEntry.INLINE_MESSAGE -> InlineMessageDemo()
+        UiCatalogEntry.HEADER_FIELD -> HeaderFieldDemo()
+        UiCatalogEntry.EXPANDABLE_FIELD -> ExpandableFieldDemo()
+        UiCatalogEntry.FORM_FIELD_BOX -> FormFieldBoxDemo()
+        UiCatalogEntry.NESTED_FORM -> NestedFormDemo()
+        UiCatalogEntry.HOSTILITY_SELECTOR -> HostilitySelectorDemo()
+        UiCatalogEntry.BUTTONS -> ButtonsDemo()
+        UiCatalogEntry.INPUTS -> InputsDemo()
+        UiCatalogEntry.SELECTION -> SelectionDemo()
+        UiCatalogEntry.FEEDBACK -> FeedbackDemo()
+        UiCatalogEntry.LISTS -> {} // Handled separately in UiCatalogDetailScreen
     }
 }
 
