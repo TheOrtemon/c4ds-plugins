@@ -11,7 +11,7 @@ import vision.combat.c4.ds.sdk.tool.ToolParams
  * Demonstrates cross-APK isolation: separate classloader, native .so from plugin nativeLibraryDir,
  * plugin AssetManager via toolContext.assets.
  *
- * This tool lives in :isolation APK (package vision.combat.c4.ds.sample.isolation.nativelib).
+ * This tool lives in :isolation APK (applicationId vision.combat.c4.ds.sample.isolation).
  * It is launched cross-APK from :gallery's CatalogTool via ToolManager.resolveToolId(fqcn).
  *
  * SDK APIs: ToolContext.assets (plugin AssetManager), System.loadLibrary from plugin nativeLibraryDir,
