@@ -5,6 +5,9 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import org.kodein.di.DI
+import org.kodein.di.bindSingletonOf
+import org.kodein.di.instance
+import vision.combat.c4.ds.sample.gallery.service.di.serviceModule
 import vision.combat.c4.ds.sdk.tool.AbstractToolService
 import vision.combat.c4.ds.sdk.tool.ToolContext
 import vision.combat.c4.ds.sdk.tool.ToolDescriptor
@@ -13,22 +16,28 @@ import java.util.Date
 import java.util.Locale
 
 /**
- * Background service that increments an event counter every 5 seconds.
+ * Session-scoped background service that increments an event counter every 5 seconds.
  *
- * `AbstractToolService` has no onStart/onStop hooks; work is started in init{}
- * and cancelled automatically when onDestroy() disposes coroutineScope.
+ * Created at session start via [ToolDescriptor.createService]. Work starts in init{} and is
+ * cancelled automatically when [onDestroy] disposes [coroutineScope].
  *
- * State is shared via [ServiceSharedState] created by [ServiceToolDescriptor].
+ * Shared state is bound in [serviceModule] and exposed to the tool when it is activated.
  */
 internal class ServiceSampleService(
     toolContext: ToolContext,
     descriptor: ToolDescriptor,
-    di: DI,
-    private val sharedState: ServiceSharedState,
-) : AbstractToolService(toolContext, descriptor, di) {
+    parentDI: DI,
+) : AbstractToolService(toolContext, descriptor, parentDI) {
+
+    override val di: DI = toolSubDI {
+        import(serviceModule)
+        bindSingletonOf(::ServiceNotificationManager)
+    }
+
+    private val sharedState: ServiceSharedState by instance()
 
     init {
-        Log.i(TAG, "ServiceSampleService created — background service is running")
+        Log.i(TAG, "ServiceSampleService created — session service is running")
         coroutineScope.launch {
             while (isActive) {
                 delay(TICK_INTERVAL_MS)

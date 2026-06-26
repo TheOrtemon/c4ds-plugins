@@ -1,6 +1,7 @@
 package vision.combat.c4.ds.sample.gallery.service
 
 import org.kodein.di.DI
+import org.kodein.di.instance
 import vision.combat.c4.ds.sample.gallery.R
 import vision.combat.c4.ds.sample.gallery.service.ui.ServiceWindow
 import vision.combat.c4.ds.sdk.tool.AbstractTool
@@ -12,14 +13,13 @@ import vision.combat.c4.ds.sdk.tool.ToolParams
 import vision.combat.c4.ds.sdk.tool.requiredComponent
 
 /**
- * Demonstrates AbstractToolService lifecycle.
+ * Demonstrates session-scoped [AbstractToolService] lifecycle.
  *
- * SDK APIs: ToolDescriptor.createService,
- *           AbstractToolService (init-time coroutineScope, onDestroy),
- *           ToolNotificationManager.
+ * SDK APIs: [ToolDescriptor.createService], [AbstractToolService.toolSubDI],
+ * [ToolNotificationManager.counter].
  *
- * Note: AbstractToolService has no onStart/onStop hooks. Work starts in init{}
- * and is cancelled automatically when coroutineScope is disposed on onDestroy().
+ * The service is created at session start; the tool window reads the same
+ * [ServiceSharedState] from the merged service DI graph when activated.
  *
  * SDK files:
  *   c4ds-sdk/src/main/kotlin/vision/combat/c4/ds/sdk/tool/ToolDescriptor.kt
@@ -30,15 +30,12 @@ class ServiceToolDescriptor(toolContext: ToolContext) : ToolDescriptor(toolConte
     override val iconResId: Int = R.drawable.ic_service
     override val categories: List<String> = emptyList()
 
-    // Shared state instance — both tool and service access it.
-    private val sharedState = ServiceSharedState()
-
     override fun createTool(toolContext: ToolContext, di: DI, params: ToolParams?): AbstractTool {
-        return ServiceTool(toolContext, this, di, params, sharedState)
+        return ServiceTool(toolContext, this, di, params)
     }
 
     override fun createService(toolContext: ToolContext, di: DI): AbstractToolService {
-        return ServiceSampleService(toolContext, this, di, sharedState)
+        return ServiceSampleService(toolContext, this, di)
     }
 }
 
@@ -47,8 +44,9 @@ internal class ServiceTool(
     toolDescriptor: ToolDescriptor,
     parentDI: DI,
     params: ToolParams?,
-    private val sharedState: ServiceSharedState,
 ) : AbstractTool(toolContext, toolDescriptor, parentDI, params) {
+
+    private val sharedState: ServiceSharedState by instance()
 
     override val window: ToolComponent.Window by requiredComponent {
         ServiceWindow(sharedState)

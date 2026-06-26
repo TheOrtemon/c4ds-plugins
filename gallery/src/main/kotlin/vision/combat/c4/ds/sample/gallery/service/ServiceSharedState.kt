@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.asStateFlow
 
 /**
  * Shared state between [ServiceSampleService] and [ServiceWindow].
- * The descriptor creates one instance and passes it to both.
+ * Bound as a singleton in [vision.combat.c4.ds.sample.gallery.service.di.serviceModule].
  */
 internal class ServiceSharedState {
     private val _eventCount = MutableStateFlow(0)
