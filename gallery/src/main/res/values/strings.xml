@@ -7,6 +7,7 @@
     <string name="section_map">Map</string>
     <string name="section_map_overlays">Map Overlays &amp; Status</string>
     <string name="section_ui_components">UI Components</string>
+    <string name="section_host_ui">Host UI &amp; Dialogs</string>
     <string name="section_model_map_data">Model &amp; Map Data</string>
     <string name="section_lifecycle">Lifecycle &amp; Services</string>
     <string name="section_resources_isolation">Resources &amp; Isolation</string>
@@ -78,7 +79,7 @@
     <string name="map_last_tap">Last tap:</string>
 
     <!-- MapWindow -->
-    <string name="mapwindow_tool_name">MapWindow</string>
+    <string name="mapwindow_tool_name">Window — Secondary Map</string>
     <string name="mapwindow_desc">Embedded secondary map inside a tool window via ToolComponent.MapWindow. The host provides default zoom controls; this sample adds supplemental end-bar and nav-bar actions.</string>
     <string name="mapwindow_apis">ToolComponent.MapWindow, mapWindow factory, MapView, MapController, MapWindow.mapEndBarButtons, MapWindow.navBarContent, MapWindow.focusCameraOn</string>
     <string name="mapwindow_mode_lookat">LookAt</string>

@@ -13,6 +13,7 @@ enum class SampleSection(@get:StringRes val titleResId: Int) {
     MAP(R.string.section_map),
     MAP_OVERLAYS(R.string.section_map_overlays),
     UI_COMPONENTS(R.string.section_ui_components),
+    HOST_UI(R.string.section_host_ui),
     MODEL_AND_MAP_DATA(R.string.section_model_map_data),
     LIFECYCLE(R.string.section_lifecycle),
     RESOURCES_AND_ISOLATION(R.string.section_resources_isolation),

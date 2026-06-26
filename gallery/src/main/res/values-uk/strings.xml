@@ -7,6 +7,7 @@
     <string name="section_map">Карта</string>
     <string name="section_map_overlays">Оверлеї карти та статус</string>
     <string name="section_ui_components">UI-компоненти</string>
+    <string name="section_host_ui">UI хоста та діалоги</string>
     <string name="section_model_map_data">Модель та дані карти</string>
     <string name="section_lifecycle">Lifecycle та служби</string>
     <string name="section_resources_isolation">Ресурси та ізоляція</string>
@@ -78,7 +79,7 @@
     <string name="map_last_tap">Останній тап:</string>
 
     <!-- MapWindow -->
-    <string name="mapwindow_tool_name">MapWindow</string>
+    <string name="mapwindow_tool_name">Вікно — Вторинна карта</string>
     <string name="mapwindow_desc">Вбудована вторинна карта у вікні інструменту через ToolComponent.MapWindow. Хост надає стандартні елементи масштабування; цей зразок додає додаткові дії на бічній та верхній панелях.</string>
     <string name="mapwindow_apis">ToolComponent.MapWindow, mapWindow factory, MapView, MapController, MapWindow.mapEndBarButtons, MapWindow.navBarContent, MapWindow.focusCameraOn</string>
     <string name="mapwindow_mode_lookat">LookAt</string>

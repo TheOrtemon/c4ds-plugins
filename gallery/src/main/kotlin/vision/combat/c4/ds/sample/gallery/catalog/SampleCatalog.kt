@@ -55,13 +55,13 @@ object SampleCatalog {
             launch = { mgr -> mgr.activate<WindowMultiScreenToolDescriptor>(flags = ToolManager.FLAG_COMPONENT_ON_TOP) },
         ),
         SampleEntry(
-            id = "dialog",
+            id = "mapwindow",
             section = SampleSection.WINDOWS,
-            nameResId = R.string.dialog_tool_name,
-            descResId = R.string.dialog_desc,
-            apisResId = R.string.dialog_apis,
-            sourceSubpackage = "dialog",
-            launch = { mgr -> mgr.activate<DialogToolDescriptor>(flags = ToolManager.FLAG_COMPONENT_ON_TOP) },
+            nameResId = R.string.mapwindow_tool_name,
+            descResId = R.string.mapwindow_desc,
+            apisResId = R.string.mapwindow_apis,
+            sourceSubpackage = "mapwindow",
+            launch = { mgr -> mgr.activate<MapWindowToolDescriptor>(flags = ToolManager.FLAG_COMPONENT_ON_TOP) },
         ),
 
         // ── MAP ─────────────────────────────────────────────────────────────
@@ -73,15 +73,6 @@ object SampleCatalog {
             apisResId = R.string.map_apis,
             sourceSubpackage = "map",
             launch = { mgr -> mgr.activate<MapToolDescriptor>(flags = ToolManager.FLAG_COMPONENT_ON_TOP) },
-        ),
-        SampleEntry(
-            id = "mapwindow",
-            section = SampleSection.MAP,
-            nameResId = R.string.mapwindow_tool_name,
-            descResId = R.string.mapwindow_desc,
-            apisResId = R.string.mapwindow_apis,
-            sourceSubpackage = "mapwindow",
-            launch = { mgr -> mgr.activate<MapWindowToolDescriptor>(flags = ToolManager.FLAG_COMPONENT_ON_TOP) },
         ),
         SampleEntry(
             id = "underlay",
@@ -142,6 +133,17 @@ object SampleCatalog {
             apisResId = R.string.ui_catalog_apis,
             sourceSubpackage = "uicatalog",
             launch = { mgr -> mgr.activate<UiCatalogToolDescriptor>(flags = ToolManager.FLAG_COMPONENT_ON_TOP) },
+        ),
+
+        // ── HOST UI & DIALOGS ────────────────────────────────────────────────
+        SampleEntry(
+            id = "dialog",
+            section = SampleSection.HOST_UI,
+            nameResId = R.string.dialog_tool_name,
+            descResId = R.string.dialog_desc,
+            apisResId = R.string.dialog_apis,
+            sourceSubpackage = "dialog",
+            launch = { mgr -> mgr.activate<DialogToolDescriptor>(flags = ToolManager.FLAG_COMPONENT_ON_TOP) },
         ),
 
         // ── MODEL & MAP DATA ─────────────────────────────────────────────────
