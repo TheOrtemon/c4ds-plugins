@@ -16,22 +16,15 @@
     <string name="catalog_section_expand">Expand section</string>
     <string name="catalog_section_collapse">Collapse section</string>
 
-    <!-- Window Simple -->
-    <string name="window_simple_tool_name">Window — Simple</string>
-    <string name="window_simple_desc">Minimum viable window tool with SDK form inputs and model interactor.</string>
-    <string name="window_simple_apis">ToolComponent.Window, WindowScaffold, BackNavTopAppBar, diViewModel(), DistanceInput, SpeedInput, AltitudeInput, AngleInput, CoordinatesInputWithSystem, CommonModelInteractor, showToast</string>
-    <string name="window_simple_section_inputs">Measurement Inputs</string>
-    <string name="window_simple_user_model">User model</string>
-    <string name="window_simple_selected_model">Selected model</string>
-    <string name="window_simple_model_name">Name</string>
-    <string name="window_simple_distance">Distance</string>
-    <string name="window_simple_speed">Speed</string>
-    <string name="window_simple_altitude">Altitude</string>
-    <string name="window_simple_azimuth">Azimuth</string>
-    <string name="window_simple_not_selected">Model not selected</string>
-    <string name="window_simple_unselect">Unselect model</string>
-    <string name="window_simple_unselected_toast">Model unselected</string>
-    <string name="window_simple_value_not_specified">Value not specified</string>
+    <!-- Window Single Screen -->
+    <string name="window_single_screen_tool_name">Window — Single Screen</string>
+    <string name="window_single_screen_desc">Minimal single-screen window tool: ToolComponent.Window, WindowScaffold, and a ViewModel-backed counter demonstrating MVI state and a one-shot toast event.</string>
+    <string name="window_single_screen_apis">ToolComponent.Window, WindowScaffold, BackNavTopAppBar, diViewModel(), showToast</string>
+    <string name="window_single_screen_desc_short">A minimal single-screen window. Tap Increment to count up; Reset resets the counter and shows a toast.</string>
+    <string name="window_single_screen_counter_label">Count: %1$d</string>
+    <string name="window_single_screen_increment">Increment</string>
+    <string name="window_single_screen_reset">Reset</string>
+    <string name="window_single_screen_reset_toast">Counter reset</string>
 
     <!-- Window Navigation -->
     <string name="window_nav_tool_name">Window — Navigation</string>

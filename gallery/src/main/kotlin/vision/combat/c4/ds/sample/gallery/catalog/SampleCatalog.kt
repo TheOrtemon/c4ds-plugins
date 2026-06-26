@@ -17,7 +17,7 @@ import vision.combat.c4.ds.sample.gallery.status.StatusToolDescriptor
 import vision.combat.c4.ds.sample.gallery.uicatalog.UiCatalogToolDescriptor
 import vision.combat.c4.ds.sample.gallery.underlay.UnderlayToolDescriptor
 import vision.combat.c4.ds.sample.gallery.window.navigation.WindowNavToolDescriptor
-import vision.combat.c4.ds.sample.gallery.window.simple.WindowSimpleToolDescriptor
+import vision.combat.c4.ds.sample.gallery.window.singlescreen.WindowSingleScreenToolDescriptor
 import vision.combat.c4.ds.sdk.tool.ToolManager
 import vision.combat.c4.ds.sdk.tool.activate
 
@@ -37,13 +37,13 @@ object SampleCatalog {
 
         // ── WINDOWS ─────────────────────────────────────────────────────────
         SampleEntry(
-            id = "window_simple",
+            id = "window_single_screen",
             section = SampleSection.WINDOWS,
-            nameResId = R.string.window_simple_tool_name,
-            descResId = R.string.window_simple_desc,
-            apisResId = R.string.window_simple_apis,
-            sourceSubpackage = "window/simple",
-            launch = { mgr -> mgr.activate<WindowSimpleToolDescriptor>(flags = ToolManager.FLAG_COMPONENT_ON_TOP) },
+            nameResId = R.string.window_single_screen_tool_name,
+            descResId = R.string.window_single_screen_desc,
+            apisResId = R.string.window_single_screen_apis,
+            sourceSubpackage = "window/singlescreen",
+            launch = { mgr -> mgr.activate<WindowSingleScreenToolDescriptor>(flags = ToolManager.FLAG_COMPONENT_ON_TOP) },
         ),
         SampleEntry(
             id = "window_nav",

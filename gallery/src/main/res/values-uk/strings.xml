@@ -16,22 +16,15 @@
     <string name="catalog_section_expand">Розгорнути секцію</string>
     <string name="catalog_section_collapse">Згорнути секцію</string>
 
-    <!-- Window Simple -->
-    <string name="window_simple_tool_name">Вікно — Просте</string>
-    <string name="window_simple_desc">Мінімальний інструмент з вікном, SDK-форми введення та інтерактором моделі.</string>
-    <string name="window_simple_apis">ToolComponent.Window, WindowScaffold, BackNavTopAppBar, diViewModel(), DistanceInput, SpeedInput, AltitudeInput, AngleInput, CoordinatesInputWithSystem, CommonModelInteractor, showToast</string>
-    <string name="window_simple_section_inputs">Поля введення</string>
-    <string name="window_simple_user_model">Модель користувача</string>
-    <string name="window_simple_selected_model">Обрана модель</string>
-    <string name="window_simple_model_name">Назва</string>
-    <string name="window_simple_distance">Дистанція</string>
-    <string name="window_simple_speed">Швидкість</string>
-    <string name="window_simple_altitude">Висота</string>
-    <string name="window_simple_azimuth">Азимут</string>
-    <string name="window_simple_not_selected">Модель не обрано</string>
-    <string name="window_simple_unselect">Скинути вибір</string>
-    <string name="window_simple_unselected_toast">Вибір моделі скинуто</string>
-    <string name="window_simple_value_not_specified">Значення не вказано</string>
+    <!-- Window Single Screen -->
+    <string name="window_single_screen_tool_name">Вікно — Один екран</string>
+    <string name="window_single_screen_desc">Мінімальний одноекранний інструмент з вікном: ToolComponent.Window, WindowScaffold та лічильником на ViewModel з MVI-станом і одноразовим toast-подією.</string>
+    <string name="window_single_screen_apis">ToolComponent.Window, WindowScaffold, BackNavTopAppBar, diViewModel(), showToast</string>
+    <string name="window_single_screen_desc_short">Мінімальне одноекранне вікно. Натисніть «Збільшити», щоб рахувати; «Скинути» обнуляє лічильник і показує toast.</string>
+    <string name="window_single_screen_counter_label">Лічильник: %1$d</string>
+    <string name="window_single_screen_increment">Збільшити</string>
+    <string name="window_single_screen_reset">Скинути</string>
+    <string name="window_single_screen_reset_toast">Лічильник скинуто</string>
 
     <!-- Window Navigation -->
     <string name="window_nav_tool_name">Вікно — Навігація</string>
