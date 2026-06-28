@@ -74,7 +74,7 @@ The native tool window displays:
 
 Plugin APKs compile their own Compose Material 2 dependency. The host provides a fallback composition context so plugin `@Composable` functions resolve theme and resources correctly.
 
-**Verify:** Launch sample → `Snackbar`, `AlertDialog`, `DropdownMenu`, and `Slider` all render and respond without crash or missing theme errors.
+**Verify:** Launch sample → `Snackbar`, `AlertDialog`, `DropdownMenu`, and `Slider` all render and respond without crash or missing theme errors. Popup widgets (`AlertDialog`, `DropdownMenu`) must show plugin string values — not host color hex or resource paths — because `MaterialWindow` re-provides the tool `LocalContext` inside each popup lambda (the same pattern the SDK uses internally via `ProvideWindowContext`).
 
 ---
 

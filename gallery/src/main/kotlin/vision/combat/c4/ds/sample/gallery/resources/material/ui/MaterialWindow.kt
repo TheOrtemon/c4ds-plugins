@@ -15,6 +15,7 @@ import androidx.compose.material.SnackbarHost
 import androidx.compose.material.SnackbarHostState
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -22,6 +23,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
@@ -39,6 +41,11 @@ internal fun MaterialWindow() {
 
 @Composable
 private fun ColumnScope.MaterialContent() {
+    // Capture the tool composition context here, while still under ToolEnvironmentProvider's
+    // CompositionFallbackContext. Popup sub-compositions (DropdownMenu, AlertDialog) reset
+    // LocalContext to the host Activity, breaking stringResource resolution against the plugin R.
+    val windowContext = LocalContext.current
+
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
     var showDialog by remember { mutableStateOf(false) }
@@ -80,13 +87,17 @@ private fun ColumnScope.MaterialContent() {
         Button(onClick = { dropdownExpanded = true }, modifier = Modifier.fillMaxWidth()) {
             Text(stringResource(R.string.material_dropdown_open))
         }
+        // Re-provide the tool context so stringResource calls below resolve against the plugin R,
+        // not the host Activity context that the popup sub-composition would otherwise inherit.
         DropdownMenu(expanded = dropdownExpanded, onDismissRequest = { dropdownExpanded = false }) {
-            listOf(
-                stringResource(R.string.material_dropdown_alpha),
-                stringResource(R.string.material_dropdown_beta),
-                stringResource(R.string.material_dropdown_gamma),
-            ).forEach { item ->
-                DropdownMenuItem(onClick = { dropdownExpanded = false }) { Text(item) }
+            CompositionLocalProvider(LocalContext provides windowContext) {
+                listOf(
+                    stringResource(R.string.material_dropdown_alpha),
+                    stringResource(R.string.material_dropdown_beta),
+                    stringResource(R.string.material_dropdown_gamma),
+                ).forEach { item ->
+                    DropdownMenuItem(onClick = { dropdownExpanded = false }) { Text(item) }
+                }
             }
         }
     }
@@ -99,19 +110,33 @@ private fun ColumnScope.MaterialContent() {
     )
 
     /**
-     * [AlertDialog] renders in a separate popup composition where [androidx.compose.ui.platform.LocalContext]
-     * resets to the host Activity context (no [CompositionFallbackContext]). For production plugin tools,
-     * prefer [vision.combat.c4.ds.sdk.tool.ToolDialog] via [vision.combat.c4.ds.sdk.tool.AbstractTool.showDialog],
-     * or pre-resolve strings before opening the dialog (see [snackbarMsg] above).
+     * Both [AlertDialog] and [DropdownMenu] render in Compose popup sub-compositions where
+     * [LocalContext] resets to the host Activity context, so [stringResource] calls resolve
+     * against the host resource table instead of the plugin's. The fix mirrors the SDK's internal
+     * `ProvideWindowContext`: capture [LocalContext] while still inside the tool's composition
+     * tree (above), then re-provide it inside each popup lambda so plugin R ids resolve correctly.
+     *
+     * For production tools, prefer [vision.combat.c4.ds.sdk.tool.ToolDialog] via
+     * [vision.combat.c4.ds.sdk.tool.AbstractTool.showDialog] which handles this automatically.
      */
     if (showDialog) {
         AlertDialog(
             onDismissRequest = { showDialog = false },
-            title = { Text(stringResource(R.string.material_dialog_title)) },
-            text = { Text(stringResource(R.string.material_dialog_body)) },
+            title = {
+                CompositionLocalProvider(LocalContext provides windowContext) {
+                    Text(stringResource(R.string.material_dialog_title))
+                }
+            },
+            text = {
+                CompositionLocalProvider(LocalContext provides windowContext) {
+                    Text(stringResource(R.string.material_dialog_body))
+                }
+            },
             confirmButton = {
-                Button(onClick = { showDialog = false }) {
-                    Text(stringResource(R.string.material_ok))
+                CompositionLocalProvider(LocalContext provides windowContext) {
+                    Button(onClick = { showDialog = false }) {
+                        Text(stringResource(R.string.material_ok))
+                    }
                 }
             },
         )
