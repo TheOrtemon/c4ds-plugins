@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Checkbox
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -208,26 +207,13 @@ private fun SampleListItem(
     }
 
     ListItem(
-        selected = isActive,
-        // The details (info) affordance lives in the headline row so the supporting text below
-        // never changes between states — this keeps the row height stable and the list from
-        // re-laying-out (jumping) when a sample is toggled active/inactive.
         headline = {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(
-                    text = stringResource(entry.nameResId),
-                    style = MaterialTheme.typography.body1,
-                    fontWeight = FontWeight.SemiBold,
-                    color = MaterialTheme.colors.onSurface,
-                    modifier = Modifier.weight(1f, fill = false),
-                )
-                TextSizeIcon(
-                    painter = rememberVectorPainter(Icons.Outlined.Info),
-                    contentDescription = stringResource(R.string.catalog_details),
-                    onClick = onDetails,
-                    tint = MaterialTheme.colors.onSurface,
-                )
-            }
+            Text(
+                text = stringResource(entry.nameResId),
+                style = MaterialTheme.typography.body1,
+                fontWeight = FontWeight.SemiBold,
+                color = if (isActive) MaterialTheme.colors.secondary else MaterialTheme.colors.onSurface,
+            )
         },
         supportingText = {
             Text(
@@ -252,17 +238,13 @@ private fun SampleListItem(
         },
         enableClickable = isEnabled,
         canGoForward = false,
-        // A check toggle replaces the old info button as the active-state control: its checked
-        // state mirrors whether the sample's tool is active, and tapping it (or the row) toggles it.
-        trailingAction = if (isEnabled) {
-            {
-                Checkbox(
-                    checked = isActive,
-                    onCheckedChange = { onAction(Action.Toggle(entry)) },
-                )
-            }
-        } else {
-            null
+        trailingAction = {
+            TextSizeIcon(
+                painter = rememberVectorPainter(Icons.Outlined.Info),
+                contentDescription = stringResource(R.string.catalog_details),
+                onClick = onDetails,
+                tint = MaterialTheme.colors.onSurface,
+            )
         },
     )
 }

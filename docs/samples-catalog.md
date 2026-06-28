@@ -11,12 +11,12 @@ Reference for every tool in this repository: what it demonstrates, where the sou
 
 | Action | Result |
 |---|---|
-| Open **Sample Gallery** from host Tools list | Hub window with grouped cards |
-| **Tap** an inactive card | Activates that sample (same APK via `ToolManager.activate<T>()`; cross-APK via `resolveToolId`) |
-| **Tap** an active card (highlighted with active indicator) | Deactivates that sample via `ToolManager.deactivate` |
+| Open **Sample Gallery** from host Tools list | Hub window with grouped list |
+| **Tap** an inactive row | Activates that sample (same APK via `ToolManager.activate<T>()`; cross-APK via `resolveToolId`); the sample name is highlighted in the accent color to indicate active state |
+| **Tap** an active row (name shown in accent color) | Deactivates that sample via `ToolManager.deactivate`; name returns to normal color |
 | **Deactivate all** button in the app bar | Deactivates every active gallery tool except the hub itself; shows a confirmation toast |
-| **Details** on a card | Shows SDK APIs, source subpackage, and cross-APK install steps when applicable |
-| Install `:isolation` APK | Enables **Native / Cross-APK** card in the Resources & Isolation section |
+| **Info icon** (ⓘ) on a row | Shows SDK APIs, source subpackage, and cross-APK install steps when applicable |
+| Install `:isolation` APK | Enables **Native / Cross-APK** row in the Resources & Isolation section |
 
 Registry implementation: [`CatalogEntry.kt`](../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/catalog/ui/CatalogEntry.kt)
 
