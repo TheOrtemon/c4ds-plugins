@@ -12,7 +12,9 @@ Reference for every tool in this repository: what it demonstrates, where the sou
 | Action | Result |
 |---|---|
 | Open **Sample Gallery** from host Tools list | Hub window with grouped cards |
-| **Launch** on a card | Activates that sample (same APK via `ToolManager.activate<T>()`; cross-APK via `resolveToolId`) |
+| **Tap** an inactive card | Activates that sample (same APK via `ToolManager.activate<T>()`; cross-APK via `resolveToolId`) |
+| **Tap** an active card (highlighted with active indicator) | Deactivates that sample via `ToolManager.deactivate` |
+| **Deactivate all** button in the app bar | Deactivates every active gallery tool except the hub itself; shows a confirmation toast |
 | **Details** on a card | Shows SDK APIs, source subpackage, and cross-APK install steps when applicable |
 | Install `:isolation` APK | Enables **Native / Cross-APK** card in the Resources & Isolation section |
 

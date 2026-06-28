@@ -75,8 +75,8 @@ private fun ColumnScope.DetailContent(entry: CatalogEntry) {
 @Composable
 private fun ColumnScope.CrossApkInstallSection(entry: CatalogEntry) {
     val toolManager by rememberInstance<ToolManager>()
-    val isInstalled by produceState(initialValue = false, entry.crossApkFqcn) {
-        value = entry.crossApkFqcn?.let { toolManager.resolveToolId(it) } != null
+    val isInstalled by produceState(initialValue = false, entry.toolClassName) {
+        value = toolManager.resolveToolId(entry.toolClassName) != null
     }
 
     Divider(modifier = Modifier.padding(bottom = 12.dp))

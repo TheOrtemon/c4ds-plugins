@@ -55,8 +55,6 @@ dependencies {
     compileOnly(libs.combat.ds.sdk)
     runtimeOnly(libs.combat.ds.sdk.runtime)
 
-    compileOnly(libs.kotlinx.serialization.json)
-
     coreLibraryDesugaring(libs.android.tools.desugar)
 }
 

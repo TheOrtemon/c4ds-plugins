@@ -16,6 +16,8 @@
     <string name="catalog_source_label">Пакет джерела</string>
     <string name="catalog_section_expand">Розгорнути секцію</string>
     <string name="catalog_section_collapse">Згорнути секцію</string>
+    <string name="catalog_deactivate_all">Деактивувати всі</string>
+    <string name="catalog_deactivated_all_toast">Усі зразки деактивовано</string>
 
     <!-- Window Single Screen -->
     <string name="window_single_screen_tool_name">Вікно — Один екран</string>

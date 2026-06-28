@@ -20,11 +20,7 @@ import vision.combat.c4.ds.sample.gallery.underlay.UnderlayToolDescriptor
 import vision.combat.c4.ds.sample.gallery.window.map.MapWindowToolDescriptor
 import vision.combat.c4.ds.sample.gallery.window.multiscreen.WindowMultiScreenToolDescriptor
 import vision.combat.c4.ds.sample.gallery.window.singlescreen.WindowSingleScreenToolDescriptor
-import vision.combat.c4.ds.sdk.tool.ToolManager
-import vision.combat.c4.ds.sdk.tool.activate
-
-private const val ISOLATION_NATIVE_FQCN =
-    "vision.combat.c4.ds.sample.isolation.nativelib.NativeToolDescriptor"
+import vision.combat.c4.ds.sdk.tool.requireQualifiedName
 
 /**
  * Registry of all gallery samples.
@@ -34,9 +30,10 @@ private const val ISOLATION_NATIVE_FQCN =
  * @param descResId String resource for the sample description.
  * @param apisResId String resource listing which SDK APIs are demonstrated.
  * @param sourceSubpackage Package path shown on the detail screen (e.g. "window/singlescreen").
- * @param isCrossApk True if this entry requires a separate APK to be installed.
- * @param crossApkFqcn If [isCrossApk], the FQCN of the target descriptor for resolveToolId.
- * @param launch Called when the user taps the list row to activate the sample.
+ * @param toolClassName Fully-qualified class name of the tool's descriptor. Used both to match this
+ *   entry against the active tools (ToolManager.activeTools) and as the argument to
+ *   ToolManager.activate / deactivate, which resolve it to a ToolId via resolveToolId.
+ * @param isCrossApk True if this entry's tool lives in a separate APK that must be installed.
  */
 @Keep
 internal enum class CatalogEntry(
@@ -45,9 +42,8 @@ internal enum class CatalogEntry(
     @get:StringRes val descResId: Int,
     @get:StringRes val apisResId: Int,
     val sourceSubpackage: String,
+    val toolClassName: String,
     val isCrossApk: Boolean = false,
-    val crossApkFqcn: String? = null,
-    val launch: ((ToolManager) -> Unit)? = null,
 ) {
     // ── WINDOWS ─────────────────────────────────────────────────────────
     WINDOW_SINGLE_SCREEN(
@@ -56,7 +52,7 @@ internal enum class CatalogEntry(
         descResId = R.string.window_single_screen_desc,
         apisResId = R.string.window_single_screen_apis,
         sourceSubpackage = "window/singlescreen",
-        launch = { mgr -> mgr.activate<WindowSingleScreenToolDescriptor>(flags = ToolManager.FLAG_COMPONENT_ON_TOP) },
+        toolClassName = requireQualifiedName<WindowSingleScreenToolDescriptor>(),
     ),
     WINDOW_MULTI_SCREEN(
         section = CatalogSection.WINDOWS,
@@ -64,7 +60,7 @@ internal enum class CatalogEntry(
         descResId = R.string.window_multi_screen_desc,
         apisResId = R.string.window_multi_screen_apis,
         sourceSubpackage = "window/multiscreen",
-        launch = { mgr -> mgr.activate<WindowMultiScreenToolDescriptor>(flags = ToolManager.FLAG_COMPONENT_ON_TOP) },
+        toolClassName = requireQualifiedName<WindowMultiScreenToolDescriptor>(),
     ),
     MAP_WINDOW(
         section = CatalogSection.WINDOWS,
@@ -72,7 +68,7 @@ internal enum class CatalogEntry(
         descResId = R.string.mapwindow_desc,
         apisResId = R.string.mapwindow_apis,
         sourceSubpackage = "window/map",
-        launch = { mgr -> mgr.activate<MapWindowToolDescriptor>(flags = ToolManager.FLAG_COMPONENT_ON_TOP) },
+        toolClassName = requireQualifiedName<MapWindowToolDescriptor>(),
     ),
 
     // ── MAP ─────────────────────────────────────────────────────────────
@@ -82,7 +78,7 @@ internal enum class CatalogEntry(
         descResId = R.string.map_desc,
         apisResId = R.string.map_apis,
         sourceSubpackage = "map",
-        launch = { mgr -> mgr.activate<MapToolDescriptor>(flags = ToolManager.FLAG_COMPONENT_ON_TOP) },
+        toolClassName = requireQualifiedName<MapToolDescriptor>(),
     ),
     UNDERLAY(
         section = CatalogSection.MAP,
@@ -90,7 +86,7 @@ internal enum class CatalogEntry(
         descResId = R.string.underlay_desc,
         apisResId = R.string.underlay_apis,
         sourceSubpackage = "underlay",
-        launch = { mgr -> mgr.activate<UnderlayToolDescriptor>(flags = ToolManager.FLAG_COMPONENT_ON_TOP) },
+        toolClassName = requireQualifiedName<UnderlayToolDescriptor>(),
     ),
 
     // ── MAP OVERLAYS ─────────────────────────────────────────────────────
@@ -100,7 +96,7 @@ internal enum class CatalogEntry(
         descResId = R.string.overlay_desc,
         apisResId = R.string.overlay_apis,
         sourceSubpackage = "overlay",
-        launch = { mgr -> mgr.activate<OverlaySampleToolDescriptor>(flags = ToolManager.FLAG_COMPONENT_ON_TOP) },
+        toolClassName = requireQualifiedName<OverlaySampleToolDescriptor>(),
     ),
     STATUS(
         section = CatalogSection.MAP_OVERLAYS,
@@ -108,7 +104,7 @@ internal enum class CatalogEntry(
         descResId = R.string.status_desc,
         apisResId = R.string.status_apis,
         sourceSubpackage = "status",
-        launch = { mgr -> mgr.activate<StatusToolDescriptor>(flags = ToolManager.FLAG_COMPONENT_ON_TOP) },
+        toolClassName = requireQualifiedName<StatusToolDescriptor>(),
     ),
     EXPANDABLE_STATUS(
         section = CatalogSection.MAP_OVERLAYS,
@@ -116,7 +112,7 @@ internal enum class CatalogEntry(
         descResId = R.string.expandable_status_desc,
         apisResId = R.string.expandable_status_apis,
         sourceSubpackage = "expandablestatus",
-        launch = { mgr -> mgr.activate<ExpandableStatusToolDescriptor>(flags = ToolManager.FLAG_COMPONENT_ON_TOP) },
+        toolClassName = requireQualifiedName<ExpandableStatusToolDescriptor>(),
     ),
 
     // ── HOST UI CHROME ───────────────────────────────────────────────────
@@ -126,7 +122,7 @@ internal enum class CatalogEntry(
         descResId = R.string.endbar_desc,
         apisResId = R.string.endbar_apis,
         sourceSubpackage = "endbar",
-        launch = { mgr -> mgr.activate<EndBarSampleToolDescriptor>(flags = ToolManager.FLAG_COMPONENT_ON_TOP) },
+        toolClassName = requireQualifiedName<EndBarSampleToolDescriptor>(),
     ),
 
     // ── UI COMPONENTS ────────────────────────────────────────────────────
@@ -136,7 +132,7 @@ internal enum class CatalogEntry(
         descResId = R.string.ui_catalog_desc,
         apisResId = R.string.ui_catalog_apis,
         sourceSubpackage = "uicatalog",
-        launch = { mgr -> mgr.activate<UiCatalogToolDescriptor>(flags = ToolManager.FLAG_COMPONENT_ON_TOP) },
+        toolClassName = requireQualifiedName<UiCatalogToolDescriptor>(),
     ),
 
     // ── HOST UI & DIALOGS ────────────────────────────────────────────────
@@ -146,7 +142,7 @@ internal enum class CatalogEntry(
         descResId = R.string.dialog_desc,
         apisResId = R.string.dialog_apis,
         sourceSubpackage = "dialog",
-        launch = { mgr -> mgr.activate<DialogToolDescriptor>(flags = ToolManager.FLAG_COMPONENT_ON_TOP) },
+        toolClassName = requireQualifiedName<DialogToolDescriptor>(),
     ),
 
     // ── MODEL & MAP DATA ─────────────────────────────────────────────────
@@ -156,7 +152,7 @@ internal enum class CatalogEntry(
         descResId = R.string.model_desc,
         apisResId = R.string.model_apis,
         sourceSubpackage = "model",
-        launch = { mgr -> mgr.activate<ModelToolDescriptor>(flags = ToolManager.FLAG_COMPONENT_ON_TOP) },
+        toolClassName = requireQualifiedName<ModelToolDescriptor>(),
     ),
     MAP_INTERACTOR(
         section = CatalogSection.MODEL_AND_MAP_DATA,
@@ -164,7 +160,7 @@ internal enum class CatalogEntry(
         descResId = R.string.map_interactor_desc,
         apisResId = R.string.map_interactor_apis,
         sourceSubpackage = "mapinteractor",
-        launch = { mgr -> mgr.activate<MapInteractorToolDescriptor>(flags = ToolManager.FLAG_COMPONENT_ON_TOP) },
+        toolClassName = requireQualifiedName<MapInteractorToolDescriptor>(),
     ),
 
     // ── LIFECYCLE ─────────────────────────────────────────────────────────
@@ -174,7 +170,7 @@ internal enum class CatalogEntry(
         descResId = R.string.service_desc,
         apisResId = R.string.service_apis,
         sourceSubpackage = "service",
-        launch = { mgr -> mgr.activate<ServiceToolDescriptor>(flags = ToolManager.FLAG_COMPONENT_ON_TOP) },
+        toolClassName = requireQualifiedName<ServiceToolDescriptor>(),
     ),
 
     // ── RESOURCES & ISOLATION ─────────────────────────────────────────────
@@ -184,7 +180,7 @@ internal enum class CatalogEntry(
         descResId = R.string.config_desc,
         apisResId = R.string.config_apis,
         sourceSubpackage = "resources/config",
-        launch = { mgr -> mgr.activate<ConfigToolDescriptor>(flags = ToolManager.FLAG_COMPONENT_ON_TOP) },
+        toolClassName = requireQualifiedName<ConfigToolDescriptor>(),
     ),
     RESOURCES_MATERIAL(
         section = CatalogSection.RESOURCES_AND_ISOLATION,
@@ -192,7 +188,7 @@ internal enum class CatalogEntry(
         descResId = R.string.material_desc,
         apisResId = R.string.material_apis,
         sourceSubpackage = "resources/material",
-        launch = { mgr -> mgr.activate<MaterialToolDescriptor>(flags = ToolManager.FLAG_COMPONENT_ON_TOP) },
+        toolClassName = requireQualifiedName<MaterialToolDescriptor>(),
     ),
     RESOURCES_COLLISION(
         section = CatalogSection.RESOURCES_AND_ISOLATION,
@@ -200,7 +196,7 @@ internal enum class CatalogEntry(
         descResId = R.string.collision_desc,
         apisResId = R.string.collision_apis,
         sourceSubpackage = "resources/collision",
-        launch = { mgr -> mgr.activate<CollisionToolDescriptor>(flags = ToolManager.FLAG_COMPONENT_ON_TOP) },
+        toolClassName = requireQualifiedName<CollisionToolDescriptor>(),
     ),
     NATIVE_CROSS_APK(
         section = CatalogSection.RESOURCES_AND_ISOLATION,
@@ -208,11 +204,7 @@ internal enum class CatalogEntry(
         descResId = R.string.native_cross_apk_desc,
         apisResId = R.string.native_cross_apk_apis,
         sourceSubpackage = "isolation/nativelib",
+        toolClassName = "vision.combat.c4.ds.sample.isolation.nativelib.NativeToolDescriptor",
         isCrossApk = true,
-        crossApkFqcn = ISOLATION_NATIVE_FQCN,
-        launch = { mgr ->
-            mgr.resolveToolId(ISOLATION_NATIVE_FQCN)
-                ?.let { mgr.activate(it, ToolManager.FLAG_COMPONENT_ON_TOP) }
-        },
     )
 }

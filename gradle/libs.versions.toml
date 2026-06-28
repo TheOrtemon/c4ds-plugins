@@ -1,14 +1,12 @@
 [versions]
 agp = "9.2.1"
 kotlin = "2.4.0"
-kotlinx-serialization = "1.11.0"
 combat-ds-sdk = "0.5.0"
 desugar-jdk-libs = "2.1.5"
 
 [libraries]
 combat-ds-sdk = { group = "vision.combat", name = "c4ds-sdk", version.ref = "combat-ds-sdk" }
 combat-ds-sdk-runtime = { group = "vision.combat", name = "c4ds-sdk-runtime", version.ref = "combat-ds-sdk" }
-kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
 
 android-tools-desugar = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar-jdk-libs" }
 

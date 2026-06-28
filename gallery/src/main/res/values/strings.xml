@@ -16,6 +16,8 @@
     <string name="catalog_source_label">Source subpackage</string>
     <string name="catalog_section_expand">Expand section</string>
     <string name="catalog_section_collapse">Collapse section</string>
+    <string name="catalog_deactivate_all">Deactivate all</string>
+    <string name="catalog_deactivated_all_toast">Deactivated all samples</string>
 
     <!-- Window Single Screen -->
     <string name="window_single_screen_tool_name">Window — Single Screen</string>
