@@ -74,7 +74,11 @@ The native tool window displays:
 
 Plugin APKs compile their own Compose Material 2 dependency. The host provides a fallback composition context so plugin `@Composable` functions resolve theme and resources correctly.
 
-**Verify:** Launch sample → `Snackbar`, `AlertDialog`, `DropdownMenu`, and `Slider` all render and respond without crash or missing theme errors. Popup widgets (`AlertDialog`, `DropdownMenu`) must show plugin string values — not host color hex or resource paths — because `MaterialWindow` re-provides the tool `LocalContext` inside each popup lambda (the same pattern the SDK uses internally via `ProvideWindowContext`).
+**Verify:** Launch sample → `Snackbar`, `AlertDialog`, `DropdownMenu`, and `Slider` all render and respond without crash or missing theme errors. Popup widgets (`AlertDialog`, `DropdownMenu`) must show plugin string values — not host color hex or resource paths — demonstrating that the tool `LocalContext` is correctly re-provided across the Compose window boundary.
+
+`MaterialWindow` uses two complementary approaches:
+- **`ToolAlertDialog`** (SDK wrapper) — zero-boilerplate path; captures and re-provides `LocalContext` inside every slot lambda automatically. Recommended for real tools.
+- **Raw `DropdownMenu` + explicit `ProvideWindowContext`** — kept intentionally as a teaching example to show the mechanism that `ToolDropdownMenu` / `ToolAlertDialog` centralise. See the comment in `MaterialWindow.kt`.
 
 ---
 

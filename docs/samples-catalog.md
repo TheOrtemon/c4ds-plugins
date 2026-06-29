@@ -182,7 +182,7 @@ Registry implementation: [`CatalogEntry.kt`](../gallery/src/main/kotlin/vision/c
 
 **SDK APIs:** `ToolDialog.Confirmation`, `.Destructive`, `.Info`, `.Custom`, `AbstractTool.showDialog()`, `dismissDialog()`, `DialogHeader`, `ButtonsRow`.
 
-**Verify:** Four buttons each open the correct dialog type; confirm and dismiss work for every variant.
+**Verify:** Four buttons each open the correct dialog type; confirm and dismiss work for every variant. For `ToolDialog.Custom`, the `header`/`content`/`buttons` lambdas call `stringResource` directly — the host `ToolDialogHost` re-provides the owning tool's context before composing the dialog, so plugin strings resolve correctly without any manual `ProvideWindowContext` call inside the lambdas.
 
 ---
 
@@ -258,9 +258,9 @@ Covers isolation **case (c)** and **case (e)** — see [Plugin isolation](plugin
 | **Descriptor** | `vision.combat.c4.ds.sample.gallery.resources.material.MaterialToolDescriptor` |
 | **Source** | `gallery/.../resources/material/` |
 
-**SDK APIs:** Plugin-local M2 (`Snackbar`, `AlertDialog`, `DropdownMenu`, `Slider`), `CompositionFallbackContext`, `FallbackResources`.
+**SDK APIs:** Plugin-local M2 (`Snackbar`, `AlertDialog`, `DropdownMenu`, `Slider`), `ToolAlertDialog`, `ToolDropdownMenu` (SDK popup wrappers — zero-boilerplate path), `ProvideWindowContext` (public, used in the intentional raw `DropdownMenu` teaching example), `CompositionFallbackContext`, `FallbackResources`.
 
-**Verify:** Window opens without crash → all four widget demos interactive.
+**Verify:** Window opens without crash → all four widget demos interactive. Inside the `AlertDialog` popup (composed via `ToolAlertDialog`), all strings must be plugin values — demonstrating that the SDK wrapper captures and re-provides the tool context automatically. The raw `DropdownMenu` alongside it shows the same mechanism manually with an explicit `ProvideWindowContext` for comparison.
 
 Covers isolation **case (a)**.
 
