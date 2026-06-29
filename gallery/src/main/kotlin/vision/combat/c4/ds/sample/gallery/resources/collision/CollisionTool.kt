@@ -16,8 +16,12 @@ import vision.combat.c4.ds.sdk.tool.requiredComponent
  * SDK APIs: (internal) CompositionFallbackContext, FallbackResources — transparent to plugin authors.
  *           Plugin declares R.string.settings = "PLUGIN settings (isolation wins)".
  *
- * SDK files (internal):
- *   c4ds-sdk-core/internal/src/main/kotlin/vision/combat/c4/ds/sdk/internal/host/FallbackResources.kt
+ * Internal SDK mechanism (transparent to plugin authors):
+ *   c4ds-sdk-core/internal/…/FallbackResources.kt
+ *
+ * Note: [vision.combat.c4.ds.sdk.ui.component.ProvideWindowContext] is the **public** companion
+ * API for popup/dialog context re-provision — not needed here since CollisionWindow uses no
+ * popups, but see MaterialTool for the popup-context use case.
  */
 class CollisionToolDescriptor(toolContext: ToolContext) : ToolDescriptor(toolContext) {
     override val nameResId: Int = R.string.collision_tool_name

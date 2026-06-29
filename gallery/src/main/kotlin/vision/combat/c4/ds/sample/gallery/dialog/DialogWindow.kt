@@ -33,8 +33,6 @@ internal fun DialogWindow(
     val infoTitle = stringResource(R.string.dialog_info_title)
     val infoBody = stringResource(R.string.dialog_info_body)
     val dismiss = stringResource(R.string.dialog_dismiss)
-    val customTitle = stringResource(R.string.dialog_custom_title)
-    val customBody = stringResource(R.string.dialog_custom_body)
 
     WindowScaffold(
         topAppBar = { BackNavTopAppBar(title = stringResource(R.string.dialog_tool_name)) },
@@ -74,13 +72,15 @@ internal fun DialogWindow(
                 onShowCustom = {
                     onShowDialog(
                         ToolDialog.Custom(
-                            // DialogHeaderScope only exposes DialogHeader(icon?, title, body?)
+                            // DialogHeaderScope only exposes DialogHeader(icon?, title, body?).
+                            // stringResource resolves correctly here because ToolDialogHost
+                            // re-provides the owning tool's context before rendering these lambdas.
                             header = {
-                                DialogHeader(title = customTitle)
+                                DialogHeader(title = stringResource(R.string.dialog_custom_title))
                             },
                             content = {
                                 Text(
-                                    text = customBody,
+                                    text = stringResource(R.string.dialog_custom_body),
                                     modifier = Modifier.padding(horizontal = 24.dp),
                                 )
                             },
@@ -88,7 +88,7 @@ internal fun DialogWindow(
                             buttons = {
                                 ButtonsRow {
                                     TextButton(
-                                        label = dismiss,
+                                        label = stringResource(R.string.dialog_dismiss),
                                         onClick = { onDismissDialog() },
                                     )
                                 }

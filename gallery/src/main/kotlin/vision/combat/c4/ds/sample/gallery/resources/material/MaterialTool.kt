@@ -14,11 +14,14 @@ import vision.combat.c4.ds.sdk.tool.requiredComponent
  * Verifies that plugin-compiled Compose Material widgets work inside the host
  * via CompositionFallbackContext (no Resources$NotFoundException).
  *
- * SDK APIs: (internal) CompositionFallbackContext — transparent to plugin authors.
- *           Plugin-compiled: M2 Scaffold, SnackbarHost, AlertDialog, DropdownMenu, Slider.
+ * SDK APIs:
+ *   - [vision.combat.c4.ds.sdk.ui.component.ProvideWindowContext] — **public** API for plugin
+ *     authors to re-provide their tool context inside raw M2 [AlertDialog] / [DropdownMenu] /
+ *     [Popup] sub-compositions where [LocalContext] would otherwise reset to the host Activity.
+ *   - Plugin-compiled: M2 Scaffold, SnackbarHost, AlertDialog, DropdownMenu, Slider.
  *
- * SDK files (internal, not callable from plugins):
- *   c4ds-sdk-core/internal/src/main/kotlin/vision/combat/c4/ds/sdk/internal/host/CompositionFallbackContext.kt
+ * Internal SDK mechanism (transparent to plugin authors):
+ *   c4ds-sdk-core/internal/…/CompositionFallbackContext.kt
  */
 class MaterialToolDescriptor(toolContext: ToolContext) : ToolDescriptor(toolContext) {
     override val nameResId: Int = R.string.material_tool_name
