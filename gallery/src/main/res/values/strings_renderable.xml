@@ -1,0 +1,16 @@
+<resources>
+    <!-- Renderable sample: tool name + catalog metadata -->
+    <string name="renderable_tool_name">Renderables</string>
+    <string name="renderable_desc">Draw WorldWind renderables — point, polyline, polygon, circle, label — on the map.</string>
+    <string name="renderable_apis">AbstractMapTool.addRenderable/removeRenderable, WorldWind Placemark/Path/Polygon/Ellipse/Label, requestRedraw</string>
+
+    <!-- Controls -->
+    <string name="renderable_add_point">Add point</string>
+    <string name="renderable_add_line">Add line</string>
+    <string name="renderable_add_polygon">Add polygon</string>
+    <string name="renderable_add_circle">Add circle</string>
+    <string name="renderable_add_label">Add label</string>
+    <string name="renderable_clear">Clear</string>
+    <string name="renderable_hint">Tap a button to add a shape, or tap the map to drop a point.</string>
+    <string name="renderable_count">Renderables: %1$d</string>
+</resources>

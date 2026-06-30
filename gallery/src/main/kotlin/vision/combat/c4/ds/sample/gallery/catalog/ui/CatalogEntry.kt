@@ -10,6 +10,7 @@ import vision.combat.c4.ds.sample.gallery.map.MapToolDescriptor
 import vision.combat.c4.ds.sample.gallery.mapinteractor.MapInteractorToolDescriptor
 import vision.combat.c4.ds.sample.gallery.model.ModelToolDescriptor
 import vision.combat.c4.ds.sample.gallery.overlay.OverlaySampleToolDescriptor
+import vision.combat.c4.ds.sample.gallery.renderable.RenderableSampleToolDescriptor
 import vision.combat.c4.ds.sample.gallery.resources.collision.CollisionToolDescriptor
 import vision.combat.c4.ds.sample.gallery.resources.config.ConfigToolDescriptor
 import vision.combat.c4.ds.sample.gallery.resources.material.MaterialToolDescriptor
@@ -79,6 +80,14 @@ internal enum class CatalogEntry(
         apisResId = R.string.map_apis,
         sourceSubpackage = "map",
         toolClassName = requireQualifiedName<MapToolDescriptor>(),
+    ),
+    RENDERABLE(
+        section = CatalogSection.MAP,
+        nameResId = R.string.renderable_tool_name,
+        descResId = R.string.renderable_desc,
+        apisResId = R.string.renderable_apis,
+        sourceSubpackage = "renderable",
+        toolClassName = requireQualifiedName<RenderableSampleToolDescriptor>(),
     ),
     UNDERLAY(
         section = CatalogSection.MAP,

@@ -6,6 +6,7 @@
     <tool-descriptor name="vision.combat.c4.ds.sample.gallery.dialog.DialogToolDescriptor" />
     <tool-descriptor name="vision.combat.c4.ds.sample.gallery.overlay.OverlaySampleToolDescriptor" />
     <tool-descriptor name="vision.combat.c4.ds.sample.gallery.map.MapToolDescriptor" />
+    <tool-descriptor name="vision.combat.c4.ds.sample.gallery.renderable.RenderableSampleToolDescriptor" />
     <tool-descriptor name="vision.combat.c4.ds.sample.gallery.window.map.MapWindowToolDescriptor" />
     <tool-descriptor name="vision.combat.c4.ds.sample.gallery.status.StatusToolDescriptor" />
     <tool-descriptor name="vision.combat.c4.ds.sample.gallery.expandablestatus.ExpandableStatusToolDescriptor" />
