@@ -25,6 +25,7 @@ import androidx.compose.material.Slider
 import androidx.compose.material.SnackbarHost
 import androidx.compose.material.SnackbarHostState
 import androidx.compose.material.Text
+import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
@@ -140,7 +141,7 @@ private fun ColumnScope.MaterialContent() {
             title = { Text(stringResource(R.string.material_dialog_title)) },
             text = { Text(stringResource(R.string.material_dialog_body)) },
             confirmButton = {
-                Button(onClick = { showDialog = false }) {
+                TextButton(onClick = { showDialog = false }) {
                     Text(stringResource(R.string.material_ok))
                 }
             },
