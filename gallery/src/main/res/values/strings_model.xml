@@ -1,0 +1,44 @@
+<resources>
+    <!-- Model interactor sample: showcase index -->
+    <string name="model_sc_list_name">Models list</string>
+    <string name="model_sc_list_desc">All battlespace models on the map, rendered TacticalData-style with MIL-STD-2525 symbols.</string>
+    <string name="model_sc_create_name">Create, consume &amp; commit</string>
+    <string name="model_sc_create_desc">Build a model, stage it on the map (consume), then persist + broadcast (commit) or discard (rollback).</string>
+    <string name="model_sc_symbols_name">Symbol keys</string>
+    <string name="model_sc_symbols_desc">Create models with different MIL-STD-2525 symbol keys and affiliations.</string>
+    <string name="model_sc_selection_name">Selection &amp; events</string>
+    <string name="model_sc_selection_desc">Observe selectedModel, userModel and collection events; select, follow and unselect.</string>
+
+    <!-- Models list -->
+    <string name="model_sc_no_models">No models on the map yet.</string>
+
+    <!-- Create / consume / commit -->
+    <string name="model_sc_create_explainer">createModel() builds a model but does not show or save it. consumeModel() visualizes it on the map and stages it as a pending LOCAL change — it is NOT written to the database and NOT broadcast to other nodes, so it can be discarded with rollback. commitModel() persists the staged model to the database AND broadcasts it to remote nodes. In short: consume = preview locally; commit = save &amp; share.</string>
+    <string name="model_sc_create_status">Status: %1$s</string>
+    <string name="model_sc_create_btn">Create + consume (preview)</string>
+    <string name="model_sc_commit_btn">Commit (persist + broadcast)</string>
+    <string name="model_sc_rollback_btn">Rollback (discard staged)</string>
+    <string name="model_sc_stage_idle">idle</string>
+    <string name="model_sc_stage_consumed">consumed (staged, not saved)</string>
+    <string name="model_sc_stage_committed">committed (saved &amp; broadcast)</string>
+    <string name="model_sc_stage_rolledback">rolled back (staged changes discarded)</string>
+    <string name="model_sc_stage_failed">create failed (no symbol/location)</string>
+
+    <!-- Symbol keys -->
+    <string name="model_sc_symbols_explainer">The symbol key is an Int handle into the MIL-STD-2525 binding table, passed via ModelAttrs.symbolKey. The affiliation (color/frame) is the orthogonal ModelAttrs.hostility. Tap Create to build + consume each example at the current map position.</string>
+    <string name="model_sc_symbol_rifleman">Rifleman</string>
+    <string name="model_sc_symbol_air">Air track</string>
+    <string name="model_sc_symbol_civil">Civil disturbance</string>
+    <string name="model_sc_symbol_fire">Fire event</string>
+    <string name="model_sc_symbol_hazmat">Hazardous materials</string>
+    <string name="model_sc_create_short">Create</string>
+
+    <!-- Selection &amp; events -->
+    <string name="model_sc_read_only">Read-only mode: edits are disabled.</string>
+    <string name="model_sc_none">—</string>
+    <string name="model_sc_selected_label">Selected</string>
+    <string name="model_sc_user_label">User model</string>
+    <string name="model_sc_count_label">Models in memory</string>
+    <string name="model_sc_follow">Follow selected</string>
+    <string name="model_sc_unselect">Unselect</string>
+</resources>

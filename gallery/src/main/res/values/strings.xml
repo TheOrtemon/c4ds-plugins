@@ -127,8 +127,8 @@
 
     <!-- Model -->
     <string name="model_tool_name">Model (CommonModelInteractor)</string>
-    <string name="model_desc">CommonModelInteractor: observe, select, unselect, and read-only state (no create/delete).</string>
-    <string name="model_apis">CommonModelInteractor, getAllModels, selectedModel, userModel, selectModel, unselectModel, isReadOnly</string>
+    <string name="model_desc">CommonModelInteractor showcases: TacticalData-style models list, create/consume/commit, symbol keys, and selection &amp; events.</string>
+    <string name="model_apis">CommonModelInteractor, getAllModels, createModel, consumeModel, commitModel, rollbackChanges, deleteModel, selectModel, unselectModel, followModel, startModelInteraction, selectedModel, userModel, isReadOnly, ModelAttrs/symbolKey, rememberSymbolPainter</string>
     <string name="model_section_selected">Selected model</string>
     <string name="model_section_user">User model</string>
     <string name="model_section_all">All models</string>
@@ -331,8 +331,8 @@
 
     <!-- Map Interactor -->
     <string name="map_interactor_tool_name">Map Interactor (CommonMapInteractor)</string>
-    <string name="map_interactor_desc">CommonMapInteractor: live camera readout, display mode, reticle, cursor pin, focus actions, and magnetic corrections.</string>
-    <string name="map_interactor_apis">CommonMapInteractor, mapNavigatorEvent, camera, lookAt, selectedPosition, isLookAtAboveHorizon, mapDisplayMode, updateMapDisplayMode, arDistanceLimit, setArDistanceLimit, isReticleVisible, setReticleVisible, isCursorPinned, pinCursor, unpinCursor, isMapVisible, setMapVisible, focusOnLocation, focusOnSector, getDeclination, getConvergence, getAngleCorrection</string>
+    <string name="map_interactor_desc">CommonMapInteractor showcases: camera/lookAt readout, focus actions, display mode, cursor pin, and geodetic corrections.</string>
+    <string name="map_interactor_apis">CommonMapInteractor, mapNavigatorEvent, camera, lookAt, selectedPosition, isLookAtAboveHorizon, mapDisplayMode, updateMapDisplayMode, arDistanceLimit, setArDistanceLimit, isReticleVisible, setReticleVisible, isCursorPinned, pinCursor, unpinCursor, isMapVisible, setMapVisible, focusOnLocation, focusOnSector, getDeclination, getConvergence, getAngleCorrection, getDistanceAndAngle, getElevation</string>
     <!-- Map Interactor — sections -->
     <string name="map_interactor_section_camera">Camera &amp; LookAt</string>
     <string name="map_interactor_section_display_mode">Display Mode</string>

@@ -127,8 +127,8 @@
 
     <!-- Model -->
     <string name="model_tool_name">Модель (CommonModelInteractor)</string>
-    <string name="model_desc">CommonModelInteractor: спостереження, вибір, скасування вибору та стан режиму читання (без створення/видалення).</string>
-    <string name="model_apis">CommonModelInteractor, getAllModels, selectedModel, userModel, selectModel, unselectModel, isReadOnly</string>
+    <string name="model_desc">Демонстрації CommonModelInteractor: список моделей у стилі TacticalData, create/consume/commit, ключі символів, вибір та події.</string>
+    <string name="model_apis">CommonModelInteractor, getAllModels, createModel, consumeModel, commitModel, rollbackChanges, deleteModel, selectModel, unselectModel, followModel, startModelInteraction, selectedModel, userModel, isReadOnly, ModelAttrs/symbolKey, rememberSymbolPainter</string>
     <string name="model_section_selected">Обрана модель</string>
     <string name="model_section_user">Модель користувача</string>
     <string name="model_section_all">Усі моделі</string>
@@ -331,8 +331,8 @@
 
     <!-- Map Interactor -->
     <string name="map_interactor_tool_name">Інтерактор карти (CommonMapInteractor)</string>
-    <string name="map_interactor_desc">CommonMapInteractor: зчитування камери, режим відображення, приціл, закріплення курсору, фокусування, магнітні корекції.</string>
-    <string name="map_interactor_apis">CommonMapInteractor, mapNavigatorEvent, camera, lookAt, selectedPosition, isLookAtAboveHorizon, mapDisplayMode, updateMapDisplayMode, arDistanceLimit, setArDistanceLimit, isReticleVisible, setReticleVisible, isCursorPinned, pinCursor, unpinCursor, isMapVisible, setMapVisible, focusOnLocation, focusOnSector, getDeclination, getConvergence, getAngleCorrection</string>
+    <string name="map_interactor_desc">Демонстрації CommonMapInteractor: зчитування камери/lookAt, фокусування, режим відображення, закріплення курсору та геодезичні корекції.</string>
+    <string name="map_interactor_apis">CommonMapInteractor, mapNavigatorEvent, camera, lookAt, selectedPosition, isLookAtAboveHorizon, mapDisplayMode, updateMapDisplayMode, arDistanceLimit, setArDistanceLimit, isReticleVisible, setReticleVisible, isCursorPinned, pinCursor, unpinCursor, isMapVisible, setMapVisible, focusOnLocation, focusOnSector, getDeclination, getConvergence, getAngleCorrection, getDistanceAndAngle, getElevation</string>
     <!-- Map Interactor — sections -->
     <string name="map_interactor_section_camera">Камера та LookAt</string>
     <string name="map_interactor_section_display_mode">Режим відображення</string>

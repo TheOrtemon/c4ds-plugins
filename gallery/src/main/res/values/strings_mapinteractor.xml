@@ -1,0 +1,62 @@
+<resources>
+    <!-- Map interactor sample: showcase index -->
+    <string name="map_sc_camera_name">Camera &amp; LookAt</string>
+    <string name="map_sc_camera_desc">Live readout of the camera (lat/lon/alt/heading/tilt) and lookAt, plus above-horizon and selected position.</string>
+    <string name="map_sc_focus_name">Focus camera</string>
+    <string name="map_sc_focus_desc">Move the camera to a point (focusOnLocation) or frame an area (focusOnSector).</string>
+    <string name="map_sc_display_name">Display mode &amp; visibility</string>
+    <string name="map_sc_display_desc">Switch between Normal / AR / VR, tune the AR distance limit, and toggle reticle &amp; map visibility.</string>
+    <string name="map_sc_cursor_name">Cursor pin</string>
+    <string name="map_sc_cursor_desc">Pin and unpin the map cursor and observe isCursorPinned and the selected position.</string>
+    <string name="map_sc_corrections_name">Corrections &amp; geodesy</string>
+    <string name="map_sc_corrections_desc">Magnetic declination, grid convergence and angle correction, plus distance/azimuth and terrain elevation.</string>
+
+    <!-- Shared readout -->
+    <string name="map_sc_selected_pos">Selected position</string>
+
+    <!-- Camera &amp; LookAt -->
+    <string name="map_sc_camera_explainer">camera and lookAt are plain snapshots (not flows), so they are re-read on every mapNavigatorEvent. isLookAtAboveHorizon and selectedPosition are observed directly as StateFlows. Pan, zoom or tilt the map to see the values update.</string>
+    <string name="map_sc_camera_section">Camera</string>
+    <string name="map_sc_camera_lat">Camera latitude</string>
+    <string name="map_sc_camera_lon">Camera longitude</string>
+    <string name="map_sc_camera_alt">Camera altitude</string>
+    <string name="map_sc_camera_heading">Camera heading</string>
+    <string name="map_sc_camera_tilt">Camera tilt</string>
+    <string name="map_sc_lookat_section">LookAt</string>
+    <string name="map_sc_lookat_lat">LookAt latitude</string>
+    <string name="map_sc_lookat_lon">LookAt longitude</string>
+    <string name="map_sc_above_horizon">LookAt above horizon</string>
+
+    <!-- Focus camera -->
+    <string name="map_sc_focus_explainer">focusOnLocation centers the camera on a single point; focusOnSector frames a bounding area. Each call is followed by requestRedraw so the camera move is painted immediately. Both target the Kyiv demo location.</string>
+    <string name="map_sc_focus_location">Focus on location</string>
+    <string name="map_sc_focus_sector">Focus on sector</string>
+
+    <!-- Display mode &amp; visibility -->
+    <string name="map_sc_display_explainer">updateMapDisplayMode switches the map between Normal, AR and VR. In AR mode the distance limit caps how far AR symbols are drawn. The reticle and map-visibility toggles are independent of the mode. Settings are reset when you leave this screen.</string>
+    <string name="map_sc_display_mode_section">Display mode</string>
+    <string name="map_sc_mode_normal">Normal</string>
+    <string name="map_sc_mode_ar">AR</string>
+    <string name="map_sc_mode_vr">VR</string>
+    <string name="map_sc_ar_distance">AR distance limit (m)</string>
+    <string name="map_sc_visibility_section">Visibility</string>
+    <string name="map_sc_reticle">Reticle visible</string>
+    <string name="map_sc_map_visible">Map visible</string>
+
+    <!-- Cursor pin -->
+    <string name="map_sc_cursor_explainer">pinCursor freezes the cursor at the screen center so the selected position no longer follows the map; unpinCursor releases it. The buttons are gated on isCursorPinned.</string>
+    <string name="map_sc_pin_cursor">Pin cursor</string>
+    <string name="map_sc_unpin_cursor">Unpin cursor</string>
+    <string name="map_sc_cursor_pinned">Cursor pinned</string>
+
+    <!-- Corrections &amp; geodesy -->
+    <string name="map_sc_corrections_explainer">getDeclination, getConvergence and getAngleCorrection report the magnetic &amp; grid corrections at the lookAt. The GeoHelper (inherited) getDistanceAndAngle returns the distance and azimuth from the camera to the selected position, and getElevation returns the terrain elevation under the lookAt. Values refresh on every mapNavigatorEvent.</string>
+    <string name="map_sc_corrections_section">Corrections</string>
+    <string name="map_sc_declination">Magnetic declination</string>
+    <string name="map_sc_convergence">Grid convergence</string>
+    <string name="map_sc_angle_correction">Angle correction</string>
+    <string name="map_sc_geodesy_section">Geodesy (camera → selected)</string>
+    <string name="map_sc_distance">Distance</string>
+    <string name="map_sc_azimuth">Azimuth</string>
+    <string name="map_sc_elevation">Terrain elevation (lookAt)</string>
+</resources>

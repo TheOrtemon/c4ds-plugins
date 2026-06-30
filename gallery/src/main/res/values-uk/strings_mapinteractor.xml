@@ -1,0 +1,62 @@
+<resources>
+    <!-- Зразок інтерактора карти: список демонстрацій -->
+    <string name="map_sc_camera_name">Камера та LookAt</string>
+    <string name="map_sc_camera_desc">Живі показники камери (широта/довгота/висота/курс/нахил) і lookAt, а також над горизонтом і вибрана позиція.</string>
+    <string name="map_sc_focus_name">Фокус камери</string>
+    <string name="map_sc_focus_desc">Перемістити камеру на точку (focusOnLocation) або охопити область (focusOnSector).</string>
+    <string name="map_sc_display_name">Режим відображення та видимість</string>
+    <string name="map_sc_display_desc">Перемикання між Normal / AR / VR, налаштування ліміту відстані AR та видимості прицілу й карти.</string>
+    <string name="map_sc_cursor_name">Закріплення курсора</string>
+    <string name="map_sc_cursor_desc">Закріплення та відкріплення курсора карти зі спостереженням за isCursorPinned і вибраною позицією.</string>
+    <string name="map_sc_corrections_name">Поправки та геодезія</string>
+    <string name="map_sc_corrections_desc">Магнітне схилення, зближення меридіанів і кутова поправка, а також відстань/азимут і висота рельєфу.</string>
+
+    <!-- Спільний показник -->
+    <string name="map_sc_selected_pos">Вибрана позиція</string>
+
+    <!-- Камера та LookAt -->
+    <string name="map_sc_camera_explainer">camera та lookAt — це звичайні знімки (не потоки), тож вони перечитуються на кожній події mapNavigatorEvent. isLookAtAboveHorizon і selectedPosition спостерігаються напряму як StateFlow. Пересувайте, масштабуйте або нахиляйте карту, щоб бачити оновлення значень.</string>
+    <string name="map_sc_camera_section">Камера</string>
+    <string name="map_sc_camera_lat">Широта камери</string>
+    <string name="map_sc_camera_lon">Довгота камери</string>
+    <string name="map_sc_camera_alt">Висота камери</string>
+    <string name="map_sc_camera_heading">Курс камери</string>
+    <string name="map_sc_camera_tilt">Нахил камери</string>
+    <string name="map_sc_lookat_section">LookAt</string>
+    <string name="map_sc_lookat_lat">Широта LookAt</string>
+    <string name="map_sc_lookat_lon">Довгота LookAt</string>
+    <string name="map_sc_above_horizon">LookAt над горизонтом</string>
+
+    <!-- Фокус камери -->
+    <string name="map_sc_focus_explainer">focusOnLocation центрує камеру на одній точці; focusOnSector охоплює обмежувальну область. Після кожного виклику йде requestRedraw, щоб переміщення камери відмалювалося негайно. Обидва націлені на демонстраційну точку Києва.</string>
+    <string name="map_sc_focus_location">Фокус на точку</string>
+    <string name="map_sc_focus_sector">Фокус на сектор</string>
+
+    <!-- Режим відображення та видимість -->
+    <string name="map_sc_display_explainer">updateMapDisplayMode перемикає карту між Normal, AR і VR. У режимі AR ліміт відстані обмежує, наскільки далеко малюються символи AR. Перемикачі прицілу та видимості карти не залежать від режиму. Налаштування скидаються, коли ви залишаєте цей екран.</string>
+    <string name="map_sc_display_mode_section">Режим відображення</string>
+    <string name="map_sc_mode_normal">Normal</string>
+    <string name="map_sc_mode_ar">AR</string>
+    <string name="map_sc_mode_vr">VR</string>
+    <string name="map_sc_ar_distance">Ліміт відстані AR (м)</string>
+    <string name="map_sc_visibility_section">Видимість</string>
+    <string name="map_sc_reticle">Приціл видимий</string>
+    <string name="map_sc_map_visible">Карта видима</string>
+
+    <!-- Закріплення курсора -->
+    <string name="map_sc_cursor_explainer">pinCursor фіксує курсор у центрі екрана, тож вибрана позиція більше не слідує за картою; unpinCursor звільняє його. Кнопки залежать від isCursorPinned.</string>
+    <string name="map_sc_pin_cursor">Закріпити курсор</string>
+    <string name="map_sc_unpin_cursor">Відкріпити курсор</string>
+    <string name="map_sc_cursor_pinned">Курсор закріплено</string>
+
+    <!-- Поправки та геодезія -->
+    <string name="map_sc_corrections_explainer">getDeclination, getConvergence і getAngleCorrection повертають магнітні та сіткові поправки в точці lookAt. Успадкований GeoHelper getDistanceAndAngle повертає відстань і азимут від камери до вибраної позиції, а getElevation повертає висоту рельєфу під lookAt. Значення оновлюються на кожній події mapNavigatorEvent.</string>
+    <string name="map_sc_corrections_section">Поправки</string>
+    <string name="map_sc_declination">Магнітне схилення</string>
+    <string name="map_sc_convergence">Зближення меридіанів</string>
+    <string name="map_sc_angle_correction">Кутова поправка</string>
+    <string name="map_sc_geodesy_section">Геодезія (камера → вибрана)</string>
+    <string name="map_sc_distance">Відстань</string>
+    <string name="map_sc_azimuth">Азимут</string>
+    <string name="map_sc_elevation">Висота рельєфу (lookAt)</string>
+</resources>
