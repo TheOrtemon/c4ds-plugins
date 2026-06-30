@@ -15,7 +15,7 @@ import vision.combat.c4.ds.sdk.tool.requiredComponent
 /**
  * Demonstrates session-scoped [AbstractToolService] lifecycle.
  *
- * SDK APIs: [ToolDescriptor.createService], [AbstractToolService.toolSubDI],
+ * SDK APIs: [ToolDescriptor.createService], `subDI(super.di)`,
  * [ToolNotificationManager.counter].
  *
  * The service is created at session start; the tool window reads the same

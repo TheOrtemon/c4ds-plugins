@@ -10,7 +10,7 @@ import vision.combat.c4.ds.sdk.tool.ToolParams
 /**
  * Demonstrates multi-screen window navigation with tool-scoped state.
  *
- * SDK APIs: AppNavHost, Route, BackNavTopAppBar, toolSubDI + Kodein module,
+ * SDK APIs: AppNavHost, Route, BackNavTopAppBar, subDI(super.di) + Kodein module,
  *           tool-scoped SharedPreferences.
  *
  * SDK files:

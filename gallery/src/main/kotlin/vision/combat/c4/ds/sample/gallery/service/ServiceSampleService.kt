@@ -7,6 +7,7 @@ import kotlinx.coroutines.launch
 import org.kodein.di.DI
 import org.kodein.di.bindSingletonOf
 import org.kodein.di.instance
+import org.kodein.di.subDI
 import vision.combat.c4.ds.sample.gallery.service.di.serviceModule
 import vision.combat.c4.ds.sdk.tool.AbstractToolService
 import vision.combat.c4.ds.sdk.tool.ToolContext
@@ -29,7 +30,7 @@ internal class ServiceSampleService(
     parentDI: DI,
 ) : AbstractToolService(toolContext, descriptor, parentDI) {
 
-    override val di: DI = toolSubDI {
+    override val di: DI = subDI(super.di) {
         import(serviceModule)
         bindSingletonOf(::ServiceNotificationManager)
     }

@@ -1,6 +1,7 @@
 package vision.combat.c4.ds.sample.gallery.window.multiscreen
 
 import org.kodein.di.DI
+import org.kodein.di.subDI
 import vision.combat.c4.ds.sample.gallery.window.multiscreen.di.windowMultiScreenModule
 import vision.combat.c4.ds.sample.gallery.window.multiscreen.ui.WindowMultiScreenWindow
 import vision.combat.c4.ds.sdk.tool.AbstractTool
@@ -17,7 +18,7 @@ internal class WindowMultiScreenTool(
     params: ToolParams?,
 ) : AbstractTool(toolContext, toolDescriptor, parentDI, params) {
 
-    override val di: DI = toolSubDI { import(windowMultiScreenModule) }
+    override val di: DI = subDI(super.di) { import(windowMultiScreenModule) }
 
     override val window: ToolComponent.Window by requiredComponent {
         WindowMultiScreenWindow()
