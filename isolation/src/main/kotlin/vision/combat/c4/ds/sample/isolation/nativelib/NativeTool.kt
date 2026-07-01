@@ -51,7 +51,7 @@ internal class NativeTool(
                 .use { it.readBytes() }
                 .decodeToString()
             Log.i(TAG, "[ASSET SMOKE] Read 'isolation/sample.txt' from :isolation plugin. Content prefix: ${content.take(80)}")
-            _assetResult.value = content.take(120)
+            _assetResult.value = content.trim()
         }.onFailure { e ->
             Log.e(TAG, "[ASSET SMOKE] FAILED — check ToolContext.getAssets() isolation", e)
             _assetResult.value = "FAILED: ${e.message}"
