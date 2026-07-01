@@ -15,14 +15,15 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import org.kodein.di.DI
 import org.kodein.di.instance
-import vision.combat.c4.ds.sample.gallery.renderable.ui.RenderableControls
+import vision.combat.c4.ds.sample.gallery.renderable.ui.RenderableColor
+import vision.combat.c4.ds.sample.gallery.renderable.ui.RenderableControlsWindow
 import vision.combat.c4.ds.sdk.domain.interactor.CommonMapInteractor
 import vision.combat.c4.ds.sdk.tool.AbstractMapTool
 import vision.combat.c4.ds.sdk.tool.ToolComponent
 import vision.combat.c4.ds.sdk.tool.ToolContext
 import vision.combat.c4.ds.sdk.tool.ToolDescriptor
 import vision.combat.c4.ds.sdk.tool.ToolParams
-import vision.combat.c4.ds.sdk.tool.statusComponent
+import vision.combat.c4.ds.sdk.tool.requiredComponent
 import earth.worldwind.render.Color as WWColor
 
 internal class RenderableSampleTool(
@@ -37,15 +38,18 @@ internal class RenderableSampleTool(
     // Keep references to everything we add so clearAll() can remove each renderable.
     private val renderables = mutableListOf<Renderable>()
 
-    // Monotonic counter used to nudge each new shape so successive adds do not overlap.
-    private var addCount = 0
-
     private val _addedCount = MutableStateFlow(0)
     val addedCount = _addedCount.asStateFlow()
 
-    override val status: ToolComponent.Status by statusComponent(isDefault = true) {
-        RenderableControls(
+    /** Currently selected color applied to newly added shapes. */
+    private val _selectedColor = MutableStateFlow(RenderableColor.CYAN)
+    val selectedColor = _selectedColor.asStateFlow()
+
+    override val window: ToolComponent.Window by requiredComponent {
+        RenderableControlsWindow(
             addedCount = addedCount,
+            selectedColor = selectedColor,
+            onColorSelected = { _selectedColor.value = it },
             onAddPoint = ::addPoint,
             onAddLine = ::addLine,
             onAddPolygon = ::addPolygon,
@@ -56,19 +60,34 @@ internal class RenderableSampleTool(
     }
 
     init {
-        // Seed one of each shape around the demo center, then frame the camera on it.
-        addPoint()
-        addLine()
-        addPolygon()
-        addCircle()
-        addLabel()
+        // Seed one of each shape at the Kyiv demo center, then frame the camera on it.
+        val center = Position.fromDegrees(CENTER_LAT, CENTER_LON, 0.0)
+        addPointAt(center)
+        addLineAt(center)
+        addPolygonAt(center)
+        addCircleAt(center)
+        addLabelAt(center)
         mapInteractor.focusOnLocation(Location.fromDegrees(CENTER_LAT, CENTER_LON))
     }
 
-    fun addPoint() {
-        val center = nextCenter()
+    /** Adds a point placemark at the live cursor position. */
+    fun addPoint() = addPointAt(mapInteractor.selectedPosition.value)
+
+    /** Adds a polyline centred on the live cursor position. */
+    fun addLine() = addLineAt(mapInteractor.selectedPosition.value)
+
+    /** Adds a polygon centred on the live cursor position. */
+    fun addPolygon() = addPolygonAt(mapInteractor.selectedPosition.value)
+
+    /** Adds a circle centred on the live cursor position. */
+    fun addCircle() = addCircleAt(mapInteractor.selectedPosition.value)
+
+    /** Adds a text label at the live cursor position. */
+    fun addLabel() = addLabelAt(mapInteractor.selectedPosition.value)
+
+    private fun addPointAt(pos: Position) {
         track(
-            Placemark(Position.fromDegrees(center.latitude.inDegrees, center.longitude.inDegrees, 0.0)).apply {
+            Placemark(Position.fromDegrees(pos.latitude.inDegrees, pos.longitude.inDegrees, 0.0)).apply {
                 altitudeMode = AltitudeMode.CLAMP_TO_GROUND
                 attributes.apply {
                     imageScale = 2.0
@@ -78,10 +97,10 @@ internal class RenderableSampleTool(
         )
     }
 
-    fun addLine() {
-        val center = nextCenter()
-        val lat = center.latitude.inDegrees
-        val lon = center.longitude.inDegrees
+    private fun addLineAt(pos: Position) {
+        val lat = pos.latitude.inDegrees
+        val lon = pos.longitude.inDegrees
+        val wwColor = WWColor(_selectedColor.value.androidColor)
         track(
             Path(
                 listOf(
@@ -96,17 +115,17 @@ internal class RenderableSampleTool(
                 isPickEnabled = false
                 attributes.apply {
                     isDrawInterior = false
-                    outlineColor = WWColor(android.graphics.Color.CYAN)
+                    outlineColor = wwColor
                     outlineWidth = 4f
                 }
             }
         )
     }
 
-    fun addPolygon() {
-        val center = nextCenter()
-        val lat = center.latitude.inDegrees
-        val lon = center.longitude.inDegrees
+    private fun addPolygonAt(pos: Position) {
+        val lat = pos.latitude.inDegrees
+        val lon = pos.longitude.inDegrees
+        val wwColor = WWColor(_selectedColor.value.androidColor)
         track(
             // Outer ring, do NOT repeat the first point — WorldWind closes the polygon automatically.
             Polygon(
@@ -122,20 +141,20 @@ internal class RenderableSampleTool(
                 pathType = PathType.LINEAR
                 isPickEnabled = false
                 attributes.apply {
-                    outlineColor = WWColor(android.graphics.Color.YELLOW)
+                    outlineColor = wwColor
                     outlineWidth = 2f
-                    interiorColor = WWColor(android.graphics.Color.YELLOW).apply { alpha = 0.15f }
+                    interiorColor = WWColor(_selectedColor.value.androidColor).apply { alpha = 0.15f }
                 }
             }
         )
     }
 
-    fun addCircle() {
-        val center = nextCenter()
+    private fun addCircleAt(pos: Position) {
+        val wwColor = WWColor(_selectedColor.value.androidColor)
         track(
             // Radii are in meters; equal major/minor radii produce a circle.
             Ellipse(
-                Position.fromDegrees(center.latitude.inDegrees, center.longitude.inDegrees, 0.0),
+                Position.fromDegrees(pos.latitude.inDegrees, pos.longitude.inDegrees, 0.0),
                 CIRCLE_RADIUS_M,
                 CIRCLE_RADIUS_M,
             ).apply {
@@ -144,24 +163,24 @@ internal class RenderableSampleTool(
                 isPickEnabled = false
                 attributes.apply {
                     isDrawInterior = false
-                    outlineColor = WWColor(android.graphics.Color.RED)
+                    outlineColor = wwColor
                     outlineWidth = 2f
                 }
             }
         )
     }
 
-    fun addLabel() {
-        val center = nextCenter()
+    private fun addLabelAt(pos: Position) {
+        val wwColor = WWColor(_selectedColor.value.androidColor)
         track(
             Label(
-                Position.fromDegrees(center.latitude.inDegrees, center.longitude.inDegrees, 0.0),
+                Position.fromDegrees(pos.latitude.inDegrees, pos.longitude.inDegrees, 0.0),
                 LABEL_TEXT,
             ).apply {
                 altitudeMode = AltitudeMode.CLAMP_TO_GROUND
                 isPickEnabled = false
                 attributes.apply {
-                    textColor = WWColor(android.graphics.Color.WHITE)
+                    textColor = wwColor
                     scale = 1.2
                     textOffset = Offset.center()
                     isOutlineEnabled = true
@@ -199,21 +218,9 @@ internal class RenderableSampleTool(
         mapInteractor.requestRedraw()
     }
 
-    /**
-     * Returns the next shape center, nudged by a deterministic per-add delta so successive shapes
-     * fan out diagonally instead of stacking on top of each other.
-     */
-    private fun nextCenter(): Location {
-        val offset = addCount++ * STEP_DEGREES
-        return Location.fromDegrees(CENTER_LAT + offset, CENTER_LON + offset)
-    }
-
     private companion object {
         const val CENTER_LAT = 50.45
         const val CENTER_LON = 30.52
-
-        // Per-add diagonal nudge so shapes do not overlap.
-        const val STEP_DEGREES = 0.004
 
         const val LINE_SPAN = 0.006
         const val POLY_SPAN = 0.004

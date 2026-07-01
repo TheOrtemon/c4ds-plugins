@@ -21,12 +21,15 @@ import vision.combat.c4.ds.sdk.ui.component.button.Button
 import vision.combat.c4.ds.sdk.ui.component.button.OutlinedButton
 
 /**
- * Compact control panel shown in the tool's status region. Buttons add one WorldWind renderable of
- * each kind; Clear removes everything the tool has drawn. Lambdas are supplied by the owning tool.
+ * Control panel for the Renderables sample. Buttons add one WorldWind renderable of each kind;
+ * Clear removes everything the tool has drawn. A color-selector row lets the user pick the outline
+ * / fill color used for the next shapes. Lambdas are supplied by the owning tool.
  */
 @Composable
 internal fun RenderableControls(
     addedCount: StateFlow<Int>,
+    selectedColor: StateFlow<RenderableColor>,
+    onColorSelected: (RenderableColor) -> Unit,
     onAddPoint: () -> Unit,
     onAddLine: () -> Unit,
     onAddPolygon: () -> Unit,
@@ -35,6 +38,7 @@ internal fun RenderableControls(
     onClear: () -> Unit,
 ) {
     val count by addedCount.collectAsStateWithLifecycle()
+    val color by selectedColor.collectAsStateWithLifecycle()
 
     Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
         Text(
@@ -45,6 +49,30 @@ internal fun RenderableControls(
             text = stringResource(R.string.renderable_count, count),
             style = MaterialTheme.typography.caption,
         )
+
+        // Color chooser row
+        Text(
+            text = stringResource(R.string.renderable_color_label),
+            style = MaterialTheme.typography.caption,
+        )
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .horizontalScroll(rememberScrollState())
+                .padding(vertical = 2.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            RenderableColor.entries.forEach { c ->
+                val label = stringResource(colorStringRes(c))
+                if (c == color) {
+                    Button(label = label, onClick = { onColorSelected(c) })
+                } else {
+                    OutlinedButton(label = label, onClick = { onColorSelected(c) })
+                }
+            }
+        }
+
+        // Shape buttons row
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -60,4 +88,12 @@ internal fun RenderableControls(
             OutlinedButton(label = stringResource(R.string.renderable_clear), onClick = onClear, enabled = count > 0)
         }
     }
+}
+
+private fun colorStringRes(color: RenderableColor): Int = when (color) {
+    RenderableColor.CYAN -> R.string.renderable_color_cyan
+    RenderableColor.RED -> R.string.renderable_color_red
+    RenderableColor.GREEN -> R.string.renderable_color_green
+    RenderableColor.YELLOW -> R.string.renderable_color_yellow
+    RenderableColor.WHITE -> R.string.renderable_color_white
 }

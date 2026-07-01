@@ -43,18 +43,18 @@ internal class EndBarSampleTool(
         val context = LocalContext.current
         val actionFiredMessage = stringResource(R.string.endbar_action_fired)
         EndBarActionButton(
-            icon = painterResource(R.drawable.ic_end_bar),
+            icon = painterResource(R.drawable.ic_end_bar_action),
             contentDescription = stringResource(R.string.endbar_action_cd),
             onClick = { context.showToast(actionFiredMessage) },
         )
         EndBarToggleButton(
-            icon = painterResource(R.drawable.ic_end_bar),
+            icon = painterResource(R.drawable.ic_end_bar_toggle),
             contentDescription = stringResource(R.string.endbar_toggle_cd),
             isChecked = toggleState,
             onCheckedChange = { toggleState = it },
         )
         EndBarMenuButton(
-            icon = painterResource(R.drawable.ic_end_bar),
+            icon = painterResource(R.drawable.ic_end_bar_menu),
             title = stringResource(R.string.endbar_menu_cd),
             contentDescription = stringResource(R.string.endbar_menu_cd),
         ) {

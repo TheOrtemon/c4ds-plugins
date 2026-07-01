@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import org.kodein.di.DI
 import org.kodein.di.instance
+import vision.combat.c4.ds.sample.gallery.map.ui.MapInfoWindow
 import vision.combat.c4.ds.sample.gallery.map.ui.MapStatusBar
 import vision.combat.c4.ds.sdk.domain.interactor.CommonMapInteractor
 import vision.combat.c4.ds.sdk.tool.AbstractMapTool
@@ -13,6 +14,7 @@ import vision.combat.c4.ds.sdk.tool.ToolComponent
 import vision.combat.c4.ds.sdk.tool.ToolContext
 import vision.combat.c4.ds.sdk.tool.ToolDescriptor
 import vision.combat.c4.ds.sdk.tool.ToolParams
+import vision.combat.c4.ds.sdk.tool.requiredComponent
 import vision.combat.c4.ds.sdk.tool.statusComponent
 
 internal class MapTool(
@@ -29,6 +31,11 @@ internal class MapTool(
 
     override val status: ToolComponent.Status by statusComponent(isDefault = true) {
         MapStatusBar(lastTap)
+    }
+
+    /** Info panel explaining map tap / placemark interaction and SDK APIs. */
+    override val window: ToolComponent.Window by requiredComponent {
+        MapInfoWindow()
     }
 
     // AbstractMapTool.onTerrainPicked takes a single Position argument.
