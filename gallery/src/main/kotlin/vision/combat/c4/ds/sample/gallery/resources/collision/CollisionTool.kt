@@ -14,7 +14,8 @@ import vision.combat.c4.ds.sdk.tool.requiredComponent
  * Demonstrates plugin-first R.string resolution when plugin and host share a string name.
  *
  * SDK APIs: (internal) CompositionFallbackContext, FallbackResources — transparent to plugin authors.
- *           Plugin declares R.string.settings = "PLUGIN settings (isolation wins)".
+ *           Plugin declares R.string.settings = "Plugin Settings", colliding by name with the host's
+ *           own R.string.settings ("Settings"); FallbackResources resolves the plugin id first.
  *
  * Internal SDK mechanism (transparent to plugin authors):
  *   c4ds-sdk-core/internal/…/FallbackResources.kt

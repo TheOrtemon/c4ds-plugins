@@ -117,6 +117,15 @@ private fun ColumnScope.MaterialContent() {
         }
     }
 
+    // Makes the (otherwise invisible) isolation pass visible: the dropdown items above are plugin
+    // strings resolved inside the popup sub-composition thanks to ProvideWindowContext.
+    Text(
+        text = stringResource(R.string.material_dropdown_isolation_note),
+        style = MaterialTheme.typography.caption,
+        color = MaterialTheme.colors.onSurface,
+        modifier = Modifier.padding(top = 4.dp, bottom = 8.dp),
+    )
+
     Text(stringResource(R.string.material_slider_label), style = MaterialTheme.typography.caption)
     Slider(
         value = sliderValue,

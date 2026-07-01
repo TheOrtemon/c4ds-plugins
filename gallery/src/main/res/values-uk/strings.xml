@@ -160,7 +160,6 @@
     <string name="service_events">Подій:</string>
     <string name="service_last_event">Остання подія:</string>
     <string name="service_none">—</string>
-
     <!-- Resources / Config -->
     <string name="config_tool_name">Ресурси — Конфігурація</string>
     <string name="config_desc">Демонстрація ресурсів з кваліфікаторами конфігурації — локаль (values-uk), нічний режим (values-night), скомпільований у плагін шрифт та raw-файл ресурсу.</string>
@@ -170,9 +169,22 @@
     <string name="config_raw_label">Raw-ресурс плагіну (R.raw.sample_note):</string>
     <string name="config_font_sample">Швидка коричнева лисиця перескочила через ледачого пса — шрифт плагіну</string>
     <string name="config_explainer">Увімкніть системний темний режим — іконка та рядок режиму вище переключаться на нічний варіант. Змініть мову застосунку на українську в Налаштуваннях — усі рядки переключаться на values-uk, демонструючи ресурси плагіну з кваліфікаторами конфігурації.</string>
-
     <!-- Resources / Material -->
     <string name="material_tool_name">Ресурси — Material</string>
+
+    <!-- Resources / Config -->
+    <string name="config_tool_name">Ресурси з кваліфікаторами</string>
+    <string name="config_desc">Демонстрація ресурсів з кваліфікаторами конфігурації — локаль (values-uk), нічний режим (values-night), скомпільований у плагін шрифт та raw-файл ресурсу.</string>
+    <string name="config_apis">stringResource, FontFamily(Font(R.font.*)), context.resources.openRawResource</string>
+    <string name="config_mode">Режим: день</string>
+    <string name="config_locale_hint">Локаль — теж кваліфікатор: змініть мову застосунку на українську, і всі рядки тут перезавантажаться з values-uk — так само, як цей рядок режиму перезавантажується з values-night у темній темі.</string>
+    <string name="config_font_label">Шрифт плагіну (R.font.sample_font):</string>
+    <string name="config_raw_label">Raw-ресурс плагіну (R.raw.sample_note):</string>
+    <string name="config_font_sample">Швидка коричнева лисиця перескочила через ледачого пса — шрифт плагіну</string>
+    <string name="config_explainer">Увімкніть системний темний режим — іконка та рядок режиму вище переключаться на нічний варіант. Змініть мову застосунку на українську в Налаштуваннях — усі рядки переключаться на values-uk, демонструючи ресурси плагіну з кваліфікаторами конфігурації.</string>
+
+    <!-- Resources / Material -->
+    <string name="material_tool_name">M2-віджети та ізоляція popup</string>
     <string name="material_desc">Демонстрація скомпільованих у плагін M2-віджетів та ізоляції контексту popup: сирий DropdownMenu показує, як LocalContext скидається в підкомпозиції, а ProvideWindowContext/ToolAlertDialog — як повторно надати його.</string>
     <string name="material_apis">M2 Scaffold, SnackbarHost, Slider, DropdownMenu (скомпільовано у плагін), ProvideWindowContext, ToolAlertDialog, CompositionFallbackContext</string>
     <string name="material_show_snackbar">Показати Snackbar</string>
@@ -180,6 +192,7 @@
     <string name="material_dialog_title">AlertDialog — композиція плагіну</string>
     <string name="material_dialog_body">Цей діалог відображається кодом плагіну в CompositionFallbackContext.</string>
     <string name="material_dropdown_label">Демонстрація DropdownMenu</string>
+    <string name="material_dropdown_isolation_note">Три пункти вище — це значення R.string плагіну, вирішені всередині підкомпозиції popup. Ви їх бачите, бо ProvideWindowContext повторно надав контекст інструмента — без нього popup успадкував би контекст хосту, і підписи були б порожні чи неправильні.</string>
     <string name="material_slider_label">Демонстрація Slider</string>
     <string name="material_explainer">Віджети M2 (Scaffold, SnackbarHost, AlertDialog, DropdownMenu, Slider) в коді плагіну. Якщо ID рядків хосту вирішуються без Resources$NotFoundException — ізоляція працює.</string>
     <string name="material_ok">OK</string>
@@ -190,13 +203,17 @@
     <string name="material_snackbar_message">Snackbar від плагіну — R хосту вирішено успішно</string>
 
     <!-- Resources / Collision -->
-    <string name="collision_tool_name">Ресурси — Колізія R.string</string>
+    <string name="collision_tool_name">Колізія R.string</string>
     <string name="collision_desc">Значення R.string плагіну мають пріоритет над однойменними рядками хосту.</string>
     <string name="collision_apis">CompositionFallbackContext, FallbackResources (внутрішній — прозорий для авторів плагінів)</string>
-    <string name="settings">ПЛАГІН settings (ізоляція перемагає)</string>
-    <string name="collision_settings_line">R.string.settings = \"%1$s\"</string>
-    <string name="collision_plugin_first_caption">Пріоритет плагіну: значення вище взято з APK плагіну, а не з хосту.</string>
-    <string name="collision_explainer">Плагін має R.string.settings, що збігається з однойменним рядком хосту. FallbackResources(plugin, host) гарантує відображення значення плагіну — підтверджуючи пріоритет плагіну.</string>
+    <string name="settings">Налаштування плагіна</string>
+    <string name="collision_explainer">І застосунок-хост, і цей плагін оголошують рядок з назвою settings. Кожен компілюється у власний ID у власному APK. Ось яке значення перемагає, коли плагін читає R.string.settings:</string>
+    <string name="collision_host_label">Хост (c4ds) оголошує</string>
+    <string name="collision_host_value">Налаштування</string>
+    <string name="collision_plugin_label">Цей плагін оголошує</string>
+    <string name="collision_resolved_label">Вирішується у</string>
+    <string name="collision_resolved_badge">перемагає плагін</string>
+    <string name="collision_plugin_first_caption">Плагін навіть не може прочитати значення хосту під час виконання — ізоляція між APK відгороджує його, тож рядок вище наведено лише для довідки. Саме ця межа й працює на ваших очах.</string>
 
     <!-- Components — demo strings (used by folded demos in UI Catalog) -->
     <!-- Components — section labels -->

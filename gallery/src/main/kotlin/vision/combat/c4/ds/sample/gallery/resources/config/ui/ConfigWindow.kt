@@ -67,6 +67,13 @@ private fun ColumnScope.ConfigContent() {
         }
     }
 
+    Text(
+        text = stringResource(R.string.config_locale_hint),
+        style = MaterialTheme.typography.caption,
+        color = MaterialTheme.colors.onSurface,
+        modifier = Modifier.padding(top = 4.dp),
+    )
+
     Divider(modifier = Modifier.padding(vertical = 8.dp))
 
     Text(stringResource(R.string.config_font_label), style = MaterialTheme.typography.caption)

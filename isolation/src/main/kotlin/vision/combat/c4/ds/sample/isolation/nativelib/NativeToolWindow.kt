@@ -45,16 +45,21 @@ private fun ColumnScope.NativeContent(jniResult: String?, assetResult: String?) 
     ResultCard(
         label = stringResource(R.string.native_jni_label),
         value = jniResult ?: stringResource(R.string.native_not_loaded),
+        // Proof caption only when the smoke test actually succeeded — not on null or FAILED.
+        proof = jniResult?.takeUnless { it.startsWith("FAILED") }
+            ?.let { stringResource(R.string.native_jni_proof) },
     )
 
     ResultCard(
         label = stringResource(R.string.native_asset_label),
         value = assetResult ?: stringResource(R.string.native_not_loaded),
+        proof = assetResult?.takeUnless { it.startsWith("FAILED") }
+            ?.let { stringResource(R.string.native_asset_proof) },
     )
 }
 
 @Composable
-private fun ResultCard(label: String, value: String) {
+private fun ResultCard(label: String, value: String, proof: String? = null) {
     Column(modifier = Modifier.padding(bottom = 12.dp)) {
         Text(
             text = label,
@@ -69,6 +74,14 @@ private fun ResultCard(label: String, value: String) {
                 text = value,
                 style = MaterialTheme.typography.body1,
                 modifier = Modifier.padding(12.dp),
+            )
+        }
+        if (proof != null) {
+            Text(
+                text = proof,
+                style = MaterialTheme.typography.caption,
+                color = MaterialTheme.colors.onSurface,
+                modifier = Modifier.padding(top = 4.dp),
             )
         }
     }
