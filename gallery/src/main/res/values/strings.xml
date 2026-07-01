@@ -25,7 +25,7 @@
     <string name="section_data_management_title">Data Management</string>
     <string name="section_data_management_desc">Isolated file I/O, plugin-scoped SharedPreferences, and an isolated Room database.</string>
     <string name="section_lifecycle_services_title">Lifecycle &amp; Services</string>
-    <string name="section_lifecycle_services_desc">Session-scoped AbstractToolService with DI and badge counter.</string>
+    <string name="section_lifecycle_services_desc">A session AbstractToolService doing background work, an unread badge on the tool list item, and a live tool lifecycle log.</string>
     <string name="section_resources_isolation_title">Resources &amp; Isolation</string>
     <string name="section_resources_isolation_desc">Config-qualified resources, Material widgets, R.string collision, assets, native libraries (NDK), and cross-APK isolation.</string>
     <string name="catalog_details">Details</string>
@@ -154,12 +154,25 @@
 
     <!-- Service -->
     <string name="service_tool_name">Lifecycle &amp; Services</string>
-    <string name="service_desc">Session-scoped AbstractToolService created at session start; shares state with the tool via DI and exposes a list badge counter.</string>
-    <string name="service_apis">ToolDescriptor.createService, AbstractToolService.di/subDI, ToolNotificationManager.counter</string>
+    <string name="service_desc">A session-scoped AbstractToolService does background work all session — even while this window is closed — and posts an unread badge on the tool list item. The window also logs the tool lifecycle callbacks as they fire.</string>
+    <string name="service_apis">ToolDescriptor.createService, AbstractToolService, ToolNotificationManager.counter, AbstractTool.onComponentShown/onComponentHidden/onDestroyRequested</string>
+
+    <!-- Service status card -->
     <string name="service_running">Session service: active</string>
-    <string name="service_events">Events:</string>
-    <string name="service_last_event">Last event:</string>
-    <string name="service_none">—</string>
+    <string name="service_status_caption">Created once at session start and kept alive for the whole session, independent of whether this tool is open.</string>
+
+    <!-- Inbox / badge card -->
+    <string name="service_inbox_title">Inbox</string>
+    <string name="service_unread">Unread: %1$d</string>
+    <string name="service_message">Message received at %1$s</string>
+    <string name="service_inbox_empty">No messages yet.</string>
+    <string name="service_mark_read">Mark all read</string>
+    <string name="service_inbox_caption">A new message arrives every few seconds in the background. Close this window and watch the count appear as a badge on this tool's card in the tool list. "Mark all read" clears it.</string>
+
+    <!-- Tool lifecycle log card -->
+    <string name="service_lifecycle_title">Tool lifecycle log</string>
+    <string name="service_lifecycle_empty">No lifecycle events yet.</string>
+    <string name="service_lifecycle_caption">These callbacks fire as you open and close this window. The log lives in the session service, so it survives closing the window — reopen to see the previous "hidden" entry.</string>
 
     <!-- Resources / Config -->
     <string name="config_tool_name">Resources — Config</string>
@@ -173,20 +186,6 @@
 
     <!-- Resources / Material -->
     <string name="material_tool_name">Resources — Material</string>
-
-    <!-- Resources / Config -->
-    <string name="config_tool_name">Config-Qualified Resources</string>
-    <string name="config_desc">Demonstrates config-qualified resources — locale (values-uk), night mode (values-night), a plugin-compiled font, and a raw resource file.</string>
-    <string name="config_apis">stringResource, FontFamily(Font(R.font.*)), context.resources.openRawResource</string>
-    <string name="config_mode">Mode: day</string>
-    <string name="config_locale_hint">Locale is a qualifier too: switch the app language to Ukrainian and every string here reloads from values-uk — just like this mode string reloads from values-night in the dark.</string>
-    <string name="config_font_label">Plugin font (R.font.sample_font):</string>
-    <string name="config_raw_label">Plugin raw resource (R.raw.sample_note):</string>
-    <string name="config_font_sample">The quick brown fox jumps over the lazy dog — plugin font</string>
-    <string name="config_explainer">Toggle system dark mode — the icon and mode string above switch to the night variant. Change App language to Ukrainian in Settings — all strings switch to values-uk, demonstrating per-plugin config-qualified resources.</string>
-
-    <!-- Resources / Material -->
-    <string name="material_tool_name">M2 Widgets &amp; Popup Isolation</string>
     <string name="material_desc">Demonstrates plugin-compiled M2 widgets and popup context isolation: a raw DropdownMenu shows how LocalContext resets in a sub-composition, and ProvideWindowContext/ToolAlertDialog show how to re-provide it.</string>
     <string name="material_apis">M2 Scaffold, SnackbarHost, Slider, DropdownMenu (plugin-compiled), ProvideWindowContext, ToolAlertDialog, CompositionFallbackContext</string>
     <string name="material_show_snackbar">Show Snackbar</string>
@@ -194,7 +193,6 @@
     <string name="material_dialog_title">AlertDialog — plugin composition</string>
     <string name="material_dialog_body">This dialog is rendered by plugin-compiled code inside CompositionFallbackContext.</string>
     <string name="material_dropdown_label">DropdownMenu demo</string>
-    <string name="material_dropdown_isolation_note">The three items above are plugin R.string values resolved inside the popup\'s sub-composition. You can read them because ProvideWindowContext re-provided the tool context — without it, the popup would inherit the host context and the labels would be blank or wrong.</string>
     <string name="material_slider_label">Slider demo</string>
     <string name="material_explainer">M2 widgets (Scaffold, SnackbarHost, AlertDialog, DropdownMenu, Slider) composed inside plugin code. If host string IDs resolve without Resources$NotFoundException — isolation is working.</string>
     <string name="material_ok">OK</string>
@@ -205,18 +203,13 @@
     <string name="material_snackbar_message">Snackbar from plugin — host R resolved OK</string>
 
     <!-- Resources / Collision -->
-    <string name="collision_tool_name">R.string Collision</string>
+    <string name="collision_tool_name">Resources — R.string Collision</string>
     <string name="collision_desc">Plugin R.string values take priority over identically-named host strings.</string>
     <string name="collision_apis">CompositionFallbackContext, FallbackResources (internal — transparent to plugin authors)</string>
-    <string name="settings">Plugin Settings</string>
-    <string name="collision_explainer">Both the host app and this plugin declare a string named settings. Each compiles to its own ID inside its own APK. Here is which value wins when the plugin reads R.string.settings:</string>
-    <string name="collision_key_header" translatable="false">R.string.settings</string>
-    <string name="collision_host_label">Host app (c4ds) declares</string>
-    <string name="collision_host_value">Settings</string>
-    <string name="collision_plugin_label">This plugin declares</string>
-    <string name="collision_resolved_label">Resolves to</string>
-    <string name="collision_resolved_badge">plugin wins</string>
-    <string name="collision_plugin_first_caption">The plugin can\'t even read the host\'s value at runtime — per-APK isolation walls it off, so the row above is shown for reference only. That wall is exactly what you are seeing work.</string>
+    <string name="settings">PLUGIN settings (isolation wins)</string>
+    <string name="collision_settings_line">R.string.settings = \"%1$s\"</string>
+    <string name="collision_plugin_first_caption">Plugin-first resolution: the value shown above comes from the plugin APK, not the host.</string>
+    <string name="collision_explainer">Plugin owns R.string.settings which collides with the host\'s identically-named string. FallbackResources(plugin, host) ensures the plugin value is shown — proving plugin-first resolution.</string>
 
     <!-- Components — demo strings (used by folded demos in UI Catalog) -->
     <!-- Components — section labels -->

@@ -17,13 +17,13 @@ import java.util.Date
 import java.util.Locale
 
 /**
- * Session-scoped background service that increments an event counter every 5 seconds.
+ * Session-scoped background service that simulates an inbox: every few seconds a "message" arrives,
+ * bumping the unread counter in [ServiceSharedState].
  *
- * Created at session start via [ToolDescriptor.createService]. Increments a shared counter
- * every ~5 s on a background coroutine while the service is alive; the coroutine is cancelled
- * automatically when [onDestroy] disposes [coroutineScope].
- *
- * Shared state is bound in [serviceModule] and exposed to the tool when it is activated.
+ * Created once at session start via [ToolDescriptor.createService] and kept alive for the whole
+ * session — the loop keeps running even while the tool window is closed. [ServiceNotificationManager]
+ * mirrors the unread count onto the tool-list badge, so the number appears on this tool's card while
+ * it is inactive. The coroutine is cancelled automatically when [onDestroy] disposes [coroutineScope].
  */
 internal class BadgeCounterService(
     toolContext: ToolContext,
@@ -37,15 +37,16 @@ internal class BadgeCounterService(
     }
 
     private val sharedState: ServiceSharedState by instance()
+    private val timeFormat = SimpleDateFormat("HH:mm:ss", Locale.US)
 
     init {
         Log.i(TAG, "BadgeCounterService created — session service is running")
         coroutineScope.launch {
             while (isActive) {
-                delay(TICK_INTERVAL_MS)
-                val timestamp = SimpleDateFormat("HH:mm:ss", Locale.US).format(Date())
-                sharedState.incrementEvent(timestamp)
-                Log.d(TAG, "Service tick #${sharedState.eventCount.value} at $timestamp")
+                delay(MESSAGE_INTERVAL_MS)
+                val timestamp = timeFormat.format(Date())
+                sharedState.onMessageReceived(timestamp)
+                Log.d(TAG, "Message received at $timestamp (unread=${sharedState.unreadCount.value})")
             }
         }
     }
@@ -56,6 +57,6 @@ internal class BadgeCounterService(
 
     private companion object {
         private const val TAG = "BadgeCounterService"
-        private const val TICK_INTERVAL_MS = 5_000L
+        private const val MESSAGE_INTERVAL_MS = 5_000L
     }
 }
