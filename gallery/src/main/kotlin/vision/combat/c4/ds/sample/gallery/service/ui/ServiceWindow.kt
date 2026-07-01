@@ -22,23 +22,23 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import vision.combat.c4.ds.sample.gallery.R
-import vision.combat.c4.ds.sample.gallery.service.ServiceSharedState
+import vision.combat.c4.ds.sample.gallery.service.BadgeCounterService
 import vision.combat.c4.ds.sdk.ui.component.WindowScaffold
 import vision.combat.c4.ds.sdk.ui.component.bar.BackNavTopAppBar
 
 @Composable
-internal fun ServiceWindow(sharedState: ServiceSharedState) {
+internal fun ServiceWindow(service: BadgeCounterService) {
     WindowScaffold(
         topAppBar = { BackNavTopAppBar(title = stringResource(R.string.service_tool_name)) },
-        content = { ServiceContent(sharedState) },
+        content = { ServiceContent(service) },
     )
 }
 
 @Composable
-private fun ColumnScope.ServiceContent(sharedState: ServiceSharedState) {
-    val unread by sharedState.unreadCount.collectAsStateWithLifecycle()
-    val messages by sharedState.messageTimes.collectAsStateWithLifecycle()
-    val lifecycleLog by sharedState.lifecycleLog.collectAsStateWithLifecycle()
+private fun ColumnScope.ServiceContent(service: BadgeCounterService) {
+    val unread by service.unreadCount.collectAsStateWithLifecycle()
+    val messages by service.messageTimes.collectAsStateWithLifecycle()
+    val lifecycleLog by service.lifecycleLog.collectAsStateWithLifecycle()
 
     // ── Service status ──
     Text(
@@ -95,7 +95,7 @@ private fun ColumnScope.ServiceContent(sharedState: ServiceSharedState) {
             Spacer(modifier = Modifier.height(12.dp))
 
             Button(
-                onClick = { sharedState.markAllRead() },
+                onClick = { service.markAllRead() },
                 enabled = unread > 0,
                 modifier = Modifier.fillMaxWidth(),
             ) {

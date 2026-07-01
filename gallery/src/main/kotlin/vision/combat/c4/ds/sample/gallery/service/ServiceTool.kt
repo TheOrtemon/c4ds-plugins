@@ -11,19 +11,17 @@ import vision.combat.c4.ds.sdk.tool.ToolContext
 import vision.combat.c4.ds.sdk.tool.ToolDescriptor
 import vision.combat.c4.ds.sdk.tool.ToolParams
 import vision.combat.c4.ds.sdk.tool.requiredComponent
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 
 /**
  * Demonstrates two things at once, matching the section name "Lifecycle & Services":
  *
  * - **Services** — a session-scoped [AbstractToolService] ([BadgeCounterService]) created via
  *   [ToolDescriptor.createService] that does background work and posts an unread badge on the tool
- *   list item, sharing [ServiceSharedState] with this tool through the merged service DI graph.
+ *   list item. The tool reaches it straight from DI (see [ServiceTool.service]) — no shared-state
+ *   object in between — because the SDK binds each service into its tool's graph.
  * - **Lifecycle** — this tool overrides its [AbstractTool] lifecycle callbacks and records each one
- *   into the (session-scoped) [ServiceSharedState], so the window can show a live log that survives
- *   the window being closed and reopened.
+ *   on the (session-scoped) service, so the window can show a live log that survives the window
+ *   being closed and reopened.
  *
  * SDK files:
  *   c4ds-sdk/src/main/kotlin/vision/combat/c4/ds/sdk/tool/ToolDescriptor.kt
@@ -45,8 +43,8 @@ class ServiceToolDescriptor(toolContext: ToolContext) : ToolDescriptor(toolConte
 }
 
 /**
- * [AbstractTool] for the service sample. Wires [ServiceWindow] with the [ServiceSharedState]
- * produced by [BadgeCounterService], and logs its own lifecycle callbacks into that shared state.
+ * [AbstractTool] for the service sample. Injects its own [BadgeCounterService] from DI, hands it to
+ * [ServiceWindow], and logs its own lifecycle callbacks onto it.
  */
 internal class ServiceTool(
     toolContext: ToolContext,
@@ -55,11 +53,12 @@ internal class ServiceTool(
     params: ToolParams?,
 ) : AbstractTool(toolContext, toolDescriptor, parentDI, params) {
 
-    private val sharedState: ServiceSharedState by instance()
-    private val timeFormat = SimpleDateFormat("HH:mm:ss", Locale.US)
+    // The SDK binds the tool's service into this graph (see AppToolManager: the tool DI extends the
+    // service DI, and AbstractToolService binds itself via bindErasedInstance under its concrete type).
+    private val service: BadgeCounterService by instance()
 
     override val window: ToolComponent.Window by requiredComponent {
-        ServiceWindow(sharedState)
+        ServiceWindow(service)
     }
 
     // ── Lifecycle callbacks: real tools use these to start/stop work as components appear and
@@ -67,26 +66,22 @@ internal class ServiceTool(
 
     override fun onComponentShown(component: ToolComponent) {
         super.onComponentShown(component)
-        log("onComponentShown(${component.label()})")
+        service.logLifecycle("onComponentShown(${component.label()})")
     }
 
     override fun onComponentHidden(component: ToolComponent) {
         super.onComponentHidden(component)
-        log("onComponentHidden(${component.label()})")
+        service.logLifecycle("onComponentHidden(${component.label()})")
     }
 
     override fun onUpdate(toolParams: ToolParams?) {
         super.onUpdate(toolParams)
-        log("onUpdate()")
+        service.logLifecycle("onUpdate()")
     }
 
     override fun onDestroyRequested() {
         super.onDestroyRequested()
-        log("onDestroyRequested()")
-    }
-
-    private fun log(event: String) {
-        sharedState.logLifecycle("${timeFormat.format(Date())} — $event")
+        service.logLifecycle("onDestroyRequested()")
     }
 
     private fun ToolComponent.label(): String = when (this) {
