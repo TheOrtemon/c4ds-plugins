@@ -11,7 +11,7 @@ import vision.combat.c4.ds.sdk.tool.ToolParams
  * Demonstrates [vision.combat.c4.ds.sdk.tool.ToolManager] APIs:
  * activate, deactivate, isActive, activeTools, showComponent.
  *
- * The sample targets the Map gallery tool ([vision.combat.c4.ds.sample.gallery.map.MapToolDescriptor])
+ * The sample targets the Map gallery tool ([vision.combat.c4.ds.sample.gallery.mapview.map.MapToolDescriptor])
  * so users can see tool management in action with a concrete example.
  *
  * SDK APIs: ToolManager.activate, ToolManager.deactivate, ToolManager.isActive,

@@ -4,19 +4,19 @@ import androidx.annotation.Keep
 import androidx.annotation.StringRes
 import vision.combat.c4.ds.sample.gallery.R
 import vision.combat.c4.ds.sample.gallery.dialog.DialogToolDescriptor
-import vision.combat.c4.ds.sample.gallery.endbar.EndBarToolDescriptor
-import vision.combat.c4.ds.sample.gallery.expandablestatus.ExpandableStatusToolDescriptor
-import vision.combat.c4.ds.sample.gallery.map.MapToolDescriptor
-import vision.combat.c4.ds.sample.gallery.mapinteractor.MapInteractorToolDescriptor
+import vision.combat.c4.ds.sample.gallery.mapoverlays.endbar.EndBarToolDescriptor
+import vision.combat.c4.ds.sample.gallery.mapoverlays.expandablestatus.ExpandableStatusToolDescriptor
+import vision.combat.c4.ds.sample.gallery.mapview.map.MapToolDescriptor
+import vision.combat.c4.ds.sample.gallery.mapview.mapinteractor.MapInteractorToolDescriptor
 import vision.combat.c4.ds.sample.gallery.model.ModelToolDescriptor
-import vision.combat.c4.ds.sample.gallery.overlay.OverlayToolDescriptor
+import vision.combat.c4.ds.sample.gallery.mapoverlays.overlay.OverlayToolDescriptor
 import vision.combat.c4.ds.sample.gallery.panelstate.PanelStateToolDescriptor
-import vision.combat.c4.ds.sample.gallery.renderable.RenderableToolDescriptor
+import vision.combat.c4.ds.sample.gallery.mapview.renderable.RenderableToolDescriptor
 import vision.combat.c4.ds.sample.gallery.resources.collision.CollisionToolDescriptor
 import vision.combat.c4.ds.sample.gallery.resources.config.ConfigToolDescriptor
 import vision.combat.c4.ds.sample.gallery.resources.material.MaterialToolDescriptor
 import vision.combat.c4.ds.sample.gallery.service.ServiceToolDescriptor
-import vision.combat.c4.ds.sample.gallery.status.StatusToolDescriptor
+import vision.combat.c4.ds.sample.gallery.mapoverlays.status.StatusToolDescriptor
 import vision.combat.c4.ds.sample.gallery.storage.StorageToolDescriptor
 import vision.combat.c4.ds.sample.gallery.toolmanagement.ToolManagementToolDescriptor
 import vision.combat.c4.ds.sample.gallery.uicatalog.UiCatalogToolDescriptor
@@ -55,7 +55,7 @@ internal enum class CatalogEntry(
         nameResId = R.string.map_tool_name,
         descResId = R.string.map_desc,
         apisResId = R.string.map_apis,
-        sourceSubpackage = "map",
+        sourceSubpackage = "mapview/map",
         toolClassName = requireQualifiedName<MapToolDescriptor>(),
     ),
     RENDERABLE(
@@ -63,7 +63,7 @@ internal enum class CatalogEntry(
         nameResId = R.string.renderable_tool_name,
         descResId = R.string.renderable_desc,
         apisResId = R.string.renderable_apis,
-        sourceSubpackage = "renderable",
+        sourceSubpackage = "mapview/renderable",
         toolClassName = requireQualifiedName<RenderableToolDescriptor>(),
     ),
     MAP_INTERACTOR(
@@ -71,7 +71,7 @@ internal enum class CatalogEntry(
         nameResId = R.string.map_interactor_tool_name,
         descResId = R.string.map_interactor_desc,
         apisResId = R.string.map_interactor_apis,
-        sourceSubpackage = "mapinteractor",
+        sourceSubpackage = "mapview/mapinteractor",
         toolClassName = requireQualifiedName<MapInteractorToolDescriptor>(),
     ),
 
@@ -81,7 +81,7 @@ internal enum class CatalogEntry(
         nameResId = R.string.overlay_tool_name,
         descResId = R.string.overlay_desc,
         apisResId = R.string.overlay_apis,
-        sourceSubpackage = "overlay",
+        sourceSubpackage = "mapoverlays/overlay",
         toolClassName = requireQualifiedName<OverlayToolDescriptor>(),
     ),
     STATUS(
@@ -89,7 +89,7 @@ internal enum class CatalogEntry(
         nameResId = R.string.status_tool_name,
         descResId = R.string.status_desc,
         apisResId = R.string.status_apis,
-        sourceSubpackage = "status",
+        sourceSubpackage = "mapoverlays/status",
         toolClassName = requireQualifiedName<StatusToolDescriptor>(),
     ),
     EXPANDABLE_STATUS(
@@ -97,7 +97,7 @@ internal enum class CatalogEntry(
         nameResId = R.string.expandable_status_tool_name,
         descResId = R.string.expandable_status_desc,
         apisResId = R.string.expandable_status_apis,
-        sourceSubpackage = "expandablestatus",
+        sourceSubpackage = "mapoverlays/expandablestatus",
         toolClassName = requireQualifiedName<ExpandableStatusToolDescriptor>(),
     ),
     ENDBAR(
@@ -105,7 +105,7 @@ internal enum class CatalogEntry(
         nameResId = R.string.endbar_tool_name,
         descResId = R.string.endbar_desc,
         apisResId = R.string.endbar_apis,
-        sourceSubpackage = "endbar",
+        sourceSubpackage = "mapoverlays/endbar",
         toolClassName = requireQualifiedName<EndBarToolDescriptor>(),
     ),
 
