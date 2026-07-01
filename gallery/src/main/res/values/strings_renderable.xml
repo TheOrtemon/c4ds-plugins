@@ -11,7 +11,7 @@
     <string name="renderable_add_circle">Add circle</string>
     <string name="renderable_add_label">Add label</string>
     <string name="renderable_clear">Clear</string>
-    <string name="renderable_hint">Tap a button to add a shape, or tap the map to drop a point.</string>
+    <string name="renderable_hint">Tap a button to add a shape at the cursor, or tap the map to drop a point there.</string>
     <string name="renderable_count">Renderables: %1$d</string>
 
     <!-- Color chooser -->

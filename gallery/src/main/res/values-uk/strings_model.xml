@@ -4,8 +4,8 @@
     <string name="model_sc_list_desc">Усі моделі бойового простору на карті у стилі TacticalData із символами MIL-STD-2525.</string>
     <string name="model_sc_create_name">Створення, consume та commit</string>
     <string name="model_sc_create_desc">Створіть модель, відобразіть її на карті (consume), потім збережіть і розішліть (commit) або скасуйте (rollback).</string>
-    <string name="model_sc_symbols_name">Ключі символів</string>
-    <string name="model_sc_symbols_desc">Створення моделей з різними ключами символів MIL-STD-2525 та належністю.</string>
+    <string name="model_sc_symbols_name">Коди символів</string>
+    <string name="model_sc_symbols_desc">Створення моделей з різними кодами символів MIL-STD-2525 та ворожістю.</string>
     <string name="model_sc_selection_name">Вибір та події</string>
     <string name="model_sc_selection_desc">Спостереження за selectedModel, userModel і подіями колекції; вибір, стеження та зняття вибору.</string>
 
@@ -25,7 +25,7 @@
     <string name="model_sc_stage_failed">помилка створення (немає символу/координат)</string>
 
     <!-- Ключі символів -->
-    <string name="model_sc_symbols_explainer">Ключ символу — це ціле число у таблиці прив’язок MIL-STD-2525, що передається через ModelAttrs.symbolKey. Належність (колір/рамка) — це окремий ModelAttrs.hostility. Натисніть «Створити», щоб побудувати + consume кожен приклад у поточній позиції карти.</string>
+    <string name="model_sc_symbols_explainer">Ключ символу — це ціле число у таблиці прив’язок MIL-STD-2525, що передається через ModelAttrs.symbolKey. Ворожість (колір/рамка) — це окремий ModelAttrs.hostility. Натисніть «Створити», щоб побудувати + consume кожен приклад у поточній позиції карти.</string>
     <string name="model_sc_symbol_rifleman">Стрілець</string>
     <string name="model_sc_symbol_air">Повітряна ціль</string>
     <string name="model_sc_symbol_civil">Громадські заворушення</string>

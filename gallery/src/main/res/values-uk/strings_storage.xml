@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Storage showcase hub — Ukrainian -->
-    <string name="storage_tool_name">Управління даними</string>
+    <string name="storage_tool_name">Робота з даними</string>
     <string name="storage_desc">Демонструє ізольований файловий I/O, SharedPreferences у контексті плагіну та ізольовану базу даних Room — три вітрини в одному хабі.</string>
     <string name="storage_apis">CommonSessionStorageInteractor, SharedPreferences, Room, Dispatchers.IO</string>
 

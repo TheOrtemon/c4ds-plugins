@@ -9,6 +9,7 @@ import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.KeyboardArrowRight
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.runtime.Composable
@@ -115,7 +116,6 @@ private fun SectionCard(
                 text = stringResource(section.descResId),
                 style = MaterialTheme.typography.body2,
                 color = MaterialTheme.colors.onSurface,
-                maxLines = 2,
             )
         },
         leadingIcon = {
@@ -127,6 +127,15 @@ private fun SectionCard(
             )
         },
         onItemClick = onClick,
+        canGoForward = false,
+        trailingAction = {
+            Icon(
+                painter = rememberVectorPainter(Icons.AutoMirrored.Outlined.KeyboardArrowRight),
+                contentDescription = null,
+                tint = MaterialTheme.colors.onSurface,
+                modifier = Modifier.size(24.dp),
+            )
+        },
     )
 }
 
@@ -163,7 +172,6 @@ private fun SingleEntrySectionCard(
                 text = stringResource(section.descResId),
                 style = MaterialTheme.typography.body2,
                 color = MaterialTheme.colors.onSurface,
-                maxLines = 2,
             )
         },
         leadingIcon = {
@@ -290,7 +298,6 @@ internal fun SampleListItem(
                 } else {
                     MaterialTheme.colors.onSurface
                 },
-                maxLines = 2,
             )
         },
         onItemClick = if (isEnabled) {

@@ -3,7 +3,7 @@
 
     <!-- Catalog / Hub -->
     <string name="catalog_tool_name">Sample Gallery</string>
-    <!-- Section titles (new 11-section layout) -->
+    <!-- Section titles (new 12-section layout) -->
     <string name="section_map_view_title">Map View</string>
     <string name="section_map_view_desc">Map rendering, renderables, and the CommonMapInteractor API.</string>
     <string name="section_map_overlays_title">Map Overlays</string>
@@ -23,11 +23,11 @@
     <string name="section_model_management_title">Model Management</string>
     <string name="section_model_management_desc">CommonModelInteractor create/consume/commit, symbol keys, and model selection events.</string>
     <string name="section_data_management_title">Data Management</string>
-    <string name="section_data_management_desc">Session storage file I/O via the tool\'s storage directory.</string>
+    <string name="section_data_management_desc">Isolated file I/O, plugin-scoped SharedPreferences, and an isolated Room database.</string>
     <string name="section_lifecycle_services_title">Lifecycle &amp; Services</string>
     <string name="section_lifecycle_services_desc">Session-scoped AbstractToolService with DI and badge counter.</string>
     <string name="section_resources_isolation_title">Resources &amp; Isolation</string>
-    <string name="section_resources_isolation_desc">Config-qualified resources, Material widgets, R.string collision, and cross-APK isolation.</string>
+    <string name="section_resources_isolation_desc">Config-qualified resources, Material widgets, R.string collision, assets, native libraries (NDK), and cross-APK isolation.</string>
     <string name="catalog_details">Details</string>
     <string name="catalog_sdk_apis_label">SDK APIs</string>
     <string name="catalog_source_label">Source subpackage</string>
@@ -36,7 +36,7 @@
 
     <!-- Window Single Screen -->
     <string name="window_single_screen_tool_name">Single Screen Window</string>
-    <string name="window_single_screen_desc">Minimal single-screen window tool: ToolComponent.Window, WindowScaffold, and a ViewModel-backed counter demonstrating MVI state and a one-shot toast event.</string>
+    <string name="window_single_screen_desc">Demonstrates a minimal single-screen tool window with a ViewModel-backed counter, using MVI state and a one-shot toast event.</string>
     <string name="window_single_screen_apis">ToolComponent.Window, WindowScaffold, BackNavTopAppBar, diViewModel(), showToast</string>
     <string name="window_single_screen_desc_short">A minimal single-screen window. Tap Increment to count up; Reset resets the counter and shows a toast.</string>
     <string name="window_single_screen_counter_label">Count: %1$d</string>
@@ -47,7 +47,7 @@
     <!-- Window Multi Screen -->
     <string name="window_multi_screen_tool_name">Multi Screen Window</string>
     <string name="window_multi_screen_desc">Multi-screen window using AppNavHost, tool-scoped DI module, and SharedPreferences.</string>
-    <string name="window_multi_screen_apis">AppNavHost, Route, BackNavTopAppBar, toolSubDI, SharedPreferences</string>
+    <string name="window_multi_screen_apis">AppNavHost, Route, BackNavTopAppBar, subDI, SharedPreferences</string>
     <string name="window_multi_screen_home_title">Home</string>
     <string name="window_multi_screen_home_desc">This is a multi-screen window tool demonstrating navigation between screens and a persisted setting shared across them.</string>
     <string name="window_multi_screen_home_hint">Go to Settings to toggle the description above.</string>
@@ -80,8 +80,8 @@
 
     <!-- Overlay -->
     <string name="overlay_tool_name">Overlay</string>
-    <string name="overlay_desc">Map overlay composable reading cursor position and user model.</string>
-    <string name="overlay_apis">ToolComponent.Overlay, CommonMapInteractor.selectedPosition, CommonModelInteractor.userModel, CommonLocaleSettingsInteractor</string>
+    <string name="overlay_desc">ToolComponent.Overlay composable reading cursor position and user model, with an end-bar close button.</string>
+    <string name="overlay_apis">ToolComponent.Overlay, CommonMapInteractor.selectedPosition, CommonModelInteractor.userModel, CommonLocaleSettingsInteractor, AbstractTool.endBar, EndBarActionButton</string>
     <string name="overlay_cursor_position">Cursor position:</string>
     <string name="overlay_user_model">User model:</string>
     <string name="overlay_not_available">Not available</string>
@@ -90,15 +90,15 @@
 
     <!-- Map -->
     <string name="map_tool_name">Map</string>
-    <string name="map_desc">Map tap callbacks and renderable layer drawing using AbstractMapTool.</string>
-    <string name="map_apis">AbstractMapTool, SelectDragCallback, addRenderable, RenderableLayer, ToolComponent.Status</string>
+    <string name="map_desc">Handles map taps and draws a placemark on the tapped location using AbstractMapTool.</string>
+    <string name="map_apis">AbstractMapTool, onTerrainPicked, addRenderable, requestRedraw, ToolComponent.Status</string>
     <string name="map_status_tap_hint">Tap the map to place a marker</string>
     <string name="map_last_tap">Last tap:</string>
 
     <!-- MapWindow -->
     <string name="mapwindow_tool_name">Secondary Map Window</string>
-    <string name="mapwindow_desc">Embedded secondary map inside a tool window via ToolComponent.MapWindow. The host provides default zoom controls; this sample adds supplemental end-bar and nav-bar actions.</string>
-    <string name="mapwindow_apis">ToolComponent.MapWindow, mapWindow factory, MapView, MapController, MapWindow.mapEndBarButtons, MapWindow.navBarContent, MapWindow.focusCameraOn</string>
+    <string name="mapwindow_desc">Embeds a secondary map inside a tool window via ToolComponent.MapWindow, adding supplemental end-bar and nav-bar actions alongside the host\'s default zoom controls.</string>
+    <string name="mapwindow_apis">ToolComponent.MapWindow, mapWindow factory, MapView, MapController, MapController.InteractionMode, MapWindow.mapEndBarButtons, MapWindow.navBarContent, MapWindow.focusCameraOn</string>
     <string name="mapwindow_mode_lookat">LookAt</string>
     <string name="mapwindow_mode_fpv">FPV</string>
     <string name="mapwindow_focus_camera">Focus camera on demo location</string>
@@ -111,8 +111,8 @@
 
     <!-- Expandable Status -->
     <string name="expandable_status_tool_name">Expandable Status</string>
-    <string name="expandable_status_desc">Expandable variant of ToolComponent.Status with shouldShowAbove flag. Expand and collapse via the host chevron above the status bar.</string>
-    <string name="expandable_status_apis">ToolComponent.ExpandableStatus, expandableStatusComponent, ExpandableStatus.isExpanded, ExpandableStatus.shouldShowAbove</string>
+    <string name="expandable_status_desc">ToolComponent.ExpandableStatus with a shouldShowAbove flag. Expand and collapse via the host chevron above the status bar, or the end-bar toggle button.</string>
+    <string name="expandable_status_apis">ToolComponent.ExpandableStatus, expandableStatusComponent, ExpandableStatus.isExpanded, ExpandableStatus.shouldShowAbove, AbstractTool.endBar, EndBarToggleButton</string>
     <string name="expandable_status_toggle_cd">Toggle expandable status</string>
     <string name="expandable_status_position">Position:</string>
     <string name="expandable_status_pos_below">Below</string>
@@ -142,7 +142,7 @@
 
     <!-- Model -->
     <string name="model_tool_name">Model Management</string>
-    <string name="model_desc">CommonModelInteractor showcases: TacticalData-style models list, create/consume/commit, symbol keys, and selection &amp; events.</string>
+    <string name="model_desc">Demonstrates CommonModelInteractor: list, create/consume/commit, symbol keys, and selection &amp; events for battlespace models.</string>
     <string name="model_apis">CommonModelInteractor, getAllModels, createModel, consumeModel, commitModel, rollbackChanges, deleteModel, selectModel, unselectModel, followModel, startModelInteraction, selectedModel, userModel, isReadOnly, ModelAttrs/symbolKey, rememberSymbolPainter</string>
     <string name="model_section_selected">Selected model</string>
     <string name="model_section_user">User model</string>
@@ -155,7 +155,7 @@
     <!-- Service -->
     <string name="service_tool_name">Lifecycle &amp; Services</string>
     <string name="service_desc">Session-scoped AbstractToolService created at session start; shares state with the tool via DI and exposes a list badge counter.</string>
-    <string name="service_apis">ToolDescriptor.createService, AbstractToolService.toolSubDI, ToolNotificationManager.counter</string>
+    <string name="service_apis">ToolDescriptor.createService, AbstractToolService.di/subDI, ToolNotificationManager.counter</string>
     <string name="service_running">Session service: active</string>
     <string name="service_events">Events:</string>
     <string name="service_last_event">Last event:</string>
@@ -163,8 +163,8 @@
 
     <!-- Resources / Config -->
     <string name="config_tool_name">Resources — Config</string>
-    <string name="config_desc">Config-qualified resources: app language (values-uk), night mode (values-night), plugin font, and raw files.</string>
-    <string name="config_apis">stringResource (values / values-night / values-uk), FontFamily(Font(R.font.*)), context.resources.openRawResource — recomposition from host composition context</string>
+    <string name="config_desc">Demonstrates config-qualified resources — locale (values-uk), night mode (values-night), a plugin-compiled font, and a raw resource file.</string>
+    <string name="config_apis">stringResource, FontFamily(Font(R.font.*)), context.resources.openRawResource</string>
     <string name="config_mode">Mode: day</string>
     <string name="config_font_label">Plugin font (R.font.sample_font):</string>
     <string name="config_raw_label">Plugin raw resource (R.raw.sample_note):</string>
@@ -173,8 +173,8 @@
 
     <!-- Resources / Material -->
     <string name="material_tool_name">Resources — Material</string>
-    <string name="material_desc">Plugin-compiled M2 widgets via CompositionFallbackContext; AlertDialog popups reset composition LocalContext — use ToolDialog in production.</string>
-    <string name="material_apis">M2 Scaffold, SnackbarHost, AlertDialog, DropdownMenu, Slider (plugin-compiled), CompositionFallbackContext</string>
+    <string name="material_desc">Demonstrates plugin-compiled M2 widgets and popup context isolation: a raw DropdownMenu shows how LocalContext resets in a sub-composition, and ProvideWindowContext/ToolAlertDialog show how to re-provide it.</string>
+    <string name="material_apis">M2 Scaffold, SnackbarHost, Slider, DropdownMenu (plugin-compiled), ProvideWindowContext, ToolAlertDialog, CompositionFallbackContext</string>
     <string name="material_show_snackbar">Show Snackbar</string>
     <string name="material_show_dialog">Show AlertDialog</string>
     <string name="material_dialog_title">AlertDialog — plugin composition</string>
@@ -259,8 +259,8 @@
 
     <!-- UI Catalog -->
     <string name="ui_catalog_tool_name">UI Components Catalog</string>
-    <string name="ui_catalog_desc">Navigable catalog of promoted public SDK components: six form fields plus Buttons, Inputs, Selection, Feedback, and Lists groups, each shown in several states.</string>
-    <string name="ui_catalog_apis">InlineMessage, HeaderField, ExpandableField, FormFieldBox, NestedForm, HostilitySelector, Buttons, Inputs, Selection, Feedback, Lists</string>
+    <string name="ui_catalog_desc">Navigable catalog of promoted public SDK components: six form fields plus Buttons, TopAppBar, Inputs, Selection, Feedback, and Lists groups, each shown in several states.</string>
+    <string name="ui_catalog_apis">InlineMessage, HeaderField, ExpandableField, FormFieldBox, NestedForm, HostilitySelector, Buttons, TopAppBar, Inputs, Selection, Feedback, Lists</string>
     <!-- UI Catalog — entries -->
     <string name="ui_catalog_inline_message_name">InlineMessage</string>
     <string name="ui_catalog_inline_message_desc">Animated inline info / error caption that appears and disappears below a field.</string>
@@ -346,7 +346,7 @@
 
     <!-- Map Interactor -->
     <string name="map_interactor_tool_name">Map Interactor</string>
-    <string name="map_interactor_desc">CommonMapInteractor showcases: camera/lookAt readout, focus actions, display mode, cursor pin, and geodetic corrections.</string>
+    <string name="map_interactor_desc">Demonstrates CommonMapInteractor: camera/lookAt readout, focus actions, display mode, cursor pin, and geodetic corrections.</string>
     <string name="map_interactor_apis">CommonMapInteractor, mapNavigatorEvent, camera, lookAt, selectedPosition, isLookAtAboveHorizon, mapDisplayMode, updateMapDisplayMode, arDistanceLimit, setArDistanceLimit, isReticleVisible, setReticleVisible, isCursorPinned, pinCursor, unpinCursor, isMapVisible, setMapVisible, focusOnLocation, focusOnSector, getDeclination, getConvergence, getAngleCorrection, getDistanceAndAngle, getElevation</string>
     <!-- Map Interactor — sections -->
     <string name="map_interactor_section_camera">Camera &amp; LookAt</string>
@@ -385,7 +385,7 @@
 
     <!-- Native (cross-APK) — shown on catalog detail screen for isolation sample -->
     <string name="native_cross_apk_title">Native / Cross-APK</string>
-    <string name="native_cross_apk_desc">Cross-APK coexistence, per-APK classloader isolation, native .so, plugin AssetManager.</string>
+    <string name="native_cross_apk_desc">Demonstrates cross-APK tool isolation: per-APK classloader separation, a native .so loaded from the plugin\'s nativeLibraryDir, and a plugin-scoped AssetManager.</string>
     <string name="native_cross_apk_apis">ToolContext.assets (plugin AssetManager), System.loadLibrary from plugin nativeLibraryDir, ToolManager.resolveToolId, ToolComponent.Window</string>
     <string name="native_cross_apk_not_installed">Isolation APK not installed.</string>
     <string name="catalog_cross_apk_install_label">Installation</string>
