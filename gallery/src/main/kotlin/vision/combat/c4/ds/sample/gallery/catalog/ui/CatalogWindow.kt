@@ -15,7 +15,21 @@ internal fun CatalogWindow() {
         startDestination = CatalogRoute.List,
     ) {
         composable<CatalogRoute.List> {
-            CatalogListScreen(
+            CatalogCategoryListScreen(
+                onNavigateToCategory = { section ->
+                    navController.navigate(CatalogRoute.CategoryDetail(section.name))
+                },
+                onNavigateToDetail = { entry ->
+                    navController.navigate(CatalogRoute.Detail(entry.name))
+                },
+            )
+        }
+        composable<CatalogRoute.CategoryDetail> { backStackEntry ->
+            val route: CatalogRoute.CategoryDetail = backStackEntry.toRoute()
+            val section = CatalogSection.valueOf(route.sectionName)
+
+            CatalogCategoryDetailScreen(
+                section = section,
                 onNavigateToDetail = { entry ->
                     navController.navigate(CatalogRoute.Detail(entry.name))
                 },

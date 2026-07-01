@@ -28,9 +28,11 @@
     <string name="map_sc_above_horizon">LookAt над горизонтом</string>
 
     <!-- Фокус камери -->
-    <string name="map_sc_focus_explainer">focusOnLocation центрує камеру на одній точці; focusOnSector охоплює обмежувальну область. Після кожного виклику йде requestRedraw, щоб переміщення камери відмалювалося негайно. Обидва націлені на демонстраційну точку Києва.</string>
+    <string name="map_sc_focus_explainer">focusOnLocation центрує камеру на одній точці; focusOnSector охоплює обмежувальну область. Після кожного виклику йде requestRedraw, щоб переміщення камери відмалювалося негайно. Обидва націлені на демонстраційну точку Києва. «Фокус на курсор» переміщується до поточної selectedPosition; «Фокус на користувача» — до GPS-координат користувача (не діє, якщо недоступно).</string>
     <string name="map_sc_focus_location">Фокус на точку</string>
     <string name="map_sc_focus_sector">Фокус на сектор</string>
+    <string name="map_sc_focus_cursor">Фокус на курсор</string>
+    <string name="map_sc_focus_user">Фокус на користувача</string>
 
     <!-- Режим відображення та видимість -->
     <string name="map_sc_display_explainer">updateMapDisplayMode перемикає карту між Normal, AR і VR. У режимі AR ліміт відстані обмежує, наскільки далеко малюються символи AR. Перемикачі прицілу та видимості карти не залежать від режиму. Налаштування скидаються, коли ви залишаєте цей екран.</string>

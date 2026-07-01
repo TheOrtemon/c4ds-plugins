@@ -3,24 +3,39 @@
 
     <!-- Catalog / Hub -->
     <string name="catalog_tool_name">Галерея зразків</string>
-    <string name="section_windows">Вікна</string>
-    <string name="section_map">Карта</string>
-    <string name="section_map_overlays">Оверлеї карти та статус</string>
-    <string name="section_ui_components">UI-компоненти</string>
-    <string name="section_host_ui">UI хоста та діалоги</string>
-    <string name="section_model_map_data">Модель та дані карти</string>
-    <string name="section_lifecycle">Lifecycle та служби</string>
-    <string name="section_resources_isolation">Ресурси та ізоляція</string>
+    <!-- Section titles (нові 11 секцій) -->
+    <string name="section_map_view_title">Перегляд карти</string>
+    <string name="section_map_view_desc">Рендеринг карти, renderables та CommonMapInteractor API.</string>
+    <string name="section_map_overlays_title">Оверлеї карти</string>
+    <string name="section_map_overlays_desc">Оверлеї, рядки статусу, розгортаний статус та кнопки EndBar.</string>
+    <string name="section_map_underlay_title">Підложка карти</string>
+    <string name="section_map_underlay_desc">Composable-елементи за шаром карти в AR-режимі.</string>
+    <string name="section_panel_windows_title">Панельні вікна</string>
+    <string name="section_panel_windows_desc">Вікна одного екрана, кількох екранів та вторинної карти.</string>
+    <string name="section_panel_state_title">Керування панеллю</string>
+    <string name="section_panel_state_desc">Відкриття, закриття та спостереження стану панелі через PanelManager.</string>
+    <string name="section_tool_management_title">Управління інструментами</string>
+    <string name="section_tool_management_desc">Активація, деактивація та перевірка інструментів через ToolManager.</string>
+    <string name="section_ui_components_title">Каталог UI-компонентів</string>
+    <string name="section_ui_components_desc">Публічні SDK-компоненти: поля форм, кнопки, поля введення тощо.</string>
+    <string name="section_dialogs_title">Діалоги інструментів</string>
+    <string name="section_dialogs_desc">Варіанти ToolDialog: Confirmation, Destructive, Info та Custom.</string>
+    <string name="section_model_management_title">Управління моделями</string>
+    <string name="section_model_management_desc">CommonModelInteractor: create/consume/commit, ключі символів та події вибору моделей.</string>
+    <string name="section_data_management_title">Управління даними</string>
+    <string name="section_data_management_desc">Файловий введення/виведення через директорію сховища інструменту.</string>
+    <string name="section_lifecycle_services_title">Lifecycle та служби</string>
+    <string name="section_lifecycle_services_desc">Сеансовий AbstractToolService з DI та лічильником значка.</string>
+    <string name="section_resources_isolation_title">Ресурси та ізоляція</string>
+    <string name="section_resources_isolation_desc">Ресурси з кваліфікаторами, M2-віджети, колізія R.string та ізоляція між APK.</string>
     <string name="catalog_details">Деталі</string>
     <string name="catalog_sdk_apis_label">SDK API</string>
     <string name="catalog_source_label">Пакет джерела</string>
-    <string name="catalog_section_expand">Розгорнути секцію</string>
-    <string name="catalog_section_collapse">Згорнути секцію</string>
     <string name="catalog_deactivate_all">Деактивувати всі</string>
     <string name="catalog_deactivated_all_toast">Усі зразки деактивовано</string>
 
     <!-- Window Single Screen -->
-    <string name="window_single_screen_tool_name">Вікно — Один екран</string>
+    <string name="window_single_screen_tool_name">Вікно одного екрана</string>
     <string name="window_single_screen_desc">Мінімальний одноекранний інструмент з вікном: ToolComponent.Window, WindowScaffold та лічильником на ViewModel з MVI-станом і одноразовим toast-подією.</string>
     <string name="window_single_screen_apis">ToolComponent.Window, WindowScaffold, BackNavTopAppBar, diViewModel(), showToast</string>
     <string name="window_single_screen_desc_short">Мінімальне одноекранне вікно. Натисніть «Збільшити», щоб рахувати; «Скинути» обнуляє лічильник і показує toast.</string>
@@ -30,7 +45,7 @@
     <string name="window_single_screen_reset_toast">Лічильник скинуто</string>
 
     <!-- Window Multi Screen -->
-    <string name="window_multi_screen_tool_name">Вікно — Кілька екранів</string>
+    <string name="window_multi_screen_tool_name">Вікно кількох екранів</string>
     <string name="window_multi_screen_desc">Багатоекранне вікно з AppNavHost, DI-модулем та SharedPreferences.</string>
     <string name="window_multi_screen_apis">AppNavHost, Route, BackNavTopAppBar, toolSubDI, SharedPreferences</string>
     <string name="window_multi_screen_home_title">Головна</string>
@@ -43,7 +58,7 @@
     <string name="window_multi_screen_settings_saved_toast">Налаштування збережено</string>
 
     <!-- Dialog -->
-    <string name="dialog_tool_name">Діалог</string>
+    <string name="dialog_tool_name">Діалоги інструментів</string>
     <string name="dialog_desc">Усі чотири варіанти ToolDialog через AbstractTool.showDialog / dismissDialog.</string>
     <string name="dialog_apis">ToolDialog.Confirmation, ToolDialog.Destructive, ToolDialog.Info, ToolDialog.Custom, AbstractTool.showDialog, AbstractTool.dismissDialog</string>
     <string name="dialog_show_confirmation">Показати Confirmation</string>
@@ -74,14 +89,14 @@
     <string name="overlay_close_cd">Закрити overlay</string>
 
     <!-- Map -->
-    <string name="map_tool_name">Карта (AbstractMapTool)</string>
+    <string name="map_tool_name">Карта</string>
     <string name="map_desc">Обробка тапів на карті та малювання шарів за допомогою AbstractMapTool.</string>
     <string name="map_apis">AbstractMapTool, SelectDragCallback, addRenderable, RenderableLayer, ToolComponent.Status</string>
     <string name="map_status_tap_hint">Торкніться карти для розміщення маркера</string>
     <string name="map_last_tap">Останній тап:</string>
 
     <!-- MapWindow -->
-    <string name="mapwindow_tool_name">Вікно — Вторинна карта</string>
+    <string name="mapwindow_tool_name">Вікно вторинної карти</string>
     <string name="mapwindow_desc">Вбудована вторинна карта у вікні інструменту через ToolComponent.MapWindow. Хост надає стандартні елементи масштабування; цей зразок додає додаткові дії на бічній та верхній панелях.</string>
     <string name="mapwindow_apis">ToolComponent.MapWindow, mapWindow factory, MapView, MapController, MapWindow.mapEndBarButtons, MapWindow.navBarContent, MapWindow.focusCameraOn</string>
     <string name="mapwindow_mode_lookat">LookAt</string>
@@ -104,7 +119,7 @@
     <string name="expandable_status_pos_above">Зверху</string>
 
     <!-- Underlay -->
-    <string name="underlay_tool_name">Underlay</string>
+    <string name="underlay_tool_name">Підложка карти</string>
     <string name="underlay_desc">ToolComponent.Underlay — composable, що відображається під картою. Хост увімкнює AR-режим карти, поки активний будь-який underlay.</string>
     <string name="underlay_apis">ToolComponent.Underlay, requiredComponent, AbstractTool.endBar, EndBarActionButton, ToolManager.deactivate</string>
     <string name="underlay_label">Шар Underlay — відображається під картою</string>
@@ -112,7 +127,7 @@
     <string name="underlay_close">Закрити</string>
 
     <!-- End Bar -->
-    <string name="endbar_tool_name">EndBar</string>
+    <string name="endbar_tool_name">End Bar</string>
     <string name="endbar_desc">Повний EndBar API — кнопки дії, перемикання та меню з елементами і слайдером.</string>
     <string name="endbar_apis">AbstractTool.endBar, EndBarActionButton, EndBarToggleButton, EndBarMenuButton, EndBarMenuScope.Checkable, EndBarMenuScope.Slider</string>
     <string name="endbar_action_cd">Дія EndBar (painter плагіну)</string>
@@ -126,7 +141,7 @@
     <string name="endbar_action_fired">Дію виконано</string>
 
     <!-- Model -->
-    <string name="model_tool_name">Модель (CommonModelInteractor)</string>
+    <string name="model_tool_name">Управління моделями</string>
     <string name="model_desc">Демонстрації CommonModelInteractor: список моделей у стилі TacticalData, create/consume/commit, ключі символів, вибір та події.</string>
     <string name="model_apis">CommonModelInteractor, getAllModels, createModel, consumeModel, commitModel, rollbackChanges, deleteModel, selectModel, unselectModel, followModel, startModelInteraction, selectedModel, userModel, isReadOnly, ModelAttrs/symbolKey, rememberSymbolPainter</string>
     <string name="model_section_selected">Обрана модель</string>
@@ -138,7 +153,7 @@
     <string name="model_not_selected">Не обрано</string>
 
     <!-- Service -->
-    <string name="service_tool_name">Служба (AbstractToolService)</string>
+    <string name="service_tool_name">Lifecycle та служби</string>
     <string name="service_desc">Сеансовий AbstractToolService створюється на початку сеансу; ділиться станом з інструментом через DI і показує лічильник на значку в списку.</string>
     <string name="service_apis">ToolDescriptor.createService, AbstractToolService.toolSubDI, ToolNotificationManager.counter</string>
     <string name="service_running">Сеансова служба: активна</string>
@@ -243,7 +258,7 @@
     <string name="components_carousel_item_3">Карусель — третій слайд</string>
 
     <!-- UI Catalog -->
-    <string name="ui_catalog_tool_name">Каталог UI</string>
+    <string name="ui_catalog_tool_name">Каталог UI-компонентів</string>
     <string name="ui_catalog_desc">Навігаційний каталог винесених публічних SDK-компонентів: шість полів форми та групи Buttons, Inputs, Selection, Feedback і Lists, кожен у кількох станах.</string>
     <string name="ui_catalog_apis">InlineMessage, HeaderField, ExpandableField, FormFieldBox, NestedForm, HostilitySelector, Buttons, Inputs, Selection, Feedback, Lists</string>
     <!-- UI Catalog — entries -->
@@ -330,7 +345,7 @@
     <string name="ui_catalog_lists_desc">RevealableLazyColumn з pull-to-refresh та swipe-to-reveal (редагування/видалення).</string>
 
     <!-- Map Interactor -->
-    <string name="map_interactor_tool_name">Інтерактор карти (CommonMapInteractor)</string>
+    <string name="map_interactor_tool_name">Інтерактор карти</string>
     <string name="map_interactor_desc">Демонстрації CommonMapInteractor: зчитування камери/lookAt, фокусування, режим відображення, закріплення курсору та геодезичні корекції.</string>
     <string name="map_interactor_apis">CommonMapInteractor, mapNavigatorEvent, camera, lookAt, selectedPosition, isLookAtAboveHorizon, mapDisplayMode, updateMapDisplayMode, arDistanceLimit, setArDistanceLimit, isReticleVisible, setReticleVisible, isCursorPinned, pinCursor, unpinCursor, isMapVisible, setMapVisible, focusOnLocation, focusOnSector, getDeclination, getConvergence, getAngleCorrection, getDistanceAndAngle, getElevation</string>
     <!-- Map Interactor — sections -->

@@ -28,9 +28,11 @@
     <string name="map_sc_above_horizon">LookAt above horizon</string>
 
     <!-- Focus camera -->
-    <string name="map_sc_focus_explainer">focusOnLocation centers the camera on a single point; focusOnSector frames a bounding area. Each call is followed by requestRedraw so the camera move is painted immediately. Both target the Kyiv demo location.</string>
+    <string name="map_sc_focus_explainer">focusOnLocation centers the camera on a single point; focusOnSector frames a bounding area. Each call is followed by requestRedraw so the camera move is painted immediately. Both target the Kyiv demo location. "Focus on cursor" moves to the current selectedPosition; "Focus on user" moves to the user\'s GPS location (no-op if unavailable).</string>
     <string name="map_sc_focus_location">Focus on location</string>
     <string name="map_sc_focus_sector">Focus on sector</string>
+    <string name="map_sc_focus_cursor">Focus on cursor</string>
+    <string name="map_sc_focus_user">Focus on user</string>
 
     <!-- Display mode &amp; visibility -->
     <string name="map_sc_display_explainer">updateMapDisplayMode switches the map between Normal, AR and VR. In AR mode the distance limit caps how far AR symbols are drawn. The reticle and map-visibility toggles are independent of the mode. Settings are reset when you leave this screen.</string>

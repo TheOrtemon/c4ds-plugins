@@ -10,12 +10,15 @@ import vision.combat.c4.ds.sample.gallery.map.MapToolDescriptor
 import vision.combat.c4.ds.sample.gallery.mapinteractor.MapInteractorToolDescriptor
 import vision.combat.c4.ds.sample.gallery.model.ModelToolDescriptor
 import vision.combat.c4.ds.sample.gallery.overlay.OverlaySampleToolDescriptor
+import vision.combat.c4.ds.sample.gallery.panelstate.PanelStateToolDescriptor
 import vision.combat.c4.ds.sample.gallery.renderable.RenderableSampleToolDescriptor
 import vision.combat.c4.ds.sample.gallery.resources.collision.CollisionToolDescriptor
 import vision.combat.c4.ds.sample.gallery.resources.config.ConfigToolDescriptor
 import vision.combat.c4.ds.sample.gallery.resources.material.MaterialToolDescriptor
 import vision.combat.c4.ds.sample.gallery.service.ServiceToolDescriptor
 import vision.combat.c4.ds.sample.gallery.status.StatusToolDescriptor
+import vision.combat.c4.ds.sample.gallery.storage.StorageToolDescriptor
+import vision.combat.c4.ds.sample.gallery.toolmanagement.ToolManagementToolDescriptor
 import vision.combat.c4.ds.sample.gallery.uicatalog.UiCatalogToolDescriptor
 import vision.combat.c4.ds.sample.gallery.underlay.UnderlayToolDescriptor
 import vision.combat.c4.ds.sample.gallery.window.map.MapWindowToolDescriptor
@@ -46,35 +49,9 @@ internal enum class CatalogEntry(
     val toolClassName: String,
     val isCrossApk: Boolean = false,
 ) {
-    // ── WINDOWS ─────────────────────────────────────────────────────────
-    WINDOW_SINGLE_SCREEN(
-        section = CatalogSection.WINDOWS,
-        nameResId = R.string.window_single_screen_tool_name,
-        descResId = R.string.window_single_screen_desc,
-        apisResId = R.string.window_single_screen_apis,
-        sourceSubpackage = "window/singlescreen",
-        toolClassName = requireQualifiedName<WindowSingleScreenToolDescriptor>(),
-    ),
-    WINDOW_MULTI_SCREEN(
-        section = CatalogSection.WINDOWS,
-        nameResId = R.string.window_multi_screen_tool_name,
-        descResId = R.string.window_multi_screen_desc,
-        apisResId = R.string.window_multi_screen_apis,
-        sourceSubpackage = "window/multiscreen",
-        toolClassName = requireQualifiedName<WindowMultiScreenToolDescriptor>(),
-    ),
-    MAP_WINDOW(
-        section = CatalogSection.WINDOWS,
-        nameResId = R.string.mapwindow_tool_name,
-        descResId = R.string.mapwindow_desc,
-        apisResId = R.string.mapwindow_apis,
-        sourceSubpackage = "window/map",
-        toolClassName = requireQualifiedName<MapWindowToolDescriptor>(),
-    ),
-
-    // ── MAP ─────────────────────────────────────────────────────────────
+    // ── MAP VIEW ─────────────────────────────────────────────────────────
     MAP(
-        section = CatalogSection.MAP,
+        section = CatalogSection.MAP_VIEW,
         nameResId = R.string.map_tool_name,
         descResId = R.string.map_desc,
         apisResId = R.string.map_apis,
@@ -82,20 +59,20 @@ internal enum class CatalogEntry(
         toolClassName = requireQualifiedName<MapToolDescriptor>(),
     ),
     RENDERABLE(
-        section = CatalogSection.MAP,
+        section = CatalogSection.MAP_VIEW,
         nameResId = R.string.renderable_tool_name,
         descResId = R.string.renderable_desc,
         apisResId = R.string.renderable_apis,
         sourceSubpackage = "renderable",
         toolClassName = requireQualifiedName<RenderableSampleToolDescriptor>(),
     ),
-    UNDERLAY(
-        section = CatalogSection.MAP,
-        nameResId = R.string.underlay_tool_name,
-        descResId = R.string.underlay_desc,
-        apisResId = R.string.underlay_apis,
-        sourceSubpackage = "underlay",
-        toolClassName = requireQualifiedName<UnderlayToolDescriptor>(),
+    MAP_INTERACTOR(
+        section = CatalogSection.MAP_VIEW,
+        nameResId = R.string.map_interactor_tool_name,
+        descResId = R.string.map_interactor_desc,
+        apisResId = R.string.map_interactor_apis,
+        sourceSubpackage = "mapinteractor",
+        toolClassName = requireQualifiedName<MapInteractorToolDescriptor>(),
     ),
 
     // ── MAP OVERLAYS ─────────────────────────────────────────────────────
@@ -123,8 +100,6 @@ internal enum class CatalogEntry(
         sourceSubpackage = "expandablestatus",
         toolClassName = requireQualifiedName<ExpandableStatusToolDescriptor>(),
     ),
-
-    // ── HOST UI CHROME ───────────────────────────────────────────────────
     ENDBAR(
         section = CatalogSection.MAP_OVERLAYS,
         nameResId = R.string.endbar_tool_name,
@@ -132,6 +107,62 @@ internal enum class CatalogEntry(
         apisResId = R.string.endbar_apis,
         sourceSubpackage = "endbar",
         toolClassName = requireQualifiedName<EndBarSampleToolDescriptor>(),
+    ),
+
+    // ── MAP UNDERLAY ──────────────────────────────────────────────────────
+    UNDERLAY(
+        section = CatalogSection.MAP_UNDERLAY,
+        nameResId = R.string.underlay_tool_name,
+        descResId = R.string.underlay_desc,
+        apisResId = R.string.underlay_apis,
+        sourceSubpackage = "underlay",
+        toolClassName = requireQualifiedName<UnderlayToolDescriptor>(),
+    ),
+
+    // ── PANEL WINDOWS ────────────────────────────────────────────────────
+    WINDOW_SINGLE_SCREEN(
+        section = CatalogSection.PANEL_WINDOWS,
+        nameResId = R.string.window_single_screen_tool_name,
+        descResId = R.string.window_single_screen_desc,
+        apisResId = R.string.window_single_screen_apis,
+        sourceSubpackage = "window/singlescreen",
+        toolClassName = requireQualifiedName<WindowSingleScreenToolDescriptor>(),
+    ),
+    WINDOW_MULTI_SCREEN(
+        section = CatalogSection.PANEL_WINDOWS,
+        nameResId = R.string.window_multi_screen_tool_name,
+        descResId = R.string.window_multi_screen_desc,
+        apisResId = R.string.window_multi_screen_apis,
+        sourceSubpackage = "window/multiscreen",
+        toolClassName = requireQualifiedName<WindowMultiScreenToolDescriptor>(),
+    ),
+    MAP_WINDOW(
+        section = CatalogSection.PANEL_WINDOWS,
+        nameResId = R.string.mapwindow_tool_name,
+        descResId = R.string.mapwindow_desc,
+        apisResId = R.string.mapwindow_apis,
+        sourceSubpackage = "window/map",
+        toolClassName = requireQualifiedName<MapWindowToolDescriptor>(),
+    ),
+
+    // ── PANEL STATE ──────────────────────────────────────────────────────
+    PANEL_STATE(
+        section = CatalogSection.PANEL_STATE,
+        nameResId = R.string.panel_state_tool_name,
+        descResId = R.string.panel_state_desc,
+        apisResId = R.string.panel_state_apis,
+        sourceSubpackage = "panelstate",
+        toolClassName = requireQualifiedName<PanelStateToolDescriptor>(),
+    ),
+
+    // ── TOOL MANAGEMENT ──────────────────────────────────────────────────
+    TOOL_MANAGEMENT(
+        section = CatalogSection.TOOL_MANAGEMENT,
+        nameResId = R.string.tool_management_tool_name,
+        descResId = R.string.tool_management_desc,
+        apisResId = R.string.tool_management_apis,
+        sourceSubpackage = "toolmanagement",
+        toolClassName = requireQualifiedName<ToolManagementToolDescriptor>(),
     ),
 
     // ── UI COMPONENTS ────────────────────────────────────────────────────
@@ -144,9 +175,9 @@ internal enum class CatalogEntry(
         toolClassName = requireQualifiedName<UiCatalogToolDescriptor>(),
     ),
 
-    // ── HOST UI & DIALOGS ────────────────────────────────────────────────
+    // ── DIALOGS ──────────────────────────────────────────────────────────
     DIALOG(
-        section = CatalogSection.HOST_UI,
+        section = CatalogSection.DIALOGS,
         nameResId = R.string.dialog_tool_name,
         descResId = R.string.dialog_desc,
         apisResId = R.string.dialog_apis,
@@ -154,27 +185,29 @@ internal enum class CatalogEntry(
         toolClassName = requireQualifiedName<DialogToolDescriptor>(),
     ),
 
-    // ── MODEL & MAP DATA ─────────────────────────────────────────────────
+    // ── MODEL MANAGEMENT ─────────────────────────────────────────────────
     MODEL(
-        section = CatalogSection.MODEL_AND_MAP_DATA,
+        section = CatalogSection.MODEL_MANAGEMENT,
         nameResId = R.string.model_tool_name,
         descResId = R.string.model_desc,
         apisResId = R.string.model_apis,
         sourceSubpackage = "model",
         toolClassName = requireQualifiedName<ModelToolDescriptor>(),
     ),
-    MAP_INTERACTOR(
-        section = CatalogSection.MODEL_AND_MAP_DATA,
-        nameResId = R.string.map_interactor_tool_name,
-        descResId = R.string.map_interactor_desc,
-        apisResId = R.string.map_interactor_apis,
-        sourceSubpackage = "mapinteractor",
-        toolClassName = requireQualifiedName<MapInteractorToolDescriptor>(),
+
+    // ── DATA MANAGEMENT ──────────────────────────────────────────────────
+    STORAGE(
+        section = CatalogSection.DATA_MANAGEMENT,
+        nameResId = R.string.storage_tool_name,
+        descResId = R.string.storage_desc,
+        apisResId = R.string.storage_apis,
+        sourceSubpackage = "storage",
+        toolClassName = requireQualifiedName<StorageToolDescriptor>(),
     ),
 
-    // ── LIFECYCLE ─────────────────────────────────────────────────────────
+    // ── LIFECYCLE & SERVICES ──────────────────────────────────────────────
     SERVICE(
-        section = CatalogSection.LIFECYCLE,
+        section = CatalogSection.LIFECYCLE_SERVICES,
         nameResId = R.string.service_tool_name,
         descResId = R.string.service_desc,
         apisResId = R.string.service_apis,
@@ -184,7 +217,7 @@ internal enum class CatalogEntry(
 
     // ── RESOURCES & ISOLATION ─────────────────────────────────────────────
     RESOURCES_CONFIG(
-        section = CatalogSection.RESOURCES_AND_ISOLATION,
+        section = CatalogSection.RESOURCES_ISOLATION,
         nameResId = R.string.config_tool_name,
         descResId = R.string.config_desc,
         apisResId = R.string.config_apis,
@@ -192,7 +225,7 @@ internal enum class CatalogEntry(
         toolClassName = requireQualifiedName<ConfigToolDescriptor>(),
     ),
     RESOURCES_MATERIAL(
-        section = CatalogSection.RESOURCES_AND_ISOLATION,
+        section = CatalogSection.RESOURCES_ISOLATION,
         nameResId = R.string.material_tool_name,
         descResId = R.string.material_desc,
         apisResId = R.string.material_apis,
@@ -200,7 +233,7 @@ internal enum class CatalogEntry(
         toolClassName = requireQualifiedName<MaterialToolDescriptor>(),
     ),
     RESOURCES_COLLISION(
-        section = CatalogSection.RESOURCES_AND_ISOLATION,
+        section = CatalogSection.RESOURCES_ISOLATION,
         nameResId = R.string.collision_tool_name,
         descResId = R.string.collision_desc,
         apisResId = R.string.collision_apis,
@@ -208,12 +241,12 @@ internal enum class CatalogEntry(
         toolClassName = requireQualifiedName<CollisionToolDescriptor>(),
     ),
     NATIVE_CROSS_APK(
-        section = CatalogSection.RESOURCES_AND_ISOLATION,
+        section = CatalogSection.RESOURCES_ISOLATION,
         nameResId = R.string.native_cross_apk_title,
         descResId = R.string.native_cross_apk_desc,
         apisResId = R.string.native_cross_apk_apis,
         sourceSubpackage = "isolation/nativelib",
         toolClassName = "vision.combat.c4.ds.sample.isolation.nativelib.NativeToolDescriptor",
         isCrossApk = true,
-    )
+    ),
 }

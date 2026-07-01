@@ -10,5 +10,8 @@ internal sealed interface CatalogRoute {
     data object List : CatalogRoute
 
     @Serializable
+    data class CategoryDetail(val sectionName: String) : CatalogRoute
+
+    @Serializable
     data class Detail(val entryName: String) : CatalogRoute
 }

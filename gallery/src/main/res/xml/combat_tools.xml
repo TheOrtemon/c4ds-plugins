@@ -19,4 +19,7 @@
     <tool-descriptor name="vision.combat.c4.ds.sample.gallery.resources.material.MaterialToolDescriptor" />
     <tool-descriptor name="vision.combat.c4.ds.sample.gallery.resources.collision.CollisionToolDescriptor" />
     <tool-descriptor name="vision.combat.c4.ds.sample.gallery.uicatalog.UiCatalogToolDescriptor" />
+    <tool-descriptor name="vision.combat.c4.ds.sample.gallery.panelstate.PanelStateToolDescriptor" />
+    <tool-descriptor name="vision.combat.c4.ds.sample.gallery.toolmanagement.ToolManagementToolDescriptor" />
+    <tool-descriptor name="vision.combat.c4.ds.sample.gallery.storage.StorageToolDescriptor" />
 </combat-tools>

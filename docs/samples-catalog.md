@@ -9,64 +9,77 @@ Reference for every tool in this repository: what it demonstrates, where the sou
 
 ## How to navigate
 
+The gallery uses a **3-level** navigation hierarchy:
+
+| Level | Screen | Description |
+|---|---|---|
+| 1 | **Category list** (root) | 11 category cards, each showing a title, description, and icon. Tap a card to drill into that category. |
+| 2 | **Category detail** | Filtered list of samples in the chosen category. Tap a sample row to activate/deactivate it; tap the **ⓘ** icon to see details. |
+| 3 | **Sample detail** | SDK APIs, source subpackage, and cross-APK install steps (where applicable). |
+
 | Action | Result |
 |---|---|
-| Open **Sample Gallery** from host Tools list | Hub window with grouped list |
-| **Tap** an inactive row | Activates that sample (same APK via `ToolManager.activate<T>()`; cross-APK via `resolveToolId`); the sample name is highlighted in the accent color to indicate active state |
-| **Tap** an active row (name shown in accent color) | Deactivates that sample via `ToolManager.deactivate`; name returns to normal color |
-| **Deactivate all** button in the app bar | Deactivates every active gallery tool except the hub itself; shows a confirmation toast |
-| **Info icon** (ⓘ) on a row | Shows SDK APIs, source subpackage, and cross-APK install steps when applicable |
+| Open **Sample Gallery** from host Tools list | Category list with 11 section cards |
+| **Tap** a category card | Opens the category subscreen showing samples in that section |
+| **Tap** an inactive sample row | Activates that sample (`ToolManager.activate<T>(FLAG_COMPONENT_ON_TOP)`); name highlighted in accent color |
+| **Tap** an active sample row (accent color) | Deactivates that sample via `ToolManager.deactivate`; name returns to normal color |
+| **Deactivate all** button in the app bar (root) | Deactivates every active gallery tool except the hub itself; shows a confirmation toast |
+| **Info icon** (ⓘ) on a sample row | Navigates to the sample detail screen |
 | Install `:isolation` APK | Enables **Native / Cross-APK** row in the Resources & Isolation section |
 
 Registry implementation: [`CatalogEntry.kt`](../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/catalog/ui/CatalogEntry.kt)
 
 ---
 
-## Windows
+## Section 1 — Map View
 
-### Window — Single Screen
+Samples: MAP, RENDERABLE, MAP_INTERACTOR
 
-| | |
-|---|---|
-| **Purpose** | Minimal single-screen window tool with a ViewModel-backed counter |
-| **Descriptor** | `vision.combat.c4.ds.sample.gallery.window.singlescreen.WindowSingleScreenToolDescriptor` |
-| **Source** | `gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/window/singlescreen/` |
-
-**SDK APIs:** `ToolComponent.Window`, `requiredComponent`, `WindowScaffold`, `BackNavTopAppBar`, `diViewModel()`, `showToast`.
-
-**Verify:** Launch from hub → window opens → **Increment** increases counter → **Reset** resets counter and shows toast.
-
----
-
-### Window — Multi-Screen
+### Map (AbstractMapTool)
 
 | | |
 |---|---|
-| **Purpose** | Multi-screen window with tool-scoped DI and persisted settings |
-| **Descriptor** | `vision.combat.c4.ds.sample.gallery.window.multiscreen.WindowMultiScreenToolDescriptor` |
-| **Source** | `gallery/.../window/multiscreen/` |
+| **Purpose** | Map tap handling, renderable layers, status bar integration, info window |
+| **Descriptor** | `vision.combat.c4.ds.sample.gallery.map.MapToolDescriptor` |
+| **Source** | `gallery/.../map/` |
 
-**SDK APIs:** `AppNavHost`, `Route`, navigation transitions, `BackNavTopAppBar`, `subDI { import(module) }`, tool-scoped `SharedPreferences`.
+**SDK APIs:** `AbstractMapTool`, `RenderableLayer`, `SelectDragCallback`, map tap callbacks, `ToolComponent.Status`, `ToolComponent.Window`, `shouldShowCoordinates`, `shouldShowAzimuth`.
 
-**Verify:** Home screen → navigate to Settings → toggle **Show description on Home** → navigate back → description visibility matches toggle → setting persists on tool reopen.
+**Verify:** Tap terrain → placemark appears → status bar shows coordinates/azimuth → open info window for interaction overview.
 
 ---
 
-### Window — Secondary Map
+### Renderables
 
 | | |
 |---|---|
-| **Purpose** | Embedded secondary map inside a window panel (`ToolComponent.MapWindow`) |
-| **Descriptor** | `vision.combat.c4.ds.sample.gallery.window.map.MapWindowToolDescriptor` |
-| **Source** | `gallery/.../window/map/` |
+| **Purpose** | Add/remove symbols, polylines, and polygons on the map with color/size customization |
+| **Descriptor** | `vision.combat.c4.ds.sample.gallery.renderable.RenderableSampleToolDescriptor` |
+| **Source** | `gallery/.../renderable/` |
 
-**SDK APIs:** `ToolComponent.MapWindow`, embedded `MapView`, `MapController`, zoom controls, map mode selector, `MapWindow.mapEndBarButtons`, `MapWindow.navBarContent`, `MapWindow.focusCameraOn`.
+**SDK APIs:** `RenderableLayer`, `addRenderable`, `removeAllRenderables`, `ToolComponent.Window`, `requiredComponent`, `WindowScaffold`.
 
-**Verify:** Window opens with embedded map → zoom in/out work → mode selector switches view → Focus camera button moves map.
+**Verify:** Window opens → add each renderable type → adjust color/size → renderables appear on map → clearing removes all.
 
 ---
 
-## Map
+### Map Interactor (CommonMapInteractor)
+
+| | |
+|---|---|
+| **Purpose** | Live `CommonMapInteractor` readout and controls for camera, display mode, reticle, cursor, focus, and magnetic corrections |
+| **Descriptor** | `vision.combat.c4.ds.sample.gallery.mapinteractor.MapInteractorToolDescriptor` |
+| **Source** | `gallery/.../mapinteractor/` |
+
+**SDK APIs:** `CommonMapInteractor`, `mapNavigatorEvent`, `camera`, `lookAt`, `selectedPosition`, `isLookAtAboveHorizon`, `mapDisplayMode`, `updateMapDisplayMode`, `arDistanceLimit`, `setArDistanceLimit`, `isReticleVisible`, `setReticleVisible`, `isCursorPinned`, `pinCursor`, `unpinCursor`, `isMapVisible`, `setMapVisible`, `focusOnLocation`, `focusOnSector`, `getDeclination`, `getConvergence`, `getAngleCorrection`. Also `CommonModelInteractor.userModel` for focus-on-user.
+
+**Verify:** Launch → window shows live camera/LookAt readout → switch display mode → toggle reticle/map visibility → pin/unpin cursor → **Focus on cursor** moves map to cursor position → **Focus on user** moves map to user location (no-op when no GPS fix) → declination/convergence values update at LookAt.
+
+---
+
+## Section 2 — Map Overlays
+
+Samples: OVERLAY, STATUS, EXPANDABLE_STATUS, ENDBAR
 
 ### Overlay
 
@@ -76,27 +89,11 @@ Registry implementation: [`CatalogEntry.kt`](../gallery/src/main/kotlin/vision/c
 | **Descriptor** | `vision.combat.c4.ds.sample.gallery.overlay.OverlaySampleToolDescriptor` |
 | **Source** | `gallery/.../overlay/` |
 
-**SDK APIs:** `ToolComponent.Overlay`, `CommonMapInteractor.selectedPosition`, `CommonModelInteractor.userModel`, `CommonLocaleSettingsInteractor.coordinateSystemFormat`, overlay theme tokens.
+**SDK APIs:** `ToolComponent.Overlay`, `CommonMapInteractor.selectedPosition`, `CommonModelInteractor.userModel`, `CommonLocaleSettingsInteractor.coordinateSystemFormat`.
 
 **Verify:** Overlay visible on map → cursor coordinates update when panning → user model name appears when set.
 
 ---
-
-### Map
-
-| | |
-|---|---|
-| **Purpose** | Map tap handling, renderable layers, status bar integration |
-| **Descriptor** | `vision.combat.c4.ds.sample.gallery.map.MapToolDescriptor` |
-| **Source** | `gallery/.../map/` |
-
-**SDK APIs:** `AbstractMapTool`, `RenderableLayer`, `SelectDragCallback`, map tap callbacks, `ToolComponent.Status`, `shouldShowCoordinates`, `shouldShowAzimuth`.
-
-**Verify:** Tap terrain → placemark appears → status bar shows coordinates/azimuth.
-
----
-
-## Status & bars
 
 ### Status
 
@@ -108,7 +105,7 @@ Registry implementation: [`CatalogEntry.kt`](../gallery/src/main/kotlin/vision/c
 
 **SDK APIs:** `ToolComponent.Status`, `shouldShowCoordinates`, `shouldShowAzimuth`.
 
-**Verify:** Status strip visible at bottom → host coordinates and azimuth update with map interaction; tool slot shows label only.
+**Verify:** Status strip visible at bottom → host coordinates and azimuth update with map interaction.
 
 ---
 
@@ -126,51 +123,141 @@ Registry implementation: [`CatalogEntry.kt`](../gallery/src/main/kotlin/vision/c
 
 ---
 
+### EndBar
+
+| | |
+|---|---|
+| **Purpose** | Action, toggle, and menu buttons on the map's EndBar (each with a distinct icon) |
+| **Descriptor** | `vision.combat.c4.ds.sample.gallery.endbar.EndBarSampleToolDescriptor` |
+| **Source** | `gallery/.../endbar/` |
+
+**SDK APIs:** `AbstractTool.endBar`, `EndBarActionButton`, `EndBarToggleButton`, `EndBarMenuButton`, `EndBarMenuScope.Checkable`, `EndBarMenuScope.Slider`.
+
+**Verify:** Three distinct icons appear on the end bar → action fires toast → toggle state reflected in window → menu items and slider work.
+
+---
+
+## Section 3 — Map Underlay
+
+Samples: UNDERLAY
+
 ### Underlay
 
 | | |
 |---|---|
-| **Purpose** | Full-screen layer under the main map |
+| **Purpose** | Full-screen composable layer rendered behind the map |
 | **Descriptor** | `vision.combat.c4.ds.sample.gallery.underlay.UnderlayToolDescriptor` |
 | **Source** | `gallery/.../underlay/` |
 
-**SDK APIs:** `ToolComponent.Underlay`.
+**SDK APIs:** `ToolComponent.Underlay`, `requiredComponent`, `AbstractTool.endBar`, `EndBarActionButton`, `ToolManager.deactivate`.
 
-**Verify:** Semi-transparent underlay visible behind map content.
+**Verify:** Semi-transparent underlay visible behind map content; close via EndBar action.
 
 ---
 
-### End Bar
+## Section 4 — Panel Windows
+
+Samples: WINDOW_SINGLE_SCREEN, WINDOW_MULTI_SCREEN, MAP_WINDOW
+
+### Window — Single Screen
 
 | | |
 |---|---|
-| **Purpose** | Custom buttons on the map's right edge |
-| **Descriptor** | `vision.combat.c4.ds.sample.gallery.endbar.EndBarSampleToolDescriptor` |
-| **Source** | `gallery/.../endbar/` |
+| **Purpose** | Minimal single-screen window tool with a ViewModel-backed counter |
+| **Descriptor** | `vision.combat.c4.ds.sample.gallery.window.singlescreen.WindowSingleScreenToolDescriptor` |
+| **Source** | `gallery/.../window/singlescreen/` |
 
-**SDK APIs:** `endBarButtons`, `EndBarActionButton`, `EndBarToggleButton`, `EndBarMenuButton`, `painterResource` in end-bar scope.
+**SDK APIs:** `ToolComponent.Window`, `requiredComponent`, `WindowScaffold`, `BackNavTopAppBar`, `diViewModel()`, `showToast`.
 
-**Verify:** Action, toggle, and menu buttons appear on end bar → toggle state reflected in window → menu items work.
+**Verify:** Window opens → **Increment** increases counter → **Reset** resets counter and shows toast.
 
 ---
 
-## UI Components
+### Window — Multi-Screen
+
+| | |
+|---|---|
+| **Purpose** | Multi-screen window with tool-scoped DI and persisted settings |
+| **Descriptor** | `vision.combat.c4.ds.sample.gallery.window.multiscreen.WindowMultiScreenToolDescriptor` |
+| **Source** | `gallery/.../window/multiscreen/` |
+
+**SDK APIs:** `AppNavHost`, `Route`, navigation transitions, `BackNavTopAppBar`, `subDI { import(module) }`, tool-scoped `SharedPreferences`.
+
+**Verify:** Home screen → navigate to Settings → toggle → navigate back → description visibility matches toggle.
+
+---
+
+### Window — Secondary Map
+
+| | |
+|---|---|
+| **Purpose** | Embedded secondary map inside a window panel (`ToolComponent.MapWindow`) |
+| **Descriptor** | `vision.combat.c4.ds.sample.gallery.window.map.MapWindowToolDescriptor` |
+| **Source** | `gallery/.../window/map/` |
+
+**SDK APIs:** `ToolComponent.MapWindow`, embedded `MapView`, `MapController`, `MapWindow.mapEndBarButtons`, `MapWindow.navBarContent`, `MapWindow.focusCameraOn`.
+
+**Verify:** Window opens with embedded map → zoom in/out work → mode selector switches view → Focus camera button moves map.
+
+---
+
+## Section 5 — Panel State
+
+Samples: PANEL_STATE
+
+### Panel State (PanelManager)
+
+| | |
+|---|---|
+| **Purpose** | Open, close, and observe the panel via `PanelManager` |
+| **Descriptor** | `vision.combat.c4.ds.sample.gallery.panelstate.PanelStateToolDescriptor` |
+| **Source** | `gallery/.../panelstate/` |
+
+**SDK APIs:** `PanelManager.openPanel(PanelState.Opened.Half)`, `PanelManager.openPanel(PanelState.Opened.Full())`, `PanelManager.closePanel()`, `PanelManager.panelState: StateFlow<PanelState>`.
+
+**Verify:** Window opens → **Open Half** opens panel to half → **Open Full** expands → **Close** closes → current state label updates live.
+
+---
+
+## Section 6 — Tool Management
+
+Samples: TOOL_MANAGEMENT
+
+### Tool Management (ToolManager)
+
+| | |
+|---|---|
+| **Purpose** | Activate, deactivate, check active state, and bring a tool window to front |
+| **Descriptor** | `vision.combat.c4.ds.sample.gallery.toolmanagement.ToolManagementToolDescriptor` |
+| **Source** | `gallery/.../toolmanagement/` |
+
+**SDK APIs:** `ToolManager.activate`, `ToolManager.deactivate`, `ToolManager.isActive`, `ToolManager.activeTools: StateFlow`, `ToolManager.showComponent`, `ToolManager.FLAG_COMPONENT_ON_TOP`.
+
+**Verify:** Activate Map tool → active list updates → **Show Map Window** brings Map window forward → deactivate Map tool → list updates again.
+
+---
+
+## Section 7 — UI Components Catalog
+
+Samples: UI_CATALOG
 
 ### UI Catalog
 
 | | |
 |---|---|
-| **Purpose** | Navigable catalog of promoted public SDK form and UI components, each shown in several states |
+| **Purpose** | Navigable catalog of promoted public SDK form and UI components |
 | **Descriptor** | `vision.combat.c4.ds.sample.gallery.uicatalog.UiCatalogToolDescriptor` |
 | **Source** | `gallery/.../uicatalog/` |
 
-**SDK APIs:** `InlineMessage`, `HeaderField`, `ExpandableField`, `FormFieldBox`, `NestedForm`, `HostilitySelector`, buttons (`Button`, `OutlinedButton`, `TextButton`, `DestructiveButton`, `PrimaryProgressButton`, `AppFab`), inputs (`OutlinedTextInputField`, measurement inputs, coordinate input), selection (`SegmentedButtonRow`, `SliderWithLabel`, `CheckBoxField`, `SwitchField`, `RadioGroup`, `ColorSelector`), feedback (`AppDialog`, `Banner`, `Carousel`, `Tooltip`), revealable lists, `AppNavHost`, `WindowScaffold`.
+**SDK APIs:** `InlineMessage`, `HeaderField`, `ExpandableField`, `FormFieldBox`, `NestedForm`, `HostilitySelector`, buttons, inputs, selection, feedback, revealable lists, `AppNavHost`, `WindowScaffold`.
 
-**Verify:** Launch from hub → component list opens → tap a component → detail screen shows each documented state → back navigation returns to list.
+**Verify:** Launch → component list opens → tap a component → detail screen shows each documented state → back navigation returns to list.
 
 ---
 
-## Host UI & Dialogs
+## Section 8 — Dialogs
+
+Samples: DIALOG
 
 ### Dialog
 
@@ -180,15 +267,17 @@ Registry implementation: [`CatalogEntry.kt`](../gallery/src/main/kotlin/vision/c
 | **Descriptor** | `vision.combat.c4.ds.sample.gallery.dialog.DialogToolDescriptor` |
 | **Source** | `gallery/.../dialog/` |
 
-**SDK APIs:** `ToolDialog.Confirmation`, `.Destructive`, `.Info`, `.Custom`, `AbstractTool.showDialog()`, `dismissDialog()`, `DialogHeader`, `ButtonsRow`.
+**SDK APIs:** `ToolDialog.Confirmation`, `.Destructive`, `.Info`, `.Custom`, `AbstractTool.showDialog()`, `dismissDialog()`.
 
-**Verify:** Four buttons each open the correct dialog type; confirm and dismiss work for every variant. For `ToolDialog.Custom`, the `header`/`content`/`buttons` lambdas call `stringResource` directly — the host `ToolDialogHost` re-provides the owning tool's context before composing the dialog, so plugin strings resolve correctly without any manual `ProvideWindowContext` call inside the lambdas.
+**Verify:** Four buttons each open the correct dialog type; confirm and dismiss work for every variant.
 
 ---
 
-## Model & Map Data
+## Section 9 — Data Management
 
-### Model
+Samples: MODEL, STORAGE
+
+### Model (CommonModelInteractor)
 
 | | |
 |---|---|
@@ -196,29 +285,31 @@ Registry implementation: [`CatalogEntry.kt`](../gallery/src/main/kotlin/vision/c
 | **Descriptor** | `vision.combat.c4.ds.sample.gallery.model.ModelToolDescriptor` |
 | **Source** | `gallery/.../model/` |
 
-**SDK APIs:** `CommonModelInteractor` (getAllModels, selectedModel, userModel, selectModel, unselectModel), `isReadOnly`, `diViewModel()`.
+**SDK APIs:** `CommonModelInteractor` (`getAllModels`, `selectedModel`, `userModel`, `selectModel`, `unselectModel`), `isReadOnly`, `diViewModel()`.
 
 **Verify:** Model list populated → tap row to select → **Unselect** clears selection → read-only banner shown when `isReadOnly` is true.
 
 ---
 
-### Map Interactor
+### Storage (CommonSessionStorageInteractor)
 
 | | |
 |---|---|
-| **Purpose** | Live `CommonMapInteractor` readout and controls for camera, display mode, reticle, cursor, focus, and magnetic corrections |
-| **Descriptor** | `vision.combat.c4.ds.sample.gallery.mapinteractor.MapInteractorToolDescriptor` |
-| **Source** | `gallery/.../mapinteractor/` |
+| **Purpose** | Display session directory paths; write and read a file off the main thread |
+| **Descriptor** | `vision.combat.c4.ds.sample.gallery.storage.StorageToolDescriptor` |
+| **Source** | `gallery/.../storage/` |
 
-**SDK APIs:** `CommonMapInteractor`, `mapNavigatorEvent`, `camera`, `lookAt`, `selectedPosition`, `isLookAtAboveHorizon`, `mapDisplayMode`, `updateMapDisplayMode`, `arDistanceLimit`, `setArDistanceLimit`, `isReticleVisible`, `setReticleVisible`, `isCursorPinned`, `pinCursor`, `unpinCursor`, `isMapVisible`, `setMapVisible`, `focusOnLocation`, `focusOnSector`, `getDeclination`, `getConvergence`, `getAngleCorrection`.
+**SDK APIs:** `CommonSessionStorageInteractor.getRootDirectoryPath()`, `CommonSessionStorageInteractor.getUserDirectoryPath()`, `Dispatchers.IO`, `viewModelScope.launch`, `File.writeText`, `File.readText`.
 
-**Verify:** Launch from hub → window shows live camera/LookAt readout → switch display mode (Normal/AR/VR) → toggle reticle and map visibility → pin/unpin cursor → focus actions move the map → declination/convergence/correction values update at LookAt.
+**Verify:** Window shows root and user directory paths → **Write File** writes `gallery_sample.txt` → **Read File** reads it back and displays contents → **Read** before **Write** shows "file not found" hint rather than crashing.
 
 ---
 
-## Lifecycle & Services
+## Section 10 — Lifecycle & Services
 
-### Service
+Samples: SERVICE
+
+### Service (AbstractToolService)
 
 | | |
 |---|---|
@@ -232,7 +323,9 @@ Registry implementation: [`CatalogEntry.kt`](../gallery/src/main/kotlin/vision/c
 
 ---
 
-## Resources & isolation (`:gallery`)
+## Section 11 — Resources & Isolation
+
+Samples: RESOURCES_CONFIG, RESOURCES_MATERIAL, RESOURCES_COLLISION, NATIVE_CROSS_APK
 
 ### Resources / Config
 
@@ -242,11 +335,9 @@ Registry implementation: [`CatalogEntry.kt`](../gallery/src/main/kotlin/vision/c
 | **Descriptor** | `vision.combat.c4.ds.sample.gallery.resources.config.ConfigToolDescriptor` |
 | **Source** | `gallery/.../resources/config/` |
 
-**SDK APIs:** Configuration-qualified `values` / `values-night` / `values-uk`, `FontFamily(Font(R.font.sample_font))`, `openRawResource(R.raw.sample_note)` — recomposition from host composition context.
+**SDK APIs:** Configuration-qualified `values` / `values-night` / `values-uk`, `FontFamily(Font(R.font.*))`, `openRawResource(R.raw.*)`.
 
-**Verify:** Toggle system dark mode → mode string and icon update live → change App language to Ukrainian in Settings → all strings localize.
-
-Covers isolation **case (c)** and **case (e)** — see [Plugin isolation](plugin-isolation.md).
+**Verify:** Toggle dark mode → mode string/icon updates → change locale to Ukrainian → all strings localize.
 
 ---
 
@@ -258,11 +349,9 @@ Covers isolation **case (c)** and **case (e)** — see [Plugin isolation](plugin
 | **Descriptor** | `vision.combat.c4.ds.sample.gallery.resources.material.MaterialToolDescriptor` |
 | **Source** | `gallery/.../resources/material/` |
 
-**SDK APIs:** Plugin-local M2 (`Snackbar`, `AlertDialog`, `DropdownMenu`, `Slider`), `ToolAlertDialog`, `ToolDropdownMenu` (SDK popup wrappers — zero-boilerplate path), `ProvideWindowContext` (public, used in the intentional raw `DropdownMenu` teaching example), `CompositionFallbackContext`, `FallbackResources`.
+**SDK APIs:** Plugin-local M2 (`Snackbar`, `AlertDialog`, `DropdownMenu`, `Slider`), `CompositionFallbackContext`, `FallbackResources`.
 
-**Verify:** Window opens without crash → all four widget demos interactive. Inside the `AlertDialog` popup (composed via `ToolAlertDialog`), all strings must be plugin values — demonstrating that the SDK wrapper captures and re-provides the tool context automatically. The raw `DropdownMenu` alongside it shows the same mechanism manually with an explicit `ProvideWindowContext` for comparison.
-
-Covers isolation **case (a)**.
+**Verify:** Window opens without crash → all four widget demos interactive.
 
 ---
 
@@ -278,37 +367,24 @@ Covers isolation **case (a)**.
 
 **Verify:** Window shows plugin-specific settings string, not the host default.
 
-Covers isolation **case (b)**.
-
 ---
 
-## Native / cross-APK (`:isolation`)
-
-### Native Tool
+### Native / Cross-APK (`:isolation`)
 
 | | |
 |---|---|
 | **Purpose** | Per-APK ClassLoader, `nativeLibraryDir` `.so`, plugin `AssetManager`, cross-APK activation |
 | **Descriptor** | `vision.combat.c4.ds.sample.isolation.nativelib.NativeToolDescriptor` |
-| **Source** | `isolation/src/main/kotlin/vision/combat/c4/ds/sample/isolation/nativelib/` |
+| **Source** | `isolation/.../nativelib/` |
 | **Native** | `isolation/src/main/cpp/` (CMake → `libisolation_jni.so`) |
-| **Assets** | `isolation/src/main/assets/isolation/sample.txt` |
 
 **SDK APIs:** `ToolManager.resolveToolId(fqcn)`, `ToolContext.assets`, `System.loadLibrary`, JNI from plugin `nativeLibraryDir`.
 
 **Verify:**
 
 1. Install both `:gallery` and `:isolation` APKs (see **Details** on the hub card for install commands).
-2. Open Sample Gallery → **Native / Cross-APK** → tap the card to launch.
+2. Open Sample Gallery → Resources & Isolation → **Native / Cross-APK** → tap to launch.
 3. Window shows asset content prefix and JNI result `isolation-jni/1.0`.
-4. Logcat tag `NativeTool`:
-
-   ```
-   [ASSET SMOKE] Read 'isolation/sample.txt' from :isolation plugin ...
-   [JNI SMOKE] nativeVersion() = 'isolation-jni/1.0' — .so loaded from plugin OK
-   ```
-
-Covers isolation **case (h)**. Full procedures: [Plugin isolation](plugin-isolation.md).
 
 ---
 
@@ -318,12 +394,12 @@ All user-visible strings exist in `values/` and `values-uk/`. After switching sy
 
 ---
 
-## Manual upgrade test (case d)
+## Manual upgrade test
 
 Not tied to a single tool — validates host behavior across APK updates:
 
 1. Install `:gallery` with `versionCode = 1`. Open **Window — Multi-Screen**, set a preference.
-2. Bump `versionCode` in [`gallery/build.gradle.kts`](../gallery/build.gradle.kts), rebuild, reinstall (same `applicationId`).
+2. Bump `versionCode` in [`gallery/build.gradle.kts`](../gallery/build.gradle.kts), rebuild, reinstall.
 3. Confirm SharedPreferences state survived and hub still lists all samples.
 
 See [Plugin isolation — case (d)](plugin-isolation.md#case-d-pinned-state-survives-versioncode-bump).
