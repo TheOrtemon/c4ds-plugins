@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Panel State sample -->
+    <string name="panel_state_tool_name">Panel Management</string>
+    <string name="panel_state_desc">Demonstrates PanelManager: open (Half/Full) and close the panel, observing live PanelState via StateFlow.</string>
+    <string name="panel_state_apis">PanelManager.openPanel, PanelManager.closePanel, PanelManager.panelState, PanelState.Opened.Half, PanelState.Opened.Full, PanelState.Closed</string>
+    <string name="panel_state_explainer">Use the buttons below to open or close the panel. The current PanelState is observed live from PanelManager.panelState.</string>
+    <string name="panel_state_current_state">Current state:</string>
+    <string name="panel_state_open_half">Open Half</string>
+    <string name="panel_state_open_full">Open Full</string>
+    <string name="panel_state_close">Close Panel</string>
+    <string name="panel_state_closed">Closed</string>
+    <string name="panel_state_half">Opened — Half</string>
+    <string name="panel_state_full">Opened — Full</string>
+</resources>

@@ -3,6 +3,8 @@ agp = "9.2.1"
 kotlin = "2.4.0"
 combat-ds-sdk = "0.5.0"
 desugar-jdk-libs = "2.1.5"
+androidx-room = "2.8.4"
+google-ksp-plugin = "2.3.9"
 
 [libraries]
 combat-ds-sdk = { group = "vision.combat", name = "c4ds-sdk", version.ref = "combat-ds-sdk" }
@@ -10,7 +12,12 @@ combat-ds-sdk-runtime = { group = "vision.combat", name = "c4ds-sdk-runtime", ve
 
 android-tools-desugar = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar-jdk-libs" }
 
+androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "androidx-room" }
+androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "androidx-room" }
+androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "androidx-room" }
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+google-ksp = { id = "com.google.devtools.ksp", version.ref = "google-ksp-plugin" }

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Tool Management sample — Ukrainian -->
+    <string name="tool_management_tool_name">Управління інструментами</string>
+    <string name="tool_management_desc">Демонструє ToolManager: activate/deactivate/isActive для інструменту Map, showComponent для відображення вікна та спостереження за activeTools в реальному часі.</string>
+    <string name="tool_management_apis">ToolManager.activate, ToolManager.deactivate, ToolManager.isActive, ToolManager.activeTools, ToolManager.showComponent, ToolManager.FLAG_COMPONENT_ON_TOP</string>
+    <string name="tool_management_explainer">Управляйте інструментом Map звідси. Активуйте його, деактивуйте, відображайте його вікно та спостерігайте за оновленням списку активних інструментів у реальному часі.</string>
+    <string name="tool_management_map_tool_section">Управління інструментом Map</string>
+    <string name="tool_management_map_active">Інструмент Map активний:</string>
+    <string name="tool_management_activate_map">Активувати Map</string>
+    <string name="tool_management_deactivate_map">Деактивувати Map</string>
+    <string name="tool_management_show_map_window">Показати вікно Map</string>
+    <string name="tool_management_active_tools_section">Активні інструменти (в реальному часі)</string>
+    <string name="tool_management_no_active_tools">Немає активних інструментів.</string>
+    <string name="tool_management_active_yes">Так</string>
+    <string name="tool_management_active_no">Ні</string>
+</resources>

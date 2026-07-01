@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Panel State sample — Ukrainian -->
+    <string name="panel_state_tool_name">Керування панеллю</string>
+    <string name="panel_state_desc">Демонструє PanelManager: відкриття (половина/повний) та закриття панелі зі спостереженням за PanelState через StateFlow.</string>
+    <string name="panel_state_apis">PanelManager.openPanel, PanelManager.closePanel, PanelManager.panelState, PanelState.Opened.Half, PanelState.Opened.Full, PanelState.Closed</string>
+    <string name="panel_state_explainer">Використовуйте кнопки нижче для відкриття або закриття панелі. Поточний стан PanelState спостерігається в реальному часі через PanelManager.panelState.</string>
+    <string name="panel_state_current_state">Поточний стан:</string>
+    <string name="panel_state_open_half">Відкрити наполовину</string>
+    <string name="panel_state_open_full">Відкрити повністю</string>
+    <string name="panel_state_close">Закрити панель</string>
+    <string name="panel_state_closed">Закрита</string>
+    <string name="panel_state_half">Відкрита — наполовину</string>
+    <string name="panel_state_full">Відкрита — повністю</string>
+</resources>

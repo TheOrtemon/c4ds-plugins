@@ -13,4 +13,12 @@
     <string name="renderable_clear">Clear</string>
     <string name="renderable_hint">Tap a button to add a shape, or tap the map to drop a point.</string>
     <string name="renderable_count">Renderables: %1$d</string>
+
+    <!-- Color chooser -->
+    <string name="renderable_color_label">Shape color:</string>
+    <string name="renderable_color_cyan">Cyan</string>
+    <string name="renderable_color_red">Red</string>
+    <string name="renderable_color_green">Green</string>
+    <string name="renderable_color_yellow">Yellow</string>
+    <string name="renderable_color_white">White</string>
 </resources>

@@ -13,4 +13,12 @@
     <string name="renderable_clear">Очистити</string>
     <string name="renderable_hint">Натисніть кнопку, щоб додати фігуру, або торкніться карти, щоб поставити точку.</string>
     <string name="renderable_count">Обʼєктів: %1$d</string>
+
+    <!-- Вибір кольору -->
+    <string name="renderable_color_label">Колір фігури:</string>
+    <string name="renderable_color_cyan">Блакитний</string>
+    <string name="renderable_color_red">Червоний</string>
+    <string name="renderable_color_green">Зелений</string>
+    <string name="renderable_color_yellow">Жовтий</string>
+    <string name="renderable_color_white">Білий</string>
 </resources>
