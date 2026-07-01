@@ -8,6 +8,7 @@ import androidx.compose.ui.res.stringResource
 import kotlinx.coroutines.flow.StateFlow
 import vision.combat.c4.ds.sample.gallery.R
 
+/** Status bar content showing the last-tapped map coordinate, or a tap-hint if none recorded. */
 @Composable
 internal fun MapStatusBar(lastTap: StateFlow<String?>) {
     val tap by lastTap.collectAsStateWithLifecycle()

@@ -21,12 +21,12 @@ import vision.combat.c4.ds.sdk.tool.ToolParams
  *   c4ds-sdk/src/main/kotlin/vision/combat/c4/ds/sdk/tool/ToolEndBar.kt
  *   c4ds-sdk-core/ui/src/main/kotlin/vision/combat/c4/ds/sdk/ui/component/bar/endbar/EndBar.kt
  */
-class EndBarSampleToolDescriptor(toolContext: ToolContext) : ToolDescriptor(toolContext) {
+class EndBarToolDescriptor(toolContext: ToolContext) : ToolDescriptor(toolContext) {
     override val nameResId: Int = R.string.endbar_tool_name
     override val iconResId: Int = R.drawable.ic_end_bar
     override val categories: List<String> = emptyList()
 
     override fun createTool(toolContext: ToolContext, di: DI, params: ToolParams?): AbstractTool {
-        return EndBarSampleTool(toolContext, this, di, params)
+        return EndBarTool(toolContext, this, di, params)
     }
 }

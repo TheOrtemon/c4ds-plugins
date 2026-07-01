@@ -21,8 +21,10 @@ import vision.combat.c4.ds.sdk.ui.component.button.TextButton
 import vision.combat.c4.ds.sdk.ui.viewmodel.diViewModel
 
 @Composable
-internal fun HomeScreen(navigateToSettings: () -> Unit) {
-    val viewModel = diViewModel<HomeViewModel>()
+internal fun HomeScreen(
+    navigateToSettings: () -> Unit,
+    viewModel: HomeViewModel = diViewModel(),
+) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     Content(

@@ -19,12 +19,13 @@ import java.util.Locale
 /**
  * Session-scoped background service that increments an event counter every 5 seconds.
  *
- * Created at session start via [ToolDescriptor.createService]. Work starts in init{} and is
- * cancelled automatically when [onDestroy] disposes [coroutineScope].
+ * Created at session start via [ToolDescriptor.createService]. Increments a shared counter
+ * every ~5 s on a background coroutine while the service is alive; the coroutine is cancelled
+ * automatically when [onDestroy] disposes [coroutineScope].
  *
  * Shared state is bound in [serviceModule] and exposed to the tool when it is activated.
  */
-internal class ServiceSampleService(
+internal class BadgeCounterService(
     toolContext: ToolContext,
     descriptor: ToolDescriptor,
     parentDI: DI,
@@ -38,7 +39,7 @@ internal class ServiceSampleService(
     private val sharedState: ServiceSharedState by instance()
 
     init {
-        Log.i(TAG, "ServiceSampleService created — session service is running")
+        Log.i(TAG, "BadgeCounterService created — session service is running")
         coroutineScope.launch {
             while (isActive) {
                 delay(TICK_INTERVAL_MS)
@@ -50,11 +51,11 @@ internal class ServiceSampleService(
     }
 
     override fun onDestroy() {
-        Log.i(TAG, "ServiceSampleService onDestroy")
+        Log.i(TAG, "BadgeCounterService onDestroy")
     }
 
     private companion object {
-        private const val TAG = "ServiceSampleService"
+        private const val TAG = "BadgeCounterService"
         private const val TICK_INTERVAL_MS = 5_000L
     }
 }

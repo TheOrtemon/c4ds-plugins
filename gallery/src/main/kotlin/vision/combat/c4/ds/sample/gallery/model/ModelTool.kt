@@ -29,6 +29,7 @@ class ModelToolDescriptor(toolContext: ToolContext) : ToolDescriptor(toolContext
     }
 }
 
+/** Minimal [AbstractTool] subclass wiring [ModelWindow] as a required window component. */
 internal class ModelTool(
     toolContext: ToolContext,
     toolDescriptor: ToolDescriptor,

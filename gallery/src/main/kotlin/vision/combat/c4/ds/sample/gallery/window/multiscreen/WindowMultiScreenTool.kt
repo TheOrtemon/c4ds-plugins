@@ -11,6 +11,10 @@ import vision.combat.c4.ds.sdk.tool.ToolDescriptor
 import vision.combat.c4.ds.sdk.tool.ToolParams
 import vision.combat.c4.ds.sdk.tool.requiredComponent
 
+/**
+ * Minimal [AbstractTool] subclass that wires [WindowMultiScreenWindow] and provides
+ * a tool-scoped DI sub-graph via [windowMultiScreenModule].
+ */
 internal class WindowMultiScreenTool(
     toolContext: ToolContext,
     toolDescriptor: ToolDescriptor,

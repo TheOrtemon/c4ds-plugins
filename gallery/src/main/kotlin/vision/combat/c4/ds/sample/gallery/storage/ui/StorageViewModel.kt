@@ -49,7 +49,7 @@ internal class StorageViewModel(
                 onFailure = { error ->
                     _uiState.update {
                         it.copy(
-                            fileOperationStatus = FileOperationStatus.Error(error.message ?: "Unknown error"),
+                            fileOperationStatus = FileOperationStatus.Error(error.message),
                         )
                     }
                 },
@@ -84,7 +84,7 @@ internal class StorageViewModel(
                 onFailure = { error ->
                     _uiState.update {
                         it.copy(
-                            fileOperationStatus = FileOperationStatus.Error(error.message ?: "Unknown error"),
+                            fileOperationStatus = FileOperationStatus.Error(error.message),
                         )
                     }
                 },
@@ -106,7 +106,11 @@ internal class StorageViewModel(
         data object WriteSuccess : FileOperationStatus
         data object ReadSuccess : FileOperationStatus
         data object FileNotFound : FileOperationStatus
-        data class Error(val message: String) : FileOperationStatus
+        /**
+         * [message] is null when the underlying exception carried no detail text;
+         * the UI resolves the fallback via R.string.storage_error_unknown.
+         */
+        data class Error(val message: String?) : FileOperationStatus
     }
 
     private companion object {

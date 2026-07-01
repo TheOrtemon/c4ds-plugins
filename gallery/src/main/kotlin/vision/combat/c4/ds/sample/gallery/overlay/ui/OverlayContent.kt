@@ -1,4 +1,4 @@
-package vision.combat.c4.ds.sample.gallery.overlay
+package vision.combat.c4.ds.sample.gallery.overlay.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -17,13 +17,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import vision.combat.c4.ds.sample.gallery.R
-import vision.combat.c4.ds.sample.gallery.overlay.OverlaySampleViewModel.Action
+import vision.combat.c4.ds.sample.gallery.overlay.ui.OverlayViewModel.Action
 import vision.combat.c4.ds.sdk.ui.theme.mediumOverlay
 import vision.combat.c4.ds.sdk.ui.theme.primaryOverlay
 import vision.combat.c4.ds.sdk.ui.viewmodel.diViewModel
 
 @Composable
-internal fun OverlaySampleOverlay(viewModel: OverlaySampleViewModel = diViewModel()) {
+internal fun OverlayContent(viewModel: OverlayViewModel = diViewModel()) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
@@ -55,4 +55,3 @@ internal fun OverlaySampleOverlay(viewModel: OverlaySampleViewModel = diViewMode
         }
     }
 }
-

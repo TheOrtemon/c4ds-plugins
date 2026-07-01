@@ -31,6 +31,10 @@ import vision.combat.c4.ds.sdk.ui.component.menu.OverflowMenu
 import vision.combat.c4.ds.sdk.ui.component.menu.OverflowMenuItem
 import vision.combat.c4.ds.sdk.ui.component.menu.OverflowMenuScope
 
+/**
+ * Minimal [AbstractTool] subclass that wires a [ToolComponent.MapWindow] with a
+ * focus-camera end-bar button and a custom interaction-mode app bar.
+ */
 internal class MapWindowTool(
     toolContext: ToolContext,
     toolDescriptor: ToolDescriptor,

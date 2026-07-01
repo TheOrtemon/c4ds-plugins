@@ -14,6 +14,7 @@ import vision.combat.c4.ds.sdk.tool.endBar
 import vision.combat.c4.ds.sdk.tool.expandableStatusComponent
 import vision.combat.c4.ds.sdk.ui.component.bar.endbar.EndBarToggleButton
 
+/** Minimal [AbstractTool] subclass wiring [ExpandableStatusContent] + an end-bar toggle button. */
 internal class ExpandableStatusTool(
     toolContext: ToolContext,
     toolDescriptor: ToolDescriptor,

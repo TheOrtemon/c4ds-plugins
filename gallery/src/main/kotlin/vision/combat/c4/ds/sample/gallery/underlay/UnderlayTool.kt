@@ -43,6 +43,7 @@ class UnderlayToolDescriptor(toolContext: ToolContext) : ToolDescriptor(toolCont
     }
 }
 
+/** Minimal [AbstractTool] subclass wiring [UnderlayContent] as a required underlay + end-bar dismiss button. */
 internal class UnderlayTool(
     toolContext: ToolContext,
     toolDescriptor: ToolDescriptor,

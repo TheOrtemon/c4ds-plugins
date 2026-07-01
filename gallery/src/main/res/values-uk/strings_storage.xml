@@ -39,6 +39,9 @@
     <string name="storage_prefs_section_counter">Лічильник</string>
     <string name="storage_prefs_increment">Збільшити лічильник</string>
 
+    <!-- Error fallback — used by StorageViewModel when an exception carries no message -->
+    <string name="storage_error_unknown">Невідома помилка</string>
+
     <!-- Room showcase -->
     <string name="storage_room_explainer">Демонструє ізольовану базу даних Room за шляхом від CommonSessionStorageInteractor. Усі операції з БД виконуються на Dispatchers.IO.</string>
     <string name="storage_room_section_add">Додати нотатку</string>

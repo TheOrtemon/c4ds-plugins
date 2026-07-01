@@ -11,7 +11,7 @@ import vision.combat.c4.ds.sample.gallery.R
  * @param descResId String resource for the component description.
  */
 @Keep
-internal enum class UiCatalogEntry(
+internal enum class UiCatalogShowcase(
     @get:StringRes val nameResId: Int,
     @get:StringRes val descResId: Int,
 ) {

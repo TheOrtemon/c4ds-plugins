@@ -1,4 +1,4 @@
-package vision.combat.c4.ds.sample.gallery.window.singlescreen
+package vision.combat.c4.ds.sample.gallery.window.singlescreen.ui
 
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Spacer
@@ -16,9 +16,9 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.flow.Flow
 import vision.combat.c4.ds.sample.gallery.R
-import vision.combat.c4.ds.sample.gallery.window.singlescreen.WindowSingleScreenViewModel.Action
-import vision.combat.c4.ds.sample.gallery.window.singlescreen.WindowSingleScreenViewModel.Event
-import vision.combat.c4.ds.sample.gallery.window.singlescreen.WindowSingleScreenViewModel.UiState
+import vision.combat.c4.ds.sample.gallery.window.singlescreen.ui.WindowSingleScreenViewModel.Action
+import vision.combat.c4.ds.sample.gallery.window.singlescreen.ui.WindowSingleScreenViewModel.Event
+import vision.combat.c4.ds.sample.gallery.window.singlescreen.ui.WindowSingleScreenViewModel.UiState
 import vision.combat.c4.ds.sdk.ui.component.WindowScaffold
 import vision.combat.c4.ds.sdk.ui.component.bar.BackNavTopAppBar
 import vision.combat.c4.ds.sdk.ui.component.button.Button

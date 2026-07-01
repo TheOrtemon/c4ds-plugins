@@ -39,7 +39,7 @@ private fun ColumnScope.ConfigContent() {
     val rawNote = remember(context) {
         runCatching {
             context.resources.openRawResource(R.raw.sample_note).bufferedReader().use { it.readText() }
-        }.getOrElse { e -> "Error reading raw resource: ${e.message}" }
+        }.getOrElse { e -> context.getString(R.string.config_error_raw_resource, e.message ?: "") }
     }
 
     val pluginFont = remember { FontFamily(Font(R.font.sample_font)) }

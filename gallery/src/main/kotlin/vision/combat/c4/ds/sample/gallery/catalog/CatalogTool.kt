@@ -9,6 +9,7 @@ import vision.combat.c4.ds.sdk.tool.ToolDescriptor
 import vision.combat.c4.ds.sdk.tool.ToolParams
 import vision.combat.c4.ds.sdk.tool.requiredComponent
 
+/** Minimal [AbstractTool] subclass wiring [CatalogWindow] as a required window component. */
 internal class CatalogTool(
     toolContext: ToolContext,
     toolDescriptor: ToolDescriptor,

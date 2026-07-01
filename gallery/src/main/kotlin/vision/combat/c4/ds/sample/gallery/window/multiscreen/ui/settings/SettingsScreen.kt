@@ -33,8 +33,7 @@ import vision.combat.c4.ds.sdk.ui.util.showToast
 import vision.combat.c4.ds.sdk.ui.viewmodel.diViewModel
 
 @Composable
-internal fun SettingsScreen() {
-    val viewModel = diViewModel<SettingsViewModel>()
+internal fun SettingsScreen(viewModel: SettingsViewModel = diViewModel()) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     Content(

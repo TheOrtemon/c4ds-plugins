@@ -1,4 +1,4 @@
-package vision.combat.c4.ds.sample.gallery.window.singlescreen
+package vision.combat.c4.ds.sample.gallery.window.singlescreen.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

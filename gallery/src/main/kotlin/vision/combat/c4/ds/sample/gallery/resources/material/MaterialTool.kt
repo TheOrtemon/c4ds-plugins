@@ -33,6 +33,10 @@ class MaterialToolDescriptor(toolContext: ToolContext) : ToolDescriptor(toolCont
     }
 }
 
+/**
+ * Minimal [AbstractTool] subclass for the Material showcase; wires [MaterialWindow]
+ * which exercises plugin-compiled M2 widgets inside the host composition context.
+ */
 internal class MaterialTool(
     toolContext: ToolContext,
     toolDescriptor: ToolDescriptor,

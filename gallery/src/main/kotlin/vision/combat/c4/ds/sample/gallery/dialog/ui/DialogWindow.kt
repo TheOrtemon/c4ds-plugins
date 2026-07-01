@@ -1,4 +1,4 @@
-package vision.combat.c4.ds.sample.gallery.dialog
+package vision.combat.c4.ds.sample.gallery.dialog.ui
 
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.padding
@@ -118,5 +118,3 @@ private fun ColumnScope.DialogContent(
     Button(label = stringResource(R.string.dialog_show_info), onClick = onShowInfo)
     TextButton(label = stringResource(R.string.dialog_show_custom), onClick = onShowCustom)
 }
-
-

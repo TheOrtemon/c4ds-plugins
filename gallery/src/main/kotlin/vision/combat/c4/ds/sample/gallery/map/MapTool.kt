@@ -17,6 +17,7 @@ import vision.combat.c4.ds.sdk.tool.ToolParams
 import vision.combat.c4.ds.sdk.tool.requiredComponent
 import vision.combat.c4.ds.sdk.tool.statusComponent
 
+/** Minimal [AbstractMapTool] subclass wiring [MapStatusBar] + [MapInfoWindow]; handles terrain picks. */
 internal class MapTool(
     toolContext: ToolContext,
     toolDescriptor: ToolDescriptor,

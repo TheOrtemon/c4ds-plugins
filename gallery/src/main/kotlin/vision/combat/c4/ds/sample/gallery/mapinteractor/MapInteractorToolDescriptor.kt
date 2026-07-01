@@ -32,6 +32,7 @@ class MapInteractorToolDescriptor(toolContext: ToolContext) : ToolDescriptor(too
     }
 }
 
+/** Minimal [AbstractTool] subclass wiring [MapInteractorWindow] as a required window component. */
 internal class MapInteractorTool(
     toolContext: ToolContext,
     toolDescriptor: ToolDescriptor,

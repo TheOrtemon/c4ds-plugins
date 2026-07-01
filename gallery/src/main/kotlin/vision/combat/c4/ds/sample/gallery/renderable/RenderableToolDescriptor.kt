@@ -15,7 +15,7 @@ import vision.combat.c4.ds.sdk.tool.ToolParams
  * the terrain drops an additional point at the tapped position.
  *
  * SDK APIs: AbstractMapTool.addRenderable/removeRenderable, CommonMapInteractor.requestRedraw,
- *           CommonMapInteractor.focusOnLocation, ToolComponent.Status,
+ *           CommonMapInteractor.focusOnLocation, ToolComponent.Window,
  *           WorldWind Placemark/Path/Polygon/Ellipse/Label.
  *
  * SDK files:
@@ -23,12 +23,12 @@ import vision.combat.c4.ds.sdk.tool.ToolParams
  *   c4ds-sdk/src/main/kotlin/vision/combat/c4/ds/sdk/tool/ToolComponent.kt
  *   c4ds-sdk-core/domain/src/commonMain/.../interactor/CommonMapInteractor.kt
  */
-class RenderableSampleToolDescriptor(toolContext: ToolContext) : ToolDescriptor(toolContext) {
+class RenderableToolDescriptor(toolContext: ToolContext) : ToolDescriptor(toolContext) {
     override val nameResId: Int = R.string.renderable_tool_name
     override val iconResId: Int = R.drawable.ic_renderable
     override val categories: List<String> = emptyList()
 
     override fun createTool(toolContext: ToolContext, di: DI, params: ToolParams?): AbstractTool {
-        return RenderableSampleTool(toolContext, this, di, params)
+        return RenderableTool(toolContext, this, di, params)
     }
 }

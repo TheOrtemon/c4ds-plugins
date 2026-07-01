@@ -10,6 +10,11 @@ import vision.combat.c4.ds.sdk.ui.platform.IntentProvider
 
 /**
  * Minimal [ToolNotificationManager] that mirrors the service tick counter on the tool list badge.
+ *
+ * [counter] is the public API consumed by the SDK to update the badge numeral displayed
+ * next to this tool in the tool list. It is derived from [ServiceSharedState.eventCount]
+ * via a lightweight `map + stateIn(Eagerly)` so the badge stays current even while the
+ * tool window is closed.
  */
 internal class ServiceNotificationManager(
     context: ToolContext,

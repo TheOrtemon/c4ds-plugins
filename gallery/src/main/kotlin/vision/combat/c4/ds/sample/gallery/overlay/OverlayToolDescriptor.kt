@@ -20,13 +20,12 @@ import vision.combat.c4.ds.sdk.tool.ToolParams
  *   c4ds-sdk-core/domain/src/commonMain/.../interactor/CommonMapInteractor.kt
  *   c4ds-sdk-core/domain/src/commonMain/.../interactor/CommonModelInteractor.kt
  */
-class OverlaySampleToolDescriptor(toolContext: ToolContext) : ToolDescriptor(toolContext) {
+class OverlayToolDescriptor(toolContext: ToolContext) : ToolDescriptor(toolContext) {
     override val nameResId: Int = R.string.overlay_tool_name
     override val iconResId: Int = R.drawable.ic_overlay
     override val categories: List<String> = emptyList()
 
     override fun createTool(toolContext: ToolContext, di: DI, params: ToolParams?): AbstractTool {
-        return OverlaySampleTool(toolContext, this, di, params)
+        return OverlayTool(toolContext, this, di, params)
     }
 }
-

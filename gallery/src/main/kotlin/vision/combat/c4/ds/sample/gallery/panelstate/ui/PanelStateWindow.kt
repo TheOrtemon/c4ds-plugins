@@ -27,14 +27,23 @@ internal fun PanelStateWindow(viewModel: PanelStateViewModel = diViewModel()) {
 
     WindowScaffold(
         topAppBar = { BackNavTopAppBar(title = stringResource(R.string.panel_state_tool_name)) },
-        content = { PanelStateContent(panelState, viewModel) },
+        content = {
+            PanelStateContent(
+                panelState = panelState,
+                onOpenHalf = viewModel::openHalf,
+                onOpenFull = viewModel::openFull,
+                onClose = viewModel::close,
+            )
+        },
     )
 }
 
 @Composable
 private fun ColumnScope.PanelStateContent(
     panelState: PanelState,
-    viewModel: PanelStateViewModel,
+    onOpenHalf: () -> Unit,
+    onOpenFull: () -> Unit,
+    onClose: () -> Unit,
 ) {
     Text(
         text = stringResource(R.string.panel_state_explainer),
@@ -53,17 +62,17 @@ private fun ColumnScope.PanelStateContent(
 
     Button(
         label = stringResource(R.string.panel_state_open_half),
-        onClick = viewModel::openHalf,
+        onClick = onOpenHalf,
     )
     Spacer(modifier = Modifier.height(8.dp))
     Button(
         label = stringResource(R.string.panel_state_open_full),
-        onClick = viewModel::openFull,
+        onClick = onOpenFull,
     )
     Spacer(modifier = Modifier.height(8.dp))
     OutlinedButton(
         label = stringResource(R.string.panel_state_close),
-        onClick = viewModel::close,
+        onClick = onClose,
     )
 }
 

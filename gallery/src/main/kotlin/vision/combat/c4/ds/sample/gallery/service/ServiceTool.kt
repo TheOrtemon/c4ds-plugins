@@ -35,10 +35,14 @@ class ServiceToolDescriptor(toolContext: ToolContext) : ToolDescriptor(toolConte
     }
 
     override fun createService(toolContext: ToolContext, di: DI): AbstractToolService {
-        return ServiceSampleService(toolContext, this, di)
+        return BadgeCounterService(toolContext, this, di)
     }
 }
 
+/**
+ * Minimal [AbstractTool] subclass for the service sample; wires [ServiceWindow] with the
+ * [ServiceSharedState] produced by [BadgeCounterService] via the shared DI graph.
+ */
 internal class ServiceTool(
     toolContext: ToolContext,
     toolDescriptor: ToolDescriptor,

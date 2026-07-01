@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
 /**
- * Shared state between [ServiceSampleService] and [ServiceWindow].
+ * Shared state between [BadgeCounterService] and [vision.combat.c4.ds.sample.gallery.service.ui.ServiceWindow].
  * Bound as a singleton in [vision.combat.c4.ds.sample.gallery.service.di.serviceModule].
  */
 internal class ServiceSharedState {

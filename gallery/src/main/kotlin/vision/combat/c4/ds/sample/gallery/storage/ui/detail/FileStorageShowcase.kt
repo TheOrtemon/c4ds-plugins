@@ -87,7 +87,8 @@ internal fun FileStorageShowcase(viewModel: StorageViewModel = diViewModel()) {
             StorageViewModel.FileOperationStatus.WriteSuccess -> stringResource(R.string.storage_status_write_success)
             StorageViewModel.FileOperationStatus.ReadSuccess -> stringResource(R.string.storage_status_read_success)
             StorageViewModel.FileOperationStatus.FileNotFound -> stringResource(R.string.storage_status_file_not_found)
-            is StorageViewModel.FileOperationStatus.Error -> "${stringResource(R.string.storage_status_error)} ${status.message}"
+            is StorageViewModel.FileOperationStatus.Error ->
+                "${stringResource(R.string.storage_status_error)} ${status.message ?: stringResource(R.string.storage_error_unknown)}"
         }
         if (statusText.isNotEmpty()) {
             Card(elevation = 2.dp, modifier = Modifier.padding(bottom = 8.dp)) {

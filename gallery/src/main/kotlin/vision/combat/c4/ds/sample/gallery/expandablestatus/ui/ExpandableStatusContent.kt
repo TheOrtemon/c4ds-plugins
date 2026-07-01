@@ -15,6 +15,7 @@ import vision.combat.c4.ds.sdk.ui.component.SegmentedButtonRow
 
 private enum class StatusPosition { Below, Above }
 
+/** Expandable-status panel content with a segmented button to toggle show-above/below position. */
 @Composable
 internal fun ExpandableStatusContent(
     shouldShowAbove: Boolean,

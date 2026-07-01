@@ -9,7 +9,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import org.kodein.di.DI
 import vision.combat.c4.ds.sample.gallery.R
-import vision.combat.c4.ds.sample.gallery.endbar.ui.EndBarSampleWindow
+import vision.combat.c4.ds.sample.gallery.endbar.ui.EndBarWindow
 import vision.combat.c4.ds.sdk.tool.AbstractTool
 import vision.combat.c4.ds.sdk.tool.ToolComponent
 import vision.combat.c4.ds.sdk.tool.ToolContext
@@ -22,7 +22,11 @@ import vision.combat.c4.ds.sdk.ui.component.bar.endbar.EndBarMenuButton
 import vision.combat.c4.ds.sdk.ui.component.bar.endbar.EndBarToggleButton
 import vision.combat.c4.ds.sdk.ui.util.showToast
 
-internal class EndBarSampleTool(
+/**
+ * Minimal AbstractTool wiring an EndBarWindow (ToolComponent.Window) and all three EndBar button
+ * types: action, toggle, and menu with a Checkable item and a Slider.
+ */
+internal class EndBarTool(
     toolContext: ToolContext,
     toolDescriptor: ToolDescriptor,
     parentDI: DI,
@@ -33,7 +37,7 @@ internal class EndBarSampleTool(
     private var sliderValue by mutableFloatStateOf(0.5f)
 
     override val window: ToolComponent.Window by requiredComponent {
-        EndBarSampleWindow(
+        EndBarWindow(
             toggleState = { toggleState },
             sliderValue = { sliderValue },
         )

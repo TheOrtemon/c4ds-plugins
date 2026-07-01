@@ -11,6 +11,10 @@ import vision.combat.c4.ds.sdk.tool.ToolDescriptor
 import vision.combat.c4.ds.sdk.tool.ToolParams
 import vision.combat.c4.ds.sdk.tool.requiredComponent
 
+/**
+ * Minimal [AbstractTool] subclass for the storage showcase hub; imports [storageModule]
+ * and wires [StorageWindow] as the single window component.
+ */
 internal class StorageTool(
     toolContext: ToolContext,
     toolDescriptor: ToolDescriptor,

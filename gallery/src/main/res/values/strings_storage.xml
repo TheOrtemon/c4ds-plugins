@@ -39,6 +39,9 @@
     <string name="storage_prefs_section_counter">Counter</string>
     <string name="storage_prefs_increment">Increment Counter</string>
 
+    <!-- Error fallback — used by StorageViewModel when an exception carries no message -->
+    <string name="storage_error_unknown">Unknown error</string>
+
     <!-- Room showcase -->
     <string name="storage_room_explainer">Demonstrates an isolated Room database stored at the path provided by CommonSessionStorageInteractor. All DB operations run on Dispatchers.IO.</string>
     <string name="storage_room_section_add">Add a Note</string>

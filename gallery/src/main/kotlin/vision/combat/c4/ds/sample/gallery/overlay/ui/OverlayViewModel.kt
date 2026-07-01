@@ -1,14 +1,18 @@
-package vision.combat.c4.ds.sample.gallery.overlay
+package vision.combat.c4.ds.sample.gallery.overlay.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import earth.worldwind.geom.Position
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.merge
+import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
+import vision.combat.c4.ds.sample.gallery.overlay.OverlayToolDescriptor
 import vision.combat.c4.ds.sdk.domain.interactor.CommonMapInteractor
 import vision.combat.c4.ds.sdk.domain.interactor.CommonModelInteractor
 import vision.combat.c4.ds.sdk.domain.interactor.settings.CommonLocaleSettingsInteractor
@@ -20,17 +24,24 @@ import vision.combat.c4.ds.sdk.tool.ToolManager
 import vision.combat.c4.ds.sdk.tool.deactivate
 import vision.combat.c4.unit.CoordinateSystemFormat
 
-internal class OverlaySampleViewModel(
-    mapInteractor: CommonMapInteractor,
-    modelInteractor: CommonModelInteractor,
-    localeSettingsInteractor: CommonLocaleSettingsInteractor,
+internal class OverlayViewModel(
+    private val mapInteractor: CommonMapInteractor,
+    private val modelInteractor: CommonModelInteractor,
+    private val localeSettingsInteractor: CommonLocaleSettingsInteractor,
     private val toolManager: ToolManager,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(UiState())
-    val uiState = _uiState.asStateFlow()
 
-    init {
+    val uiState: StateFlow<UiState> = _uiState
+        .onStart { observeData() }
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5_000),
+            initialValue = _uiState.value,
+        )
+
+    private fun observeData() {
         merge(modelInteractor.userModel, modelInteractor.userModelUpdatedEvent)
             .combine(localeSettingsInteractor.coordinateSystemFormat, ::updateUserPosition)
             .launchIn(viewModelScope)
@@ -56,7 +67,7 @@ internal class OverlaySampleViewModel(
 
     fun handleAction(action: Action) {
         when (action) {
-            Action.Close -> toolManager.deactivate<OverlaySampleToolDescriptor>()
+            Action.Close -> toolManager.deactivate<OverlayToolDescriptor>()
         }
     }
 
@@ -69,4 +80,3 @@ internal class OverlaySampleViewModel(
         data object Close : Action
     }
 }
-

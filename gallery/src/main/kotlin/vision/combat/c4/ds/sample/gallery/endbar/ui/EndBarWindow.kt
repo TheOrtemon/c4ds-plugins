@@ -14,18 +14,18 @@ import vision.combat.c4.ds.sdk.ui.component.WindowScaffold
 import vision.combat.c4.ds.sdk.ui.component.bar.BackNavTopAppBar
 
 @Composable
-internal fun EndBarSampleWindow(
+internal fun EndBarWindow(
     toggleState: () -> Boolean,
     sliderValue: () -> Float,
 ) {
     WindowScaffold(
         topAppBar = { BackNavTopAppBar(title = stringResource(R.string.endbar_tool_name)) },
-        content = { EndBarSamplePanel(toggleState, sliderValue) },
+        content = { EndBarPanel(toggleState, sliderValue) },
     )
 }
 
 @Composable
-private fun ColumnScope.EndBarSamplePanel(
+private fun ColumnScope.EndBarPanel(
     toggleState: () -> Boolean,
     sliderValue: () -> Float,
 ) {
@@ -35,8 +35,13 @@ private fun ColumnScope.EndBarSamplePanel(
         modifier = Modifier.padding(bottom = 16.dp),
     )
     Card(elevation = 2.dp, modifier = Modifier.padding(bottom = 8.dp)) {
+        val toggleLabel = if (toggleState()) {
+            stringResource(R.string.endbar_toggle_on)
+        } else {
+            stringResource(R.string.endbar_toggle_off)
+        }
         Text(
-            text = "${stringResource(R.string.endbar_current_toggle)} ${if (toggleState()) "ON" else "OFF"}",
+            text = "${stringResource(R.string.endbar_current_toggle)} $toggleLabel",
             style = MaterialTheme.typography.body1,
             modifier = Modifier.padding(16.dp),
         )
@@ -49,4 +54,3 @@ private fun ColumnScope.EndBarSamplePanel(
         )
     }
 }
-

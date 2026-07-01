@@ -9,6 +9,7 @@ import vision.combat.c4.ds.sdk.tool.ToolDescriptor
 import vision.combat.c4.ds.sdk.tool.ToolParams
 import vision.combat.c4.ds.sdk.tool.statusComponent
 
+/** Minimal [AbstractTool] subclass wiring [StatusBar] as the default status component. */
 internal class StatusTool(
     toolContext: ToolContext,
     toolDescriptor: ToolDescriptor,

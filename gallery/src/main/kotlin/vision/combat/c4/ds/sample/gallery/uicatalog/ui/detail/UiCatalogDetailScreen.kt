@@ -10,17 +10,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import vision.combat.c4.ds.sample.gallery.uicatalog.ui.list.UiCatalogEntry
+import vision.combat.c4.ds.sample.gallery.uicatalog.ui.list.UiCatalogShowcase
 import vision.combat.c4.ds.sdk.ui.component.WindowContentDefaults.ContentPaddings
 import vision.combat.c4.ds.sdk.ui.component.WindowScaffold
 import vision.combat.c4.ds.sdk.ui.component.bar.BackNavigationButton
 import vision.combat.c4.ds.sdk.ui.component.bar.TopAppBar
 
 @Composable
-internal fun UiCatalogDetailScreen(entry: UiCatalogEntry) {
+internal fun UiCatalogDetailScreen(entry: UiCatalogShowcase) {
     WindowScaffold(
-        contentPaddingValues = if (entry != UiCatalogEntry.LISTS) ContentPaddings else PaddingValues(0.dp),
-        scrollable = entry != UiCatalogEntry.LISTS,
+        contentPaddingValues = if (entry != UiCatalogShowcase.LISTS) ContentPaddings else PaddingValues(0.dp),
+        scrollable = entry != UiCatalogShowcase.LISTS,
         topAppBar = {
             TopAppBar(
                 title = stringResource(entry.nameResId),
@@ -32,8 +32,8 @@ internal fun UiCatalogDetailScreen(entry: UiCatalogEntry) {
 }
 
 @Composable
-private fun ColumnScope.DetailContent(entry: UiCatalogEntry) {
-    if (entry != UiCatalogEntry.LISTS) {
+private fun ColumnScope.DetailContent(entry: UiCatalogShowcase) {
+    if (entry != UiCatalogShowcase.LISTS) {
         Text(
             text = stringResource(entry.descResId),
             style = MaterialTheme.typography.body1,
@@ -45,17 +45,17 @@ private fun ColumnScope.DetailContent(entry: UiCatalogEntry) {
     }
 
     when (entry) {
-        UiCatalogEntry.INLINE_MESSAGE -> InlineMessageDemo()
-        UiCatalogEntry.HEADER_FIELD -> HeaderFieldDemo()
-        UiCatalogEntry.EXPANDABLE_FIELD -> ExpandableFieldDemo()
-        UiCatalogEntry.FORM_FIELD_BOX -> FormFieldBoxDemo()
-        UiCatalogEntry.NESTED_FORM -> NestedFormDemo()
-        UiCatalogEntry.HOSTILITY_SELECTOR -> HostilitySelectorDemo()
-        UiCatalogEntry.BUTTONS -> ButtonsDemo()
-        UiCatalogEntry.TOP_APP_BAR -> TopAppBarDemo()
-        UiCatalogEntry.INPUTS -> InputsDemo()
-        UiCatalogEntry.SELECTION -> SelectionDemo()
-        UiCatalogEntry.FEEDBACK -> FeedbackDemo()
-        UiCatalogEntry.LISTS -> ListsDetailScreen()
+        UiCatalogShowcase.INLINE_MESSAGE -> InlineMessageDemo()
+        UiCatalogShowcase.HEADER_FIELD -> HeaderFieldDemo()
+        UiCatalogShowcase.EXPANDABLE_FIELD -> ExpandableFieldDemo()
+        UiCatalogShowcase.FORM_FIELD_BOX -> FormFieldBoxDemo()
+        UiCatalogShowcase.NESTED_FORM -> NestedFormDemo()
+        UiCatalogShowcase.HOSTILITY_SELECTOR -> HostilitySelectorDemo()
+        UiCatalogShowcase.BUTTONS -> ButtonsDemo()
+        UiCatalogShowcase.TOP_APP_BAR -> TopAppBarDemo()
+        UiCatalogShowcase.INPUTS -> InputsDemo()
+        UiCatalogShowcase.SELECTION -> SelectionDemo()
+        UiCatalogShowcase.FEEDBACK -> FeedbackDemo()
+        UiCatalogShowcase.LISTS -> ListsDetailScreen()
     }
 }

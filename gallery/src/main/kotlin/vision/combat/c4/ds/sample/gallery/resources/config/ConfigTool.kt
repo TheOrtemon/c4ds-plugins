@@ -32,6 +32,10 @@ class ConfigToolDescriptor(toolContext: ToolContext) : ToolDescriptor(toolContex
     }
 }
 
+/**
+ * Minimal [AbstractTool] subclass for the config-resources showcase; wires [ConfigWindow]
+ * which exercises config-qualified string/drawable/font/raw resources.
+ */
 internal class ConfigTool(
     toolContext: ToolContext,
     toolDescriptor: ToolDescriptor,

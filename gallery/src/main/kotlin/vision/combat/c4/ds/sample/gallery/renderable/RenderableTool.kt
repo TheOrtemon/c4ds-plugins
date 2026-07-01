@@ -26,7 +26,12 @@ import vision.combat.c4.ds.sdk.tool.ToolParams
 import vision.combat.c4.ds.sdk.tool.requiredComponent
 import earth.worldwind.render.Color as WWColor
 
-internal class RenderableSampleTool(
+/**
+ * Minimal AbstractMapTool wiring a RenderableControlsWindow and a managed WorldWind renderable
+ * layer (addRenderable/removeRenderable). Seeds one Placemark, Path, Polygon, Ellipse and Label
+ * at the Kyiv demo center on construction.
+ */
+internal class RenderableTool(
     toolContext: ToolContext,
     toolDescriptor: ToolDescriptor,
     parentDI: DI,

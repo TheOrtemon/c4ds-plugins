@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Error fallback displayed when the raw resource cannot be opened -->
+    <string name="config_error_raw_resource">Error reading raw resource: %s</string>
+</resources>

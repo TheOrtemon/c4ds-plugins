@@ -4,14 +4,14 @@ import androidx.annotation.Keep
 import androidx.annotation.StringRes
 import vision.combat.c4.ds.sample.gallery.R
 import vision.combat.c4.ds.sample.gallery.dialog.DialogToolDescriptor
-import vision.combat.c4.ds.sample.gallery.endbar.EndBarSampleToolDescriptor
+import vision.combat.c4.ds.sample.gallery.endbar.EndBarToolDescriptor
 import vision.combat.c4.ds.sample.gallery.expandablestatus.ExpandableStatusToolDescriptor
 import vision.combat.c4.ds.sample.gallery.map.MapToolDescriptor
 import vision.combat.c4.ds.sample.gallery.mapinteractor.MapInteractorToolDescriptor
 import vision.combat.c4.ds.sample.gallery.model.ModelToolDescriptor
-import vision.combat.c4.ds.sample.gallery.overlay.OverlaySampleToolDescriptor
+import vision.combat.c4.ds.sample.gallery.overlay.OverlayToolDescriptor
 import vision.combat.c4.ds.sample.gallery.panelstate.PanelStateToolDescriptor
-import vision.combat.c4.ds.sample.gallery.renderable.RenderableSampleToolDescriptor
+import vision.combat.c4.ds.sample.gallery.renderable.RenderableToolDescriptor
 import vision.combat.c4.ds.sample.gallery.resources.collision.CollisionToolDescriptor
 import vision.combat.c4.ds.sample.gallery.resources.config.ConfigToolDescriptor
 import vision.combat.c4.ds.sample.gallery.resources.material.MaterialToolDescriptor
@@ -64,7 +64,7 @@ internal enum class CatalogEntry(
         descResId = R.string.renderable_desc,
         apisResId = R.string.renderable_apis,
         sourceSubpackage = "renderable",
-        toolClassName = requireQualifiedName<RenderableSampleToolDescriptor>(),
+        toolClassName = requireQualifiedName<RenderableToolDescriptor>(),
     ),
     MAP_INTERACTOR(
         section = CatalogSection.MAP_VIEW,
@@ -82,7 +82,7 @@ internal enum class CatalogEntry(
         descResId = R.string.overlay_desc,
         apisResId = R.string.overlay_apis,
         sourceSubpackage = "overlay",
-        toolClassName = requireQualifiedName<OverlaySampleToolDescriptor>(),
+        toolClassName = requireQualifiedName<OverlayToolDescriptor>(),
     ),
     STATUS(
         section = CatalogSection.MAP_OVERLAYS,
@@ -106,7 +106,7 @@ internal enum class CatalogEntry(
         descResId = R.string.endbar_desc,
         apisResId = R.string.endbar_apis,
         sourceSubpackage = "endbar",
-        toolClassName = requireQualifiedName<EndBarSampleToolDescriptor>(),
+        toolClassName = requireQualifiedName<EndBarToolDescriptor>(),
     ),
 
     // ── MAP UNDERLAY ──────────────────────────────────────────────────────

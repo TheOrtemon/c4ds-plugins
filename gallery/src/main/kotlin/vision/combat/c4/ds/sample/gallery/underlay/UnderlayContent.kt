@@ -20,6 +20,7 @@ import vision.combat.c4.ds.sdk.tool.ToolManager
 import vision.combat.c4.ds.sdk.tool.deactivate
 import vision.combat.c4.ds.sdk.ui.component.button.TextButton
 
+/** Underlay composable rendered behind the map; shows a dismiss button that deactivates the tool. */
 @Composable
 internal fun UnderlayContent() {
     val toolManager by rememberInstance<ToolManager>()

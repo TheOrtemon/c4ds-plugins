@@ -9,6 +9,10 @@ import vision.combat.c4.ds.sdk.tool.ToolDescriptor
 import vision.combat.c4.ds.sdk.tool.ToolParams
 import vision.combat.c4.ds.sdk.tool.requiredComponent
 
+/**
+ * Minimal [AbstractTool] subclass that wires [ToolManagementWindow] as its single
+ * [ToolComponent.Window].
+ */
 internal class ToolManagementTool(
     toolContext: ToolContext,
     toolDescriptor: ToolDescriptor,

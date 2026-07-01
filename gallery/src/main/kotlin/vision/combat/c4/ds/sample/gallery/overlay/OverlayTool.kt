@@ -5,6 +5,7 @@ import androidx.compose.ui.res.stringResource
 import org.kodein.di.DI
 import org.kodein.di.compose.rememberInstance
 import vision.combat.c4.ds.sample.gallery.R
+import vision.combat.c4.ds.sample.gallery.overlay.ui.OverlayContent
 import vision.combat.c4.ds.sdk.tool.AbstractTool
 import vision.combat.c4.ds.sdk.tool.ToolComponent
 import vision.combat.c4.ds.sdk.tool.ToolContext
@@ -16,7 +17,11 @@ import vision.combat.c4.ds.sdk.tool.endBar
 import vision.combat.c4.ds.sdk.tool.requiredComponent
 import vision.combat.c4.ds.sdk.ui.component.bar.endbar.EndBarActionButton
 
-internal class OverlaySampleTool(
+/**
+ * Minimal AbstractTool wiring a ToolComponent.Overlay (OverlayContent) and an EndBar close button.
+ * Deactivates itself via [ToolManager.deactivate] typed on [OverlayToolDescriptor].
+ */
+internal class OverlayTool(
     toolContext: ToolContext,
     toolDescriptor: ToolDescriptor,
     parentDI: DI,
@@ -24,7 +29,7 @@ internal class OverlaySampleTool(
 ) : AbstractTool(toolContext, toolDescriptor, parentDI, params) {
 
     override val overlay: ToolComponent.Overlay by requiredComponent {
-        OverlaySampleOverlay()
+        OverlayContent()
     }
 
     override val endBar by endBar {
@@ -32,8 +37,7 @@ internal class OverlaySampleTool(
         EndBarActionButton(
             icon = painterResource(R.drawable.ic_overlay),
             contentDescription = stringResource(R.string.overlay_close_cd),
-            onClick = { toolManager.deactivate<OverlaySampleToolDescriptor>() },
+            onClick = { toolManager.deactivate<OverlayToolDescriptor>() },
         )
     }
 }
-

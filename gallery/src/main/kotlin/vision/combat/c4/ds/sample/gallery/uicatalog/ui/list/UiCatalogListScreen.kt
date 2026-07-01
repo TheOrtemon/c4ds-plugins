@@ -18,7 +18,7 @@ import vision.combat.c4.ds.sdk.ui.component.list.ListItem
 
 @Composable
 internal fun UiCatalogListScreen(
-    onNavigateToDetail: (UiCatalogEntry) -> Unit,
+    onNavigateToDetail: (UiCatalogShowcase) -> Unit,
 ) {
     WindowScaffold(
         // The body is a LazyColumn, which must own its own scrolling — disable the scaffold's
@@ -30,7 +30,7 @@ internal fun UiCatalogListScreen(
         },
         content = {
             LazyColumn(modifier = Modifier.fillMaxSize()) {
-                items(UiCatalogEntry.entries, key = { it.name }) { entry ->
+                items(UiCatalogShowcase.entries, key = { it.name }) { entry ->
                     ComponentListItem(
                         entry = entry,
                         onClick = { onNavigateToDetail(entry) },
@@ -43,7 +43,7 @@ internal fun UiCatalogListScreen(
 
 @Composable
 private fun ComponentListItem(
-    entry: UiCatalogEntry,
+    entry: UiCatalogShowcase,
     onClick: () -> Unit,
 ) {
     ListItem(

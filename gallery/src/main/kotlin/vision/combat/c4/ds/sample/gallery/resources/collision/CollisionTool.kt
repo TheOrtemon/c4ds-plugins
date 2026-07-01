@@ -33,6 +33,10 @@ class CollisionToolDescriptor(toolContext: ToolContext) : ToolDescriptor(toolCon
     }
 }
 
+/**
+ * Minimal [AbstractTool] subclass for the collision showcase; wires [CollisionWindow]
+ * which demonstrates plugin-first R.string resolution when plugin and host share a key name.
+ */
 internal class CollisionTool(
     toolContext: ToolContext,
     toolDescriptor: ToolDescriptor,
