@@ -1,6 +1,6 @@
 # c4ds Tool Samples
 
-<img width="1000" alt="Sample Gallery hub in ComBat 4" src="https://github.com/user-attachments/assets/06c47964-0ebf-4cf3-80dc-6ac2a0639202" />
+<img width="1000" alt="Sample Gallery hub in ComBat 4" src="https://github.com/user-attachments/assets/bf1b3f82-b4e5-46ed-bfe9-7cb2cdddd0f1" />
 
 **A copy-pasteable reference for every public SDK surface exposed to external ComBat 4 Dismounted
 Soldier (C4DS) tools** — 22 runnable samples across 12 categories, launched from an in-app
@@ -12,7 +12,6 @@ Soldier (C4DS) tools** — 22 runnable samples across 12 categories, launched fr
 [![minSdk](https://img.shields.io/badge/minSdk-26-brightgreen)](gallery/build.gradle.kts)
 [![License](https://img.shields.io/badge/license-TBD-lightgrey)](#disclaimer)
 
-[![Demo video — click to watch on YouTube](https://github.com/user-attachments/assets/e077a04b-35c4-4d77-bd7b-672d552a4f26)](https://youtu.be/6AOOwTl_N9Y)
 
 ---
 
@@ -81,7 +80,7 @@ The host divides the screen into tool components your tool declares:
 | **Underlay** | Full layer under the main map | AR and background layers |
 | **End bar** | Yellow — map's right edge | Custom action/toggle/menu buttons |
 
-<img width="1000" alt="Tool component screen layout" src="https://github.com/user-attachments/assets/109fb109-a89b-4a34-ac54-ea7ab66966dc" />
+<img width="1000" alt="Tool component screen layout" src="https://github.com/user-attachments/assets/eb7e727c-1716-4fd8-8cbf-c9be5ae16990" />
 
 Details: **[Getting started → Tool screen layout](docs/getting-started.md#tool-screen-layout)**
 
