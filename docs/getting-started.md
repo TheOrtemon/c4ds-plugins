@@ -46,7 +46,7 @@ The host app divides the screen into **tool components**. Your tool declares whi
 | **Underlay** | Full area under the main map | AR and background layers |
 | **End bar** | Yellow — right edge of map | Custom action/toggle/menu buttons via `endBarButtons` |
 
-<img width="1000" alt="Tool component screen layout" src="https://github.com/user-attachments/assets/109fb109-a89b-4a34-ac54-ea7ab66966dc" />
+<img width="1000" alt="Tool component screen layout" src="https://github.com/user-attachments/assets/bdf78782-9206-4cf8-9c1b-c5328eb6e3f8" />
 
 Every sample in `:gallery` targets one or more of these regions. Open **Sample Gallery** from the host launcher, then use **Launch** on any card to try it.
 
