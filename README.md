@@ -163,3 +163,17 @@ After install, your tool appears in the host Tools list (gallery shows only **Sa
 | (h) | `:isolation` Native Tool | Cross-APK `.so`, assets, ClassLoader |
 
 Full procedures: **[Plugin isolation](docs/plugin-isolation.md)**
+
+
+
+Images
+
+<img width="1080" height="2400" alt="window-multiscreen" src="https://github.com/user-attachments/assets/8f60b96a-3d0d-4319-92a7-fd27563df84d" />
+<img width="1080" height="2400" alt="ui-catalog" src="https://github.com/user-attachments/assets/91a18762-557b-47cb-bc64-4ad180b84873" />
+<img width="1080" height="2400" alt="storage" src="https://github.com/user-attachments/assets/bc66cc9e-575c-4f6a-985b-a43232b6b70e" />
+<img width="1080" height="2400" alt="service" src="https://github.com/user-attachments/assets/6260361d-da14-4e0e-b6e2-b1f264532f77" />
+<img width="1080" height="2400" alt="model" src="https://github.com/user-attachments/assets/688b9330-35ef-4829-a99a-fa15d413eca6" />
+<img width="1080" height="2400" alt="map-renderable" src="https://github.com/user-attachments/assets/67294458-f48e-4b46-80d8-60d0ec2f7e00" />
+<img width="1080" height="2400" alt="hub" src="https://github.com/user-attachments/assets/96a43531-c47f-4c7c-b940-805a2da1bd80" />
+<img width="1080" height="2400" alt="dialog" src="https://github.com/user-attachments/assets/e353622a-7878-4893-acce-41dd57fde70e" />
+
