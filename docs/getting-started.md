@@ -207,7 +207,7 @@ adb install -r isolation/build/outputs/apk/release/isolation-release.apk
 
 After install, ComBat 4 refreshes the **Tools** list. You usually see changes immediately after tool re-activation; if not, force-stop and restart the host app.
 
-<img width="1000" alt="Installed tools in ComBat 4 launcher" src="https://github.com/user-attachments/assets/019a24eb-0fc9-46aa-b943-7139fb7857e2" />
+<img width="1000" alt="Installed tools in ComBat 4 launcher" src="https://github.com/user-attachments/assets/845f8c0c-d798-48d1-87c2-5a2cb39d95ed" />
 
 ### Using the Sample Gallery
 
