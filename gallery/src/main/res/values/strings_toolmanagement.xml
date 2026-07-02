@@ -2,16 +2,19 @@
 <resources>
     <!-- Tool Management sample -->
     <string name="tool_management_tool_name">Tool Management</string>
-    <string name="tool_management_desc">Demonstrates ToolManager: activate/deactivate/isActive against the Map sample, showComponent to bring its window forward, and observe activeTools live.</string>
-    <string name="tool_management_apis">ToolManager.activate, ToolManager.deactivate, ToolManager.isActive, ToolManager.activeTools, ToolManager.showComponent, ToolManager.FLAG_COMPONENT_ON_TOP</string>
-    <string name="tool_management_explainer">Manage the Map sample tool from here. Activate it, deactivate it, show its window, and watch the live active-tools list update in real time.</string>
-    <string name="tool_management_map_tool_section">Map Tool Control</string>
-    <string name="tool_management_map_active">Map tool active:</string>
-    <string name="tool_management_activate_map">Activate Map Tool</string>
-    <string name="tool_management_deactivate_map">Deactivate Map Tool</string>
-    <string name="tool_management_show_map_window">Show Map Window</string>
+    <string name="tool_management_desc">Demonstrates ToolManager: activate/deactivate/isActive against a hidden, overlay-only demo tool, and observe activeTools live.</string>
+    <string name="tool_management_apis">ToolManager.activate, ToolManager.deactivate, ToolManager.isActive, ToolManager.activeTools</string>
+    <string name="tool_management_explainer">Manage a hidden demo tool from here. It has no catalog entry and no window of its own — its only surface is a small badge overlaid on the shared map. Activate it, deactivate it, and watch the live active-tools list update in real time. Because the demo tool\'s required component is an overlay, not a window, activating it never covers this screen: this window and its buttons stay usable the whole time.</string>
+    <string name="tool_management_demo_tool_section">Demo Tool Control</string>
+    <string name="tool_management_demo_active">Demo tool active:</string>
+    <string name="tool_management_activate_demo">Activate Demo Tool</string>
+    <string name="tool_management_deactivate_demo">Deactivate Demo Tool</string>
     <string name="tool_management_active_tools_section">Active Tools (live)</string>
     <string name="tool_management_no_active_tools">No tools currently active.</string>
     <string name="tool_management_active_yes">Yes</string>
     <string name="tool_management_active_no">No</string>
+
+    <!-- Hidden demo tool managed by this sample -->
+    <string name="tool_management_demo_tool_name">Tool Management Demo</string>
+    <string name="tool_management_demo_overlay_badge">Demo tool active</string>
 </resources>

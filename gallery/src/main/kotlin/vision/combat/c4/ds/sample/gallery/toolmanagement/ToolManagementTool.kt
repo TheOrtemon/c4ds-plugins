@@ -12,6 +12,13 @@ import vision.combat.c4.ds.sdk.tool.requiredComponent
 /**
  * Minimal [AbstractTool] subclass that wires [ToolManagementWindow] as its single
  * [ToolComponent.Window].
+ *
+ * The window drives [vision.combat.c4.ds.sample.gallery.toolmanagement.managed.DemoToolDescriptor],
+ * a dedicated hidden tool whose only surface is a
+ * [vision.combat.c4.ds.sdk.tool.ToolComponent.Overlay]. Because an overlay renders over the shared
+ * map rather than in the panel, [vision.combat.c4.ds.sdk.tool.ToolManager.activate] showing that
+ * tool's required components never evicts this window — unlike a window-required tool, there is
+ * no front-of-stack fight to work around here.
  */
 internal class ToolManagementTool(
     toolContext: ToolContext,

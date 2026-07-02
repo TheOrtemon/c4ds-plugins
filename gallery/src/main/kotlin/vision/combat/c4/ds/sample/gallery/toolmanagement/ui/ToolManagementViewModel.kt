@@ -8,8 +8,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
-import vision.combat.c4.ds.sample.gallery.mapview.map.MapToolDescriptor
-import vision.combat.c4.ds.sdk.tool.ToolComponent
+import vision.combat.c4.ds.sample.gallery.toolmanagement.managed.DemoToolDescriptor
 import vision.combat.c4.ds.sdk.tool.ToolManager
 import vision.combat.c4.ds.sdk.tool.activate
 import vision.combat.c4.ds.sdk.tool.deactivate
@@ -25,34 +24,29 @@ internal class ToolManagementViewModel(
     init {
         toolManager.activeTools
             .onEach { tools ->
-                val isMapActive = toolManager.isActive<MapToolDescriptor>()
+                val isDemoToolActive = toolManager.isActive<DemoToolDescriptor>()
                 val activeNames = tools.map { it.id.className }
-                _uiState.update { it.copy(isMapToolActive = isMapActive, activeToolClassNames = activeNames) }
+                _uiState.update { it.copy(isDemoToolActive = isDemoToolActive, activeToolClassNames = activeNames) }
             }
             .launchIn(viewModelScope)
     }
 
-    fun activateMapTool() {
-        toolManager.activate<MapToolDescriptor>(flags = ToolManager.FLAG_COMPONENT_ON_TOP)
+    /**
+     * Activates the hidden demo tool ([DemoToolDescriptor]). Its only surface is a
+     * [vision.combat.c4.ds.sdk.tool.ToolComponent.Overlay] rendered over the shared map, so
+     * [ToolManager.activate] showing its required components never evicts this window — a plain
+     * `activate<DemoToolDescriptor>()` suffices, no window to fight for the front position.
+     */
+    fun activateDemoTool() {
+        toolManager.activate<DemoToolDescriptor>()
     }
 
-    fun deactivateMapTool() {
-        toolManager.deactivate<MapToolDescriptor>()
-    }
-
-    fun showMapWindow() {
-        val mapTool = toolManager.activeTools.value
-            .firstOrNull { it.descriptor is MapToolDescriptor }
-        if (mapTool != null) {
-            val window = mapTool.window
-            if (window != null) {
-                toolManager.showComponent(window, ToolManager.FLAG_COMPONENT_ON_TOP)
-            }
-        }
+    fun deactivateDemoTool() {
+        toolManager.deactivate<DemoToolDescriptor>()
     }
 
     data class UiState(
-        val isMapToolActive: Boolean = false,
+        val isDemoToolActive: Boolean = false,
         val activeToolClassNames: List<String> = emptyList(),
     )
 }

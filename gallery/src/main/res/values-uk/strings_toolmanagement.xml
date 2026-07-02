@@ -2,16 +2,19 @@
 <resources>
     <!-- Tool Management sample — Ukrainian -->
     <string name="tool_management_tool_name">Робота з інструментами</string>
-    <string name="tool_management_desc">Демонструє ToolManager: activate/deactivate/isActive для інструменту Map, showComponent для відображення вікна та спостереження за activeTools в реальному часі.</string>
-    <string name="tool_management_apis">ToolManager.activate, ToolManager.deactivate, ToolManager.isActive, ToolManager.activeTools, ToolManager.showComponent, ToolManager.FLAG_COMPONENT_ON_TOP</string>
-    <string name="tool_management_explainer">Управляйте інструментом Map звідси. Активуйте його, деактивуйте, відображайте його вікно та спостерігайте за оновленням списку активних інструментів у реальному часі.</string>
-    <string name="tool_management_map_tool_section">Робота з інструментом Map</string>
-    <string name="tool_management_map_active">Інструмент Map активний:</string>
-    <string name="tool_management_activate_map">Активувати Map</string>
-    <string name="tool_management_deactivate_map">Деактивувати Map</string>
-    <string name="tool_management_show_map_window">Показати вікно Map</string>
+    <string name="tool_management_desc">Демонструє ToolManager: activate/deactivate/isActive для прихованого інструменту з єдиною поверхнею-накладенням та спостереження за activeTools в реальному часі.</string>
+    <string name="tool_management_apis">ToolManager.activate, ToolManager.deactivate, ToolManager.isActive, ToolManager.activeTools</string>
+    <string name="tool_management_explainer">Керуйте прихованим демонстраційним інструментом звідси. Він не має запису в каталозі й не має власного вікна — його єдина поверхня — невеликий значок поверх спільної карти. Активуйте його, деактивуйте та спостерігайте за оновленням списку активних інструментів у реальному часі. Оскільки обов’язковий компонент демонстраційного інструменту — це накладення («overlay»), а не вікно, його активація ніколи не перекриває цей екран: цей вікно та його кнопки залишаються доступними увесь час.</string>
+    <string name="tool_management_demo_tool_section">Керування демонстраційним інструментом</string>
+    <string name="tool_management_demo_active">Демонстраційний інструмент активний:</string>
+    <string name="tool_management_activate_demo">Активувати демонстраційний інструмент</string>
+    <string name="tool_management_deactivate_demo">Деактивувати демонстраційний інструмент</string>
     <string name="tool_management_active_tools_section">Активні інструменти (в реальному часі)</string>
     <string name="tool_management_no_active_tools">Немає активних інструментів.</string>
     <string name="tool_management_active_yes">Так</string>
     <string name="tool_management_active_no">Ні</string>
+
+    <!-- Прихований демонстраційний інструмент, яким керує цей приклад -->
+    <string name="tool_management_demo_tool_name">Демонстрація роботи з інструментами</string>
+    <string name="tool_management_demo_overlay_badge">Демонстраційний інструмент активний</string>
 </resources>

@@ -9,14 +9,15 @@ import vision.combat.c4.ds.sdk.tool.ToolParams
 
 /**
  * Demonstrates [vision.combat.c4.ds.sdk.tool.ToolManager] APIs:
- * activate, deactivate, isActive, activeTools, showComponent.
+ * activate, deactivate, isActive, activeTools.
  *
- * The sample targets the Map gallery tool ([vision.combat.c4.ds.sample.gallery.mapview.map.MapToolDescriptor])
- * so users can see tool management in action with a concrete example.
+ * The sample targets a dedicated hidden demo tool
+ * ([vision.combat.c4.ds.sample.gallery.toolmanagement.managed.DemoToolDescriptor]) whose only
+ * surface is a map overlay badge, so activating it visibly proves the tool is active without
+ * opening any panel window — the Tool Management window and its buttons stay usable throughout.
  *
  * SDK APIs: ToolManager.activate, ToolManager.deactivate, ToolManager.isActive,
- *           ToolManager.activeTools, ToolManager.showComponent,
- *           ToolManager.FLAG_COMPONENT_ON_TOP
+ *           ToolManager.activeTools
  *
  * SDK files:
  *   c4ds-sdk/src/main/kotlin/vision/combat/c4/ds/sdk/tool/ToolManager.kt

@@ -44,7 +44,7 @@ private fun ColumnScope.ToolManagementContent(
     )
 
     Text(
-        text = stringResource(R.string.tool_management_map_tool_section),
+        text = stringResource(R.string.tool_management_demo_tool_section),
         style = MaterialTheme.typography.subtitle1,
         color = MaterialTheme.colors.onSurface,
         modifier = Modifier.padding(bottom = 8.dp),
@@ -52,28 +52,22 @@ private fun ColumnScope.ToolManagementContent(
 
     Card(elevation = 2.dp, modifier = Modifier.padding(bottom = 12.dp)) {
         Text(
-            text = "${stringResource(R.string.tool_management_map_active)} ${if (uiState.isMapToolActive) stringResource(R.string.tool_management_active_yes) else stringResource(R.string.tool_management_active_no)}",
+            text = "${stringResource(R.string.tool_management_demo_active)} ${if (uiState.isDemoToolActive) stringResource(R.string.tool_management_active_yes) else stringResource(R.string.tool_management_active_no)}",
             style = MaterialTheme.typography.body1,
             modifier = Modifier.padding(16.dp),
         )
     }
 
     Button(
-        label = stringResource(R.string.tool_management_activate_map),
-        onClick = viewModel::activateMapTool,
-        enabled = !uiState.isMapToolActive,
+        label = stringResource(R.string.tool_management_activate_demo),
+        onClick = viewModel::activateDemoTool,
+        enabled = !uiState.isDemoToolActive,
     )
     Spacer(modifier = Modifier.height(8.dp))
     OutlinedButton(
-        label = stringResource(R.string.tool_management_deactivate_map),
-        onClick = viewModel::deactivateMapTool,
-        enabled = uiState.isMapToolActive,
-    )
-    Spacer(modifier = Modifier.height(8.dp))
-    OutlinedButton(
-        label = stringResource(R.string.tool_management_show_map_window),
-        onClick = viewModel::showMapWindow,
-        enabled = uiState.isMapToolActive,
+        label = stringResource(R.string.tool_management_deactivate_demo),
+        onClick = viewModel::deactivateDemoTool,
+        enabled = uiState.isDemoToolActive,
     )
 
     Divider(modifier = Modifier.padding(vertical = 16.dp))
