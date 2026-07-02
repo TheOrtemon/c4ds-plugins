@@ -30,4 +30,3 @@ class DialogToolDescriptor(toolContext: ToolContext) : ToolDescriptor(toolContex
         return DialogTool(toolContext, this, di, params)
     }
 }
-

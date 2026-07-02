@@ -30,4 +30,3 @@ class NativeToolDescriptor(toolContext: ToolContext) : ToolDescriptor(toolContex
         return NativeTool(toolContext, this, di, params)
     }
 }
-

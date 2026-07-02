@@ -27,4 +27,3 @@ class MapToolDescriptor(toolContext: ToolContext) : ToolDescriptor(toolContext) 
         return MapTool(toolContext, this, di, params)
     }
 }
-

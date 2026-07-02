@@ -32,4 +32,3 @@ internal object IsolationNative {
      */
     external fun nativeVersion(): String
 }
-

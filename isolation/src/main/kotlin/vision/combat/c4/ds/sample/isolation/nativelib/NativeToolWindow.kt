@@ -86,4 +86,3 @@ private fun ResultCard(label: String, value: String, proof: String? = null) {
         }
     }
 }
-

@@ -26,4 +26,3 @@ class StatusToolDescriptor(toolContext: ToolContext) : ToolDescriptor(toolContex
         return StatusTool(toolContext, this, di, params)
     }
 }
-

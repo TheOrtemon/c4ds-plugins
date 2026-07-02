@@ -28,4 +28,3 @@ class ExpandableStatusToolDescriptor(toolContext: ToolContext) : ToolDescriptor(
         return ExpandableStatusTool(toolContext, this, di, params)
     }
 }
-

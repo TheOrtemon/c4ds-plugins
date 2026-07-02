@@ -15,4 +15,3 @@ internal fun MapStatusBar(lastTap: StateFlow<String?>) {
     Text(text = if (tap != null) "${stringResource(R.string.map_last_tap)} $tap"
                 else stringResource(R.string.map_status_tap_hint))
 }
-

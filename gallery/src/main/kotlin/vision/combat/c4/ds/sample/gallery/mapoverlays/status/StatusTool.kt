@@ -25,4 +25,3 @@ internal class StatusTool(
         StatusBar()
     }
 }
-
