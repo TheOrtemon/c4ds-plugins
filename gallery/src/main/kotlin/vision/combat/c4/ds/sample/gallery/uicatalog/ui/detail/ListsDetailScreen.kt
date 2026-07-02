@@ -46,7 +46,7 @@ internal fun ListsDetailScreen() {
         endMenuItems = { _, _ ->
             DeleteMenuButton(onClick = {})
         },
-    ) { _, item ->
+    ) { index, item ->
         ListItem(
             headline = {
                 Text(
@@ -56,6 +56,7 @@ internal fun ListsDetailScreen() {
                 )
             },
             onItemClick = {},
+            showDivider = index != items.lastIndex,
         )
     }
 }

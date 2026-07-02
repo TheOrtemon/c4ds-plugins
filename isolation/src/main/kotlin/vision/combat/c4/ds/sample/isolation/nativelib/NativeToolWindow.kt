@@ -81,7 +81,7 @@ private fun ResultCard(label: String, value: String, proof: String? = null) {
                 text = proof,
                 style = MaterialTheme.typography.caption,
                 color = MaterialTheme.colors.onSurface,
-                modifier = Modifier.padding(top = 4.dp),
+                modifier = Modifier.padding(top = 8.dp),
             )
         }
     }

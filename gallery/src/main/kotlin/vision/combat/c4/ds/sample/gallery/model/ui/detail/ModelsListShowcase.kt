@@ -62,8 +62,12 @@ internal fun ModelsListShowcase(viewModel: ModelsListViewModel = diViewModel()) 
         endMenuItems = { _, model ->
             DeleteMenuButton(onClick = { viewModel.delete(model) })
         },
-    ) { _, model ->
-        ModelRow(model = model, onClick = { viewModel.select(model) })
+    ) { index, model ->
+        ModelRow(
+            model = model,
+            onClick = { viewModel.select(model) },
+            showDivider = index != state.models.lastIndex,
+        )
     }
 }
 

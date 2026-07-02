@@ -3,7 +3,7 @@ package vision.combat.c4.ds.sample.gallery.storage.ui.list
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -31,10 +31,11 @@ internal fun StorageShowcaseListScreen(
         },
         content = {
             LazyColumn(modifier = Modifier.fillMaxSize()) {
-                items(StorageShowcase.entries, key = { it.name }) { showcase ->
+                itemsIndexed(StorageShowcase.entries, key = { _, showcase -> showcase.name }) { index, showcase ->
                     ShowcaseListItem(
                         showcase = showcase,
                         onClick = { onNavigateToDetail(showcase) },
+                        showDivider = index != StorageShowcase.entries.lastIndex,
                     )
                 }
             }
@@ -46,6 +47,7 @@ internal fun StorageShowcaseListScreen(
 private fun ShowcaseListItem(
     showcase: StorageShowcase,
     onClick: () -> Unit,
+    showDivider: Boolean = true,
 ) {
     ListItem(
         headline = {
@@ -64,5 +66,6 @@ private fun ShowcaseListItem(
             )
         },
         onItemClick = onClick,
+        showDivider = showDivider,
     )
 }

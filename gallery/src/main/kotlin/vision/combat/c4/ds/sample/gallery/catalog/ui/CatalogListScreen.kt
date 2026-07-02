@@ -4,7 +4,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -73,7 +73,8 @@ internal fun CatalogCategoryListScreen(
         },
         content = {
             LazyColumn(modifier = Modifier.fillMaxSize()) {
-                items(sectionsWithEntries, key = { it.name }) { section ->
+                itemsIndexed(sectionsWithEntries, key = { _, section -> section.name }) { index, section ->
+                    val isLast = index == sectionsWithEntries.lastIndex
                     val sectionEntries = entriesBySection[section].orEmpty()
                     if (sectionEntries.size == 1) {
                         val singleEntry = sectionEntries.first()
@@ -84,11 +85,13 @@ internal fun CatalogCategoryListScreen(
                             toolManager = toolManager,
                             onAction = viewModel::handleAction,
                             onDetails = { onNavigateToDetail(singleEntry) },
+                            showDivider = !isLast,
                         )
                     } else {
                         SectionCard(
                             section = section,
                             onClick = { onNavigateToCategory(section) },
+                            showDivider = !isLast,
                         )
                     }
                 }
@@ -101,6 +104,7 @@ internal fun CatalogCategoryListScreen(
 private fun SectionCard(
     section: CatalogSection,
     onClick: () -> Unit,
+    showDivider: Boolean = true,
 ) {
     ListItem(
         headline = {
@@ -136,6 +140,7 @@ private fun SectionCard(
                 modifier = Modifier.size(24.dp),
             )
         },
+        showDivider = showDivider,
     )
 }
 
@@ -147,6 +152,7 @@ private fun SingleEntrySectionCard(
     toolManager: ToolManager,
     onAction: (Action) -> Unit,
     onDetails: () -> Unit,
+    showDivider: Boolean = true,
 ) {
     val isActive = entry.toolClassName in activeClassNames
 
@@ -197,6 +203,7 @@ private fun SingleEntrySectionCard(
                 tint = MaterialTheme.colors.onSurface,
             )
         },
+        showDivider = showDivider,
     )
 }
 
@@ -221,13 +228,14 @@ internal fun CatalogCategoryDetailScreen(
         },
         content = {
             LazyColumn(modifier = Modifier.fillMaxSize()) {
-                items(sectionEntries, key = { "entry_${it.name}" }) { entry ->
+                itemsIndexed(sectionEntries, key = { _, entry -> "entry_${entry.name}" }) { index, entry ->
                     SampleListItem(
                         entry = entry,
                         activeClassNames = uiState.activeClassNames,
                         toolManager = toolManager,
                         onAction = viewModel::handleAction,
                         onDetails = { onNavigateToDetail(entry) },
+                        showDivider = index != sectionEntries.lastIndex,
                     )
                 }
             }
@@ -257,6 +265,7 @@ internal fun SampleListItem(
     toolManager: ToolManager,
     onAction: (Action) -> Unit,
     onDetails: () -> Unit,
+    showDivider: Boolean = true,
 ) {
     val isActive = entry.toolClassName in activeClassNames
 
@@ -315,5 +324,6 @@ internal fun SampleListItem(
                 tint = MaterialTheme.colors.onSurface,
             )
         },
+        showDivider = showDivider,
     )
 }

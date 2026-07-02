@@ -52,6 +52,7 @@ internal fun ModelRow(
     model: BattlespaceConceptModel,
     onClick: (() -> Unit)? = null,
     canGoForward: Boolean = false,
+    showDivider: Boolean = true,
 ) {
     val hostility = Hostility.findByName(model.hostilityCode.name)
     val symbolPainter = rememberSymbolPainterOrNull(model.symbolKey, hostility)
@@ -103,6 +104,7 @@ internal fun ModelRow(
         },
         onItemClick = onClick,
         canGoForward = canGoForward,
+        showDivider = showDivider,
     )
 }
 
