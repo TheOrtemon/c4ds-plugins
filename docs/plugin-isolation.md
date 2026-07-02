@@ -1,5 +1,7 @@
 # Plugin isolation
 
+**[← README](../README.md)** · **[Getting started](getting-started.md)** · **[Samples guidebook](samples-catalog.md)**
+
 External tool APKs run in an isolated classloader with their own resources, assets, and native libraries. The host must not leak its own `AssetManager`, `Resources`, or `nativeLibraryDir` into plugin code.
 
 This repo exercises isolation through dedicated gallery samples and the separate `:isolation` APK. Use **external plugin APKs** for isolation testing — the bundled in-process `:c4ds-tool:template` runs on the host context and cannot validate plugin-only isolation.
@@ -199,5 +201,5 @@ Returns `null` if the other APK is not installed — disable UI accordingly (see
 
 ## Related documentation
 
-- [Samples catalog — Native / cross-APK](samples-catalog.md#native--cross-apk-isolation)
+- [Samples guidebook — Resources & Isolation](samples-catalog.md#section-12-resources-isolation)
 - [Getting started — integration](getting-started.md#integration-guide)

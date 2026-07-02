@@ -1,5 +1,7 @@
 # Getting started
 
+**[← README](../README.md)** · **[Samples guidebook](samples-catalog.md)** · **[Plugin isolation](plugin-isolation.md)**
+
 This guide covers prerequisites, Gradle setup, tool integration, and how to build and install the sample APKs from Android Studio.
 
 ---
@@ -216,4 +218,4 @@ After install, ComBat 4 refreshes the **Tools** list. You usually see changes im
 3. Browse samples by section; tap **Launch** or **Details** on any card.
 4. The **Native / Cross-APK** card is enabled only when `:isolation` is installed.
 
-See [Samples catalog](samples-catalog.md) for per-sample verification steps.
+See the [Samples guidebook](samples-catalog.md) for per-sample screenshots, SDK APIs, and verification steps.

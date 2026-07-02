@@ -12,29 +12,26 @@ Soldier (C4DS) tools** — 22 runnable samples across 12 categories, launched fr
 [![minSdk](https://img.shields.io/badge/minSdk-26-brightgreen)](gallery/build.gradle.kts)
 [![License](https://img.shields.io/badge/license-TBD-lightgrey)](#disclaimer)
 
-
 ---
 
 ## What this demonstrates
 
-- **Every tool component** the host exposes — `Overlay`, `Status`/`ExpandableStatus`, `Window`,
-  `MapWindow`, `Underlay`, and `EndBar` — each with a runnable, minimal sample.
+- **Every tool component** — `Overlay`, `Status`/`ExpandableStatus`, `Window`, `MapWindow`,
+  `Underlay`, and `EndBar` — each with a runnable, minimal sample.
 - **Domain interactors** (`CommonMapInteractor`, `CommonModelInteractor`,
   `CommonSessionStorageInteractor`, `CommonLocaleSettingsInteractor`) used the way a real tool would.
-- **Tool lifecycle & management** — `AbstractToolService`, `ToolManager` activation/deactivation,
-  `PanelManager` state, and session-scoped storage (files, `SharedPreferences`, Room).
-- **UI building blocks** — the promoted public SDK Compose component catalog (form fields, buttons,
-  inputs, selection, feedback, lists) plus all four `ToolDialog` variants.
-- **Plugin isolation** — per-APK `ClassLoader`, `R.string`/config-qualified resource resolution,
-  Material 2 composition fallback, native `.so` loading, and cross-APK tool activation.
-- **A single hub pattern** — one launcher-visible tool (`Sample Gallery`) that activates 21 other
-  hidden tools via `ToolManager`, so you can copy this pattern for multi-tool APKs.
+- **Tool lifecycle & management** — `AbstractToolService`, `ToolManager`, `PanelManager`, and
+  session-scoped storage (files, `SharedPreferences`, Room).
+- **UI building blocks** — the promoted public SDK Compose component catalog plus all four
+  `ToolDialog` variants.
+- **Plugin isolation** — per-APK `ClassLoader`, resource resolution, Material 2 composition
+  fallback, native `.so` loading, and cross-APK tool activation.
+- **A single hub pattern** — one launcher-visible tool activates 21 hidden tools via `ToolManager`;
+  copy it for multi-tool APKs.
 
 ---
 
 ## Quick start
-
-### Prerequisites
 
 | Item | Requirement |
 |---|---|
@@ -52,9 +49,7 @@ c4ds_sdk_username=<your-username>
 c4ds_sdk_password=<your-password>
 ```
 
-Full setup: **[Getting started → Gradle setup](docs/getting-started.md#gradle-setup)**
-
-### Build and install
+Build and install:
 
 ```bash
 ./gradlew :gallery:assembleRelease :isolation:assembleRelease
@@ -63,7 +58,7 @@ adb install -r isolation/build/outputs/apk/release/isolation-release.apk
 ```
 
 Neither APK declares an Activity. Install both, launch ComBat 4, then open **Sample Gallery** from
-the Tools list.
+the Tools list. Full setup: **[Getting started](docs/getting-started.md)**.
 
 ---
 
@@ -88,121 +83,32 @@ Details: **[Getting started → Tool screen layout](docs/getting-started.md#tool
 
 ## Sample catalog
 
-All 22 samples, grouped by the 12 catalog sections (in on-screen order). Registry source of truth:
+All 22 samples — with screenshots, SDK APIs, source paths, and verification steps — live in the
+**[Samples guidebook](docs/samples-catalog.md)**, one collapsible section per category in on-screen
+order. Registry source of truth:
 [`CatalogEntry.kt`](gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/catalog/ui/CatalogEntry.kt).
 
-| Section | Sample | Purpose | SDK APIs |
-|---|---|---|---|
-| Map View | Map | Handles map taps and draws a placemark on the tapped location using `AbstractMapTool` | `AbstractMapTool`, `onTerrainPicked`, `addRenderable`, `requestRedraw`, `ToolComponent.Status` |
-| Map View | Renderables | Draws WorldWind renderables — point, polyline, polygon, circle, label — on the map | `addRenderable`/`removeRenderable`, WorldWind `Placemark`/`Path`/`Polygon`/`Ellipse`/`Label`, `requestRedraw` |
-| Map View | Map Interactor | Live `CommonMapInteractor` readout: camera/lookAt, focus actions, display mode, cursor pin, geodetic corrections | `CommonMapInteractor`, `camera`, `lookAt`, `selectedPosition`, `mapDisplayMode`, `focusOnLocation`, `focusOnSector`, `getDeclination` |
-| Map Overlays | Overlay | `ToolComponent.Overlay` composable reading cursor position and user model | `ToolComponent.Overlay`, `CommonMapInteractor.selectedPosition`, `CommonModelInteractor.userModel`, `CommonLocaleSettingsInteractor` |
-| Map Overlays | Status | `ToolComponent.Status` with host coordinate/azimuth chrome flags | `ToolComponent.Status`, `shouldShowCoordinates`, `shouldShowAzimuth` |
-| Map Overlays | Expandable Status | `ToolComponent.ExpandableStatus` collapsible panel above or below the strip | `ToolComponent.ExpandableStatus`, `isExpanded`, `shouldShowAbove`, `EndBarToggleButton` |
-| Map Overlays | End Bar | Full EndBar API — action, toggle, and menu button with items and slider | `AbstractTool.endBar`, `EndBarActionButton`, `EndBarToggleButton`, `EndBarMenuButton`, `EndBarMenuScope.Checkable`, `EndBarMenuScope.Slider` |
-| Map Underlay | Map Underlay | Full-screen composable rendered behind the map; host enables AR map mode while active | `ToolComponent.Underlay`, `requiredComponent`, `AbstractTool.endBar`, `ToolManager.deactivate` |
-| Panel Windows | Single Screen Window | Minimal single-screen window with a ViewModel-backed counter (MVI + one-shot toast) | `ToolComponent.Window`, `WindowScaffold`, `BackNavTopAppBar`, `diViewModel()`, `showToast` |
-| Panel Windows | Multi Screen Window | Multi-screen window using `AppNavHost`, tool-scoped DI, and `SharedPreferences` | `AppNavHost`, `Route`, `BackNavTopAppBar`, `subDI`, `SharedPreferences` |
-| Panel Windows | Secondary Map Window | Embeds a secondary map inside a tool window via `ToolComponent.MapWindow` | `ToolComponent.MapWindow`, `MapView`, `MapController`, `MapWindow.mapEndBarButtons`, `MapWindow.focusCameraOn` |
-| Panel Management | Panel Management | Open (Half/Full) and close the panel; observe live `PanelState` via `StateFlow` | `PanelManager.openPanel`, `PanelManager.closePanel`, `PanelManager.panelState`, `PanelState.Opened.Half`, `PanelState.Opened.Full` |
-| Tool Management | Tool Management | Activate/deactivate/`isActive` against the Map sample; bring its window forward; observe `activeTools` | `ToolManager.activate`, `ToolManager.deactivate`, `ToolManager.isActive`, `ToolManager.activeTools`, `ToolManager.showComponent`, `ToolManager.FLAG_COMPONENT_ON_TOP` |
-| UI Components Catalog | UI Catalog | Navigable catalog of promoted public SDK components across form fields and six UI groups | `InlineMessage`, `HeaderField`, `ExpandableField`, `FormFieldBox`, `NestedForm`, `HostilitySelector`, Buttons, TopAppBar, Inputs, Selection, Feedback, Lists |
-| Tool Dialogs | Tool Dialogs | All four `ToolDialog` variants via `showDialog`/`dismissDialog` | `ToolDialog.Confirmation`, `.Destructive`, `.Info`, `.Custom`, `AbstractTool.showDialog`, `dismissDialog` |
-| Model Management | Model Management | `CommonModelInteractor` list, create/consume/commit, symbol keys, selection & events | `CommonModelInteractor`, `getAllModels`, `createModel`, `consumeModel`, `commitModel`, `selectModel`, `unselectModel`, `isReadOnly`, `rememberSymbolPainter` |
-| Data Management | Data Management | Isolated file I/O, plugin-scoped `SharedPreferences`, and an isolated Room database | `CommonSessionStorageInteractor`, `SharedPreferences`, Room, `Dispatchers.IO` |
-| Lifecycle & Services | Lifecycle & Services | Session `AbstractToolService` doing background work, unread badge, live lifecycle log | `ToolDescriptor.createService`, `AbstractToolService`, `ToolNotificationManager.counter`, `onComponentShown`/`onComponentHidden`/`onDestroyRequested` |
-| Resources & Isolation | Config-Qualified Resources | Locale (`values-uk`), night mode (`values-night`), plugin-compiled font, raw resource file | `stringResource`, `FontFamily(Font(R.font.*))`, `context.resources.openRawResource` |
-| Resources & Isolation | M2 Widgets & Popup Isolation | Plugin-compiled M2 widgets and popup context isolation across a Compose window boundary | M2 `Scaffold`, `SnackbarHost`, `Slider`, `DropdownMenu`, `ProvideWindowContext`, `ToolAlertDialog`, `CompositionFallbackContext` |
-| Resources & Isolation | R.string Collision | Plugin `R.string` values take priority over identically-named host strings | `CompositionFallbackContext`, `FallbackResources` |
-| Resources & Isolation | Native / Cross-APK (`:isolation`) | Per-APK classloader separation, native `.so` from plugin `nativeLibraryDir`, plugin-scoped `AssetManager` | `ToolContext.assets`, `System.loadLibrary`, `ToolManager.resolveToolId`, `ToolComponent.Window` |
-
-Per-sample verification steps: **[Samples catalog](docs/samples-catalog.md)**
+1. **[Map View](docs/samples-catalog.md#section-1-map-view)** — map taps, WorldWind renderables, and the `CommonMapInteractor` API · 3 samples
+2. **[Map Overlays](docs/samples-catalog.md#section-2-map-overlays)** — overlays, status bars, expandable status, and EndBar buttons · 4 samples
+3. **[Map Underlay](docs/samples-catalog.md#section-3-map-underlay)** — composables rendered behind the map layer in AR mode · 1 sample
+4. **[Panel Windows](docs/samples-catalog.md#section-4-panel-windows)** — single-screen, multi-screen, and secondary-map panel windows · 3 samples
+5. **[Panel Management](docs/samples-catalog.md#section-5-panel-management)** — open, close, and observe panel state via `PanelManager` · 1 sample
+6. **[UI Components Catalog](docs/samples-catalog.md#section-6-ui-components-catalog)** — promoted public SDK components: form fields, buttons, inputs, and more · 1 sample
+7. **[Tool Dialogs](docs/samples-catalog.md#section-7-tool-dialogs)** — `ToolDialog` variants: Confirmation, Destructive, Info, and Custom · 1 sample
+8. **[Tool Management](docs/samples-catalog.md#section-8-tool-management)** — activate, deactivate, and inspect tools via `ToolManager` · 1 sample
+9. **[Model Management](docs/samples-catalog.md#section-9-model-management)** — `CommonModelInteractor` create/consume/commit, symbol keys, and selection events · 1 sample
+10. **[Data Management](docs/samples-catalog.md#section-10-data-management)** — isolated file I/O, plugin-scoped `SharedPreferences`, and Room · 1 sample
+11. **[Lifecycle & Services](docs/samples-catalog.md#section-11-lifecycle-services)** — a session `AbstractToolService`, unread badge, and live lifecycle log · 1 sample
+12. **[Resources & Isolation](docs/samples-catalog.md#section-12-resources-isolation)** — config-qualified resources, M2 widgets, `R.string` collision, and native/cross-APK · 4 samples
 
 ---
 
-## Screenshots
-
-| | |
-|---|---|
-| ![Sample Gallery hub](https://github.com/user-attachments/assets/96a43531-c47f-4c7c-b940-805a2da1bd80) **Sample Gallery hub** — 12 category cards, each with title, description, and icon. | ![UI Catalog](https://github.com/user-attachments/assets/91a18762-557b-47cb-bc64-4ad180b84873) **UI Components Catalog** — promoted public SDK form fields and widgets. |
-| ![Map renderables](https://github.com/user-attachments/assets/67294458-f48e-4b46-80d8-60d0ec2f7e00) **Map — Renderables** — WorldWind placemarks, paths, and polygons. | ![Window — Multi-Screen](https://github.com/user-attachments/assets/8f60b96a-3d0d-4319-92a7-fd27563df84d) **Window — Multi-Screen** — `AppNavHost` navigation with persisted settings. |
-| ![Tool Dialogs](https://github.com/user-attachments/assets/e353622a-7878-4893-acce-41dd57fde70e) **Tool Dialogs** — all four `ToolDialog` variants. | ![Lifecycle & Services](https://github.com/user-attachments/assets/6260361d-da14-4e0e-b6e2-b1f264532f77) **Lifecycle & Services** — session `AbstractToolService` with a live lifecycle log. |
-| ![Data Management](https://github.com/user-attachments/assets/bc66cc9e-575c-4f6a-985b-a43232b6b70e) **Data Management** — isolated file I/O, `SharedPreferences`, and Room. | ![Model Management](https://github.com/user-attachments/assets/688b9330-35ef-4829-a99a-fa15d413eca6) **Model Management** — `CommonModelInteractor` CRUD and selection. |
-
----
-
-## Architecture
-
-<details>
-<summary><strong>Module tree (click to expand)</strong></summary>
-
-```
-c4ds-tool-samples/
-├── gallery/                     # Main APK — Sample Gallery hub + 21 feature samples
-│   └── src/main/kotlin/vision/combat/c4/ds/sample/gallery/
-│       ├── catalog/             # Hub: CatalogSection, CatalogEntry, CatalogTool (launcher-visible)
-│       ├── mapview/
-│       │   ├── map/             # Map — AbstractMapTool, tap handling
-│       │   ├── renderable/      # Renderables — WorldWind primitives
-│       │   └── mapinteractor/   # Map Interactor — CommonMapInteractor
-│       ├── mapoverlays/
-│       │   ├── overlay/         # Overlay — ToolComponent.Overlay
-│       │   ├── status/          # Status — ToolComponent.Status
-│       │   ├── expandablestatus/# Expandable Status
-│       │   └── endbar/          # End Bar — EndBar button API
-│       ├── underlay/            # Map Underlay — ToolComponent.Underlay
-│       ├── window/
-│       │   ├── singlescreen/    # Single Screen Window
-│       │   ├── multiscreen/     # Multi Screen Window — AppNavHost, subDI
-│       │   └── map/             # Secondary Map Window — ToolComponent.MapWindow
-│       ├── panelstate/          # Panel Management — PanelManager
-│       ├── toolmanagement/      # Tool Management — ToolManager
-│       ├── uicatalog/           # UI Components Catalog
-│       ├── dialog/              # Tool Dialogs — ToolDialog variants
-│       ├── model/               # Model Management — CommonModelInteractor
-│       ├── storage/             # Data Management — files, SharedPreferences, Room
-│       ├── service/             # Lifecycle & Services — AbstractToolService
-│       └── resources/
-│           ├── config/          # Config-Qualified Resources
-│           ├── material/        # M2 Widgets & Popup Isolation
-│           └── collision/       # R.string Collision
-├── isolation/                   # Second APK — JNI + asset isolation (cross-APK activation)
-│   └── src/main/kotlin/vision/combat/c4/ds/sample/isolation/
-│       └── nativelib/           # Native / Cross-APK — NativeToolDescriptor
-└── docs/                        # Author documentation (this README links there)
-```
-
-Only **Sample Gallery** (`CatalogToolDescriptor`) appears in the host launcher. All other gallery
-tools use `categories = emptyList()` and launch from the hub via `ToolManager`.
-
-</details>
-
----
-
-## Tech stack
-
-| Layer | Choice |
-|---|---|
-| Language | Kotlin `2.4.0` |
-| UI | Jetpack Compose (K2 Compose compiler bundled with Kotlin `2.4.0`) |
-| Build | Android Gradle Plugin `9.2.1`, Gradle `9.5.1` |
-| SDK | `c4ds-sdk` / `c4ds-sdk-runtime` `0.5.0` |
-| DI | Kodein (`subDI`, `diViewModel()`) |
-| Persistence | Room `2.8.4`, `SharedPreferences`, plugin-scoped file storage |
-| Annotation processing | KSP `2.3.9` |
-| Native | NDK + CMake (`:isolation` only) |
-| Desugaring | `desugar_jdk_libs` `2.1.5` |
-| JVM target | 17 |
-| `minSdk` / `targetSdk` / `compileSdk` | 26 / 37 / 37 |
-
----
-
-## Docs & support
+## Documentation
 
 | Document | Contents |
 |---|---|
 | **[Getting started](docs/getting-started.md)** | Requirements, Gradle/Nexus setup, tool screen layout, integration steps, Android Studio run config |
-| **[Samples catalog](docs/samples-catalog.md)** | Every sample: purpose, SDK APIs, source paths, verification steps |
+| **[Samples guidebook](docs/samples-catalog.md)** | Every sample: screenshot, description, SDK APIs, source path, verification steps |
 | **[Plugin isolation](docs/plugin-isolation.md)** | Asset/JNI smoke tests, isolation cases (a–h), cross-APK activation |
 
 Questions or issues: [open an issue](https://github.com/ComBatVision/c4ds-tool-samples/issues) or
