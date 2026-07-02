@@ -13,13 +13,13 @@ The gallery uses a **3-level** navigation hierarchy:
 
 | Level | Screen | Description |
 |---|---|---|
-| 1 | **Category list** (root) | 11 category cards, each showing a title, description, and icon. Tap a card to drill into that category. |
+| 1 | **Category list** (root) | 12 category cards, each showing a title, description, and icon. Tap a card to drill into that category. |
 | 2 | **Category detail** | Filtered list of samples in the chosen category. Tap a sample row to activate/deactivate it; tap the **ⓘ** icon to see details. |
 | 3 | **Sample detail** | SDK APIs, source subpackage, and cross-APK install steps (where applicable). |
 
 | Action | Result |
 |---|---|
-| Open **Sample Gallery** from host Tools list | Category list with 11 section cards |
+| Open **Sample Gallery** from host Tools list | Category list with 12 section cards |
 | **Tap** a category card | Opens the category subscreen showing samples in that section |
 | **Tap** an inactive sample row | Activates that sample (`ToolManager.activate<T>(FLAG_COMPONENT_ON_TOP)`); name highlighted in accent color |
 | **Tap** an active sample row (accent color) | Deactivates that sample via `ToolManager.deactivate`; name returns to normal color |
@@ -40,8 +40,8 @@ Samples: MAP, RENDERABLE, MAP_INTERACTOR
 | | |
 |---|---|
 | **Purpose** | Map tap handling, renderable layers, status bar integration, info window |
-| **Descriptor** | `vision.combat.c4.ds.sample.gallery.map.MapToolDescriptor` |
-| **Source** | `gallery/.../map/` |
+| **Descriptor** | `vision.combat.c4.ds.sample.gallery.mapview.map.MapToolDescriptor` |
+| **Source** | `gallery/.../mapview/map/` |
 
 **SDK APIs:** `AbstractMapTool`, `RenderableLayer`, `SelectDragCallback`, map tap callbacks, `ToolComponent.Status`, `ToolComponent.Window`, `shouldShowCoordinates`, `shouldShowAzimuth`.
 
@@ -54,8 +54,8 @@ Samples: MAP, RENDERABLE, MAP_INTERACTOR
 | | |
 |---|---|
 | **Purpose** | Add/remove symbols, polylines, and polygons on the map with color/size customization |
-| **Descriptor** | `vision.combat.c4.ds.sample.gallery.renderable.RenderableSampleToolDescriptor` |
-| **Source** | `gallery/.../renderable/` |
+| **Descriptor** | `vision.combat.c4.ds.sample.gallery.mapview.renderable.RenderableToolDescriptor` |
+| **Source** | `gallery/.../mapview/renderable/` |
 
 **SDK APIs:** `RenderableLayer`, `addRenderable`, `removeAllRenderables`, `ToolComponent.Window`, `requiredComponent`, `WindowScaffold`.
 
@@ -68,8 +68,8 @@ Samples: MAP, RENDERABLE, MAP_INTERACTOR
 | | |
 |---|---|
 | **Purpose** | Live `CommonMapInteractor` readout and controls for camera, display mode, reticle, cursor, focus, and magnetic corrections |
-| **Descriptor** | `vision.combat.c4.ds.sample.gallery.mapinteractor.MapInteractorToolDescriptor` |
-| **Source** | `gallery/.../mapinteractor/` |
+| **Descriptor** | `vision.combat.c4.ds.sample.gallery.mapview.mapinteractor.MapInteractorToolDescriptor` |
+| **Source** | `gallery/.../mapview/mapinteractor/` |
 
 **SDK APIs:** `CommonMapInteractor`, `mapNavigatorEvent`, `camera`, `lookAt`, `selectedPosition`, `isLookAtAboveHorizon`, `mapDisplayMode`, `updateMapDisplayMode`, `arDistanceLimit`, `setArDistanceLimit`, `isReticleVisible`, `setReticleVisible`, `isCursorPinned`, `pinCursor`, `unpinCursor`, `isMapVisible`, `setMapVisible`, `focusOnLocation`, `focusOnSector`, `getDeclination`, `getConvergence`, `getAngleCorrection`. Also `CommonModelInteractor.userModel` for focus-on-user.
 
@@ -86,8 +86,8 @@ Samples: OVERLAY, STATUS, EXPANDABLE_STATUS, ENDBAR
 | | |
 |---|---|
 | **Purpose** | Map overlay composable with cursor position and user model |
-| **Descriptor** | `vision.combat.c4.ds.sample.gallery.overlay.OverlaySampleToolDescriptor` |
-| **Source** | `gallery/.../overlay/` |
+| **Descriptor** | `vision.combat.c4.ds.sample.gallery.mapoverlays.overlay.OverlayToolDescriptor` |
+| **Source** | `gallery/.../mapoverlays/overlay/` |
 
 **SDK APIs:** `ToolComponent.Overlay`, `CommonMapInteractor.selectedPosition`, `CommonModelInteractor.userModel`, `CommonLocaleSettingsInteractor.coordinateSystemFormat`.
 
@@ -100,8 +100,8 @@ Samples: OVERLAY, STATUS, EXPANDABLE_STATUS, ENDBAR
 | | |
 |---|---|
 | **Purpose** | Status bar with host coordinate/azimuth chrome flags |
-| **Descriptor** | `vision.combat.c4.ds.sample.gallery.status.StatusToolDescriptor` |
-| **Source** | `gallery/.../status/` |
+| **Descriptor** | `vision.combat.c4.ds.sample.gallery.mapoverlays.status.StatusToolDescriptor` |
+| **Source** | `gallery/.../mapoverlays/status/` |
 
 **SDK APIs:** `ToolComponent.Status`, `shouldShowCoordinates`, `shouldShowAzimuth`.
 
@@ -114,8 +114,8 @@ Samples: OVERLAY, STATUS, EXPANDABLE_STATUS, ENDBAR
 | | |
 |---|---|
 | **Purpose** | Collapsible status panel above or below the strip |
-| **Descriptor** | `vision.combat.c4.ds.sample.gallery.expandablestatus.ExpandableStatusToolDescriptor` |
-| **Source** | `gallery/.../expandablestatus/` |
+| **Descriptor** | `vision.combat.c4.ds.sample.gallery.mapoverlays.expandablestatus.ExpandableStatusToolDescriptor` |
+| **Source** | `gallery/.../mapoverlays/expandablestatus/` |
 
 **SDK APIs:** `ToolComponent.ExpandableStatus`, `isExpanded`, `shouldShowAbove`.
 
@@ -128,8 +128,8 @@ Samples: OVERLAY, STATUS, EXPANDABLE_STATUS, ENDBAR
 | | |
 |---|---|
 | **Purpose** | Action, toggle, and menu buttons on the map's EndBar (each with a distinct icon) |
-| **Descriptor** | `vision.combat.c4.ds.sample.gallery.endbar.EndBarSampleToolDescriptor` |
-| **Source** | `gallery/.../endbar/` |
+| **Descriptor** | `vision.combat.c4.ds.sample.gallery.mapoverlays.endbar.EndBarToolDescriptor` |
+| **Source** | `gallery/.../mapoverlays/endbar/` |
 
 **SDK APIs:** `AbstractTool.endBar`, `EndBarActionButton`, `EndBarToggleButton`, `EndBarMenuButton`, `EndBarMenuScope.Checkable`, `EndBarMenuScope.Slider`.
 
@@ -219,25 +219,7 @@ Samples: PANEL_STATE
 
 ---
 
-## Section 6 — Tool Management
-
-Samples: TOOL_MANAGEMENT
-
-### Tool Management (ToolManager)
-
-| | |
-|---|---|
-| **Purpose** | Activate, deactivate, check active state, and bring a tool window to front |
-| **Descriptor** | `vision.combat.c4.ds.sample.gallery.toolmanagement.ToolManagementToolDescriptor` |
-| **Source** | `gallery/.../toolmanagement/` |
-
-**SDK APIs:** `ToolManager.activate`, `ToolManager.deactivate`, `ToolManager.isActive`, `ToolManager.activeTools: StateFlow`, `ToolManager.showComponent`, `ToolManager.FLAG_COMPONENT_ON_TOP`.
-
-**Verify:** Activate Map tool → active list updates → **Show Map Window** brings Map window forward → deactivate Map tool → list updates again.
-
----
-
-## Section 7 — UI Components Catalog
+## Section 6 — UI Components Catalog
 
 Samples: UI_CATALOG
 
@@ -255,7 +237,7 @@ Samples: UI_CATALOG
 
 ---
 
-## Section 8 — Dialogs
+## Section 7 — Dialogs
 
 Samples: DIALOG
 
@@ -273,9 +255,27 @@ Samples: DIALOG
 
 ---
 
-## Section 9 — Data Management
+## Section 8 — Tool Management
 
-Samples: MODEL, STORAGE
+Samples: TOOL_MANAGEMENT
+
+### Tool Management (ToolManager)
+
+| | |
+|---|---|
+| **Purpose** | Activate, deactivate, check active state, and bring a tool window to front |
+| **Descriptor** | `vision.combat.c4.ds.sample.gallery.toolmanagement.ToolManagementToolDescriptor` |
+| **Source** | `gallery/.../toolmanagement/` |
+
+**SDK APIs:** `ToolManager.activate`, `ToolManager.deactivate`, `ToolManager.isActive`, `ToolManager.activeTools: StateFlow`, `ToolManager.showComponent`, `ToolManager.FLAG_COMPONENT_ON_TOP`.
+
+**Verify:** Activate Map tool → active list updates → **Show Map Window** brings Map window forward → deactivate Map tool → list updates again.
+
+---
+
+## Section 9 — Model Management
+
+Samples: MODEL
 
 ### Model (CommonModelInteractor)
 
@@ -291,6 +291,10 @@ Samples: MODEL, STORAGE
 
 ---
 
+## Section 10 — Data Management
+
+Samples: STORAGE
+
 ### Storage (CommonSessionStorageInteractor)
 
 | | |
@@ -305,7 +309,7 @@ Samples: MODEL, STORAGE
 
 ---
 
-## Section 10 — Lifecycle & Services
+## Section 11 — Lifecycle & Services
 
 Samples: SERVICE
 
@@ -323,7 +327,7 @@ Samples: SERVICE
 
 ---
 
-## Section 11 — Resources & Isolation
+## Section 12 — Resources & Isolation
 
 Samples: RESOURCES_CONFIG, RESOURCES_MATERIAL, RESOURCES_COLLISION, NATIVE_CROSS_APK
 

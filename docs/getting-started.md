@@ -11,14 +11,15 @@ To build and run these samples you need:
 1. **[ComBat 4 Dismounted Soldier](https://play.google.com/store/apps/details?id=vision.combat.c4.ds)** installed on a device or emulator.
 2. **Maven SDK repository access** — request credentials by writing to [support@combat.vision](mailto:support@combat.vision).
 3. **Matching SDK version** — this repo pins `c4ds-sdk` in [`gradle/libs.versions.toml`](../gradle/libs.versions.toml). Check [Nexus](https://nexus.combat.vision/#browse/browse:maven-sdk:vision%2Fcombat%2Fc4ds-sdk) for the latest release (login with the same credentials).
-4. **Binary-compatible toolchain** — use the same Kotlin and Compose versions as the host app:
+4. **Binary-compatible toolchain** — use the same Kotlin version as the host app:
 
    ```
    kotlin = "2.4.0"
-   compose = "1.11.2"
    ```
 
-   Mismatching these can cause subtle runtime failures in plugin UI.
+   Compose is provided by Kotlin's bundled K2 Compose compiler plugin (`org.jetbrains.kotlin.plugin.compose`);
+   this repo does not pin a separate Compose runtime version. Mismatching the Kotlin version can cause
+   subtle runtime failures in plugin UI.
 
 5. **NDK + CMake** — required only when building `:isolation` (native `.so` smoke test).
 

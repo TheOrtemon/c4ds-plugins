@@ -136,8 +136,8 @@ This validates descriptor re-registration and tool-scoped storage across package
 
 ### Case (g): EndBar Painter API
 
-**Sample:** End Bar (`EndBarSampleTool`)  
-**Source:** `gallery/.../endbar/`
+**Sample:** End Bar (`EndBarTool`)  
+**Source:** `gallery/.../mapoverlays/endbar/`
 
 **Verify:** End-bar buttons show plugin drawables loaded through `painterResource(R.drawable.*)` inside the `endBar { }` DSL. Icons must match plugin `res/drawable`, not host assets.
 
