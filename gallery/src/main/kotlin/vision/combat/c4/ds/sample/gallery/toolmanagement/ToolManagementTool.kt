@@ -13,12 +13,17 @@ import vision.combat.c4.ds.sdk.tool.requiredComponent
  * Minimal [AbstractTool] subclass that wires [ToolManagementWindow] as its single
  * [ToolComponent.Window].
  *
- * The window drives [vision.combat.c4.ds.sample.gallery.toolmanagement.managed.DemoToolDescriptor],
- * a dedicated hidden tool whose only surface is a
- * [vision.combat.c4.ds.sdk.tool.ToolComponent.Overlay]. Because an overlay renders over the shared
- * map rather than in the panel, [vision.combat.c4.ds.sdk.tool.ToolManager.activate] showing that
- * tool's required components never evicts this window — unlike a window-required tool, there is
- * no front-of-stack fight to work around here.
+ * The window drives two dedicated hidden tools:
+ * - [vision.combat.c4.ds.sample.gallery.toolmanagement.managed.DemoToolDescriptor], whose surfaces
+ *   are an [vision.combat.c4.ds.sdk.tool.ToolComponent.Overlay] and a
+ *   [vision.combat.c4.ds.sdk.tool.ToolComponent.Status] — rendering over/around the shared map
+ *   rather than in the panel, so activating it (or showing/hiding either component) never evicts
+ *   this window.
+ * - [vision.combat.c4.ds.sample.gallery.toolmanagement.managed.DemoWindowToolDescriptor], whose
+ *   surface is its own required [vision.combat.c4.ds.sdk.tool.ToolComponent.Window] — activating it
+ *   with [vision.combat.c4.ds.sdk.tool.ToolManager.Companion.FLAG_COMPONENT_ON_TOP] stacks it above
+ *   this window, while [vision.combat.c4.ds.sdk.tool.ToolManager.Companion.FLAG_NONE] replaces this
+ *   window in the stack — which, because this window is itself required, deactivates this tool.
  */
 internal class ToolManagementTool(
     toolContext: ToolContext,

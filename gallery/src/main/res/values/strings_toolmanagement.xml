@@ -2,9 +2,9 @@
 <resources>
     <!-- Tool Management sample -->
     <string name="tool_management_tool_name">Tool Management</string>
-    <string name="tool_management_desc">Demonstrates ToolManager: activate/deactivate/isActive against a hidden, overlay-only demo tool, and observe activeTools live.</string>
-    <string name="tool_management_apis">ToolManager.activate, ToolManager.deactivate, ToolManager.isActive, ToolManager.activeTools</string>
-    <string name="tool_management_explainer">Manage a hidden demo tool from here. It has no catalog entry and no window of its own — its only surface is a small badge overlaid on the shared map. Activate it, deactivate it, and watch the live active-tools list update in real time. Because the demo tool\'s required component is an overlay, not a window, activating it never covers this screen: this window and its buttons stay usable the whole time.</string>
+    <string name="tool_management_desc">Demonstrates ToolManager: activate/deactivate/isActive, per-component showComponent/hideComponent, and FLAG_COMPONENT_ON_TOP vs FLAG_NONE window activation.</string>
+    <string name="tool_management_apis">ToolManager.activate, ToolManager.deactivate, ToolManager.isActive, ToolManager.activeTools, ToolManager.showComponent, ToolManager.hideComponent</string>
+    <string name="tool_management_explainer">Manage a hidden demo tool from here. It has no catalog entry and no window of its own — its surfaces are a small badge and a status strip overlaid on the shared map. Activate it, deactivate it, and watch the live active-tools list update in real time. Because the demo tool\'s components are an overlay and a status strip, not a window, activating it never covers this screen: this window and its buttons stay usable the whole time.</string>
     <string name="tool_management_demo_tool_section">Demo Tool Control</string>
     <string name="tool_management_demo_active">Demo tool active:</string>
     <string name="tool_management_activate_demo">Activate Demo Tool</string>
@@ -14,7 +14,30 @@
     <string name="tool_management_active_yes">Yes</string>
     <string name="tool_management_active_no">No</string>
 
+    <!-- Example 1: component-level activation -->
+    <string name="tool_management_demo_components_section">Component Activation</string>
+    <string name="tool_management_demo_components_explainer">Show/hide the demo tool\'s overlay and status components individually via ToolManager.showComponent/hideComponent — distinct from activating or deactivating the whole tool above. Both buttons require the demo tool to be active first. Toggling one component never affects the other, and the demo tool stays active throughout.</string>
+    <string name="tool_management_show_demo_overlay">Show Overlay Badge</string>
+    <string name="tool_management_hide_demo_overlay">Hide Overlay Badge</string>
+    <string name="tool_management_show_demo_status">Show Status Strip</string>
+    <string name="tool_management_hide_demo_status">Hide Status Strip</string>
+    <string name="tool_management_demo_status_label">Demo status active</string>
+
+    <!-- Example 2: window activation flags -->
+    <string name="tool_management_window_flags_section">Window Activation Flags</string>
+    <string name="tool_management_window_flags_explainer">Activate a hidden demo window tool with two different flags. FLAG_COMPONENT_ON_TOP stacks its window on top of this one, so this Tool Management window stays in the stack underneath. FLAG_NONE clears the window stack instead — and because this window is a required component, that automatically deactivates Tool Management itself.</string>
+    <string name="tool_management_open_demo_on_top">Open Window (On Top / FLAG_COMPONENT_ON_TOP)</string>
+    <string name="tool_management_open_demo_replace">Open Window (Replace / FLAG_NONE)</string>
+    <string name="tool_management_window_flags_warning">Warning: the \"Replace\" button deactivates this Tool Management sample. FLAG_NONE clears the window stack, hiding this required window component — hiding a required component automatically deactivates its tool. Pressing Back afterwards returns to the root Tools list, not to this screen.</string>
+
     <!-- Hidden demo tool managed by this sample -->
     <string name="tool_management_demo_tool_name">Tool Management Demo</string>
     <string name="tool_management_demo_overlay_badge">Demo tool active</string>
+
+    <!-- Hidden demo window tool managed by this sample -->
+    <string name="tool_management_demo_window_name">Tool Management Demo Window</string>
+    <string name="tool_management_demo_window_title">Demo Window</string>
+    <string name="tool_management_demo_window_mode_on_top">Opened with FLAG_COMPONENT_ON_TOP: Tool Management stayed active underneath. Press Back to return to it.</string>
+    <string name="tool_management_demo_window_mode_replace">Opened with FLAG_NONE: this replaced Tool Management in the window stack.</string>
+    <string name="tool_management_demo_window_replace_warning">Tool Management has been deactivated as a result. Press Back to return to the root Tools list.</string>
 </resources>

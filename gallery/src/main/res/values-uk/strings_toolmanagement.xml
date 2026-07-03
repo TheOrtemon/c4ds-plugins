@@ -2,9 +2,9 @@
 <resources>
     <!-- Tool Management sample — Ukrainian -->
     <string name="tool_management_tool_name">Робота з інструментами</string>
-    <string name="tool_management_desc">Демонструє ToolManager: activate/deactivate/isActive для прихованого інструменту з єдиною поверхнею-накладенням та спостереження за activeTools в реальному часі.</string>
-    <string name="tool_management_apis">ToolManager.activate, ToolManager.deactivate, ToolManager.isActive, ToolManager.activeTools</string>
-    <string name="tool_management_explainer">Керуйте прихованим демонстраційним інструментом звідси. Він не має запису в каталозі й не має власного вікна — його єдина поверхня — невеликий значок поверх спільної карти. Активуйте його, деактивуйте та спостерігайте за оновленням списку активних інструментів у реальному часі. Оскільки обов’язковий компонент демонстраційного інструменту — це накладення («overlay»), а не вікно, його активація ніколи не перекриває цей екран: цей вікно та його кнопки залишаються доступними увесь час.</string>
+    <string name="tool_management_desc">Демонструє ToolManager: activate/deactivate/isActive, показ/приховування окремих компонентів через showComponent/hideComponent та порівняння FLAG_COMPONENT_ON_TOP і FLAG_NONE при активації вікна.</string>
+    <string name="tool_management_apis">ToolManager.activate, ToolManager.deactivate, ToolManager.isActive, ToolManager.activeTools, ToolManager.showComponent, ToolManager.hideComponent</string>
+    <string name="tool_management_explainer">Керуйте прихованим демонстраційним інструментом звідси. Він не має запису в каталозі й не має власного вікна — його поверхні: невеликий значок і рядок стану поверх спільної карти. Активуйте його, деактивуйте та спостерігайте за оновленням списку активних інструментів у реальному часі. Оскільки компоненти демонстраційного інструменту — це накладення та рядок стану, а не вікно, його активація ніколи не перекриває цей екран: це вікно та його кнопки залишаються доступними увесь час.</string>
     <string name="tool_management_demo_tool_section">Керування демонстраційним інструментом</string>
     <string name="tool_management_demo_active">Демонстраційний інструмент активний:</string>
     <string name="tool_management_activate_demo">Активувати демонстраційний інструмент</string>
@@ -14,7 +14,30 @@
     <string name="tool_management_active_yes">Так</string>
     <string name="tool_management_active_no">Ні</string>
 
+    <!-- Приклад 1: активація на рівні компонента -->
+    <string name="tool_management_demo_components_section">Активація компонентів</string>
+    <string name="tool_management_demo_components_explainer">Показуйте та приховуйте значок-накладення й рядок стану демонстраційного інструменту окремо через ToolManager.showComponent/hideComponent — на відміну від активації чи деактивації всього інструменту вище. Обидві кнопки потребують, щоб демонстраційний інструмент був спочатку активований. Перемикання одного компонента ніколи не впливає на інший, і демонстраційний інструмент залишається активним увесь час.</string>
+    <string name="tool_management_show_demo_overlay">Показати значок накладення</string>
+    <string name="tool_management_hide_demo_overlay">Приховати значок накладення</string>
+    <string name="tool_management_show_demo_status">Показати рядок стану</string>
+    <string name="tool_management_hide_demo_status">Приховати рядок стану</string>
+    <string name="tool_management_demo_status_label">Демонстраційний статус активний</string>
+
+    <!-- Приклад 2: прапори активації вікна -->
+    <string name="tool_management_window_flags_section">Прапори активації вікна</string>
+    <string name="tool_management_window_flags_explainer">Активуйте прихований демонстраційний віконний інструмент із двома різними прапорами. FLAG_COMPONENT_ON_TOP накладає його вікно поверх цього, тож вікно «Робота з інструментами» залишається в стеку під ним. FLAG_NONE натомість очищує стек вікон — і оскільки це вікно є обов\'язковим компонентом, це автоматично деактивує сам інструмент «Робота з інструментами».</string>
+    <string name="tool_management_open_demo_on_top">Відкрити вікно (зверху / FLAG_COMPONENT_ON_TOP)</string>
+    <string name="tool_management_open_demo_replace">Відкрити вікно (замінити / FLAG_NONE)</string>
+    <string name="tool_management_window_flags_warning">Увага: кнопка «Замінити» деактивує цей приклад «Робота з інструментами». FLAG_NONE очищує стек вікон, приховуючи цей обов\'язковий компонент вікна — приховування обов\'язкового компонента автоматично деактивує його інструмент. Натискання «Назад» після цього поверне до кореневого списку інструментів, а не до цього екрана.</string>
+
     <!-- Прихований демонстраційний інструмент, яким керує цей приклад -->
     <string name="tool_management_demo_tool_name">Демонстрація роботи з інструментами</string>
     <string name="tool_management_demo_overlay_badge">Демонстраційний інструмент активний</string>
+
+    <!-- Прихований демонстраційний віконний інструмент, яким керує цей приклад -->
+    <string name="tool_management_demo_window_name">Демо-вікно роботи з інструментами</string>
+    <string name="tool_management_demo_window_title">Демо-вікно</string>
+    <string name="tool_management_demo_window_mode_on_top">Відкрито з FLAG_COMPONENT_ON_TOP: «Робота з інструментами» залишилась активною під ним. Натисніть «Назад», щоб повернутися до неї.</string>
+    <string name="tool_management_demo_window_mode_replace">Відкрито з FLAG_NONE: це замінило «Робота з інструментами» у стеку вікон.</string>
+    <string name="tool_management_demo_window_replace_warning">Внаслідок цього «Робота з інструментами» деактивовано. Натисніть «Назад», щоб повернутися до кореневого списку інструментів.</string>
 </resources>

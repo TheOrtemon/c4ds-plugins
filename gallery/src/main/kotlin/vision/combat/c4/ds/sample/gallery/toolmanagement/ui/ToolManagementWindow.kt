@@ -73,6 +73,86 @@ private fun ColumnScope.ToolManagementContent(
     Divider(modifier = Modifier.padding(vertical = 16.dp))
 
     Text(
+        text = stringResource(R.string.tool_management_demo_components_section),
+        style = MaterialTheme.typography.subtitle1,
+        color = MaterialTheme.colors.onSurface,
+        modifier = Modifier.padding(bottom = 8.dp),
+    )
+
+    Text(
+        text = stringResource(R.string.tool_management_demo_components_explainer),
+        style = MaterialTheme.typography.body2,
+        color = MaterialTheme.colors.onSurface,
+        modifier = Modifier.padding(bottom = 12.dp),
+    )
+
+    Button(
+        label = stringResource(R.string.tool_management_show_demo_overlay),
+        onClick = viewModel::showDemoOverlay,
+        enabled = uiState.isDemoToolActive && !uiState.isDemoOverlayShown,
+    )
+    Spacer(modifier = Modifier.height(4.dp))
+    OutlinedButton(
+        label = stringResource(R.string.tool_management_hide_demo_overlay),
+        onClick = viewModel::hideDemoOverlay,
+        enabled = uiState.isDemoToolActive && uiState.isDemoOverlayShown,
+    )
+
+    Spacer(modifier = Modifier.height(12.dp))
+
+    Button(
+        label = stringResource(R.string.tool_management_show_demo_status),
+        onClick = viewModel::showDemoStatus,
+        enabled = uiState.isDemoToolActive && !uiState.isDemoStatusShown,
+    )
+    Spacer(modifier = Modifier.height(4.dp))
+    OutlinedButton(
+        label = stringResource(R.string.tool_management_hide_demo_status),
+        onClick = viewModel::hideDemoStatus,
+        enabled = uiState.isDemoToolActive && uiState.isDemoStatusShown,
+    )
+
+    Divider(modifier = Modifier.padding(vertical = 16.dp))
+
+    Text(
+        text = stringResource(R.string.tool_management_window_flags_section),
+        style = MaterialTheme.typography.subtitle1,
+        color = MaterialTheme.colors.onSurface,
+        modifier = Modifier.padding(bottom = 8.dp),
+    )
+
+    Text(
+        text = stringResource(R.string.tool_management_window_flags_explainer),
+        style = MaterialTheme.typography.body2,
+        color = MaterialTheme.colors.onSurface,
+        modifier = Modifier.padding(bottom = 12.dp),
+    )
+
+    Button(
+        label = stringResource(R.string.tool_management_open_demo_on_top),
+        onClick = viewModel::openDemoWindowOnTop,
+        enabled = !uiState.isDemoWindowToolActive,
+    )
+    Spacer(modifier = Modifier.height(8.dp))
+    Button(
+        label = stringResource(R.string.tool_management_open_demo_replace),
+        onClick = viewModel::openDemoWindowReplace,
+        enabled = !uiState.isDemoWindowToolActive,
+    )
+
+    Spacer(modifier = Modifier.height(12.dp))
+
+    Card(elevation = 1.dp, modifier = Modifier.padding(bottom = 8.dp)) {
+        Text(
+            text = stringResource(R.string.tool_management_window_flags_warning),
+            style = MaterialTheme.typography.caption,
+            modifier = Modifier.padding(12.dp),
+        )
+    }
+
+    Divider(modifier = Modifier.padding(vertical = 16.dp))
+
+    Text(
         text = stringResource(R.string.tool_management_active_tools_section),
         style = MaterialTheme.typography.subtitle1,
         color = MaterialTheme.colors.onSurface,

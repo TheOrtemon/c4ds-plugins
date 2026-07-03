@@ -141,9 +141,6 @@ class WindowSingleScreenToolDescriptor(toolContext: ToolContext) : ToolDescripto
     override val nameResId: Int = R.string.window_single_screen_tool_name
     override val iconResId: Int = R.drawable.ic_window
 
-    // Gallery samples hide from the host launcher; only the hub uses CATEGORY_LAUNCHER.
-    override val categories: List<String> = emptyList()
-
     override fun createTool(
         toolContext: ToolContext,
         di: DI,
