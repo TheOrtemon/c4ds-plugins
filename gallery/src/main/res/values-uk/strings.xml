@@ -156,6 +156,7 @@
     <string name="service_tool_name">Lifecycle &amp; Services</string>
     <string name="service_desc">Сеансовий AbstractToolService виконує фонову роботу всю сесію — навіть коли це вікно закрите — і показує значок непрочитаного на елементі списку інструментів. Вікно також веде журнал викликів життєвого циклу інструмента.</string>
     <string name="service_apis">ToolDescriptor.createService, AbstractToolService, ToolNotificationManager.counter, AbstractTool.onComponentShown/onComponentHidden/onDestroyRequested</string>
+    <string name="service_service_description">Оновлює значок непрочитаних на картці інструмента, поки інструмент закритий; зупинка служби заморожує значок.</string>
 
     <!-- Картка стану служби -->
     <string name="service_running">Сеансова служба: активна</string>

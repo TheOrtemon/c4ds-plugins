@@ -29,6 +29,8 @@ class ServiceToolDescriptor(toolContext: ToolContext) : ToolDescriptor(toolConte
     override val iconResId: Int = R.drawable.ic_service
     override val categories: List<String> = emptyList()
 
+    override val serviceDescriptionResId = R.string.service_service_description
+
     override fun createTool(toolContext: ToolContext, di: DI, params: ToolParams?): AbstractTool {
         return ServiceTool(toolContext, this, di, params)
     }

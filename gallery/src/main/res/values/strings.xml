@@ -156,6 +156,7 @@
     <string name="service_tool_name">Lifecycle &amp; Services</string>
     <string name="service_desc">A session-scoped AbstractToolService does background work all session — even while this window is closed — and posts an unread badge on the tool list item. The window also logs the tool lifecycle callbacks as they fire.</string>
     <string name="service_apis">ToolDescriptor.createService, AbstractToolService, ToolNotificationManager.counter, AbstractTool.onComponentShown/onComponentHidden/onDestroyRequested</string>
+    <string name="service_service_description">Keeps an unread-message badge updated on the tool card while the tool is closed; stopping it freezes the badge.</string>
 
     <!-- Service status card -->
     <string name="service_running">Session service: active</string>
