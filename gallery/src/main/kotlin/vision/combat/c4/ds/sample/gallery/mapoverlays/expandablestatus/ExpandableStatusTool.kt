@@ -14,7 +14,10 @@ import vision.combat.c4.ds.sdk.tool.endBar
 import vision.combat.c4.ds.sdk.tool.expandableStatusComponent
 import vision.combat.c4.ds.sdk.ui.component.bar.endbar.EndBarToggleButton
 
-/** Minimal [AbstractTool] subclass wiring [ExpandableStatusContent] + an end-bar toggle button. */
+/**
+ * Minimal [AbstractTool] subclass wiring [ExpandableStatusContent] as the required status
+ * component + an end-bar toggle button.
+ */
 internal class ExpandableStatusTool(
     toolContext: ToolContext,
     toolDescriptor: ToolDescriptor,
@@ -23,6 +26,7 @@ internal class ExpandableStatusTool(
 ) : AbstractTool(toolContext, toolDescriptor, parentDI, params) {
 
     override val expandableStatus: ToolComponent.ExpandableStatus by expandableStatusComponent(
+        isRequired = { true },
         isDefault = true,
         isExpanded = false,
         shouldShowAbove = false,

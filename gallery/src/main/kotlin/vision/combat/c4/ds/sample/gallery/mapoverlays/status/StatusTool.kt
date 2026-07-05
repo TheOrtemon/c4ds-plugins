@@ -7,9 +7,9 @@ import vision.combat.c4.ds.sdk.tool.ToolComponent
 import vision.combat.c4.ds.sdk.tool.ToolContext
 import vision.combat.c4.ds.sdk.tool.ToolDescriptor
 import vision.combat.c4.ds.sdk.tool.ToolParams
-import vision.combat.c4.ds.sdk.tool.statusComponent
+import vision.combat.c4.ds.sdk.tool.requiredStatusComponent
 
-/** Minimal [AbstractTool] subclass wiring [StatusBar] as the default status component. */
+/** Minimal [AbstractTool] subclass wiring [StatusBar] as the required status component. */
 internal class StatusTool(
     toolContext: ToolContext,
     toolDescriptor: ToolDescriptor,
@@ -17,7 +17,7 @@ internal class StatusTool(
     params: ToolParams?,
 ) : AbstractTool(toolContext, toolDescriptor, parentDI, params) {
 
-    override val status: ToolComponent.Status by statusComponent(
+    override val status: ToolComponent.Status by requiredStatusComponent(
         isDefault = true,
         shouldShowCoordinates = true,
         shouldShowAzimuth = true,
