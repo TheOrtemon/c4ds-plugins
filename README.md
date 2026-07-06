@@ -3,7 +3,7 @@
 <img width="1000" alt="Sample Gallery hub in ComBat 4" src="https://github.com/user-attachments/assets/bf1b3f82-b4e5-46ed-bfe9-7cb2cdddd0f1" />
 
 **A copy-pasteable reference for every public SDK surface exposed to external ComBat 4 Dismounted
-Soldier (C4DS) tools** — 22 runnable samples across 12 categories, launched from an in-app
+Soldier (C4DS) tools** — 24 runnable samples across 13 categories, launched from an in-app
 **Sample Gallery** hub.
 
 [![Kotlin](https://img.shields.io/badge/Kotlin-2.4.0-7F52FF?logo=kotlin)](gradle/libs.versions.toml)
@@ -83,13 +83,13 @@ Details: **[Getting started → Tool screen layout](docs/guides/getting-started.
 
 ## Sample catalog
 
-All 22 samples — with screenshots, SDK APIs, source paths, and verification steps — live in the
+All 24 samples — with screenshots, SDK APIs, source paths, and verification steps — live in the
 **[Samples guidebook](docs/guides/samples-catalog.md)**, one collapsible section per category in on-screen
 order. Registry source of truth:
 [`CatalogEntry.kt`](gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/catalog/ui/CatalogEntry.kt).
 
 1. **[Map View](docs/guides/samples-catalog.md#section-1-map-view)** — map taps, WorldWind renderables, and the `CommonMapInteractor` API · 3 samples
-2. **[Map Overlays](docs/guides/samples-catalog.md#section-2-map-overlays)** — overlays, status bars, expandable status, and EndBar buttons · 4 samples
+2. **[Map Overlays](docs/guides/samples-catalog.md#section-2-map-overlays)** — overlays, status bars, expandable status, EndBar buttons, and default-overlay replace/restore · 5 samples
 3. **[Map Underlay](docs/guides/samples-catalog.md#section-3-map-underlay)** — composables rendered behind the map layer in AR mode · 1 sample
 4. **[Panel Windows](docs/guides/samples-catalog.md#section-4-panel-windows)** — single-screen, multi-screen, and secondary-map panel windows · 3 samples
 5. **[Panel Management](docs/guides/samples-catalog.md#section-5-panel-management)** — open, close, and observe panel state via `PanelManager` · 1 sample
@@ -100,6 +100,7 @@ order. Registry source of truth:
 10. **[Data Management](docs/guides/samples-catalog.md#section-10-data-management)** — isolated file I/O, plugin-scoped `SharedPreferences`, and Room · 1 sample
 11. **[Lifecycle & Services](docs/guides/samples-catalog.md#section-11-lifecycle-services)** — a session `AbstractToolService`, unread badge, and live lifecycle log · 1 sample
 12. **[Resources & Isolation](docs/guides/samples-catalog.md#section-12-resources-isolation)** — config-qualified resources, M2 widgets, `R.string` collision, and native/cross-APK · 4 samples
+13. **[Architecture](docs/guides/samples-catalog.md#section-13-architecture)** — a multi-module tool (domain/data/app) launched from the hub via cross-APK activation · 1 sample
 
 ---
 
