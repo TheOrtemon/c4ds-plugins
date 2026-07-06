@@ -44,7 +44,7 @@ Build and install both APKs, then launch **Native / Cross-APK** from Sample Gall
 [JNI SMOKE] FAILED to load libisolation_jni.so — check nativeLibraryDir wiring
 ```
 
-The host's plugin package loader passes `nativeLibraryDir` as `libPath` to `PathClassLoader`, so `System.loadLibrary` finds the unpacked `.so` when `android:extractNativeLibs="true"` is set in the plugin manifest.
+The host's plugin package loader passes `nativeLibraryDir` as `libPath` to `PathClassLoader`, so `System.loadLibrary` finds the unpacked `.so` — which is extracted on install when `jniLibs.useLegacyPackaging = true` is set in `build.gradle.kts` (the AGP 8+ replacement for the deprecated `android:extractNativeLibs` manifest attribute).
 
 ### Window UI
 
@@ -184,7 +184,7 @@ toolContext.assets.open("your/path/file.txt").use { stream ->
 1. Add NDK + CMake to your module's `build.gradle.kts` (see `:isolation` for template).
 2. Place JNI sources under `src/main/cpp/`.
 3. Load with `System.loadLibrary("your_lib")` — no absolute path needed when host wiring is correct.
-4. Set `android:extractNativeLibs="true"` in the plugin manifest if required for your target SDK.
+4. Set `jniLibs.useLegacyPackaging = true` in `build.gradle.kts` so the `.so` is extracted on install — the AGP 8+ replacement for the deprecated `android:extractNativeLibs` manifest attribute (see `:isolation` for the template).
 
 ### Cross-APK activation from another plugin
 

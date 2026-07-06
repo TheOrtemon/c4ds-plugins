@@ -2,7 +2,7 @@
 
 **[← README](../../README.md)** · **[Getting started](getting-started.md)** · **[Plugin isolation](plugin-isolation.md)**
 
-The developer guidebook for this repository: every sample with a screenshot, description, SDK APIs,
+The developer guidebook for this repository: all 24 samples with a screenshot, description, SDK APIs,
 source path, and verification steps — grouped by the 13 catalog sections in on-screen order. Each
 section below is collapsible; expand the ones you are extending.
 
@@ -56,7 +56,7 @@ Registry implementation: [`CatalogEntry.kt`](../../gallery/src/main/kotlin/visio
 
 ```
 c4ds-tool-samples/
-├── gallery/                     # Main APK — Sample Gallery hub + 21 feature samples
+├── gallery/                     # Main APK — Sample Gallery hub + 22 feature samples
 │   └── src/main/kotlin/vision/combat/c4/ds/sample/gallery/
 │       ├── catalog/             # Hub: CatalogSection, CatalogEntry, CatalogTool (launcher-visible)
 │       ├── mapview/
@@ -644,7 +644,7 @@ callbacks as they fire.
 <details>
 <summary><strong>🔒 Section 12 — Resources &amp; Isolation</strong> · 4 samples — <em>Config-qualified resources, Material widgets, R.string collision, assets, native libraries (NDK), and cross-APK isolation.</em></summary>
 
-Deep dive: **[Plugin isolation](plugin-isolation.md)** — smoke tests, isolation cases (a–h), and
+Deep dive: **[Plugin isolation](plugin-isolation.md)** — smoke tests, isolation cases (a–e, g, h), and
 cross-APK activation.
 
 #### Config-Qualified Resources

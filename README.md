@@ -26,7 +26,7 @@ Soldier (C4DS) tools** — 24 runnable samples across 13 categories, launched fr
   `ToolDialog` variants.
 - **Plugin isolation** — per-APK `ClassLoader`, resource resolution, Material 2 composition
   fallback, native `.so` loading, and cross-APK tool activation.
-- **A single hub pattern** — one launcher-visible tool activates 21 hidden tools via `ToolManager`;
+- **A single hub pattern** — one launcher-visible tool activates the other (hidden) tools via `ToolManager`;
   copy it for multi-tool APKs.
 
 ---
@@ -110,7 +110,7 @@ order. Registry source of truth:
 |---|---|
 | **[Getting started](docs/guides/getting-started.md)** | Requirements, Gradle/Nexus setup, tool screen layout, integration steps, Android Studio run config |
 | **[Samples guidebook](docs/guides/samples-catalog.md)** | Every sample: screenshot, description, SDK APIs, source path, verification steps |
-| **[Plugin isolation](docs/guides/plugin-isolation.md)** | Asset/JNI smoke tests, isolation cases (a–h), cross-APK activation |
+| **[Plugin isolation](docs/guides/plugin-isolation.md)** | Asset/JNI smoke tests, isolation cases (a–e, g, h), cross-APK activation |
 
 Questions or issues: [open an issue](https://github.com/ComBatVision/c4ds-tool-samples/issues) or
 email [support@combat.vision](mailto:support@combat.vision).

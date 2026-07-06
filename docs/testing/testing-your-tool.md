@@ -43,8 +43,9 @@ inject everything (repositories, interactors, SDK domain interactors) — see
 - **Coroutines:** `kotlinx-coroutines-test` (`runTest`, `UnconfinedTestDispatcher`,
   `StandardTestDispatcher`).
 
-None of these are bundled by this samples repository's own build (it ships no unit tests),
-so add them to your own tool project's version catalog. They are ordinary, publicly
+This samples repository's own build ships just one unit test — a pure-JVM Room mapper round-trip in
+`:bookmarks:data` (JUnit 5, no MockK/Turbine) — so most of these aren't in its version catalog;
+add the ones you need to your own tool project's version catalog. They are ordinary, publicly
 published libraries — resolve their current versions the same way you resolve any other
 dependency for your project (Maven Central / your version catalog tooling), rather than
 copying a version number from here.

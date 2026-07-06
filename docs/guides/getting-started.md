@@ -46,7 +46,7 @@ The host app divides the screen into **tool components**. Your tool declares whi
 | **Window** | Green — side/bottom panel | Full screens with optional nested navigation |
 | **MapWindow** | Variant of Window | Embedded secondary map inside the panel |
 | **Underlay** | Full area under the main map | AR and background layers |
-| **End bar** | Yellow — right edge of map | Custom action/toggle/menu buttons via `endBarButtons` |
+| **End bar** | Yellow — right edge of map | Custom action/toggle/menu buttons via the `endBar { }` DSL |
 
 <img width="1000" alt="Tool component screen layout" src="https://github.com/user-attachments/assets/bdf78782-9206-4cf8-9c1b-c5328eb6e3f8" />
 
@@ -119,10 +119,10 @@ Example: [`WindowSingleScreenTool.kt`](../../gallery/src/main/kotlin/vision/comb
 ```kotlin
 internal class WindowSingleScreenTool(
     toolContext: ToolContext,
-    descriptor: ToolDescriptor,
-    di: DI,
-    params: Bundle?,
-) : AbstractTool(toolContext, descriptor, di, params) {
+    toolDescriptor: ToolDescriptor,
+    parentDI: DI,
+    params: ToolParams?,
+) : AbstractTool(toolContext, toolDescriptor, parentDI, params) {
 
     override val window: ToolComponent.Window by requiredComponent {
         WindowSingleScreenWindow()
@@ -140,11 +140,12 @@ Example: [`WindowSingleScreenToolDescriptor.kt`](../../gallery/src/main/kotlin/v
 class WindowSingleScreenToolDescriptor(toolContext: ToolContext) : ToolDescriptor(toolContext) {
     override val nameResId: Int = R.string.window_single_screen_tool_name
     override val iconResId: Int = R.drawable.ic_window
+    override val categories: List<String> = emptyList()  // hidden; launched from the hub via ToolManager
 
     override fun createTool(
         toolContext: ToolContext,
         di: DI,
-        params: Bundle?,
+        params: ToolParams?,
     ): AbstractTool = WindowSingleScreenTool(toolContext, this, di, params)
 }
 ```

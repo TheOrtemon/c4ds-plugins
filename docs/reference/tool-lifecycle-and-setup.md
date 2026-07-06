@@ -195,8 +195,8 @@ A tool can declare more than one component (e.g. a `Window` plus an `Overlay`). 
 first time the host shows it.
 
 `AbstractTool.endBar { }` is a separate DSL (not a `ToolComponent`) for adding action/toggle/
-menu buttons to the map's end bar; see the samples catalog in the tool-samples repository
-this doc ships alongside for a worked example.
+menu buttons to the map's end bar; see the [End Bar sample](../guides/samples-catalog.md#section-2-map-overlays)
+for a worked example.
 
 ---
 
