@@ -1,14 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Bookmarks — bold filled bookmark silhouette with a green marker band. -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="108dp"
-    android:height="108dp"
-    android:viewportWidth="108"
-    android:viewportHeight="108">
-    <path
-        android:fillColor="#E8EAED"
-        android:pathData="M39,24 C39,21.24 41.24,21 44,21 H64 C66.76,21 69,21.24 69,24 V85 L54,74 L39,85 Z" />
-    <path
-        android:fillColor="#00E676"
-        android:pathData="M39,32 H69 V40 H39 Z" />
+    android:width="108dp" android:height="108dp"
+    android:viewportWidth="108" android:viewportHeight="108">
+  <group android:scaleX="2.2" android:scaleY="2.2" android:translateX="27.6" android:translateY="27.6">
+    <path android:fillColor="#000000" android:pathData="M17,3H7c-1.1,0 -1.99,0.9 -1.99,2L5,21l7,-3 7,3V5c0,-1.1 -0.9,-2 -2,-2z"/>
+  </group>
 </vector>

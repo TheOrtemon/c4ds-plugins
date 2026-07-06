@@ -6,19 +6,9 @@
     android:viewportWidth="24"
     android:viewportHeight="24">
     <path
-        android:fillColor="@android:color/transparent"
-        android:strokeColor="#00E676"
-        android:strokeWidth="1.7"
-        android:strokeLineCap="round"
-        android:strokeLineJoin="round"
-        android:pathData="M2,2 H7 V7 H2 Z" />
-    <path
-        android:fillColor="@android:color/transparent"
-        android:strokeColor="#E8EAED"
-        android:strokeWidth="1.7"
-        android:strokeLineCap="round"
-        android:strokeLineJoin="round"
+        android:fillColor="@android:color/white"
         android:pathData="
+            M2,2 H7 V7 H2 Z
             M9,2 H14 V7 H9 Z
             M16,2 H22 V7 H16 Z
             M2,9 H7 V14 H2 Z

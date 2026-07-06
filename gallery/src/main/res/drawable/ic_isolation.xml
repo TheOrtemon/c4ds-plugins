@@ -6,23 +6,17 @@
     android:viewportWidth="24"
     android:viewportHeight="24">
 
-    <!-- Shield outline -->
+    <!--
+        Shield body: outer contour filled solid.
+        Path traces: start top-centre, go right to shoulder, arc/line down the right side,
+        converge to bottom point, mirror up the left side.
+        Then keyhole: circle at centre plus downward rectangular notch (evenOdd cuts it out).
+    -->
     <path
-        android:fillColor="@android:color/transparent"
-        android:strokeColor="#E8EAED"
-        android:strokeWidth="1.7"
-        android:strokeLineCap="round"
-        android:strokeLineJoin="round"
-        android:pathData="M12,2 L4,5.5 L4,11 C4,15.55 7.42,19.74 12,21 C16.58,19.74 20,15.55 20,11 L20,5.5 Z" />
-
-    <!-- Keyhole -->
-    <path
-        android:fillColor="@android:color/transparent"
-        android:strokeColor="#00E676"
-        android:strokeWidth="1.7"
-        android:strokeLineCap="round"
-        android:strokeLineJoin="round"
+        android:fillColor="@android:color/white"
+        android:fillType="evenOdd"
         android:pathData="
+            M12,2 L4,5.5 L4,11 C4,15.55 7.42,19.74 12,21 C16.58,19.74 20,15.55 20,11 L20,5.5 Z
             M12,7.5 C10.9,7.5 10,8.4 10,9.5 C10,10.22 10.39,10.84 10.97,11.18 L10,14 L14,14 L13.03,11.18 C13.61,10.84 14,10.22 14,9.5 C14,8.4 13.1,7.5 12,7.5 Z" />
 
 </vector>
