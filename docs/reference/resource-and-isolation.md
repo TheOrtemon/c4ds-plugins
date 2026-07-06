@@ -9,6 +9,11 @@ resources/assets, load native code, and obtain session/user-scoped storage paths
 > **Sibling docs:** [Tool lifecycle & setup](tool-lifecycle-and-setup.md) ·
 > [Data & domain](../architecture/data-and-domain.md)
 
+> **Obfuscated classes need isolation too.** Resource/asset isolation is per-APK by
+> construction, but release-build (R8) class names are not — without a unique
+> `-repackageclasses` target your tool's obfuscated classes can collide with the host's. See
+> [Getting started — Release builds and obfuscation](../guides/getting-started.md#release-builds-and-obfuscation).
+
 ---
 
 ## Resources are yours, config-reactive

@@ -208,6 +208,40 @@ After install, ComBat 4 refreshes the **Tools** list. You usually see changes im
 
 <img width="1000" alt="Installed tools in ComBat 4 launcher" src="https://github.com/user-attachments/assets/845f8c0c-d798-48d1-87c2-5a2cb39d95ed" />
 
+### Release builds and obfuscation
+
+Every APK on the device — the host and each installed plugin — is built and obfuscated
+**independently**. In a release build, R8 renames your tool's classes to short, generic names
+(e.g. `a.a`, `a.b`). Because R8 runs per-APK with no visibility into other APKs, the host and
+every plugin tend to produce the **same** short obfuscated names.
+
+At runtime, the host loads a plugin's classes with a **parent-first classloader**: the host's
+own classloader is consulted before the plugin's. If the host happens to already have a class
+named `a.a` (from its own obfuscated code), that class wins over the plugin's same-named `a.a` —
+even though they're unrelated classes with unrelated fields. The plugin's class is never loaded,
+and you get a runtime `NoSuchFieldError` (or similar linkage failure) the first time the plugin
+code executes. In practice this is often invisible until then: the tool just silently disappears
+from the **Tools** list, or fails when activated.
+
+**Fix: give R8 a unique repackage target per app.** Add to your `proguard-rules.pro`:
+
+```proguard
+# Give R8's obfuscated classes a package unique to this app so they can't collide with the
+# host's or another plugin's identically-named obfuscated classes at runtime.
+-repackageclasses <your.applicationId>.obf
+```
+
+For example, `:gallery` (`applicationId = "vision.combat.c4.ds.sample.gallery"`) uses:
+
+```proguard
+-repackageclasses vision.combat.c4.ds.sample.gallery.obf
+```
+
+This only matters when `isMinifyEnabled = true` for the release build type (both sample
+modules in this repo already set it). Every plugin **must** set its own `-repackageclasses`
+value derived from its own `applicationId` — copying another app's value defeats the fix,
+since the whole point is that the target package is unique per APK.
+
 ### Using the Sample Gallery
 
 1. Install `:gallery` (required) and optionally `:isolation` (for cross-APK native sample).

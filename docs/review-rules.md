@@ -107,6 +107,38 @@ Checklist:
 - Prefer resolving new dependency versions from the project's own version catalog /
   package registry over copying a version number from an unrelated source.
 
+### Gradle dependency configuration
+
+- **The SDK is `compileOnly` + `runtimeOnly`, never `implementation`/`api`.** You compile
+  against the SDK's API surface, but the host provides the real classes at runtime, so the
+  SDK artifact belongs on `compileOnly`; the small runtime shim it needs at activation time
+  goes on `runtimeOnly`. Flag any tool that declares the SDK via `implementation` or `api` —
+  that bundles host-owned classes into the tool's own APK and causes duplicate-class, DEX, or
+  version-skew problems against what the host actually loads at runtime. See
+  [Getting started — Module dependencies](guides/getting-started.md#3-module-dependencies)
+  for the exact block to compare against.
+- **`runtimeOnly` excludes what the host already ships**, most commonly the Kotlin stdlib
+  (`exclude(group = "org.jetbrains.kotlin", module = "kotlin-stdlib")` on the `runtimeOnly`
+  configuration). Check that an equivalent exclude is present whenever the runtime artifact
+  would otherwise pull in a host-provided transitive dependency a second time.
+- **Don't re-declare host-provided libraries via `implementation`/`api`.** Compose, the Kotlin
+  stdlib, Coroutines, AndroidX Core/Lifecycle, Material, and the SDK's own transitive
+  dependencies are already on the host's runtime classpath. Adding them again as
+  `implementation`/`api` duplicates classes in the APK and risks runtime conflicts — use
+  `compileOnly` for these instead. Reserve `implementation`/`api` for dependencies that are
+  genuinely unique to the tool and not already present on the host classpath (e.g. Room in the
+  Sample Gallery).
+- **Prefer version-catalog aliases** (`libs.combat.ds.sdk`, `libs.combat.ds.sdk.runtime`, …)
+  over hardcoded coordinates, and bump versions deliberately per the rule above.
+- **Release builds set a unique `-repackageclasses`.** For any build type with
+  `isMinifyEnabled = true`, the module's `proguard-rules.pro` must include
+  `-repackageclasses <applicationId>.obf`, with `<applicationId>` matching that module's own
+  `applicationId` (never copied from another app). Without it, R8's obfuscated class names can
+  collide with the host's or another plugin's identically-named obfuscated classes at runtime,
+  which silently breaks the tool. See
+  [Getting started — Release builds and obfuscation](guides/getting-started.md#release-builds-and-obfuscation)
+  for the full explanation.
+
 ---
 
 **See also:** [Architecture for plugins](architecture/architecture-for-plugins.md) ·
