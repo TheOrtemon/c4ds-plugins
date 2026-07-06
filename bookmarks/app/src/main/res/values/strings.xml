@@ -3,7 +3,7 @@
     <string name="app_name" translatable="false">ComBat Bookmarks</string>
 
     <string name="bookmarks_tool_name">Bookmarks</string>
-    <string name="bookmarks_explainer">Save labelled bookmarks to a tool-scoped SharedPreferences store, backed by a repository split across the :bookmarks:domain, :bookmarks:data, and :bookmarks:app Gradle modules.</string>
+    <string name="bookmarks_explainer">Save labelled bookmarks to a tool-scoped Room database, backed by a repository split across the :bookmarks:domain, :bookmarks:data, and :bookmarks:app Gradle modules.</string>
 
     <string name="bookmarks_section_add">Add a bookmark</string>
     <string name="bookmarks_label_hint">Label</string>
