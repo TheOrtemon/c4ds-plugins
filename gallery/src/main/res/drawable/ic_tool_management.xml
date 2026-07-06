@@ -7,16 +7,26 @@
     android:viewportHeight="24">
     <!-- Bottom layer -->
     <path
-        android:fillColor="@android:color/white"
-        android:fillAlpha="0.4"
+        android:fillColor="@android:color/transparent"
+        android:strokeColor="#E8EAED"
+        android:strokeWidth="1.7"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
         android:pathData="M12,20 L2,15 L12,10 L22,15 Z" />
     <!-- Middle layer -->
     <path
-        android:fillColor="@android:color/white"
-        android:fillAlpha="0.7"
+        android:fillColor="@android:color/transparent"
+        android:strokeColor="#E8EAED"
+        android:strokeWidth="1.7"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
         android:pathData="M12,16 L2,11 L12,6 L22,11 Z" />
     <!-- Top layer -->
     <path
-        android:fillColor="@android:color/white"
+        android:fillColor="@android:color/transparent"
+        android:strokeColor="#00E676"
+        android:strokeWidth="1.7"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
         android:pathData="M12,12 L2,7 L12,2 L22,7 Z" />
 </vector>

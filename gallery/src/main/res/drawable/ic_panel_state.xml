@@ -8,18 +8,17 @@
     <!-- Outer screen border -->
     <path
         android:fillColor="@android:color/transparent"
-        android:strokeColor="@android:color/white"
-        android:strokeWidth="2"
+        android:strokeColor="#E8EAED"
+        android:strokeWidth="1.7"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
         android:pathData="M3,4 L21,4 L21,20 L3,20 Z" />
-    <!-- Horizontal divider (panel split line at 60%) -->
+    <!-- Panel content area (bottom half, active panel) -->
     <path
         android:fillColor="@android:color/transparent"
-        android:strokeColor="@android:color/white"
-        android:strokeWidth="2"
-        android:pathData="M3,14 L21,14" />
-    <!-- Panel content area (bottom half shaded) -->
-    <path
-        android:fillColor="@android:color/white"
-        android:fillAlpha="0.3"
+        android:strokeColor="#00E676"
+        android:strokeWidth="1.7"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
         android:pathData="M3,14 L21,14 L21,20 L3,20 Z" />
 </vector>
