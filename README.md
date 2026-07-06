@@ -10,7 +10,7 @@ Soldier (C4DS) tools** — 24 runnable samples across 13 categories, launched fr
 [![AGP](https://img.shields.io/badge/AGP-9.2.1-3DDC84?logo=android)](gradle/libs.versions.toml)
 [![c4ds-sdk](https://img.shields.io/badge/c4ds--sdk-0.5.0-blue)](gradle/libs.versions.toml)
 [![minSdk](https://img.shields.io/badge/minSdk-26-brightgreen)](gallery/build.gradle.kts)
-[![License](https://img.shields.io/badge/license-TBD-lightgrey)](#disclaimer)
+[![License](https://img.shields.io/badge/license-Apache%202.0-blue)](LICENSE)
 
 ---
 
@@ -117,8 +117,22 @@ email [support@combat.vision](mailto:support@combat.vision).
 
 ---
 
+## License
+
+Licensed under the **Apache License, Version 2.0** — see [`LICENSE`](LICENSE) for the full text.
+You may obtain a copy at <http://www.apache.org/licenses/LICENSE-2.0>.
+
+Copyright © 2026 ComBat Vision.
+
+Unless required by applicable law or agreed to in writing, software distributed under the License is
+distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+implied. See the License for the specific language governing permissions and limitations under the
+License.
+
+---
+
 ## Disclaimer
 
-This is an early version and may contain bugs or incomplete features. License: **TBD**.
-Feedback and contributions are welcome — if you encounter any issues, please
+This is an early version and may contain bugs or incomplete features. Feedback and contributions are
+welcome — if you encounter any issues, please
 [open an issue](https://github.com/ComBatVision/c4ds-tool-samples/issues).
