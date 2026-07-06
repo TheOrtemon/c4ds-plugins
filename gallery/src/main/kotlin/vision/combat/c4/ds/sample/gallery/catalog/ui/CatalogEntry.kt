@@ -10,6 +10,7 @@ import vision.combat.c4.ds.sample.gallery.mapview.map.MapToolDescriptor
 import vision.combat.c4.ds.sample.gallery.mapview.mapinteractor.MapInteractorToolDescriptor
 import vision.combat.c4.ds.sample.gallery.model.ModelToolDescriptor
 import vision.combat.c4.ds.sample.gallery.mapoverlays.overlay.OverlayToolDescriptor
+import vision.combat.c4.ds.sample.gallery.mapoverlays.overlayisdefault.OverlayDefaultToolDescriptor
 import vision.combat.c4.ds.sample.gallery.panelstate.PanelStateToolDescriptor
 import vision.combat.c4.ds.sample.gallery.mapview.renderable.RenderableToolDescriptor
 import vision.combat.c4.ds.sample.gallery.resources.collision.CollisionToolDescriptor
@@ -83,6 +84,14 @@ internal enum class CatalogEntry(
         apisResId = R.string.overlay_apis,
         sourceSubpackage = "mapoverlays/overlay",
         toolClassName = requireQualifiedName<OverlayToolDescriptor>(),
+    ),
+    OVERLAY_IS_DEFAULT(
+        section = CatalogSection.MAP_OVERLAYS,
+        nameResId = R.string.overlay_default_tool_name,
+        descResId = R.string.overlay_default_desc,
+        apisResId = R.string.overlay_default_apis,
+        sourceSubpackage = "mapoverlays/overlayisdefault",
+        toolClassName = requireQualifiedName<OverlayDefaultToolDescriptor>(),
     ),
     STATUS(
         section = CatalogSection.MAP_OVERLAYS,

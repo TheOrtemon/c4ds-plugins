@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Overlay isDefault sample -->
+    <string name="overlay_default_tool_name">Overlay isDefault</string>
+    <string name="overlay_default_desc">Demonstrates the automatic replace/restore behavior of default ToolComponent.Overlay components: activating a second default overlay displaces the first, and deactivating it automatically restores the first.</string>
+    <string name="overlay_default_apis">ToolComponent.Overlay, component(isDefault=true), requiredComponent, ToolManager.activate, ToolManager.deactivate, ToolManager.isActive, ToolManager.activeTools</string>
+    <string name="overlay_default_explainer">This sample drives two hidden demo tools, each with its own default overlay. Activate Demo A to show its badge over the map. Activate Demo B to see it automatically replace Demo A\'s badge. Deactivate Demo B to see Demo A\'s badge automatically reappear — no extra button needed, this is all handled by the SDK\'s default-component contract.</string>
+    <string name="overlay_default_a_section">Default overlay (Demo A)</string>
+    <string name="overlay_default_activate_a">Activate Demo A</string>
+    <string name="overlay_default_deactivate_a">Deactivate Demo A</string>
+    <string name="overlay_default_b_section">Alternate overlay (Demo B)</string>
+    <string name="overlay_default_activate_b">Activate Demo B</string>
+    <string name="overlay_default_deactivate_b">Deactivate Demo B</string>
+    <string name="overlay_default_watch_hint">Watch the map: activating Demo B replaces Demo A\'s badge automatically. Deactivating Demo B restores Demo A\'s badge automatically — both overlays are default components, so the SDK handles the swap without any showComponent/hideComponent calls from this sample.</string>
+
+    <!-- Hidden demo tool A managed by this sample -->
+    <string name="overlay_default_a_name">Overlay isDefault Demo A</string>
+    <string name="overlay_default_a_badge">Demo A active (default)</string>
+
+    <!-- Hidden demo tool B managed by this sample -->
+    <string name="overlay_default_b_name">Overlay isDefault Demo B</string>
+    <string name="overlay_default_b_badge">Demo B active (displaces A)</string>
+</resources>
