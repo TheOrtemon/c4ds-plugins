@@ -7,15 +7,15 @@ import vision.combat.c4.ds.sdk.tool.ToolDescriptor
 import vision.combat.c4.ds.sdk.tool.ToolParams
 
 /**
- * Bookmarks sample: a tool-scoped-SharedPreferences "bookmarks" list (add a labelled string,
+ * Bookmarks sample: an isolated-Room-database "bookmarks" list (add a labelled string,
  * list them, clear) split across three Gradle modules —
  * `:bookmarks:domain` (`com.android.library`), `:bookmarks:data` (`com.android.library`), and
  * `:bookmarks:app` (this module, the tool APK) — to demonstrate UI → Domain ← Data
  * dependency inversion across real module boundaries, not just package convention.
  *
  * SDK APIs demonstrated:
- *   - Tool-scoped [android.content.SharedPreferences], injected via Kodein using
- *     `instance(arg = requireQualifiedName<BookmarksToolDescriptor>())` (see
+ *   - An isolated Room database stored under the user-scoped directory obtained from
+ *     [vision.combat.c4.ds.sdk.domain.interactor.CommonSessionStorageInteractor] (see
  *     `di/BookmarksModule.kt`)
  */
 class BookmarksToolDescriptor(toolContext: ToolContext) : ToolDescriptor(toolContext) {

@@ -13,11 +13,11 @@ public class BookmarkInteractor(private val repository: BookmarkRepository) {
     public fun observeBookmarks(scope: CoroutineScope): StateFlow<List<Bookmark>> =
         repository.observeBookmarks(scope)
 
-    public fun addBookmark(label: String, target: String) {
+    public suspend fun addBookmark(label: String, target: String) {
         repository.add(label, target)
     }
 
-    public fun clearBookmarks() {
+    public suspend fun clearBookmarks() {
         repository.clear()
     }
 }

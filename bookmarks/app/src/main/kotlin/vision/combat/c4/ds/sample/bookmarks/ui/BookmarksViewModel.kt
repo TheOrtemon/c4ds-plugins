@@ -32,7 +32,7 @@ internal class BookmarksViewModel(
     fun handleAction(action: Action) {
         when (action) {
             is Action.AddBookmark -> addBookmark(action.label, action.target)
-            is Action.ClearBookmarks -> interactor.clearBookmarks()
+            is Action.ClearBookmarks -> viewModelScope.launch { interactor.clearBookmarks() }
         }
     }
 
@@ -43,8 +43,10 @@ internal class BookmarksViewModel(
     }
 
     private fun addBookmark(label: String, target: String) {
-        interactor.addBookmark(label, target)
-        emitEvent(Event.BookmarkAdded)
+        viewModelScope.launch {
+            interactor.addBookmark(label, target)
+            emitEvent(Event.BookmarkAdded)
+        }
     }
 
     private fun emitEvent(event: Event) {
