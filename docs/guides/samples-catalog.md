@@ -169,7 +169,7 @@ and magnetic corrections.
 
 <a id="section-2-map-overlays"></a>
 <details>
-<summary><strong>🧭 Section 2 — Map Overlays</strong> · 4 samples — <em>Overlays, status bars, expandable status, and EndBar buttons.</em></summary>
+<summary><strong>🧭 Section 2 — Map Overlays</strong> · 5 samples — <em>Overlays, status bars, expandable status, EndBar buttons, and default-overlay replace/restore.</em></summary>
 
 #### Overlay
 
@@ -188,6 +188,30 @@ button.
 **Source:** [`gallery/.../mapoverlays/overlay/`](../../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/mapoverlays/overlay) · **Descriptor:** `vision.combat.c4.ds.sample.gallery.mapoverlays.overlay.OverlayToolDescriptor`
 
 **Verify:** Overlay visible on map → cursor coordinates update when panning → user model name appears when set.
+
+</td>
+</tr>
+</table>
+
+#### Overlay isDefault
+
+<table>
+<tr>
+<td valign="top">
+
+A hub window (`overlay_default_tool_name` in-app) drives two hidden demo tools, each declaring its
+own `ToolComponent.Overlay(isDefault = true)`. Activating Demo B auto-shows B's overlay, which
+displaces Demo A's default overlay in the exclusive overlay region; deactivating Demo B
+automatically restores Demo A's overlay. The sample uses only `ToolManager.activate`/`deactivate`
+on the two demo descriptors — no `showComponent`/`hideComponent` calls. Teaching point: the
+`isDefault` contract — default components are auto-shown on tool start and "restored after another
+component that caused this one to hide is now hidden."
+
+**SDK APIs:** `ToolComponent.Overlay`, `component(isDefault = true)`, `requiredComponent`, `ToolManager.activate`, `ToolManager.deactivate`, `ToolManager.isActive`, `ToolManager.activeTools`.
+
+**Source:** [`gallery/.../mapoverlays/overlayisdefault/`](../../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/mapoverlays/overlayisdefault) · **Descriptor:** `vision.combat.c4.ds.sample.gallery.mapoverlays.overlayisdefault.OverlayDefaultToolDescriptor`
+
+**Verify:** Activate Demo A → Demo A's badge appears → Activate Demo B → Demo A's badge is replaced by Demo B's badge automatically → Deactivate Demo B → Demo A's badge reappears automatically.
 
 </td>
 </tr>
