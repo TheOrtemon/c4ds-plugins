@@ -8,6 +8,8 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import org.json.JSONException
+import org.json.JSONObject
 import vision.combat.c4.ds.sample.bookmarks.domain.model.Bookmark
 import vision.combat.c4.ds.sample.bookmarks.domain.repository.BookmarkRepository
 import vision.combat.c4.ds.sdk.data.util.observeAsStateFlow
@@ -17,9 +19,10 @@ import vision.combat.c4.ds.sdk.data.util.observeAsStateFlow
  * instance is plugin-isolated — it is injected via Kodein with
  * `instance(arg = requireQualifiedName<BookmarksToolDescriptor>())`.
  *
- * Bookmarks are persisted as a `Set<String>` of `id|label|target` entries under one key.
+ * Bookmarks are persisted as a `Set<String>` of JSON-encoded `{"id","label","target"}` entries
+ * under one key.
  */
-public class BookmarkRepositoryImpl(
+class BookmarkRepositoryImpl(
     private val sharedPreferences: SharedPreferences,
 ) : BookmarkRepository {
 
@@ -38,16 +41,21 @@ public class BookmarkRepositoryImpl(
             .map { entries -> entries.mapNotNull { entry -> entry.toBookmark() } }
             .stateIn(scope, SharingStarted.Eagerly, emptyList())
 
-    private fun Bookmark.serialize(): String = listOf(id, label, target).joinToString(DELIMITER)
+    private fun Bookmark.serialize(): String =
+        JSONObject()
+            .put("id", id)
+            .put("label", label)
+            .put("target", target)
+            .toString()
 
-    private fun String.toBookmark(): Bookmark? {
-        val parts = split(DELIMITER)
-        if (parts.size != 3) return null
-        return Bookmark(id = parts[0], label = parts[1], target = parts[2])
+    private fun String.toBookmark(): Bookmark? = try {
+        val json = JSONObject(this)
+        Bookmark(id = json.getString("id"), label = json.getString("label"), target = json.getString("target"))
+    } catch (_: JSONException) {
+        null
     }
 
     private companion object {
         private const val KEY_BOOKMARKS = "bookmarks"
-        private const val DELIMITER = "|"
     }
 }
