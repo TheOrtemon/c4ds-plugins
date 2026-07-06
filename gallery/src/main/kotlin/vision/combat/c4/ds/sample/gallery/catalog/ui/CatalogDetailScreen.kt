@@ -89,23 +89,25 @@ private fun ColumnScope.CrossApkInstallSection(entry: CatalogEntry) {
             modifier = Modifier.padding(bottom = 4.dp),
         )
         Text(
-            text = stringResource(R.string.catalog_cross_apk_install_intro),
+            text = stringResource(requireNotNull(entry.crossApkInstallIntroResId)),
             style = MaterialTheme.typography.body2,
             modifier = Modifier.padding(bottom = 8.dp),
         )
         Text(
-            text = stringResource(R.string.catalog_cross_apk_install_commands),
+            text = stringResource(requireNotNull(entry.crossApkInstallCommandsResId)),
             style = MaterialTheme.typography.body2,
             fontFamily = FontFamily.Monospace,
             modifier = Modifier.padding(bottom = 8.dp),
         )
         Text(
             text = stringResource(
-                if (isInstalled) {
-                    R.string.catalog_cross_apk_install_status_installed
-                } else {
-                    R.string.catalog_cross_apk_install_status_missing
-                },
+                requireNotNull(
+                    if (isInstalled) {
+                        entry.crossApkInstallStatusInstalledResId
+                    } else {
+                        entry.crossApkInstallStatusMissingResId
+                    },
+                ),
             ),
             style = MaterialTheme.typography.body2,
             color = if (isInstalled) MaterialTheme.colors.onSurface else MaterialTheme.colors.error,

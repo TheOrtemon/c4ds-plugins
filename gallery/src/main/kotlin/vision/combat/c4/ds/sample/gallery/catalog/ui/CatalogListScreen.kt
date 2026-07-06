@@ -280,7 +280,7 @@ internal fun SampleListItem(
     }
 
     val notInstalledText = if (entry.isCrossApk && !isEnabled) {
-        stringResource(R.string.native_cross_apk_not_installed)
+        stringResource(requireNotNull(entry.crossApkNotInstalledResId))
     } else {
         null
     }
