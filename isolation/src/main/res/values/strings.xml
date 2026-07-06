@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">Isolation Sample</string>
+    <string name="app_name" translatable="false">ComBat Isolation</string>
     <string name="native_tool_name">Native / Cross-APK</string>
     <string name="native_jni_label">JNI result:</string>
     <string name="native_jni_proof">✅ libisolation_jni.so was loaded from this plugin\'s own nativeLibraryDir, not the host\'s.</string>

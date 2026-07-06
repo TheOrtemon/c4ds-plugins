@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">Isolation Sample</string>
+    <string name="app_name" translatable="false">ComBat Isolation</string>
     <string name="native_tool_name">Native / Cross-APK</string>
     <string name="native_jni_label">Результат JNI:</string>
     <string name="native_jni_proof">✅ libisolation_jni.so завантажено з власного nativeLibraryDir цього плагіну, а не хосту.</string>

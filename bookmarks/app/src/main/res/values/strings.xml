@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name" translatable="false">Bookmarks Sample</string>
+    <string name="app_name" translatable="false">ComBat Bookmarks</string>
 
     <string name="bookmarks_tool_name">Bookmarks</string>
     <string name="bookmarks_explainer">Save labelled bookmarks to a tool-scoped SharedPreferences store, backed by a repository split across the :bookmarks:domain, :bookmarks:data, and :bookmarks:app Gradle modules.</string>

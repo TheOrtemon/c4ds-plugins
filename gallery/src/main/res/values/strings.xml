@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">Sample Gallery</string>
+    <string name="app_name" translatable="false">ComBat Gallery</string>
 
     <!-- Catalog / Hub -->
     <string name="catalog_tool_name">Sample Gallery</string>
