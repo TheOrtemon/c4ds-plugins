@@ -785,7 +785,9 @@ graph and details.
 
 ---
 
-## Architecture spotlight — Bookmarks (multi-module tool)
+<a id="architecture-spotlight-bookmarks-multi-module-tool"></a>
+<details>
+<summary><strong>🏗️ Architecture spotlight — Bookmarks (multi-module tool)</strong></summary>
 
 Unlike the single-APK gallery, **Bookmarks** is a standalone sample split into **three Gradle
 modules** to prove clean **UI → Domain ← Data** dependency inversion across *real module
@@ -830,6 +832,8 @@ clear) — deliberately small so the sample teaches *module structure*, not feat
 </td>
 </tr>
 </table>
+
+</details>
 
 ---
 
