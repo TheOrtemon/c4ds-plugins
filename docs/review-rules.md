@@ -138,6 +138,12 @@ Checklist:
   which silently breaks the tool. See
   [Getting started — Release builds and obfuscation](guides/getting-started.md#release-builds-and-obfuscation)
   for the full explanation.
+- **Flag a blanket `-keep class <pkg>.** { *; }` in `proguard-rules.pro` as an anti-pattern.**
+  Descriptor, ViewModel, and `R$*` keeps are already inherited from the SDK's consumer
+  ProGuard rules — a plugin never needs to `-keep` its own package wholesale. The only
+  required custom rule is `-repackageclasses` (above); a blanket keep just disables shrinking
+  and obfuscation for the whole module and should be replaced with the minimal rule set. See
+  [Getting started — Release builds and obfuscation](guides/getting-started.md#release-builds-and-obfuscation).
 
 ---
 

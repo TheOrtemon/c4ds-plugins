@@ -1,5 +1,9 @@
 # Add project specific ProGuard rules here.
--keep class vision.combat.c4.ds.sample.gallery.** { *; }
+# No blanket `-keep` needed here: the c4ds SDK's consumer ProGuard rules (inherited
+# automatically by every plugin) already keep every `ToolDescriptor` subclass and its
+# `(Context)` constructor, ViewModel constructors, and `R$*` classes — the only things the
+# host needs to find by reflection/resource lookup. Everything else in this module is free
+# to be shrunk/obfuscated.
 
 # MapView exposes an internal listener type that isn't on this module's compile classpath;
 # R8 only needs to know it's safe to ignore the reference (nothing in this APK calls it).

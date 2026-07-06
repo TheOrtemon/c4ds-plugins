@@ -242,6 +242,29 @@ modules in this repo already set it). Every plugin **must** set its own `-repack
 value derived from its own `applicationId` — copying another app's value defeats the fix,
 since the whole point is that the target package is unique per APK.
 
+**That's the only custom rule you need — don't add a blanket `-keep`.** The c4ds SDK ships
+its own *consumer* ProGuard rules, which every plugin inherits automatically just by
+depending on the SDK. Those rules already keep:
+
+- every `ToolDescriptor` subclass and its `(Context)` constructor — this is how the host
+  finds and instantiates the class named in your `combat_tools.xml`;
+- ViewModel constructors — needed for `diViewModel()` / reflection-based creation;
+- `R$*` classes — needed for resource ID lookups.
+
+That's everything the host touches by name. You do **not** need to `-keep` your descriptors,
+ViewModels, or `R` classes yourself, and you should avoid a blanket rule like:
+
+```proguard
+# Don't do this — it defeats shrinking/obfuscation for your entire module.
+-keep class <your.package>.** { *; }
+```
+
+A rule this broad silently disables R8 shrinking and obfuscation for every class in your
+module, not just the ones the host needs — including code that has nothing to do with the
+plugin contract. Keep your `proguard-rules.pro` limited to `-repackageclasses` (above) plus
+any narrow, module-specific rules your own dependencies require (e.g. a `-dontwarn` for an
+optional reference that isn't on your compile classpath).
+
 ### Using the Sample Gallery
 
 1. Install `:gallery` (required) and optionally `:isolation` (for cross-APK native sample).

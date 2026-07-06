@@ -1,5 +1,9 @@
 # Add project specific ProGuard rules here.
--keep class vision.combat.c4.ds.sample.isolation.** { *; }
+# No blanket `-keep` needed here: the c4ds SDK's consumer ProGuard rules (inherited
+# automatically by every plugin) already keep every `ToolDescriptor` subclass and its
+# `(Context)` constructor, ViewModel constructors, and `R$*` classes — the only things the
+# host needs to find by reflection/resource lookup. Everything else in this module is free
+# to be shrunk/obfuscated.
 
 # Give R8's obfuscated classes a package unique to this app. The host loads plugin APKs
 # through a parent-first classloader; without this, R8's short obfuscated class names
