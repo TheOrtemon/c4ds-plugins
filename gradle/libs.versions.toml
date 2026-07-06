@@ -5,6 +5,10 @@ combat-ds-sdk = "0.5.0"
 desugar-jdk-libs = "2.1.5"
 androidx-room = "2.8.4"
 google-ksp-plugin = "2.3.9"
+junit5 = "5.11.4"
+junit5-platform-launcher = "1.11.4"
+kotlinx-coroutines = "1.11.0"
+json-org = "20250107"
 
 [libraries]
 combat-ds-sdk = { group = "vision.combat", name = "c4ds-sdk", version.ref = "combat-ds-sdk" }
@@ -15,6 +19,13 @@ android-tools-desugar = { module = "com.android.tools:desugar_jdk_libs", version
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "androidx-room" }
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "androidx-room" }
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "androidx-room" }
+
+junit5-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit5" }
+junit5-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit5" }
+junit5-jupiter-params = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "junit5" }
+junit5-platform-launcher = { module = "org.junit.platform:junit-platform-launcher", version.ref = "junit5-platform-launcher" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
+json-org = { module = "org.json:json", version.ref = "json-org" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
