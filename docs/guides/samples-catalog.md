@@ -3,7 +3,7 @@
 **[← README](../../README.md)** · **[Getting started](getting-started.md)** · **[Plugin isolation](plugin-isolation.md)**
 
 The developer guidebook for this repository: every sample with a screenshot, description, SDK APIs,
-source path, and verification steps — grouped by the 12 catalog sections in on-screen order. Each
+source path, and verification steps — grouped by the 13 catalog sections in on-screen order. Each
 section below is collapsible; expand the ones you are extending.
 
 **Package root:** `vision.combat.c4.ds.sample.*`
@@ -22,7 +22,8 @@ section below is collapsible; expand the ones you are extending.
 [9 Model Management](#section-9-model-management) ·
 [10 Data Management](#section-10-data-management) ·
 [11 Lifecycle & Services](#section-11-lifecycle-services) ·
-[12 Resources & Isolation](#section-12-resources-isolation)
+[12 Resources & Isolation](#section-12-resources-isolation) ·
+[13 Architecture](#section-13-architecture)
 
 ---
 
@@ -32,19 +33,20 @@ The gallery uses a **3-level** navigation hierarchy:
 
 | Level | Screen | Description |
 |---|---|---|
-| 1 | **Category list** (root) | 12 category cards, each showing a title, description, and icon. Tap a card to drill into that category. |
+| 1 | **Category list** (root) | 13 category cards, each showing a title, description, and icon. Tap a card to drill into that category. |
 | 2 | **Category detail** | Filtered list of samples in the chosen category. Tap a sample row to activate/deactivate it; tap the **ⓘ** icon to see details. |
 | 3 | **Sample detail** | SDK APIs, source subpackage, and cross-APK install steps (where applicable). |
 
 | Action | Result |
 |---|---|
-| Open **Sample Gallery** from host Tools list | Category list with 12 section cards |
+| Open **Sample Gallery** from host Tools list | Category list with 13 section cards |
 | **Tap** a category card | Opens the category subscreen showing samples in that section |
 | **Tap** an inactive sample row | Activates that sample (`ToolManager.activate<T>(FLAG_COMPONENT_ON_TOP)`); name highlighted in accent color |
 | **Tap** an active sample row (accent color) | Deactivates that sample via `ToolManager.deactivate`; name returns to normal color |
 | **Deactivate all** button in the app bar (root) | Deactivates every active gallery tool except the hub itself; shows a confirmation toast |
 | **Info icon** (ⓘ) on a sample row | Navigates to the sample detail screen |
 | Install `:isolation` APK | Enables **Native / Cross-APK** row in the Resources & Isolation section |
+| Install `:bookmarks:app` APK | Enables **Bookmarks** row in the Architecture section |
 
 Registry implementation: [`CatalogEntry.kt`](../../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/catalog/ui/CatalogEntry.kt)
 
@@ -85,6 +87,10 @@ c4ds-tool-samples/
 ├── isolation/                   # Second APK — JNI + asset isolation (cross-APK activation)
 │   └── src/main/kotlin/vision/combat/c4/ds/sample/isolation/
 │       └── nativelib/           # Native / Cross-APK — NativeToolDescriptor
+├── bookmarks/                    # Standalone multi-module sample — its own APK (see Architecture spotlight)
+│   ├── domain/                   # :bookmarks:domain — Bookmark, BookmarkRepository, BookmarkInteractor
+│   ├── data/                     # :bookmarks:data — BookmarkRepositoryImpl + Room DB (tool-scoped)
+│   └── app/                      # :bookmarks:app — BookmarksTool/Descriptor, Kodein DI, MVI UI (discoverable APK)
 └── docs/                        # This guidebook and the deep-dive docs
 ```
 
@@ -93,7 +99,7 @@ tools use `categories = emptyList()` and launch from the hub via `ToolManager`.
 
 ---
 
-## The 12 sections
+## The 13 sections
 
 <a id="section-1-map-view"></a>
 <details>
@@ -736,6 +742,91 @@ is activated from the hub across the APK boundary. Isolation case
 </table>
 
 </details>
+
+<a id="section-13-architecture"></a>
+<details>
+<summary><strong>🏗️ Section 13 — Architecture</strong> · 1 sample — <em>Multi-module tool structure, launched from the hub via cross-APK activation.</em></summary>
+
+This section shows a single card on the root category list (rendered directly, no drill-in) because
+it has exactly one entry. The card's title/description/icon come from the section itself; tapping it
+activates the tool the same way any other cross-APK entry does.
+
+#### Bookmarks (multi-module)
+
+<table>
+<tr>
+<td valign="top">
+
+Standalone multi-module sample — three Gradle modules (`:bookmarks:domain`, `:bookmarks:data`,
+`:bookmarks:app`) demonstrating **UI → Domain ← Data** dependency inversion across real module
+boundaries. Lives in its own discoverable APK and is activated from the hub across the APK boundary,
+identical in mechanism to the **Native / Cross-APK** sample. See the full
+[Architecture spotlight](#architecture-spotlight-bookmarks-multi-module-tool) below for the module
+graph and details.
+
+**SDK APIs:** `AbstractTool`, `ToolDescriptor`, `ToolComponent.Window`, Kodein `subDI`/`import`, tool-scoped Room database (isolated via `CommonSessionStorageInteractor.getUserDirectoryPath()`), MVI `StateFlow` + `Action` + `Channel`.
+
+**Source:** [`bookmarks/app/`](../../bookmarks/app) · **Descriptor:** `vision.combat.c4.ds.sample.bookmarks.BookmarksToolDescriptor`
+
+**Verify:**
+
+1. Install the `:bookmarks:app` APK — `./gradlew :bookmarks:app:installDebug` (see **Details** on the hub card for the install command and status).
+2. Open Sample Gallery → **Architecture** card → tap to launch **Bookmarks**.
+3. Add a labelled bookmark → it appears in the list → deactivate then reactivate → the entry persists.
+
+</td>
+</tr>
+</table>
+
+</details>
+
+---
+
+## Architecture spotlight — Bookmarks (multi-module tool)
+
+Unlike the single-APK gallery, **Bookmarks** is a standalone sample split into **three Gradle
+modules** to prove clean **UI → Domain ← Data** dependency inversion across *real module
+boundaries* — the layering the [architecture guide](../architecture/architecture-for-plugins.md)
+and [data &amp; domain guide](../architecture/data-and-domain.md) describe, enforced by the build
+graph instead of package convention.
+
+```text
+:bookmarks:app    (com.android.application)   ← the discoverable tool APK
+  │   implementation(project(":bookmarks:data"))
+  │   implementation(project(":bookmarks:domain"))
+  ▼
+:bookmarks:data   (com.android.library)       BookmarkRepositoryImpl + Room (Entity · Dao · Database)
+  │   implementation(project(":bookmarks:domain"))
+  ▼
+:bookmarks:domain (com.android.library)       Bookmark · BookmarkRepository (interface) · BookmarkInteractor
+```
+
+Every module depends on the SDK via `compileOnly(libs.combat.ds.sdk)` (never `implementation`);
+only `:app` adds `runtimeOnly(libs.combat.ds.sdk.runtime)` and registers the tool. `:domain` knows
+nothing of `:data`/`:app`; `:data` implements the domain repository interface; `:app` is the single
+DI seam binding interface → impl via Kodein `subDI`.
+
+<table>
+<tr>
+<td width="280" valign="top">
+<img src="https://github.com/user-attachments/assets/df5769dc-a959-4c23-85c4-8e6233aeb231" width="260" alt="Bookmarks tool — add a labelled bookmark, list, and clear">
+</td>
+<td valign="top">
+
+**What it does:** a tool-scoped Room-database bookmarks feature (add a labelled entry, list,
+clear) — deliberately small so the sample teaches *module structure*, not feature breadth.
+
+**SDK APIs:** `AbstractTool`, `ToolDescriptor`, `ToolComponent.Window`, `requiredComponent`, Kodein `subDI`/`import`, tool-scoped **Room** database persisted under `CommonSessionStorageInteractor.getUserDirectoryPath()` with a reactive Room `Flow`, MVI `StateFlow` + sealed `Action` + event `Channel`.
+
+**Source:** [`bookmarks/domain/`](../../bookmarks/domain) · [`bookmarks/data/`](../../bookmarks/data) · [`bookmarks/app/`](../../bookmarks/app) · **Descriptor:** `vision.combat.c4.ds.sample.bookmarks.BookmarksToolDescriptor`
+
+**Run:** separate APK — `./gradlew :bookmarks:app:installDebug`. It declares its tool via its own `combat_tools.xml`, discovered by the host like any other tool, and is also launchable from the gallery hub's **Architecture** card via cross-APK activation (see [Section 13](#section-13-architecture)).
+
+**Verify:** activate **Bookmarks** → add a labelled bookmark → it appears in the list → deactivate then reactivate → the entry persists (tool-scoped Room database) → **clear** removes all.
+
+</td>
+</tr>
+</table>
 
 ---
 
