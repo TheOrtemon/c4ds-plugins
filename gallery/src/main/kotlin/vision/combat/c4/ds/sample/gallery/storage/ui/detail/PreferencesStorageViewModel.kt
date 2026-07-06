@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
-import vision.combat.c4.ds.sample.gallery.storage.data.PreferencesStorageRepository
+import vision.combat.c4.ds.sample.gallery.storage.domain.repository.PreferencesStorageRepository
 
 internal class PreferencesStorageViewModel(
     private val repository: PreferencesStorageRepository,

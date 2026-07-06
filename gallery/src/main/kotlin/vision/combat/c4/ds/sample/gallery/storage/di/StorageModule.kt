@@ -5,16 +5,18 @@ import org.kodein.di.DI
 import org.kodein.di.bindSingleton
 import org.kodein.di.instance
 import vision.combat.c4.ds.sample.gallery.storage.StorageToolDescriptor
-import vision.combat.c4.ds.sample.gallery.storage.data.PreferencesStorageRepository
+import vision.combat.c4.ds.sample.gallery.storage.data.PreferencesStorageRepositoryImpl
 import vision.combat.c4.ds.sample.gallery.storage.data.db.SampleDatabase
+import vision.combat.c4.ds.sample.gallery.storage.domain.repository.PreferencesStorageRepository
 import vision.combat.c4.ds.sdk.domain.interactor.CommonSessionStorageInteractor
 import vision.combat.c4.ds.sdk.tool.requireQualifiedName
 
 internal val storageModule = DI.Module("storageModule") {
     // Plugin-isolated SharedPreferences — keyed by the tool descriptor's qualified name,
-    // exactly as the WindowMultiScreen sample does.
-    bindSingleton {
-        PreferencesStorageRepository(
+    // exactly as the WindowMultiScreen sample does. Bound as the domain-facing interface;
+    // the Data-layer impl is an implementation detail behind it (dependency inversion).
+    bindSingleton<PreferencesStorageRepository> {
+        PreferencesStorageRepositoryImpl(
             instance(arg = requireQualifiedName<StorageToolDescriptor>()),
         )
     }
