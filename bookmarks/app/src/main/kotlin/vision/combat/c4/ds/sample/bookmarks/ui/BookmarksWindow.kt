@@ -1,11 +1,8 @@
 package vision.combat.c4.ds.sample.bookmarks.ui
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
@@ -51,9 +48,8 @@ internal fun BookmarksWindow(viewModel: BookmarksViewModel = diViewModel()) {
 @Composable
 private fun WindowContent(uiState: UiState, onAction: (Action) -> Unit) {
     WindowScaffold(
-        // The body is a LazyColumn, which must own its own scrolling — disable the scaffold's
-        // default verticalScroll wrapper to avoid nesting a lazy list inside a scrollable parent.
-        scrollable = false,
+        // The bookmark list is small and non-lazy, so the whole screen scrolls together via the
+        // scaffold's default verticalScroll — no nested-scroll (LazyColumn-in-scroll) conflict.
         topAppBar = { BackNavTopAppBar(title = stringResource(R.string.bookmarks_tool_name)) },
         content = { Content(uiState, onAction) },
     )
@@ -61,7 +57,7 @@ private fun WindowContent(uiState: UiState, onAction: (Action) -> Unit) {
 
 @Composable
 private fun Content(uiState: UiState, onAction: (Action) -> Unit) {
-    Column(modifier = Modifier.fillMaxSize()) {
+    Column(modifier = Modifier.fillMaxWidth()) {
         Text(
             text = stringResource(R.string.bookmarks_explainer),
             style = MaterialTheme.typography.body2,
@@ -123,10 +119,8 @@ private fun Content(uiState: UiState, onAction: (Action) -> Unit) {
                 modifier = Modifier.padding(bottom = 16.dp),
             )
         } else {
-            LazyColumn(modifier = Modifier.weight(1f).fillMaxWidth()) {
-                items(uiState.bookmarks, key = { it.id }) { bookmark ->
-                    BookmarkListItem(bookmark)
-                }
+            uiState.bookmarks.forEach { bookmark ->
+                BookmarkListItem(bookmark)
             }
         }
 
