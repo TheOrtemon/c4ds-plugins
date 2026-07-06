@@ -419,7 +419,7 @@
     <!-- Architecture / Bookmarks (cross-APK) -->
     <string name="bookmarks_catalog_name">Закладки (мультимодульний)</string>
     <string name="bookmarks_catalog_desc">Окремий мультимодульний зразок: модулі Gradle domain/data/app демонструють інверсію залежностей, Kodein DI та MVI, упаковані як окремий APK, що виявляється хостом.</string>
-    <string name="bookmarks_catalog_apis">AbstractTool, ToolDescriptor, ToolComponent.Window, Kodein subDI/import, tool-scoped SharedPreferences via requireQualifiedName, MVI StateFlow + Action + Channel</string>
+    <string name="bookmarks_catalog_apis">AbstractTool, ToolDescriptor, ToolComponent.Window, Kodein subDI/import, tool-scoped Room database via CommonSessionStorageInteractor.getUserDirectoryPath, MVI StateFlow + Action + Channel</string>
     <string name="bookmarks_cross_apk_not_installed">APK Закладок не встановлено.</string>
     <string name="bookmarks_cross_apk_install_intro">Зберіть і встановіть APK Закладок, потім відкрийте Галерею зразків у списку інструментів ComBat 4:</string>
     <string name="bookmarks_cross_apk_install_commands">./gradlew :bookmarks:app:installDebug</string>

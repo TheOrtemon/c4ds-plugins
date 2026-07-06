@@ -420,7 +420,7 @@
     <!-- Architecture / Bookmarks (cross-APK) -->
     <string name="bookmarks_catalog_name">Bookmarks (multi-module)</string>
     <string name="bookmarks_catalog_desc">Standalone multi-module sample: domain/data/app Gradle modules demonstrating dependency inversion, Kodein DI, and MVI, packaged as its own discoverable APK.</string>
-    <string name="bookmarks_catalog_apis">AbstractTool, ToolDescriptor, ToolComponent.Window, Kodein subDI/import, tool-scoped SharedPreferences via requireQualifiedName, MVI StateFlow + Action + Channel</string>
+    <string name="bookmarks_catalog_apis">AbstractTool, ToolDescriptor, ToolComponent.Window, Kodein subDI/import, tool-scoped Room database via CommonSessionStorageInteractor.getUserDirectoryPath, MVI StateFlow + Action + Channel</string>
     <string name="bookmarks_cross_apk_not_installed">Bookmarks APK not installed.</string>
     <string name="bookmarks_cross_apk_install_intro">Build and install the Bookmarks APK, then open Sample Gallery from ComBat 4 Tools:</string>
     <string name="bookmarks_cross_apk_install_commands">./gradlew :bookmarks:app:installDebug</string>
