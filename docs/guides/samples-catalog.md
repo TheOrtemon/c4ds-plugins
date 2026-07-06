@@ -203,6 +203,9 @@ button.
 
 <table>
 <tr>
+<td width="280" valign="top">
+<img src="https://github.com/user-attachments/assets/9c4eab1a-50f7-46fb-8b36-d4847bfa5e1b" width="260" alt="Overlay isDefault demo — hub window driving Demo A/B, showing the active tool's default overlay badge on the map">
+</td>
 <td valign="top">
 
 A hub window (`overlay_default_tool_name` in-app) drives two hidden demo tools, each declaring its
