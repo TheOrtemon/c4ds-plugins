@@ -1,14 +1,14 @@
 # Architecture for plugins
 
-**[← AGENTS.md](../AGENTS.md)**
+**[← AGENTS.md](../../AGENTS.md)**
 
 How to shape a single external c4ds tool module: the layer cake, where each piece lives, and
 how the pieces are wired together. This doc is deliberately generic — it describes a pattern
 you apply inside your own tool's package, not anything about the host's internals.
 
-> **Sibling docs:** [Tool lifecycle & setup](tool-lifecycle-and-setup.md) ·
+> **Sibling docs:** [Tool lifecycle & setup](../reference/tool-lifecycle-and-setup.md) ·
 > [UI layer conventions](ui-layer-conventions.md) · [Data & domain](data-and-domain.md) ·
-> [Testing your tool](testing-your-tool.md) · [Resource & isolation](resource-and-isolation.md)
+> [Testing your tool](../testing/testing-your-tool.md) · [Resource & isolation](../reference/resource-and-isolation.md)
 
 ---
 
@@ -43,7 +43,7 @@ UI  ──depends on──>  Domain  <──depends on──  Data
 
 - **ViewModels never touch storage directly.** They call an interactor; the interactor calls
   a repository. This is what keeps ViewModels and interactors unit-testable without an
-  Android instrumentation environment — see [Testing your tool](testing-your-tool.md).
+  Android instrumentation environment — see [Testing your tool](../testing/testing-your-tool.md).
 - **Composables never touch a ViewModel's internals.** They read `UiState`, call
   `onAction`/the ViewModel's action handler, and observe one-shot events. See
   [UI layer conventions](ui-layer-conventions.md).
@@ -66,11 +66,13 @@ com.example.mytool/
 ├── MyTool.kt                  # AbstractTool subclass — wires ToolComponents + DI
 ├── MyToolDescriptor.kt         # ToolDescriptor subclass — identity + factory
 ├── data/
-│   └── MyToolRepository.kt     # Wraps SharedPreferences / Room / files
+│   └── MyToolRepositoryImpl.kt # Implements the repository interface; wraps SharedPreferences / Room / files
 ├── domain/
-│   └── MyToolInteractor.kt     # Use-case layer between UI and data
+│   ├── MyToolInteractor.kt     # Use-case layer between UI and data
+│   └── repository/
+│       └── MyToolRepository.kt # Repository interface — the contract Domain depends on
 ├── di/
-│   └── MyToolModule.kt         # Kodein DI.Module binding repository + interactor
+│   └── MyToolModule.kt         # Kodein DI.Module binding interface → impl, and the interactor
 └── ui/
     ├── MyToolWindow.kt         # Composable entry point + diViewModel()
     └── MyToolViewModel.kt      # UiState / Action / Event
@@ -79,6 +81,9 @@ com.example.mytool/
 For a multi-screen tool, add a `ui/<screen>/` package per screen (each with its own
 `Screen.kt` + `ViewModel.kt`) plus a `Route.kt` sealed type for navigation. See
 [UI layer conventions](ui-layer-conventions.md#multi-screen-navigation).
+
+Keep `MyTool.kt` (`AbstractTool`) and `MyToolDescriptor.kt` (`ToolDescriptor`) as separate
+files, as shown above — this is the convention every sample in this repo follows.
 
 ---
 
@@ -113,7 +118,7 @@ class MyToolDescriptor(toolContext: ToolContext) : ToolDescriptor(toolContext) {
 `requiredComponent { }` declares that this tool must show a window whenever it is active;
 the host calls the lambda to build the Compose content the first time it's shown. Declare
 only the `ToolComponent`s your tool actually needs (`window`, `mapWindow`, `overlay`,
-`status`, `expandableStatus`, `underlay`) — see [Tool lifecycle & setup](tool-lifecycle-and-setup.md#screen-regions-toolcomponent)
+`status`, `expandableStatus`, `underlay`) — see [Tool lifecycle & setup](../reference/tool-lifecycle-and-setup.md#screen-regions-toolcomponent)
 for the full list and what each region is for.
 
 ---
@@ -124,10 +129,18 @@ Once a tool needs to persist something or read/write through an SDK domain inter
 introduce `data/`, `domain/`, and `di/` packages and wire a tool-scoped DI module:
 
 ```kotlin
-// data/MyToolRepository.kt
-internal class MyToolRepository(private val sharedPreferences: SharedPreferences) {
-    fun setEnabled(enabled: Boolean) = sharedPreferences.edit { putBoolean(KEY, enabled) }
-    fun observeEnabled(scope: CoroutineScope): StateFlow<Boolean> =
+// domain/repository/MyToolRepository.kt
+internal interface MyToolRepository {
+    fun setEnabled(enabled: Boolean)
+    fun observeEnabled(scope: CoroutineScope): StateFlow<Boolean>
+}
+
+// data/MyToolRepositoryImpl.kt
+internal class MyToolRepositoryImpl(
+    private val sharedPreferences: SharedPreferences,
+) : MyToolRepository {
+    override fun setEnabled(enabled: Boolean) = sharedPreferences.edit { putBoolean(KEY, enabled) }
+    override fun observeEnabled(scope: CoroutineScope): StateFlow<Boolean> =
         sharedPreferences.observeAsStateFlow(KEY, false, scope)
 
     private companion object {
@@ -143,8 +156,9 @@ internal class MyToolInteractor(private val repository: MyToolRepository) {
 
 // di/MyToolModule.kt
 internal val myToolModule = DI.Module("myToolModule") {
-    bindSingleton {
-        MyToolRepository(instance(arg = requireQualifiedName<MyToolDescriptor>()))
+    // Bind the interface to its impl — Domain and UI only ever see MyToolRepository.
+    bindSingleton<MyToolRepository> {
+        MyToolRepositoryImpl(instance(arg = requireQualifiedName<MyToolDescriptor>()))
     }
     bindSingletonOf(::MyToolInteractor)
 }
@@ -169,14 +183,14 @@ internal class MyTool(
 `instance(arg = requireQualifiedName<MyToolDescriptor>())` is the standard pattern for
 obtaining your tool's isolated `SharedPreferences` instance from the parent DI graph — the
 qualified name of your `ToolDescriptor` scopes the preferences file to your tool. See
-[Data & domain](data-and-domain.md) and [Resource & isolation](resource-and-isolation.md)
+[Data & domain](data-and-domain.md) and [Resource & isolation](../reference/resource-and-isolation.md)
 for the full storage story (files, `SharedPreferences`, Room).
 
 Your ViewModel then depends on the interactor, obtained through `diViewModel()`:
 
 ```kotlin
 internal class MyToolViewModel(private val interactor: MyToolInteractor) : ViewModel() {
-    // UiState / Action / Event — see docs/ui-layer-conventions.md
+    // UiState / Action / Event — see docs/architecture/ui-layer-conventions.md
 }
 ```
 
@@ -201,5 +215,5 @@ for the `AppNavHost` + `Route` pattern that pairs with this.
 | Coordinate one or more repositories / SDK interactors for a use case   | Domain                        | Interactor                                                                          |
 | Read/write `SharedPreferences`, files, or a local database             | Data                          | Repository — see [Data & domain](data-and-domain.md)                                |
 | Talk to an SDK domain interactor (map, model, session storage, locale) | Domain or Data, per call site | Depends whether it's business logic (domain) or raw storage (data)                  |
-| Declare screen regions, DI graph, lifecycle callbacks                  | Tool                          | `AbstractTool` subclass — see [Tool lifecycle & setup](tool-lifecycle-and-setup.md) |
+| Declare screen regions, DI graph, lifecycle callbacks                  | Tool                          | `AbstractTool` subclass — see [Tool lifecycle & setup](../reference/tool-lifecycle-and-setup.md) |
 | Declare identity (name/icon/categories) and construct the tool         | Tool                          | `ToolDescriptor` subclass                                                           |

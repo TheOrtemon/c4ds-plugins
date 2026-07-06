@@ -1,13 +1,13 @@
 # Testing your tool
 
-**[← AGENTS.md](../AGENTS.md)**
+**[← AGENTS.md](../../AGENTS.md)**
 
 What to unit-test in a c4ds tool, and the JUnit 5 + MockK + Turbine pattern for ViewModels
-and interactors. The layering described in [Architecture for plugins](architecture-for-plugins.md)
+and interactors. The layering described in [Architecture for plugins](../architecture/architecture-for-plugins.md)
 is what makes this possible on the plain JVM, without an emulator or instrumentation test.
 
-> **Sibling docs:** [Architecture for plugins](architecture-for-plugins.md) ·
-> [UI layer conventions](ui-layer-conventions.md) · [Data & domain](data-and-domain.md)
+> **Sibling docs:** [Architecture for plugins](../architecture/architecture-for-plugins.md) ·
+> [UI layer conventions](../architecture/ui-layer-conventions.md) · [Data & domain](../architecture/data-and-domain.md)
 
 ---
 
@@ -26,8 +26,8 @@ is what makes this possible on the plain JVM, without an emulator or instrumenta
 If a class is hard to unit-test, it's almost always because it instantiates its
 collaborators internally instead of receiving them through the constructor. Constructor-
 inject everything (repositories, interactors, SDK domain interactors) — see
-[Architecture for plugins](architecture-for-plugins.md) and
-[Data & domain](data-and-domain.md).
+[Architecture for plugins](../architecture/architecture-for-plugins.md) and
+[Data & domain](../architecture/data-and-domain.md).
 
 ---
 
@@ -114,7 +114,7 @@ Rules of thumb:
   (`expectNoEvents()` / `cancelAndIgnoreRemainingEvents()`).
 - Mock every constructor dependency (interactors, not repositories, if the ViewModel only
   ever talks to an interactor) — this is exactly what the layering in
-  [Architecture for plugins](architecture-for-plugins.md) buys you: a ViewModel test never
+  [Architecture for plugins](../architecture/architecture-for-plugins.md) buys you: a ViewModel test never
   needs `SharedPreferences`, Room, or a running host.
 
 ---

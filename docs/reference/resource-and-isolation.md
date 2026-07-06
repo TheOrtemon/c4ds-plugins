@@ -1,13 +1,13 @@
 # Resource & isolation
 
-**[← AGENTS.md](../AGENTS.md)**
+**[← AGENTS.md](../../AGENTS.md)**
 
 Your tool's APK runs with its own resources, assets, and (if you use them) native
 libraries — separate from the host's. This doc covers what that means for how you read
 resources/assets, load native code, and obtain session/user-scoped storage paths.
 
 > **Sibling docs:** [Tool lifecycle & setup](tool-lifecycle-and-setup.md) ·
-> [Data & domain](data-and-domain.md)
+> [Data & domain](../architecture/data-and-domain.md)
 
 ---
 
@@ -121,7 +121,7 @@ class MyToolInteractor(
 
 - `getRootDirectoryPath()` — a session-level directory.
 - `getUserDirectoryPath()` — a directory scoped to the current user; this is what you should
-  build a Room database file path from (see [Data & domain — Room](data-and-domain.md#room)).
+  build a Room database file path from (see [Data & domain — Room](../architecture/data-and-domain.md#room)).
 
 Do file I/O off the main thread (`Dispatchers.IO` + `viewModelScope.launch` or an interactor
 coroutine scope) — reading/writing files synchronously on the UI thread is a normal Android
@@ -143,7 +143,7 @@ internal val myToolModule = DI.Module("myToolModule") {
 
 Never call `Context.getSharedPreferences("my_prefs", MODE_PRIVATE)` directly with a
 hand-picked name and assume isolation — go through DI with `requireQualifiedName<...>()` as
-shown above and in [Data & domain](data-and-domain.md).
+shown above and in [Data & domain](../architecture/data-and-domain.md).
 
 ---
 

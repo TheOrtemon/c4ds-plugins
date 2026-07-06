@@ -1,12 +1,12 @@
 # UI layer conventions
 
-**[← AGENTS.md](../AGENTS.md)**
+**[← AGENTS.md](../../AGENTS.md)**
 
 MVI shape for a tool's screens: `UiState` / `Action` / `Event`, eager-init observation,
 `EventHandler`, and `diViewModel()`. Also covers multi-screen navigation.
 
 > **Sibling docs:** [Architecture for plugins](architecture-for-plugins.md) ·
-> [Data & domain](data-and-domain.md) · [Testing your tool](testing-your-tool.md)
+> [Data & domain](data-and-domain.md) · [Testing your tool](../testing/testing-your-tool.md)
 
 ---
 
@@ -228,3 +228,4 @@ internal fun MyToolWindow() {
 - Don't reach for `LocalContext` inside a `ViewModel` — it's a UI-layer type. If a ViewModel
   needs isolated storage, resolve a repository through DI instead (see
   [Data & domain](data-and-domain.md)).
+

@@ -1,10 +1,10 @@
 # Plugin isolation
 
-**[← README](../README.md)** · **[Getting started](getting-started.md)** · **[Samples guidebook](samples-catalog.md)**
+**[← README](../../README.md)** · **[Getting started](getting-started.md)** · **[Samples guidebook](samples-catalog.md)**
 
 External tool APKs run in an isolated classloader with their own resources, assets, and native libraries. The host must not leak its own `AssetManager`, `Resources`, or `nativeLibraryDir` into plugin code.
 
-This repo exercises isolation through dedicated gallery samples and the separate `:isolation` APK. Use **external plugin APKs** for isolation testing — the bundled in-process `:c4ds-tool:template` runs on the host context and cannot validate plugin-only isolation.
+This repo exercises isolation through dedicated gallery samples and the separate `:isolation` APK. Use **external plugin APKs** for isolation testing — a bundled in-process starter/template tool runs on the host context and cannot validate plugin-only isolation.
 
 ---
 
@@ -30,7 +30,7 @@ Build and install both APKs, then launch **Native / Cross-APK** from Sample Gall
 
 ### Native `.so` isolation
 
-`:isolation` ships `libisolation_jni.so` built from [`isolation/src/main/cpp/`](../isolation/src/main/cpp/). `NativeTool` calls `System.loadLibrary("isolation_jni")` and invokes `IsolationNative.nativeVersion()`.
+`:isolation` ships `libisolation_jni.so` built from [`isolation/src/main/cpp/`](../../isolation/src/main/cpp/). `NativeTool` calls `System.loadLibrary("isolation_jni")` and invokes `IsolationNative.nativeVersion()`.
 
 **Expected logcat:**
 
@@ -44,7 +44,7 @@ Build and install both APKs, then launch **Native / Cross-APK** from Sample Gall
 [JNI SMOKE] FAILED to load libisolation_jni.so — check nativeLibraryDir wiring
 ```
 
-The host `ToolPackageCache` passes `nativeLibraryDir` as `libPath` to `PathClassLoader`, so `System.loadLibrary` finds the unpacked `.so` when `android:extractNativeLibs="true"` is set in the plugin manifest.
+The host's plugin package loader passes `nativeLibraryDir` as `libPath` to `PathClassLoader`, so `System.loadLibrary` finds the unpacked `.so` when `android:extractNativeLibs="true"` is set in the plugin manifest.
 
 ### Window UI
 
@@ -59,7 +59,7 @@ The native tool window displays:
 
 | Case | Sample | What it proves |
 |---|---|---|
-| **(a)** | Resources / Material | M2 widgets compiled into plugin; `CompositionFallbackContext` + `FallbackResources` |
+| **(a)** | Resources / Material | M2 widgets compiled into plugin; SDK's automatic composition-context fallback |
 | **(b)** | Resources / Collision | Plugin `R.string` wins over host for same resource name |
 | **(c)** | Resources / Config | Strings/drawables react to locale and night-mode changes |
 | **(d)** | Manual (any persisted tool) | State survives `versionCode` bump on reinstall |
@@ -117,7 +117,7 @@ Plugin UI must recompose when host configuration changes (app language, uiMode/n
 
 **Procedure:**
 
-1. Set `versionCode = 1` in [`gallery/build.gradle.kts`](../gallery/build.gradle.kts). Build and install.
+1. Set `versionCode = 1` in [`gallery/build.gradle.kts`](../../gallery/build.gradle.kts). Build and install.
 2. Open **Window — Multi-Screen** → Settings → enable **Show description on Home**.
 3. Bump `versionCode` to `2`. Rebuild and reinstall with `adb install -r` (same `applicationId`).
 4. Reopen Window — Multi-Screen → confirm toggle is still enabled.
@@ -164,7 +164,7 @@ This case requires **two APKs**:
 **Implementation notes:**
 
 - JNI class lives in package `nativelib` (not `native` — Java keyword).
-- CMake project: [`isolation/build.gradle.kts`](../isolation/build.gradle.kts) + [`isolation/src/main/cpp/CMakeLists.txt`](../isolation/src/main/cpp/CMakeLists.txt).
+- CMake project: [`isolation/build.gradle.kts`](../../isolation/build.gradle.kts) + [`isolation/src/main/cpp/CMakeLists.txt`](../../isolation/src/main/cpp/CMakeLists.txt).
 - ABIs: `arm64-v8a`, `x86_64`.
 
 ---

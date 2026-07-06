@@ -1,13 +1,13 @@
 # Data & domain
 
-**[← AGENTS.md](../AGENTS.md)**
+**[← AGENTS.md](../../AGENTS.md)**
 
 Repository / interactor / mapper patterns for a tool's data and domain layers, and how to
 use the SDK's isolated storage primitives (`SharedPreferences`, files, Room).
 
 > **Sibling docs:** [Architecture for plugins](architecture-for-plugins.md) ·
-> [UI layer conventions](ui-layer-conventions.md) · [Resource & isolation](resource-and-isolation.md) ·
-> [Testing your tool](testing-your-tool.md)
+> [UI layer conventions](ui-layer-conventions.md) · [Resource & isolation](../reference/resource-and-isolation.md) ·
+> [Testing your tool](../testing/testing-your-tool.md)
 
 ---
 
@@ -15,17 +15,28 @@ use the SDK's isolated storage primitives (`SharedPreferences`, files, Room).
 
 A repository wraps exactly one storage mechanism (a `SharedPreferences` instance, a Room
 DAO, a directory of files) and exposes a small, purpose-built API — never the raw storage
-type itself.
+type itself. Domain declares the repository as an **interface**; Data provides the
+`...Impl` that implements it — this is the dependency inversion pattern applied concretely:
 
 ```kotlin
-internal class MyToolRepository(
+// domain/repository/MyToolRepository.kt
+internal interface MyToolRepository {
+    fun setShowDescription(show: Boolean)
+
+    fun observeShowDescription(scope: CoroutineScope): StateFlow<Boolean>
+}
+```
+
+```kotlin
+// data/MyToolRepositoryImpl.kt
+internal class MyToolRepositoryImpl(
     private val sharedPreferences: SharedPreferences,
-) {
-    fun setShowDescription(show: Boolean) {
+) : MyToolRepository {
+    override fun setShowDescription(show: Boolean) {
         sharedPreferences.edit { putBoolean(KEY_SHOW_DESCRIPTION, show) }
     }
 
-    fun observeShowDescription(scope: CoroutineScope): StateFlow<Boolean> =
+    override fun observeShowDescription(scope: CoroutineScope): StateFlow<Boolean> =
         sharedPreferences.observeAsStateFlow(KEY_SHOW_DESCRIPTION, true, scope)
 
     private companion object {
@@ -34,14 +45,18 @@ internal class MyToolRepository(
 }
 ```
 
-- Keys are `private const val`s local to the repository — nothing outside it should know the
-  underlying storage shape.
+- Keys are `private const val`s local to the impl — nothing outside it should know the
+  underlying storage shape. The interface only exposes domain-facing methods, never the key
+  names or the `SharedPreferences` type itself.
 - Expose `StateFlow`/`Flow` for reads, plain functions for writes. `observeAsStateFlow` (an
   SDK extension on `SharedPreferences`) turns a preference key into a `StateFlow` you can
   collect like any other reactive source.
 - The `SharedPreferences` instance itself comes from DI, isolated to your tool — see
-  [Resource & isolation](resource-and-isolation.md) for how it's obtained and why you should
+  [Resource & isolation](../reference/resource-and-isolation.md) for how it's obtained and why you should
   never substitute an ambient, hardcoded-name `SharedPreferences` instead.
+- The interface lives in `domain/repository/`; the impl lives in `data/`. The DI module
+  binds the interface to the impl (see below), so everything above Domain — interactors,
+  ViewModels — depends only on the interface.
 
 ### Room
 
@@ -75,7 +90,7 @@ internal abstract class MyToolDatabase : RoomDatabase() {
 - Build the database file inside the **user-scoped directory** the SDK's session-storage
   interactor gives you (`userDirectoryPath` above) — not an arbitrary app-private path — so
   the database is correctly isolated per user/session. See
-  [Resource & isolation](resource-and-isolation.md#session-scoped-storage).
+  [Resource & isolation](../reference/resource-and-isolation.md#session-scoped-storage).
 - A singleton guarded by `synchronized` is the standard shape; note that it's initialized
   once from whatever path is passed on the *first* call. If your tool needs to support
   switching users/sessions within one process lifetime, you'll need to detect a directory
@@ -144,7 +159,7 @@ internal class MyToolInteractor(
 
 This keeps the ViewModel a thin adapter between `Action`/`UiState` and the domain layer,
 which is what makes ViewModel tests fast and mock-friendly (see
-[Testing your tool](testing-your-tool.md)).
+[Testing your tool](../testing/testing-your-tool.md)).
 
 ---
 
@@ -154,7 +169,7 @@ When a repository's storage shape (an `Entity`, a raw `SharedPreferences` key/va
 differs from the domain/UI-facing model, keep the conversion as a small pure function —
 either a top-level extension (`NoteEntity.toDomain()`) or a dedicated `Mapper` class if
 there's meaningful logic on both directions. Pure functions like this need no mocks to test;
-see [Testing your tool — mappers](testing-your-tool.md#what-to-test-and-what-not-to).
+see [Testing your tool — mappers](../testing/testing-your-tool.md#what-to-test-and-what-not-to).
 
 ---
 
@@ -175,6 +190,22 @@ dependency inversion (DIP). Domain itself has no compile-time dependency on
 `SharedPreferences`, Room, or any other storage type; only the Data-layer implementation
 does. See [Architecture for plugins — the layer cake](architecture-for-plugins.md#the-layer-cake)
 for the full picture.
+
+The DI module is where the interface gets bound to its impl — this is the one place that
+knows both types exist:
+
+```kotlin
+internal val myToolModule = DI.Module("myToolModule") {
+    bindSingleton<MyToolRepository> {
+        MyToolRepositoryImpl(instance(arg = requireQualifiedName<MyToolDescriptor>()))
+    }
+    bindSingletonOf(::MyToolInteractor)
+}
+```
+
+`bindSingleton<MyToolRepository> { ... }` binds against the interface type, so `instance()`
+resolution anywhere else in the graph (including inside `MyToolInteractor`'s constructor)
+returns `MyToolRepository`, never `MyToolRepositoryImpl`.
 
 A ViewModel should never import `android.content.SharedPreferences`, `androidx.room.*`, or
 `java.io.File` directly. If you find yourself doing that, the storage access belongs one

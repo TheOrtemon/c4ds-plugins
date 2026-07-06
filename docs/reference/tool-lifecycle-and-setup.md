@@ -1,13 +1,13 @@
 # Tool lifecycle & setup
 
-**[← AGENTS.md](../AGENTS.md)**
+**[← AGENTS.md](../../AGENTS.md)**
 
 Gradle setup, the `ToolDescriptor` / `AbstractTool` contract, screen regions
 (`ToolComponent`), `AbstractToolService`, and the Kodein DI lifecycle that ties them
 together.
 
-> **Sibling docs:** [Architecture for plugins](architecture-for-plugins.md) ·
-> [UI layer conventions](ui-layer-conventions.md) · [Data & domain](data-and-domain.md) ·
+> **Sibling docs:** [Architecture for plugins](../architecture/architecture-for-plugins.md) ·
+> [UI layer conventions](../architecture/ui-layer-conventions.md) · [Data & domain](../architecture/data-and-domain.md) ·
 > [Resource & isolation](resource-and-isolation.md)
 
 ---
@@ -130,6 +130,10 @@ class MyToolDescriptor(toolContext: ToolContext) : ToolDescriptor(toolContext) {
 - `serviceDescriptionResId` + `createService` — optional; only needed if your tool has a
   session-scoped background service. See [`AbstractToolService`](#abstracttoolservice--session-scoped-background-work)
   below.
+
+**Keep `AbstractTool` and `ToolDescriptor` in separate files** — e.g. `MyTool.kt` and
+`MyToolDescriptor.kt` — rather than combining them into one file. This is the convention
+every sample in this repo follows and keeps each type easy to locate by name.
 
 ---
 
@@ -263,7 +267,7 @@ window reads live state from the service (e.g. via a `StateFlow`) instead of dup
   to your specific tool. It isn't something you call from arbitrary tool code; it's the
   `instance(arg = ...)` lookup that supplies the `SharedPreferences` (or other keyed)
   constructor argument when the module wires up the binding — see the worked example in
-  [Architecture for plugins — adding domain + data layers](architecture-for-plugins.md#adding-domain--data-layers)
+  [Architecture for plugins — adding domain + data layers](../architecture/architecture-for-plugins.md#adding-domain--data-layers)
   and [Resource & isolation](resource-and-isolation.md).
 
 ---

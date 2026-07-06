@@ -1,6 +1,6 @@
 # Getting started
 
-**[← README](../README.md)** · **[Samples guidebook](samples-catalog.md)** · **[Plugin isolation](plugin-isolation.md)**
+**[← README](../../README.md)** · **[Samples guidebook](samples-catalog.md)** · **[Plugin isolation](plugin-isolation.md)**
 
 This guide covers prerequisites, Gradle setup, tool integration, and how to build and install the sample APKs from Android Studio.
 
@@ -12,7 +12,7 @@ To build and run these samples you need:
 
 1. **[ComBat 4 Dismounted Soldier](https://play.google.com/store/apps/details?id=vision.combat.c4.ds)** installed on a device or emulator.
 2. **Maven SDK repository access** — request credentials by writing to [support@combat.vision](mailto:support@combat.vision).
-3. **Matching SDK version** — this repo pins `c4ds-sdk` in [`gradle/libs.versions.toml`](../gradle/libs.versions.toml). Check [Nexus](https://nexus.combat.vision/#browse/browse:maven-sdk:vision%2Fcombat%2Fc4ds-sdk) for the latest release (login with the same credentials).
+3. **Matching SDK version** — this repo pins `c4ds-sdk` in [`gradle/libs.versions.toml`](../../gradle/libs.versions.toml). Check [Nexus](https://nexus.combat.vision/#browse/browse:maven-sdk:vision%2Fcombat%2Fc4ds-sdk) for the latest release (login with the same credentials).
 4. **Binary-compatible toolchain** — use the same Kotlin version as the host app:
 
    ```
@@ -67,7 +67,7 @@ c4ds_sdk_password=<password>
 
 ### 2. Maven repository
 
-The root [`build.gradle.kts`](../build.gradle.kts) already configures the SDK repository for all subprojects:
+The root [`build.gradle.kts`](../../build.gradle.kts) already configures the SDK repository for all subprojects:
 
 ```kotlin
 subprojects {
@@ -114,7 +114,7 @@ External tools are plain Android **Application** modules with **no Activity**. T
 
 ### Step 1 — Subclass `AbstractTool`
 
-Example: [`WindowSingleScreenTool.kt`](../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/window/singlescreen/WindowSingleScreenTool.kt)
+Example: [`WindowSingleScreenTool.kt`](../../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/window/singlescreen/WindowSingleScreenTool.kt)
 
 ```kotlin
 internal class WindowSingleScreenTool(
@@ -134,7 +134,7 @@ Declare only the components your tool needs (`window`, `overlay`, `status`, `map
 
 ### Step 2 — Subclass `ToolDescriptor`
 
-Example: [`WindowSingleScreenToolDescriptor.kt`](../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/window/singlescreen/WindowSingleScreenToolDescriptor.kt)
+Example: [`WindowSingleScreenToolDescriptor.kt`](../../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/window/singlescreen/WindowSingleScreenToolDescriptor.kt)
 
 ```kotlin
 class WindowSingleScreenToolDescriptor(toolContext: ToolContext) : ToolDescriptor(toolContext) {
@@ -154,7 +154,7 @@ class WindowSingleScreenToolDescriptor(toolContext: ToolContext) : ToolDescripto
 
 ### Step 3 — Register descriptors in `combat_tools.xml`
 
-Example: [`gallery/src/main/res/xml/combat_tools.xml`](../gallery/src/main/res/xml/combat_tools.xml)
+Example: [`gallery/src/main/res/xml/combat_tools.xml`](../../gallery/src/main/res/xml/combat_tools.xml)
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>

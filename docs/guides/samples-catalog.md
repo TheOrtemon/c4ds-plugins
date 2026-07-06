@@ -1,6 +1,6 @@
 # Samples guidebook
 
-**[← README](../README.md)** · **[Getting started](getting-started.md)** · **[Plugin isolation](plugin-isolation.md)**
+**[← README](../../README.md)** · **[Getting started](getting-started.md)** · **[Plugin isolation](plugin-isolation.md)**
 
 The developer guidebook for this repository: every sample with a screenshot, description, SDK APIs,
 source path, and verification steps — grouped by the 12 catalog sections in on-screen order. Each
@@ -8,7 +8,7 @@ section below is collapsible; expand the ones you are extending.
 
 **Package root:** `vision.combat.c4.ds.sample.*`
 **Hub:** `gallery/.../catalog/CatalogTool` — the only launcher-visible tool in `:gallery`.
-**Registry source of truth:** [`CatalogSection.kt`](../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/catalog/ui/CatalogSection.kt) / [`CatalogEntry.kt`](../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/catalog/ui/CatalogEntry.kt)
+**Registry source of truth:** [`CatalogSection.kt`](../../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/catalog/ui/CatalogSection.kt) / [`CatalogEntry.kt`](../../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/catalog/ui/CatalogEntry.kt)
 
 **Sections:**
 [1 Map View](#section-1-map-view) ·
@@ -46,7 +46,7 @@ The gallery uses a **3-level** navigation hierarchy:
 | **Info icon** (ⓘ) on a sample row | Navigates to the sample detail screen |
 | Install `:isolation` APK | Enables **Native / Cross-APK** row in the Resources & Isolation section |
 
-Registry implementation: [`CatalogEntry.kt`](../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/catalog/ui/CatalogEntry.kt)
+Registry implementation: [`CatalogEntry.kt`](../../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/catalog/ui/CatalogEntry.kt)
 
 ---
 
@@ -113,7 +113,7 @@ handling, renderable layers, status bar integration, and an info window.
 
 **SDK APIs:** `AbstractMapTool`, `RenderableLayer`, `SelectDragCallback`, map tap callbacks, `ToolComponent.Status`, `ToolComponent.Window`, `shouldShowCoordinates`, `shouldShowAzimuth`.
 
-**Source:** [`gallery/.../mapview/map/`](../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/mapview/map) · **Descriptor:** `vision.combat.c4.ds.sample.gallery.mapview.map.MapToolDescriptor`
+**Source:** [`gallery/.../mapview/map/`](../../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/mapview/map) · **Descriptor:** `vision.combat.c4.ds.sample.gallery.mapview.map.MapToolDescriptor`
 
 **Verify:** Tap terrain → placemark appears → status bar shows coordinates/azimuth → open info window for interaction overview.
 
@@ -135,7 +135,7 @@ color/size customization.
 
 **SDK APIs:** `RenderableLayer`, `addRenderable`, `removeAllRenderables`, WorldWind `Placemark`/`Path`/`Polygon`/`Ellipse`/`Label`, `requestRedraw`, `ToolComponent.Window`, `requiredComponent`, `WindowScaffold`.
 
-**Source:** [`gallery/.../mapview/renderable/`](../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/mapview/renderable) · **Descriptor:** `vision.combat.c4.ds.sample.gallery.mapview.renderable.RenderableToolDescriptor`
+**Source:** [`gallery/.../mapview/renderable/`](../../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/mapview/renderable) · **Descriptor:** `vision.combat.c4.ds.sample.gallery.mapview.renderable.RenderableToolDescriptor`
 
 **Verify:** Window opens → add each renderable type → adjust color/size → renderables appear on map → clearing removes all.
 
@@ -157,7 +157,7 @@ and magnetic corrections.
 
 **SDK APIs:** `CommonMapInteractor`, `mapNavigatorEvent`, `camera`, `lookAt`, `selectedPosition`, `isLookAtAboveHorizon`, `mapDisplayMode`, `updateMapDisplayMode`, `arDistanceLimit`, `setArDistanceLimit`, `isReticleVisible`, `setReticleVisible`, `isCursorPinned`, `pinCursor`, `unpinCursor`, `isMapVisible`, `setMapVisible`, `focusOnLocation`, `focusOnSector`, `getDeclination`, `getConvergence`, `getAngleCorrection`. Also `CommonModelInteractor.userModel` for focus-on-user.
 
-**Source:** [`gallery/.../mapview/mapinteractor/`](../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/mapview/mapinteractor) · **Descriptor:** `vision.combat.c4.ds.sample.gallery.mapview.mapinteractor.MapInteractorToolDescriptor`
+**Source:** [`gallery/.../mapview/mapinteractor/`](../../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/mapview/mapinteractor) · **Descriptor:** `vision.combat.c4.ds.sample.gallery.mapview.mapinteractor.MapInteractorToolDescriptor`
 
 **Verify:** Launch → window shows live camera/LookAt readout → switch display mode → toggle reticle/map visibility → pin/unpin cursor → **Focus on cursor** moves map to cursor position → **Focus on user** moves map to user location (no-op when no GPS fix) → declination/convergence values update at LookAt.
 
@@ -185,7 +185,7 @@ button.
 
 **SDK APIs:** `ToolComponent.Overlay`, `CommonMapInteractor.selectedPosition`, `CommonModelInteractor.userModel`, `CommonLocaleSettingsInteractor.coordinateSystemFormat`, `AbstractTool.endBar`, `EndBarActionButton`.
 
-**Source:** [`gallery/.../mapoverlays/overlay/`](../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/mapoverlays/overlay) · **Descriptor:** `vision.combat.c4.ds.sample.gallery.mapoverlays.overlay.OverlayToolDescriptor`
+**Source:** [`gallery/.../mapoverlays/overlay/`](../../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/mapoverlays/overlay) · **Descriptor:** `vision.combat.c4.ds.sample.gallery.mapoverlays.overlay.OverlayToolDescriptor`
 
 **Verify:** Overlay visible on map → cursor coordinates update when panning → user model name appears when set.
 
@@ -206,7 +206,7 @@ Status bar with host coordinate/azimuth chrome flags; host chrome renders coordi
 
 **SDK APIs:** `ToolComponent.Status`, `statusComponent`, `Status.shouldShowCoordinates`, `Status.shouldShowAzimuth`.
 
-**Source:** [`gallery/.../mapoverlays/status/`](../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/mapoverlays/status) · **Descriptor:** `vision.combat.c4.ds.sample.gallery.mapoverlays.status.StatusToolDescriptor`
+**Source:** [`gallery/.../mapoverlays/status/`](../../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/mapoverlays/status) · **Descriptor:** `vision.combat.c4.ds.sample.gallery.mapoverlays.status.StatusToolDescriptor`
 
 **Verify:** Status strip visible at bottom → host coordinates and azimuth update with map interaction.
 
@@ -228,7 +228,7 @@ the status bar, or the end-bar toggle button.
 
 **SDK APIs:** `ToolComponent.ExpandableStatus`, `expandableStatusComponent`, `ExpandableStatus.isExpanded`, `ExpandableStatus.shouldShowAbove`, `AbstractTool.endBar`, `EndBarToggleButton`.
 
-**Source:** [`gallery/.../mapoverlays/expandablestatus/`](../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/mapoverlays/expandablestatus) · **Descriptor:** `vision.combat.c4.ds.sample.gallery.mapoverlays.expandablestatus.ExpandableStatusToolDescriptor`
+**Source:** [`gallery/.../mapoverlays/expandablestatus/`](../../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/mapoverlays/expandablestatus) · **Descriptor:** `vision.combat.c4.ds.sample.gallery.mapoverlays.expandablestatus.ExpandableStatusToolDescriptor`
 
 **Verify:** Toggle expand/collapse → panel moves above/below per **Show above** setting.
 
@@ -250,7 +250,7 @@ including checkable menu items and a slider.
 
 **SDK APIs:** `AbstractTool.endBar`, `EndBarActionButton`, `EndBarToggleButton`, `EndBarMenuButton`, `EndBarMenuScope.Checkable`, `EndBarMenuScope.Slider`.
 
-**Source:** [`gallery/.../mapoverlays/endbar/`](../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/mapoverlays/endbar) · **Descriptor:** `vision.combat.c4.ds.sample.gallery.mapoverlays.endbar.EndBarToolDescriptor`
+**Source:** [`gallery/.../mapoverlays/endbar/`](../../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/mapoverlays/endbar) · **Descriptor:** `vision.combat.c4.ds.sample.gallery.mapoverlays.endbar.EndBarToolDescriptor`
 
 **Verify:** Three distinct icons appear on the end bar → action fires toast → toggle state reflected in window → menu items and slider work.
 
@@ -278,7 +278,7 @@ AR map mode while any underlay is active.
 
 **SDK APIs:** `ToolComponent.Underlay`, `requiredComponent`, `AbstractTool.endBar`, `EndBarActionButton`, `ToolManager.deactivate`.
 
-**Source:** [`gallery/.../underlay/`](../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/underlay) · **Descriptor:** `vision.combat.c4.ds.sample.gallery.underlay.UnderlayToolDescriptor`
+**Source:** [`gallery/.../underlay/`](../../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/underlay) · **Descriptor:** `vision.combat.c4.ds.sample.gallery.underlay.UnderlayToolDescriptor`
 
 **Verify:** Semi-transparent underlay visible behind map content; close via EndBar action.
 
@@ -306,7 +306,7 @@ toast event.
 
 **SDK APIs:** `ToolComponent.Window`, `requiredComponent`, `WindowScaffold`, `BackNavTopAppBar`, `diViewModel()`, `showToast`.
 
-**Source:** [`gallery/.../window/singlescreen/`](../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/window/singlescreen) · **Descriptor:** `vision.combat.c4.ds.sample.gallery.window.singlescreen.WindowSingleScreenToolDescriptor`
+**Source:** [`gallery/.../window/singlescreen/`](../../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/window/singlescreen) · **Descriptor:** `vision.combat.c4.ds.sample.gallery.window.singlescreen.WindowSingleScreenToolDescriptor`
 
 **Verify:** Window opens → **Increment** increases counter → **Reset** resets counter and shows toast.
 
@@ -328,7 +328,7 @@ settings shared across screens.
 
 **SDK APIs:** `AppNavHost`, `Route`, navigation transitions, `BackNavTopAppBar`, `subDI { import(module) }`, tool-scoped `SharedPreferences`.
 
-**Source:** [`gallery/.../window/multiscreen/`](../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/window/multiscreen) · **Descriptor:** `vision.combat.c4.ds.sample.gallery.window.multiscreen.WindowMultiScreenToolDescriptor`
+**Source:** [`gallery/.../window/multiscreen/`](../../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/window/multiscreen) · **Descriptor:** `vision.combat.c4.ds.sample.gallery.window.multiscreen.WindowMultiScreenToolDescriptor`
 
 **Verify:** Home screen → navigate to Settings → toggle → navigate back → description visibility matches toggle.
 
@@ -350,7 +350,7 @@ end-bar and nav-bar actions alongside the host's default zoom controls.
 
 **SDK APIs:** `ToolComponent.MapWindow`, embedded `MapView`, `MapController`, `MapController.InteractionMode`, `MapWindow.mapEndBarButtons`, `MapWindow.navBarContent`, `MapWindow.focusCameraOn`.
 
-**Source:** [`gallery/.../window/map/`](../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/window/map) · **Descriptor:** `vision.combat.c4.ds.sample.gallery.window.map.MapWindowToolDescriptor`
+**Source:** [`gallery/.../window/map/`](../../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/window/map) · **Descriptor:** `vision.combat.c4.ds.sample.gallery.window.map.MapWindowToolDescriptor`
 
 **Verify:** Window opens with embedded map → zoom in/out work → mode selector switches view → Focus camera button moves map.
 
@@ -378,7 +378,7 @@ Open (Half/Full) and close the panel via `PanelManager`, observing live `PanelSt
 
 **SDK APIs:** `PanelManager.openPanel(PanelState.Opened.Half)`, `PanelManager.openPanel(PanelState.Opened.Full())`, `PanelManager.closePanel()`, `PanelManager.panelState: StateFlow<PanelState>`, `PanelState.Closed`.
 
-**Source:** [`gallery/.../panelstate/`](../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/panelstate) · **Descriptor:** `vision.combat.c4.ds.sample.gallery.panelstate.PanelStateToolDescriptor`
+**Source:** [`gallery/.../panelstate/`](../../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/panelstate) · **Descriptor:** `vision.combat.c4.ds.sample.gallery.panelstate.PanelStateToolDescriptor`
 
 **Verify:** Window opens → **Open Half** opens panel to half → **Open Full** expands → **Close** closes → current state label updates live.
 
@@ -409,7 +409,7 @@ plain colored swatches.
 
 **SDK APIs:** `InlineMessage`, `HeaderField`, `ExpandableField`, `FormFieldBox`, `NestedForm`, `HostilitySelector`, `rememberSymbolPainter`, buttons, inputs, selection, feedback, revealable lists, `AppNavHost`, `WindowScaffold`.
 
-**Source:** [`gallery/.../uicatalog/`](../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/uicatalog) · **Descriptor:** `vision.combat.c4.ds.sample.gallery.uicatalog.UiCatalogToolDescriptor`
+**Source:** [`gallery/.../uicatalog/`](../../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/uicatalog) · **Descriptor:** `vision.combat.c4.ds.sample.gallery.uicatalog.UiCatalogToolDescriptor`
 
 **Verify:** Launch → component list opens → tap a component → detail screen shows each documented state → back navigation returns to list. In the Hostility Selector demo, each affiliation swatch shows its MIL-STD-2525 symbol.
 
@@ -455,7 +455,7 @@ All four `ToolDialog` variants shown via `AbstractTool.showDialog` / `dismissDia
 
 **SDK APIs:** `ToolDialog.Confirmation`, `.Destructive`, `.Info`, `.Custom`, `AbstractTool.showDialog()`, `dismissDialog()`.
 
-**Source:** [`gallery/.../dialog/`](../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/dialog) · **Descriptor:** `vision.combat.c4.ds.sample.gallery.dialog.DialogToolDescriptor`
+**Source:** [`gallery/.../dialog/`](../../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/dialog) · **Descriptor:** `vision.combat.c4.ds.sample.gallery.dialog.DialogToolDescriptor`
 
 **Verify:** Four buttons each open the correct dialog type; confirm and dismiss work for every variant.
 
@@ -483,7 +483,7 @@ to bring its window forward, and observing `activeTools` live.
 
 **SDK APIs:** `ToolManager.activate`, `ToolManager.deactivate`, `ToolManager.isActive`, `ToolManager.activeTools: StateFlow`, `ToolManager.showComponent`, `ToolManager.FLAG_COMPONENT_ON_TOP`.
 
-**Source:** [`gallery/.../toolmanagement/`](../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/toolmanagement) · **Descriptor:** `vision.combat.c4.ds.sample.gallery.toolmanagement.ToolManagementToolDescriptor`
+**Source:** [`gallery/.../toolmanagement/`](../../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/toolmanagement) · **Descriptor:** `vision.combat.c4.ds.sample.gallery.toolmanagement.ToolManagementToolDescriptor`
 
 **Verify:** Activate Map tool → active list updates while the Tool Management window stays on top (its buttons remain usable) → **Show Map Window** brings the Map window forward → deactivate Map tool → list updates again.
 
@@ -518,7 +518,7 @@ keys, and selection & events — plus read-only awareness.
 
 **SDK APIs:** `CommonModelInteractor`, `getAllModels`, `createModel`, `consumeModel`, `commitModel`, `rollbackChanges`, `deleteModel`, `selectModel`, `unselectModel`, `followModel`, `startModelInteraction`, `selectedModel`, `userModel`, `isReadOnly`, `ModelAttrs`/`symbolKey`, `rememberSymbolPainter`, `diViewModel()`.
 
-**Source:** [`gallery/.../model/`](../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/model) · **Descriptor:** `vision.combat.c4.ds.sample.gallery.model.ModelToolDescriptor`
+**Source:** [`gallery/.../model/`](../../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/model) · **Descriptor:** `vision.combat.c4.ds.sample.gallery.model.ModelToolDescriptor`
 
 **Verify:** Model list populated → tap row to select → **Unselect** clears selection → read-only banner shown when `isReadOnly` is true.
 
@@ -558,7 +558,7 @@ main thread.
 
 **SDK APIs:** `CommonSessionStorageInteractor` (`getRootDirectoryPath()`, `getUserDirectoryPath()`), `SharedPreferences`, Room, `Dispatchers.IO`, `viewModelScope.launch`, `File.writeText`, `File.readText`.
 
-**Source:** [`gallery/.../storage/`](../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/storage) · **Descriptor:** `vision.combat.c4.ds.sample.gallery.storage.StorageToolDescriptor`
+**Source:** [`gallery/.../storage/`](../../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/storage) · **Descriptor:** `vision.combat.c4.ds.sample.gallery.storage.StorageToolDescriptor`
 
 **Verify:** Window shows root and user directory paths → **Write File** writes `gallery_sample.txt` → **Read File** reads it back and displays contents → **Read** before **Write** shows "file not found" hint rather than crashing.
 
@@ -597,7 +597,7 @@ callbacks as they fire.
 
 **SDK APIs:** `ToolDescriptor.createService`, `AbstractToolService`, `AbstractToolService.toolSubDI`, `ToolNotificationManager.counter`, `AbstractTool.onComponentShown`/`onComponentHidden`/`onDestroyRequested`.
 
-**Source:** [`gallery/.../service/`](../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/service) · **Descriptor:** `vision.combat.c4.ds.sample.gallery.service.ServiceToolDescriptor`
+**Source:** [`gallery/.../service/`](../../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/service) · **Descriptor:** `vision.combat.c4.ds.sample.gallery.service.ServiceToolDescriptor`
 
 **Verify:** Start session → service ticks in background → tool list badge increments → open tool window → event counter matches badge.
 
@@ -629,7 +629,7 @@ and [(e)](plugin-isolation.md#case-e-font--raw-resource).
 
 **SDK APIs:** Configuration-qualified `values` / `values-night` / `values-uk`, `stringResource`, `FontFamily(Font(R.font.*))`, `openRawResource(R.raw.*)`.
 
-**Source:** [`gallery/.../resources/config/`](../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/resources/config) · **Descriptor:** `vision.combat.c4.ds.sample.gallery.resources.config.ConfigToolDescriptor`
+**Source:** [`gallery/.../resources/config/`](../../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/resources/config) · **Descriptor:** `vision.combat.c4.ds.sample.gallery.resources.config.ConfigToolDescriptor`
 
 **Verify:** Toggle dark mode → mode string/icon updates → change locale to Ukrainian → all strings localize. Window shows text rendered with plugin `R.font.sample_font` and content read from `R.raw.sample_note`.
 
@@ -651,9 +651,9 @@ raw `DropdownMenu` shows how `LocalContext` resets in a sub-composition, and
 `ProvideWindowContext`/`ToolAlertDialog` show how to re-provide it. Isolation case
 [(a)](plugin-isolation.md#case-a-m2-composition-fallback).
 
-**SDK APIs:** Plugin-local M2 (`Scaffold`, `SnackbarHost`, `Snackbar`, `AlertDialog`, `DropdownMenu`, `Slider`), `ProvideWindowContext`, `ToolAlertDialog`, `CompositionFallbackContext`, `FallbackResources`.
+**SDK APIs:** Plugin-local M2 (`Scaffold`, `SnackbarHost`, `Snackbar`, `AlertDialog`, `DropdownMenu`, `Slider`), `ProvideWindowContext`, `ToolAlertDialog`, and the SDK's automatic composition-context fallback (internal to the SDK, transparent to plugin authors).
 
-**Source:** [`gallery/.../resources/material/`](../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/resources/material) · **Descriptor:** `vision.combat.c4.ds.sample.gallery.resources.material.MaterialToolDescriptor`
+**Source:** [`gallery/.../resources/material/`](../../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/resources/material) · **Descriptor:** `vision.combat.c4.ds.sample.gallery.resources.material.MaterialToolDescriptor`
 
 **Verify:** Window opens without crash → all four widget demos interactive.
 
@@ -673,9 +673,9 @@ raw `DropdownMenu` shows how `LocalContext` resets in a sub-composition, and
 Plugin `R.string` values take priority over identically-named host strings — plugin-first
 resolution when names collide. Isolation case [(b)](plugin-isolation.md#case-b-rstring-collision).
 
-**SDK APIs:** Plugin `R.string.settings` vs host `R.string.settings` — plugin value wins; `CompositionFallbackContext`, `FallbackResources` (internal — transparent to plugin authors).
+**SDK APIs:** Plugin `R.string.settings` vs host `R.string.settings` — plugin value wins; resolution is backed by the SDK's automatic composition-context fallback (internal — transparent to plugin authors).
 
-**Source:** [`gallery/.../resources/collision/`](../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/resources/collision) · **Descriptor:** `vision.combat.c4.ds.sample.gallery.resources.collision.CollisionToolDescriptor`
+**Source:** [`gallery/.../resources/collision/`](../../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/resources/collision) · **Descriptor:** `vision.combat.c4.ds.sample.gallery.resources.collision.CollisionToolDescriptor`
 
 **Verify:** Window displays the plugin-specific settings string (defined in `gallery/src/main/res/values/strings.xml`), not the host default.
 
@@ -699,7 +699,7 @@ is activated from the hub across the APK boundary. Isolation case
 
 **SDK APIs:** `ToolManager.resolveToolId(fqcn)`, `ToolContext.assets` (plugin `AssetManager`), `System.loadLibrary` from plugin `nativeLibraryDir`, `ToolComponent.Window`.
 
-**Source:** [`isolation/.../nativelib/`](../isolation/src/main/kotlin/vision/combat/c4/ds/sample/isolation/nativelib) · **Descriptor:** `vision.combat.c4.ds.sample.isolation.nativelib.NativeToolDescriptor` · **Native:** [`isolation/src/main/cpp/`](../isolation/src/main/cpp) (CMake → `libisolation_jni.so`)
+**Source:** [`isolation/.../nativelib/`](../../isolation/src/main/kotlin/vision/combat/c4/ds/sample/isolation/nativelib) · **Descriptor:** `vision.combat.c4.ds.sample.isolation.nativelib.NativeToolDescriptor` · **Native:** [`isolation/src/main/cpp/`](../../isolation/src/main/cpp) (CMake → `libisolation_jni.so`)
 
 **Verify:**
 
@@ -726,7 +726,7 @@ All user-visible strings exist in `values/` and `values-uk/`. After switching sy
 Not tied to a single tool — validates host behavior across APK updates:
 
 1. Install `:gallery` with `versionCode = 1`. Open **Multi Screen Window**, set a preference.
-2. Bump `versionCode` in [`gallery/build.gradle.kts`](../gallery/build.gradle.kts), rebuild, reinstall.
+2. Bump `versionCode` in [`gallery/build.gradle.kts`](../../gallery/build.gradle.kts), rebuild, reinstall.
 3. Confirm SharedPreferences state survived and hub still lists all samples.
 
 See [Plugin isolation — case (d)](plugin-isolation.md#case-d-pinned-state-survives-versioncode-bump).
@@ -753,4 +753,4 @@ See [Plugin isolation — case (d)](plugin-isolation.md#case-d-pinned-state-surv
 
 **Next:** [Getting started](getting-started.md) — setup, screen layout, and the tool integration
 guide · [Plugin isolation](plugin-isolation.md) — isolation cases and smoke tests ·
-[← back to README](../README.md)
+[← back to README](../../README.md)

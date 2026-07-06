@@ -58,7 +58,7 @@ adb install -r isolation/build/outputs/apk/release/isolation-release.apk
 ```
 
 Neither APK declares an Activity. Install both, launch ComBat 4, then open **Sample Gallery** from
-the Tools list. Full setup: **[Getting started](docs/getting-started.md)**.
+the Tools list. Full setup: **[Getting started](docs/guides/getting-started.md)**.
 
 ---
 
@@ -77,29 +77,29 @@ The host divides the screen into tool components your tool declares:
 
 <img width="1000" alt="Tool component screen layout" src="https://github.com/user-attachments/assets/eb7e727c-1716-4fd8-8cbf-c9be5ae16990" />
 
-Details: **[Getting started → Tool screen layout](docs/getting-started.md#tool-screen-layout)**
+Details: **[Getting started → Tool screen layout](docs/guides/getting-started.md#tool-screen-layout)**
 
 ---
 
 ## Sample catalog
 
 All 22 samples — with screenshots, SDK APIs, source paths, and verification steps — live in the
-**[Samples guidebook](docs/samples-catalog.md)**, one collapsible section per category in on-screen
+**[Samples guidebook](docs/guides/samples-catalog.md)**, one collapsible section per category in on-screen
 order. Registry source of truth:
 [`CatalogEntry.kt`](gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/catalog/ui/CatalogEntry.kt).
 
-1. **[Map View](docs/samples-catalog.md#section-1-map-view)** — map taps, WorldWind renderables, and the `CommonMapInteractor` API · 3 samples
-2. **[Map Overlays](docs/samples-catalog.md#section-2-map-overlays)** — overlays, status bars, expandable status, and EndBar buttons · 4 samples
-3. **[Map Underlay](docs/samples-catalog.md#section-3-map-underlay)** — composables rendered behind the map layer in AR mode · 1 sample
-4. **[Panel Windows](docs/samples-catalog.md#section-4-panel-windows)** — single-screen, multi-screen, and secondary-map panel windows · 3 samples
-5. **[Panel Management](docs/samples-catalog.md#section-5-panel-management)** — open, close, and observe panel state via `PanelManager` · 1 sample
-6. **[UI Components Catalog](docs/samples-catalog.md#section-6-ui-components-catalog)** — promoted public SDK components: form fields, buttons, inputs, and more · 1 sample
-7. **[Tool Dialogs](docs/samples-catalog.md#section-7-tool-dialogs)** — `ToolDialog` variants: Confirmation, Destructive, Info, and Custom · 1 sample
-8. **[Tool Management](docs/samples-catalog.md#section-8-tool-management)** — activate, deactivate, and inspect tools via `ToolManager` · 1 sample
-9. **[Model Management](docs/samples-catalog.md#section-9-model-management)** — `CommonModelInteractor` create/consume/commit, symbol keys, and selection events · 1 sample
-10. **[Data Management](docs/samples-catalog.md#section-10-data-management)** — isolated file I/O, plugin-scoped `SharedPreferences`, and Room · 1 sample
-11. **[Lifecycle & Services](docs/samples-catalog.md#section-11-lifecycle-services)** — a session `AbstractToolService`, unread badge, and live lifecycle log · 1 sample
-12. **[Resources & Isolation](docs/samples-catalog.md#section-12-resources-isolation)** — config-qualified resources, M2 widgets, `R.string` collision, and native/cross-APK · 4 samples
+1. **[Map View](docs/guides/samples-catalog.md#section-1-map-view)** — map taps, WorldWind renderables, and the `CommonMapInteractor` API · 3 samples
+2. **[Map Overlays](docs/guides/samples-catalog.md#section-2-map-overlays)** — overlays, status bars, expandable status, and EndBar buttons · 4 samples
+3. **[Map Underlay](docs/guides/samples-catalog.md#section-3-map-underlay)** — composables rendered behind the map layer in AR mode · 1 sample
+4. **[Panel Windows](docs/guides/samples-catalog.md#section-4-panel-windows)** — single-screen, multi-screen, and secondary-map panel windows · 3 samples
+5. **[Panel Management](docs/guides/samples-catalog.md#section-5-panel-management)** — open, close, and observe panel state via `PanelManager` · 1 sample
+6. **[UI Components Catalog](docs/guides/samples-catalog.md#section-6-ui-components-catalog)** — promoted public SDK components: form fields, buttons, inputs, and more · 1 sample
+7. **[Tool Dialogs](docs/guides/samples-catalog.md#section-7-tool-dialogs)** — `ToolDialog` variants: Confirmation, Destructive, Info, and Custom · 1 sample
+8. **[Tool Management](docs/guides/samples-catalog.md#section-8-tool-management)** — activate, deactivate, and inspect tools via `ToolManager` · 1 sample
+9. **[Model Management](docs/guides/samples-catalog.md#section-9-model-management)** — `CommonModelInteractor` create/consume/commit, symbol keys, and selection events · 1 sample
+10. **[Data Management](docs/guides/samples-catalog.md#section-10-data-management)** — isolated file I/O, plugin-scoped `SharedPreferences`, and Room · 1 sample
+11. **[Lifecycle & Services](docs/guides/samples-catalog.md#section-11-lifecycle-services)** — a session `AbstractToolService`, unread badge, and live lifecycle log · 1 sample
+12. **[Resources & Isolation](docs/guides/samples-catalog.md#section-12-resources-isolation)** — config-qualified resources, M2 widgets, `R.string` collision, and native/cross-APK · 4 samples
 
 ---
 
@@ -107,9 +107,9 @@ order. Registry source of truth:
 
 | Document | Contents |
 |---|---|
-| **[Getting started](docs/getting-started.md)** | Requirements, Gradle/Nexus setup, tool screen layout, integration steps, Android Studio run config |
-| **[Samples guidebook](docs/samples-catalog.md)** | Every sample: screenshot, description, SDK APIs, source path, verification steps |
-| **[Plugin isolation](docs/plugin-isolation.md)** | Asset/JNI smoke tests, isolation cases (a–h), cross-APK activation |
+| **[Getting started](docs/guides/getting-started.md)** | Requirements, Gradle/Nexus setup, tool screen layout, integration steps, Android Studio run config |
+| **[Samples guidebook](docs/guides/samples-catalog.md)** | Every sample: screenshot, description, SDK APIs, source path, verification steps |
+| **[Plugin isolation](docs/guides/plugin-isolation.md)** | Asset/JNI smoke tests, isolation cases (a–h), cross-APK activation |
 
 Questions or issues: [open an issue](https://github.com/ComBatVision/c4ds-tool-samples/issues) or
 email [support@combat.vision](mailto:support@combat.vision).
