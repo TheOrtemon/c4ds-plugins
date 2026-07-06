@@ -122,12 +122,28 @@ Checklist:
   configuration). Check that an equivalent exclude is present whenever the runtime artifact
   would otherwise pull in a host-provided transitive dependency a second time.
 - **Don't re-declare host-provided libraries via `implementation`/`api`.** Compose, the Kotlin
-  stdlib, Coroutines, AndroidX Core/Lifecycle, Material, and the SDK's own transitive
-  dependencies are already on the host's runtime classpath. Adding them again as
-  `implementation`/`api` duplicates classes in the APK and risks runtime conflicts — use
-  `compileOnly` for these instead. Reserve `implementation`/`api` for dependencies that are
-  genuinely unique to the tool and not already present on the host classpath (e.g. Room in the
-  Sample Gallery).
+  stdlib, Coroutines, AndroidX Core/Lifecycle, Material, Room, and the SDK's own transitive
+  dependencies are already on the host's runtime classpath — the SDK exposes them via `api`,
+  so `compileOnly(c4ds-sdk)` gives you them at compile time (for Room, add your own
+  `ksp(androidx.room.compiler)` for codegen; the runtime comes from the host). Adding them
+  again as `implementation`/`api` duplicates classes in the APK and risks runtime conflicts —
+  use `compileOnly` for these instead. Reserve `implementation`/`api` for dependencies that
+  are genuinely unique to the tool and not already provided by the host or SDK.
+- **Check the resolved release runtime classpath, not just the declared dependency lines.**
+  A host-provided library can leak into the APK transitively through an unrelated
+  third-party `implementation` dependency even when no line names it directly. Declared-line
+  review alone won't catch this; run
+  `./gradlew :yourModule:dependencies --configuration releaseRuntimeClasspath` and inspect
+  the resolved tree. Flag any host-provided library (coroutines, Compose, AndroidX, Room, etc.)
+  that shows up there and require it excluded on the dependency that pulls it in (e.g.
+  `exclude(group = "org.jetbrains.kotlinx", module = "kotlinx-coroutines-android")` on that
+  dependency), not stripped globally via a blanket `configurations.all { exclude(...) }`
+  — that would also remove the SDK's own `compileOnly` copy and break compilation. Left
+  unexcluded, R8's `-repackageclasses` renames the bundled copy into the plugin's own
+  package, and it no longer matches the host's identically-named classes at runtime —
+  `IncompatibleClassChangeError`. See
+  [Getting started — Release builds and obfuscation](guides/getting-started.md#release-builds-and-obfuscation)
+  for the full example.
 - **Prefer version-catalog aliases** (`libs.combat.ds.sdk`, `libs.combat.ds.sdk.runtime`, …)
   over hardcoded coordinates, and bump versions deliberately per the rule above.
 - **Release builds set a unique `-repackageclasses`.** For any build type with

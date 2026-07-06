@@ -265,6 +265,43 @@ plugin contract. Keep your `proguard-rules.pro` limited to `-repackageclasses` (
 any narrow, module-specific rules your own dependencies require (e.g. a `-dontwarn` for an
 optional reference that isn't on your compile classpath).
 
+**`-repackageclasses` alone isn't enough — don't bundle host-provided libraries either.**
+Even a legitimate `implementation` dependency can transitively drag a library the host
+already provides (Kotlin stdlib, Compose, AndroidX, **Coroutines**) into your APK. Once that
+copy gets obfuscated and repackaged under your app's `-repackageclasses` prefix, its classes
+no longer match the host's own copies of the same library, and you get a runtime
+`IncompatibleClassChangeError` (or similar linkage failure) the first time that code path
+runs — not at build time.
+
+This repo's `:gallery` uses Room, and Room is **host-provided**: the c4ds SDK's data module
+exposes it (`api(androidx.room.runtime)` / `room-ktx`), so a plugin gets Room through
+`compileOnly(c4ds-sdk)` plus its own `ksp(androidx.room.compiler)` for code generation — it
+does **not** declare `implementation(androidx.room.runtime)`. Nothing Room-related is bundled
+into the plugin APK; at runtime it links against the host's Room, exactly like Compose,
+Coroutines, and AndroidX.
+
+The hazard remains for any *other* third-party `implementation` dependency you add — it may
+transitively pull in something the host already provides. Check what actually ends up on the
+release runtime classpath:
+
+```bash
+./gradlew :yourModule:dependencies --configuration releaseRuntimeClasspath
+```
+
+Flag anything the host already ships (Kotlin stdlib, Compose, AndroidX, Coroutines, Room, …)
+and exclude it on the specific dependency that leaks it — for example, if some third-party
+library dragged coroutines in:
+
+```kotlin
+implementation(libs.someThirdPartyLib) {
+    exclude(group = "org.jetbrains.kotlinx", module = "kotlinx-coroutines-android")
+    exclude(group = "org.jetbrains.kotlinx", module = "kotlinx-coroutines-core")
+}
+```
+
+Don't reach for a blanket `configurations.all { exclude(...) }` — that would also strip the
+SDK's own `compileOnly` copy of the library and break compilation.
+
 ### Using the Sample Gallery
 
 1. Install `:gallery` (required) and optionally `:isolation` (for cross-APK native sample).

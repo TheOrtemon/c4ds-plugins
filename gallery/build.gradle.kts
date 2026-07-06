@@ -58,8 +58,8 @@ dependencies {
 
     coreLibraryDesugaring(libs.android.tools.desugar)
 
-    implementation(libs.androidx.room.runtime)
-    implementation(libs.androidx.room.ktx)
+    // Room now arrives transitively via compileOnly(libs.combat.ds.sdk) — the host provides
+    // it, same as Compose/coroutines. Only the annotation processor is declared here.
     ksp(libs.androidx.room.compiler)
 }
 
