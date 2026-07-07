@@ -436,11 +436,11 @@ Open (Half/Full) and close the panel via `PanelManager`, observing live `PanelSt
 
 Navigable catalog of promoted public SDK components: six form fields plus Buttons, TopAppBar,
 Inputs, Selection, Feedback, and Lists groups, each shown in several states. The **Hostility
-Selector** demo renders real MIL-STD-2525 affiliation symbols — a generic unit symbol drawn via
-`rememberSymbolPainter` for each affiliation (Unknown, Friend, Hostile, Neutral, Suspect) — not
+Selector** demo renders bare MIL-STD-2525 affiliation frames via the promoted `HostilityItem` for
+each affiliation (Unknown, Friend, Hostile, Neutral, Suspect) — not a specific unit symbol, and not
 plain colored swatches.
 
-**SDK APIs:** `InlineMessage`, `HeaderField`, `ExpandableField`, `FormFieldBox`, `NestedForm`, `HostilitySelector`, `rememberSymbolPainter`, buttons, inputs, selection, feedback, revealable lists, `AppNavHost`, `WindowScaffold`.
+**SDK APIs:** `InlineMessage`, `HeaderField`, `ExpandableField`, `FormFieldBox`, `NestedForm`, `HostilitySelector`, `HostilityItem`, buttons, inputs, selection, feedback, revealable lists, `AppNavHost`, `WindowScaffold`.
 
 **Source:** [`gallery/.../uicatalog/`](../../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/uicatalog) · **Descriptor:** `vision.combat.c4.ds.sample.gallery.uicatalog.UiCatalogToolDescriptor`
 
