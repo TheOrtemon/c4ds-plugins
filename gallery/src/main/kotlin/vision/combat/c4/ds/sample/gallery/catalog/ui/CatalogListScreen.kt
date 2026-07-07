@@ -164,6 +164,12 @@ private fun SingleEntrySectionCard(
         }
     }
 
+    val notInstalledText = if (entry.isCrossApk && !isEnabled) {
+        stringResource(requireNotNull(entry.crossApkNotInstalledResId))
+    } else {
+        null
+    }
+
     ListItem(
         headline = {
             Text(
@@ -175,9 +181,17 @@ private fun SingleEntrySectionCard(
         },
         supportingText = {
             Text(
-                text = stringResource(section.descResId),
-                style = MaterialTheme.typography.body2,
-                color = MaterialTheme.colors.onSurface,
+                text = notInstalledText ?: stringResource(section.descResId),
+                style = if (notInstalledText != null) {
+                    MaterialTheme.typography.caption
+                } else {
+                    MaterialTheme.typography.body2
+                },
+                color = if (notInstalledText != null) {
+                    MaterialTheme.colors.error
+                } else {
+                    MaterialTheme.colors.onSurface
+                },
             )
         },
         leadingIcon = {
