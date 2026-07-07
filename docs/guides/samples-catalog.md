@@ -87,7 +87,7 @@ c4ds-tool-samples/
 ├── isolation/                   # Second APK — JNI + asset isolation (cross-APK activation)
 │   └── src/main/kotlin/vision/combat/c4/ds/sample/isolation/
 │       └── nativelib/           # Native / Cross-APK — NativeToolDescriptor
-├── bookmarks/                    # Standalone multi-module sample — its own APK (see Architecture spotlight)
+├── bookmarks/                    # Standalone multi-module sample — its own APK (see Section 13 — Architecture)
 │   ├── domain/                   # :bookmarks:domain — Bookmark, BookmarkRepository, BookmarkInteractor
 │   ├── data/                     # :bookmarks:data — BookmarkRepositoryImpl + Room DB (tool-scoped)
 │   └── app/                      # :bookmarks:app — BookmarksTool/Descriptor, Kodein DI, MVI UI (discoverable APK)
@@ -758,42 +758,38 @@ activates the tool the same way any other cross-APK entry does.
 
 <table>
 <tr>
+<td width="280" valign="top">
+<img src="https://github.com/user-attachments/assets/df5769dc-a959-4c23-85c4-8e6233aeb231" width="260" alt="Bookmarks tool — add a labelled bookmark, list, and clear">
+</td>
 <td valign="top">
 
-Standalone multi-module sample — three Gradle modules (`:bookmarks:domain`, `:bookmarks:data`,
-`:bookmarks:app`) demonstrating **UI → Domain ← Data** dependency inversion across real module
-boundaries. Lives in its own discoverable APK and is activated from the hub across the APK boundary,
-identical in mechanism to the **Native / Cross-APK** sample. See the full
-[Architecture spotlight](#architecture-spotlight-bookmarks-multi-module-tool) below for the module
-graph and details.
+Standalone multi-module sample split into **three Gradle modules** (`:bookmarks:domain`,
+`:bookmarks:data`, `:bookmarks:app`) that prove clean **UI → Domain ← Data** dependency inversion
+across *real module boundaries* — the layering the [architecture guide](../architecture/architecture-for-plugins.md)
+and [data &amp; domain guide](../architecture/data-and-domain.md) describe, enforced by the build graph
+instead of package convention. A deliberately small tool-scoped Room bookmarks feature (add a labelled
+entry, list, clear) so it teaches *module structure*, not feature breadth. Lives in its own
+discoverable APK and is activated from the hub across the APK boundary, identical in mechanism to the
+**Native / Cross-APK** sample.
 
-**SDK APIs:** `AbstractTool`, `ToolDescriptor`, `ToolComponent.Window`, Kodein `subDI`/`import`, tool-scoped Room database (isolated via `CommonSessionStorageInteractor.getUserDirectoryPath()`), MVI `StateFlow` + `Action` + `Channel`.
+**SDK APIs:** `AbstractTool`, `ToolDescriptor`, `ToolComponent.Window`, `requiredComponent`, Kodein `subDI`/`import`, tool-scoped **Room** database persisted under `CommonSessionStorageInteractor.getUserDirectoryPath()` with a reactive Room `Flow`, MVI `StateFlow` + sealed `Action` + event `Channel`.
 
-**Source:** [`bookmarks/app/`](../../bookmarks/app) · **Descriptor:** `vision.combat.c4.ds.sample.bookmarks.BookmarksToolDescriptor`
+**Source:** [`bookmarks/domain/`](../../bookmarks/domain) · [`bookmarks/data/`](../../bookmarks/data) · [`bookmarks/app/`](../../bookmarks/app) · **Descriptor:** `vision.combat.c4.ds.sample.bookmarks.BookmarksToolDescriptor`
 
 **Verify:**
 
 1. Install the `:bookmarks:app` APK — `./gradlew :bookmarks:app:installDebug` (see **Details** on the hub card for the install command and status).
 2. Open Sample Gallery → **Architecture** card → tap to launch **Bookmarks**.
-3. Add a labelled bookmark → it appears in the list → deactivate then reactivate → the entry persists.
+3. Add a labelled bookmark → it appears in the list → deactivate then reactivate → the entry persists (tool-scoped Room database) → **clear** removes all.
 
 </td>
 </tr>
 </table>
 
-</details>
-
----
-
-<a id="architecture-spotlight-bookmarks-multi-module-tool"></a>
-<details>
-<summary><strong>🏗️ Architecture spotlight — Bookmarks (multi-module tool)</strong></summary>
-
-Unlike the single-APK gallery, **Bookmarks** is a standalone sample split into **three Gradle
-modules** to prove clean **UI → Domain ← Data** dependency inversion across *real module
-boundaries* — the layering the [architecture guide](../architecture/architecture-for-plugins.md)
-and [data &amp; domain guide](../architecture/data-and-domain.md) describe, enforced by the build
-graph instead of package convention.
+**Module graph** — every module depends on the SDK via `compileOnly(libs.combat.ds.sdk)` (never
+`implementation`); only `:app` adds `runtimeOnly(libs.combat.ds.sdk.runtime)` and registers the tool.
+`:domain` knows nothing of `:data`/`:app`; `:data` implements the domain repository interface; `:app`
+is the single DI seam binding interface → impl via Kodein `subDI`.
 
 ```text
 :bookmarks:app    (com.android.application)   ← the discoverable tool APK
@@ -805,33 +801,6 @@ graph instead of package convention.
   ▼
 :bookmarks:domain (com.android.library)       Bookmark · BookmarkRepository (interface) · BookmarkInteractor
 ```
-
-Every module depends on the SDK via `compileOnly(libs.combat.ds.sdk)` (never `implementation`);
-only `:app` adds `runtimeOnly(libs.combat.ds.sdk.runtime)` and registers the tool. `:domain` knows
-nothing of `:data`/`:app`; `:data` implements the domain repository interface; `:app` is the single
-DI seam binding interface → impl via Kodein `subDI`.
-
-<table>
-<tr>
-<td width="280" valign="top">
-<img src="https://github.com/user-attachments/assets/df5769dc-a959-4c23-85c4-8e6233aeb231" width="260" alt="Bookmarks tool — add a labelled bookmark, list, and clear">
-</td>
-<td valign="top">
-
-**What it does:** a tool-scoped Room-database bookmarks feature (add a labelled entry, list,
-clear) — deliberately small so the sample teaches *module structure*, not feature breadth.
-
-**SDK APIs:** `AbstractTool`, `ToolDescriptor`, `ToolComponent.Window`, `requiredComponent`, Kodein `subDI`/`import`, tool-scoped **Room** database persisted under `CommonSessionStorageInteractor.getUserDirectoryPath()` with a reactive Room `Flow`, MVI `StateFlow` + sealed `Action` + event `Channel`.
-
-**Source:** [`bookmarks/domain/`](../../bookmarks/domain) · [`bookmarks/data/`](../../bookmarks/data) · [`bookmarks/app/`](../../bookmarks/app) · **Descriptor:** `vision.combat.c4.ds.sample.bookmarks.BookmarksToolDescriptor`
-
-**Run:** separate APK — `./gradlew :bookmarks:app:installDebug`. It declares its tool via its own `combat_tools.xml`, discovered by the host like any other tool, and is also launchable from the gallery hub's **Architecture** card via cross-APK activation (see [Section 13](#section-13-architecture)).
-
-**Verify:** activate **Bookmarks** → add a labelled bookmark → it appears in the list → deactivate then reactivate → the entry persists (tool-scoped Room database) → **clear** removes all.
-
-</td>
-</tr>
-</table>
 
 </details>
 
