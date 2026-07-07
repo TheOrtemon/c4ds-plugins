@@ -160,6 +160,16 @@ Checklist:
   required custom rule is `-repackageclasses` (above); a blanket keep just disables shrinking
   and obfuscation for the whole module and should be replaced with the minimal rule set. See
   [Getting started — Release builds and obfuscation](guides/getting-started.md#release-builds-and-obfuscation).
+- **Don't flag a missing `-keepattributes Signature` (Kodein), kotlinx-serialization
+  companion/`serializer()` keeps, or Room generated-database keeps as a problem** — these are
+  now shipped by `c4ds-sdk-runtime`'s consumer ProGuard rules and every plugin inherits them
+  automatically via `runtimeOnly(c4ds-sdk-runtime)`. A plugin's `proguard-rules.pro` does not
+  need to (and should not) re-add them. The reviewer's job here is narrower: confirm
+  `-repackageclasses` is present (above) and that no host-provided library is being bundled
+  into the plugin APK (see the `compileOnly` rule above). For any *other* host-provided
+  (`compileOnly`) library not covered by the SDK's centralized rules, still check that any keep
+  rules it needs at runtime are declared in the plugin's own `proguard-rules.pro`. See
+  [Getting started — Release builds and obfuscation](guides/getting-started.md#release-builds-and-obfuscation).
 
 ---
 

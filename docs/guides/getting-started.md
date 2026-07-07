@@ -303,6 +303,31 @@ implementation(libs.someThirdPartyLib) {
 Don't reach for a blanket `configurations.all { exclude(...) }` — that would also strip the
 SDK's own `compileOnly` copy of the library and break compilation.
 
+**Kodein, kotlinx-serialization, and Room keeps are already covered — you don't need to add
+them.** `compileOnly` dependencies normally don't bring their library's own consumer ProGuard
+rules with them: a host-provided library on `compileOnly` (Kotlin stdlib, Compose, AndroidX,
+Coroutines, Room, Kodein, …) never becomes part of your APK's dependency graph at the packaging
+step where those consumer rules would normally be merged in. Concretely, without help:
+**Kodein-DI reads a type's generic `Signature` at runtime** to resolve typed bindings
+(`instance()`, `factory()`, etc. — the standard DI pattern this SDK uses), but R8 strips
+`Signature` by default; **kotlinx-serialization** needs each `@Serializable` class's
+`Companion`/`serializer()` kept to look up its serializer at runtime; and **Room** needs each
+generated `<Database>_Impl` reachable by name.
+
+The c4ds SDK's runtime module (`c4ds-sdk-runtime`, pulled in via `runtimeOnly`) ships consumer
+ProGuard rules that cover exactly these hazards — the `Signature` attribute, the Kodein
+type-token classes, the kotlinx-serialization companion/`serializer()` keeps, and Room's
+generated-database keeps — and every plugin inherits them automatically, the same way it
+inherits the `ToolDescriptor`/ViewModel/`R$*` keeps described above. You do **not** need to add
+any `-keepattributes Signature`, Kodein, serialization, or Room keeps to your own
+`proguard-rules.pro`.
+
+This is the general shape of the hazard, though: whenever a *different* library is
+host-provided (`compileOnly`) and needs its own runtime keep rules that aren't covered by the
+SDK's centralized set, declare them in your own `proguard-rules.pro` — for example, `:gallery`
+adds a `-dontwarn` for an optional reference (`InputListener`) that isn't on its compile
+classpath.
+
 ### Using the Sample Gallery
 
 1. Install `:gallery` (required) and optionally `:isolation` (for cross-APK native sample).
