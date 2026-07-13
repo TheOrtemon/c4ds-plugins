@@ -1,0 +1,11 @@
+<resources>
+    <!-- Map sample: info window strings -->
+    <string name="map_info_window_title">Map</string>
+    <string name="map_info_explainer">This sample demonstrates AbstractMapTool — the base class for tools that draw on the 3-D WorldWind map surface.\n\nTap the map to place a placemark at the tapped location. The status bar shows the last tapped coordinates (latitude, longitude).\n\nPlacemarks are added to the tool\'s managed RenderableLayer and cleared when the tool is deactivated. Each tap also calls requestRedraw() so the new placemark appears immediately.</string>
+    <string name="map_info_section_interaction">Map Interaction</string>
+    <string name="map_info_tap_hint">Tap anywhere on the map to drop a placemark at that position.</string>
+    <string name="map_info_section_placemark">Placemarks</string>
+    <string name="map_info_placemark_hint">Each placemark is a WorldWind Placemark added via AbstractMapTool.addRenderable(). All renderables are automatically removed when the tool is deactivated.</string>
+    <string name="map_info_section_apis">Key APIs</string>
+    <string name="map_info_apis_text">AbstractMapTool, onTerrainPicked(Position), addRenderable(Renderable), requestRedraw(), ToolComponent.Status</string>
+</resources>

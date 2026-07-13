@@ -1,0 +1,44 @@
+<resources>
+    <!-- Зразок інтерактора моделей: список демонстрацій -->
+    <string name="model_sc_list_name">Список моделей</string>
+    <string name="model_sc_list_desc">Усі моделі бойового простору на карті у стилі TacticalData із символами MIL-STD-2525.</string>
+    <string name="model_sc_create_name">Створення, consume та commit</string>
+    <string name="model_sc_create_desc">Створіть модель, відобразіть її на карті (consume), потім збережіть і розішліть (commit) або скасуйте (rollback).</string>
+    <string name="model_sc_symbols_name">Коди символів</string>
+    <string name="model_sc_symbols_desc">Створення моделей з різними кодами символів MIL-STD-2525 та ворожістю.</string>
+    <string name="model_sc_selection_name">Вибір та події</string>
+    <string name="model_sc_selection_desc">Спостереження за selectedModel, userModel і подіями колекції; вибір, стеження та зняття вибору.</string>
+
+    <!-- Список моделей -->
+    <string name="model_sc_no_models">На карті ще немає моделей.</string>
+
+    <!-- Створення / consume / commit -->
+    <string name="model_sc_create_explainer">createModel() створює модель, але не показує й не зберігає її. consumeModel() відображає її на карті та реєструє як локальну зміну, що очікує — вона НЕ записується в базу даних і НЕ розсилається іншим вузлам, тож її можна скасувати через rollback. commitModel() зберігає модель у базі даних ТА розсилає її віддаленим вузлам. Коротко: consume = локальний попередній перегляд; commit = зберегти й поширити.</string>
+    <string name="model_sc_create_status">Стан: %1$s</string>
+    <string name="model_sc_create_btn">Створити + consume (перегляд)</string>
+    <string name="model_sc_commit_btn">Commit (зберегти + розіслати)</string>
+    <string name="model_sc_rollback_btn">Rollback (скасувати зміни)</string>
+    <string name="model_sc_stage_idle">очікування</string>
+    <string name="model_sc_stage_consumed">consumed (відображено, не збережено)</string>
+    <string name="model_sc_stage_committed">committed (збережено й розіслано)</string>
+    <string name="model_sc_stage_rolledback">скасовано (локальні зміни відхилено)</string>
+    <string name="model_sc_stage_failed">помилка створення (немає символу/координат)</string>
+
+    <!-- Ключі символів -->
+    <string name="model_sc_symbols_explainer">Ключ символу — це ціле число у таблиці прив’язок MIL-STD-2525, що передається через ModelAttrs.symbolKey. Ворожість (колір/рамка) — це окремий ModelAttrs.hostility. Натисніть «Створити», щоб побудувати + consume кожен приклад у поточній позиції карти.</string>
+    <string name="model_sc_symbol_rifleman">Стрілець</string>
+    <string name="model_sc_symbol_air">Повітряна ціль</string>
+    <string name="model_sc_symbol_civil">Громадські заворушення</string>
+    <string name="model_sc_symbol_fire">Пожежа</string>
+    <string name="model_sc_symbol_hazmat">Небезпечні матеріали</string>
+    <string name="model_sc_create_short">Створити</string>
+
+    <!-- Вибір та події -->
+    <string name="model_sc_read_only">Режим лише для читання: редагування вимкнено.</string>
+    <string name="model_sc_none">—</string>
+    <string name="model_sc_selected_label">Вибрано</string>
+    <string name="model_sc_user_label">Модель користувача</string>
+    <string name="model_sc_count_label">Моделей у пам’яті</string>
+    <string name="model_sc_follow">Стежити за вибраною</string>
+    <string name="model_sc_unselect">Зняти вибір</string>
+</resources>

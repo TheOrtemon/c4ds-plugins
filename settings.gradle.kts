@@ -25,5 +25,8 @@ dependencyResolutionManagement {
 
 rootProject.name = "c4ds-tool-samples"
 
-include(":overlay")
-include(":window")
+include(":gallery")
+include(":isolation")
+include(":bookmarks:domain")
+include(":bookmarks:data")
+include(":bookmarks:app")

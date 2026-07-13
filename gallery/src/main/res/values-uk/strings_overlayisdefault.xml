@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Overlay isDefault sample — Ukrainian -->
+    <string name="overlay_default_tool_name">Накладення isDefault</string>
+    <string name="overlay_default_desc">Демонструє автоматичну заміну/відновлення стандартних компонентів ToolComponent.Overlay: активація другого стандартного накладення витісняє перше, а його деактивація автоматично відновлює перше.</string>
+    <string name="overlay_default_apis">ToolComponent.Overlay, component(isDefault=true), requiredComponent, ToolManager.activate, ToolManager.deactivate, ToolManager.isActive, ToolManager.activeTools</string>
+    <string name="overlay_default_explainer">Цей приклад керує двома прихованими демонстраційними інструментами, кожен зі своїм стандартним накладенням. Активуйте Демо A, щоб показати його значок над картою. Активуйте Демо B, щоб побачити, як воно автоматично замінює значок Демо A. Деактивуйте Демо B, щоб побачити, як значок Демо A автоматично з\'являється знову — без додаткової кнопки, все це обробляється контрактом стандартних компонентів SDK.</string>
+    <string name="overlay_default_a_section">Стандартне накладення (Демо A)</string>
+    <string name="overlay_default_activate_a">Активувати Демо A</string>
+    <string name="overlay_default_deactivate_a">Деактивувати Демо A</string>
+    <string name="overlay_default_b_section">Альтернативне накладення (Демо B)</string>
+    <string name="overlay_default_activate_b">Активувати Демо B</string>
+    <string name="overlay_default_deactivate_b">Деактивувати Демо B</string>
+    <string name="overlay_default_watch_hint">Дивіться на карту: активація Демо B автоматично замінює значок Демо A. Деактивація Демо B автоматично відновлює значок Демо A — обидва накладення є стандартними компонентами, тож SDK самостійно виконує заміну без викликів showComponent/hideComponent із цього прикладу.</string>
+
+    <!-- Прихований демонстраційний інструмент A, яким керує цей приклад -->
+    <string name="overlay_default_a_name">Демо A накладення isDefault</string>
+    <string name="overlay_default_a_badge">Демо A активне (стандартне)</string>
+
+    <!-- Прихований демонстраційний інструмент B, яким керує цей приклад -->
+    <string name="overlay_default_b_name">Демо B накладення isDefault</string>
+    <string name="overlay_default_b_badge">Демо B активне (витісняє A)</string>
+</resources>

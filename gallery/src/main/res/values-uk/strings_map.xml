@@ -1,0 +1,11 @@
+<resources>
+    <!-- Зразок карти: рядки інформаційного вікна -->
+    <string name="map_info_window_title">Карта</string>
+    <string name="map_info_explainer">Цей зразок демонструє AbstractMapTool — базовий клас для інструментів, що малюють на тривимірній поверхні карти WorldWind.\n\nТоркніться карти, щоб розмістити маркер у вибраній точці. Рядок стану показує останні натиснуті координати (широта, довгота).\n\nМаркери додаються до керованого RenderableLayer інструмента та очищуються при його деактивації. Кожне натискання також викликає requestRedraw(), щоб новий маркер зʼявився негайно.</string>
+    <string name="map_info_section_interaction">Взаємодія з картою</string>
+    <string name="map_info_tap_hint">Торкніться будь-якого місця на карті, щоб поставити маркер у цій позиції.</string>
+    <string name="map_info_section_placemark">Маркери</string>
+    <string name="map_info_placemark_hint">Кожен маркер — це WorldWind Placemark, доданий через AbstractMapTool.addRenderable(). Усі renderables автоматично видаляються при деактивації інструмента.</string>
+    <string name="map_info_section_apis">Ключові API</string>
+    <string name="map_info_apis_text">AbstractMapTool, onTerrainPicked(Position), addRenderable(Renderable), requestRedraw(), ToolComponent.Status</string>
+</resources>

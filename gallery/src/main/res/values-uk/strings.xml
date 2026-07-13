@@ -1,0 +1,429 @@
+<resources>
+    <string name="app_name" translatable="false">ComBat Галерея зразків</string>
+
+    <!-- Catalog / Hub -->
+    <string name="catalog_tool_name">Галерея зразків</string>
+    <!-- Section titles (нові 13 секцій) -->
+    <string name="section_map_view_title">Робота з картою</string>
+    <string name="section_map_view_desc">Рендеринг карти, renderables та CommonMapInteractor API.</string>
+    <string name="section_map_overlays_title">Оверлеї карти</string>
+    <string name="section_map_overlays_desc">Overlay, Status, Expandable Status та End Bar — composable-елементи поверх карти.</string>
+    <string name="section_map_underlay_title">Підкладка карти</string>
+    <string name="section_map_underlay_desc">Underlay — composable-елементи за шаром карти в AR-режимі.</string>
+    <string name="section_panel_windows_title">Вікна панелі</string>
+    <string name="section_panel_windows_desc">Приклади вікон інструментів: одноекранні, багатоекранні та з вбудованою картою.</string>
+    <string name="section_panel_state_title">Робота з панеллю</string>
+    <string name="section_panel_state_desc">Відкриття, закриття та спостереження стану панелі через PanelManager.</string>
+    <string name="section_tool_management_title">Робота з інструментами</string>
+    <string name="section_tool_management_desc">Активація, деактивація та перевірка інструментів через ToolManager.</string>
+    <string name="section_ui_components_title">Каталог UI-компонентів</string>
+    <string name="section_ui_components_desc">Публічні SDK-компоненти: поля форм, кнопки, поля введення тощо.</string>
+    <string name="section_dialogs_title">Діалоги інструментів</string>
+    <string name="section_dialogs_desc">Варіанти ToolDialog: Confirmation, Destructive, Info та Custom.</string>
+    <string name="section_model_management_title">Робота з моделями</string>
+    <string name="section_model_management_desc">CommonModelInteractor: create/consume/commit, ключі символів та події вибору моделей.</string>
+    <string name="section_data_management_title">Робота з даними</string>
+    <string name="section_data_management_desc">Ізольований файловий I/O, SharedPreferences у контексті плагіну та ізольована база даних Room.</string>
+    <string name="section_lifecycle_services_title">Lifecycle &amp; Services</string>
+    <string name="section_lifecycle_services_desc">Сеансовий AbstractToolService з фоновою роботою, значком непрочитаного на елементі списку та журналом життєвого циклу інструмента.</string>
+    <string name="section_resources_isolation_title">Ресурси та ізоляція</string>
+    <string name="section_resources_isolation_desc">Ресурси з кваліфікаторами, M2-віджети, колізія R.string, assets, нативні бібліотеки (NDK) та ізоляція між APK.</string>
+    <string name="section_architecture_title">Архітектура</string>
+    <string name="section_architecture_desc">Багатомодульна структура інструменту: інверсія залежностей UI → Domain ← Data між реальними межами модулів Gradle.</string>
+    <string name="catalog_details">Деталі</string>
+    <string name="catalog_sdk_apis_label">SDK API</string>
+    <string name="catalog_source_label">Пакет джерела</string>
+    <string name="catalog_deactivate_all">Деактивувати всі</string>
+    <string name="catalog_deactivated_all_toast">Усі зразки деактивовано</string>
+
+    <!-- Window Single Screen -->
+    <string name="window_single_screen_tool_name">Одноекранне вікно</string>
+    <string name="window_single_screen_desc">Демонстрація мінімального одноекранного вікна інструменту з лічильником на ViewModel, з використанням MVI-стану та одноразового спливного повідомлення.</string>
+    <string name="window_single_screen_apis">ToolComponent.Window, WindowScaffold, BackNavTopAppBar, diViewModel(), showToast</string>
+    <string name="window_single_screen_desc_short">Мінімальне одноекранне вікно. Натисніть «Збільшити», щоб рахувати; «Скинути» обнуляє лічильник і показує спливне повідомлення.</string>
+    <string name="window_single_screen_counter_label">Лічильник: %1$d</string>
+    <string name="window_single_screen_increment">Збільшити</string>
+    <string name="window_single_screen_reset">Скинути</string>
+    <string name="window_single_screen_reset_toast">Лічильник скинуто</string>
+
+    <!-- Window Multi Screen -->
+    <string name="window_multi_screen_tool_name">Багатоекранне вікно</string>
+    <string name="window_multi_screen_desc">Багатоекранне вікно з AppNavHost, DI-модулем, прив\'язаним до інструменту, та SharedPreferences.</string>
+    <string name="window_multi_screen_apis">AppNavHost, Route, BackNavTopAppBar, subDI, SharedPreferences</string>
+    <string name="window_multi_screen_home_title">Головна</string>
+    <string name="window_multi_screen_home_desc">Це багатоекранне вікно інструменту з навігацією між екранами та налаштуванням, яке зберігається між ними.</string>
+    <string name="window_multi_screen_home_hint">Перейдіть до Налаштувань, щоб перемкнути опис вище.</string>
+    <string name="window_multi_screen_go_settings">Налаштування</string>
+    <string name="window_multi_screen_settings_title">Налаштування</string>
+    <string name="window_multi_screen_settings_show_desc">Показувати опис на Головній</string>
+    <string name="window_multi_screen_settings_show_desc_hint">Якщо ввімкнено, абзац з описом відображається на Головному екрані.</string>
+    <string name="window_multi_screen_settings_saved_toast">Налаштування збережено</string>
+
+    <!-- Dialog -->
+    <string name="dialog_tool_name">Діалоги інструментів</string>
+    <string name="dialog_desc">Усі чотири варіанти ToolDialog через AbstractTool.showDialog / dismissDialog.</string>
+    <string name="dialog_apis">ToolDialog.Confirmation, ToolDialog.Destructive, ToolDialog.Info, ToolDialog.Custom, AbstractTool.showDialog, AbstractTool.dismissDialog</string>
+    <string name="dialog_show_confirmation">Показати Confirmation</string>
+    <string name="dialog_show_destructive">Показати Destructive</string>
+    <string name="dialog_show_info">Показати Info</string>
+    <string name="dialog_show_custom">Показати Custom</string>
+    <string name="dialog_confirm_title">Підтвердіть дію</string>
+    <string name="dialog_confirm_body">Ви впевнені, що хочете продовжити?</string>
+    <string name="dialog_confirm_yes">Так</string>
+    <string name="dialog_confirm_cancel">Скасувати</string>
+    <string name="dialog_destructive_title">Видалити елемент</string>
+    <string name="dialog_destructive_body">Цю дію неможливо скасувати.</string>
+    <string name="dialog_destructive_confirm">Видалити</string>
+    <string name="dialog_info_title">Інформація</string>
+    <string name="dialog_info_body">Це інформаційне повідомлення від інструменту плагіну.</string>
+    <string name="dialog_custom_title">Власний діалог</string>
+    <string name="dialog_custom_body">Це власний діалог, складений у блоці ToolDialog.Custom.</string>
+    <string name="dialog_dismiss">Закрити</string>
+
+    <!-- Overlay -->
+    <string name="overlay_tool_name">Overlay</string>
+    <string name="overlay_desc">Composable ToolComponent.Overlay, що зчитує позицію курсору та модель користувача, з кнопкою закриття на end-bar.</string>
+    <string name="overlay_apis">ToolComponent.Overlay, CommonMapInteractor.selectedPosition, CommonModelInteractor.userModel, CommonLocaleSettingsInteractor, AbstractTool.endBar, EndBarActionButton</string>
+    <string name="overlay_cursor_position">Позиція курсору:</string>
+    <string name="overlay_user_model">Модель користувача:</string>
+    <string name="overlay_not_available">Недоступно</string>
+    <string name="overlay_close">Закрити</string>
+    <string name="overlay_close_cd">Закрити overlay</string>
+
+    <!-- Map -->
+    <string name="map_tool_name">Карта</string>
+    <string name="map_desc">Обробляє тапи на карті та малює позначку в місці тапу за допомогою AbstractMapTool.</string>
+    <string name="map_apis">AbstractMapTool, onTerrainPicked, addRenderable, requestRedraw, ToolComponent.Status</string>
+    <string name="map_status_tap_hint">Торкніться карти для розміщення маркера</string>
+    <string name="map_last_tap">Останній тап:</string>
+
+    <!-- MapWindow -->
+    <string name="mapwindow_tool_name">Вікно другорядної карти</string>
+    <string name="mapwindow_desc">Вбудовує вторинну карту у вікно інструменту через ToolComponent.MapWindow, додаючи додаткові дії на end-bar та nav-bar поряд зі стандартними елементами масштабування хоста.</string>
+    <string name="mapwindow_apis">ToolComponent.MapWindow, mapWindow factory, MapView, MapController, MapController.InteractionMode, MapWindow.mapEndBarButtons, MapWindow.navBarContent, MapWindow.focusCameraOn</string>
+    <string name="mapwindow_mode_lookat">LookAt</string>
+    <string name="mapwindow_mode_fpv">FPV</string>
+    <string name="mapwindow_focus_camera">Сфокусувати камеру на демо-локації</string>
+
+    <!-- Status -->
+    <string name="status_tool_name">Status</string>
+    <string name="status_desc">ToolComponent.Status з shouldShowCoordinates і shouldShowAzimuth; координати й азимут відображає хост.</string>
+    <string name="status_apis">ToolComponent.Status, statusComponent, Status.shouldShowCoordinates, Status.shouldShowAzimuth</string>
+    <string name="status_tool_label">Лише вміст інструмента; координати й азимут відображає хост.</string>
+
+    <!-- Expandable Status -->
+    <string name="expandable_status_tool_name">Expandable Status</string>
+    <string name="expandable_status_desc">ToolComponent.ExpandableStatus з прапором shouldShowAbove. Розгортання й згортання — через шеврон хоста над рядком статусу або кнопку перемикання на end-bar.</string>
+    <string name="expandable_status_apis">ToolComponent.ExpandableStatus, expandableStatusComponent, ExpandableStatus.isExpanded, ExpandableStatus.shouldShowAbove, AbstractTool.endBar, EndBarToggleButton</string>
+    <string name="expandable_status_toggle_cd">Перемкнути expandable status</string>
+    <string name="expandable_status_position">Позиція:</string>
+    <string name="expandable_status_pos_below">Знизу</string>
+    <string name="expandable_status_pos_above">Зверху</string>
+
+    <!-- Underlay -->
+    <string name="underlay_tool_name">Підкладка карти</string>
+    <string name="underlay_desc">ToolComponent.Underlay — composable, що відображається під картою. Хост вмикає AR-режим карти, поки активний будь-який underlay.</string>
+    <string name="underlay_apis">ToolComponent.Underlay, requiredComponent, AbstractTool.endBar, EndBarActionButton, ToolManager.deactivate</string>
+    <string name="underlay_label">Шар Underlay — відображається під картою</string>
+    <string name="underlay_close_cd">Закрити underlay</string>
+    <string name="underlay_close">Закрити</string>
+
+    <!-- End Bar -->
+    <string name="endbar_tool_name">End Bar</string>
+    <string name="endbar_desc">Повний EndBar API — кнопки дії, перемикання та меню з елементами і слайдером.</string>
+    <string name="endbar_apis">AbstractTool.endBar, EndBarActionButton, EndBarToggleButton, EndBarMenuButton, EndBarMenuScope.Checkable, EndBarMenuScope.Slider</string>
+    <string name="endbar_action_cd">Дія EndBar (painter плагіну)</string>
+    <string name="endbar_toggle_cd">Перемикач EndBar (painter плагіну)</string>
+    <string name="endbar_menu_cd">Меню EndBar (painter плагіну)</string>
+    <string name="endbar_menu_option_a">Варіант A</string>
+    <string name="endbar_slider_label">Слайдер</string>
+    <string name="endbar_current_toggle">Стан перемикача:</string>
+    <string name="endbar_current_slider">Значення слайдера:</string>
+    <string name="endbar_explainer">Відкрийте EndBar збоку хосту. Використовуйте кнопки дії, перемикання і меню. Стан відображається нижче.</string>
+    <string name="endbar_action_fired">Дію виконано</string>
+
+    <!-- Model -->
+    <string name="model_tool_name">Робота з моделями</string>
+    <string name="model_desc">Демонстрація CommonModelInteractor: список, create/consume/commit, ключі символів та вибір і події для моделей поля бою.</string>
+    <string name="model_apis">CommonModelInteractor, getAllModels, createModel, consumeModel, commitModel, rollbackChanges, deleteModel, selectModel, unselectModel, followModel, startModelInteraction, selectedModel, userModel, isReadOnly, ModelAttrs/symbolKey, rememberSymbolPainter</string>
+    <string name="model_section_selected">Обрана модель</string>
+    <string name="model_section_user">Модель користувача</string>
+    <string name="model_section_all">Усі моделі</string>
+    <string name="model_no_models">Моделей немає</string>
+    <string name="model_unselect">Скинути вибір</string>
+    <string name="model_read_only_warning">Режим читання: лише спостереження та вибір</string>
+    <string name="model_not_selected">Не обрано</string>
+
+    <!-- Service -->
+    <string name="service_tool_name">Lifecycle &amp; Services</string>
+    <string name="service_desc">Сеансовий AbstractToolService виконує фонову роботу всю сесію — навіть коли це вікно закрите — і показує значок непрочитаного на елементі списку інструментів. Вікно також веде журнал викликів життєвого циклу інструмента.</string>
+    <string name="service_apis">ToolDescriptor.createService, AbstractToolService, ToolNotificationManager.counter, AbstractTool.onComponentShown/onComponentHidden/onDestroyRequested</string>
+    <string name="service_service_description">Оновлює значок непрочитаних на картці інструмента, поки інструмент закритий; зупинка служби заморожує значок.</string>
+
+    <!-- Картка стану служби -->
+    <string name="service_running">Сеансова служба: активна</string>
+    <string name="service_status_caption">Створюється один раз на початку сеансу й живе весь сеанс, незалежно від того, чи відкрито цей інструмент.</string>
+
+    <!-- Картка вхідних / значка -->
+    <string name="service_inbox_title">Вхідні</string>
+    <string name="service_unread">Непрочитані: %1$d</string>
+    <string name="service_message">Повідомлення отримано о %1$s</string>
+    <string name="service_inbox_empty">Ще немає повідомлень.</string>
+    <string name="service_mark_read">Позначити всі прочитаними</string>
+    <string name="service_inbox_caption">Нове повідомлення надходить кожні кілька секунд у фоні. Закрийте це вікно й спостерігайте, як число зʼявиться значком на картці цього інструмента у списку. «Позначити всі прочитаними» очищає його.</string>
+
+    <!-- Картка журналу життєвого циклу -->
+    <string name="service_lifecycle_title">Журнал життєвого циклу</string>
+    <string name="service_lifecycle_empty">Ще немає подій життєвого циклу.</string>
+    <string name="service_lifecycle_caption">Ці колбеки спрацьовують, коли ви відкриваєте й закриваєте це вікно. Журнал зберігається в сеансовій службі, тож переживає закриття вікна — відкрийте знову, щоб побачити попередній запис «hidden».</string>
+
+    <!-- Resources / Config -->
+    <string name="config_tool_name">Ресурси з кваліфікаторами</string>
+    <string name="config_desc">Демонстрація ресурсів з кваліфікаторами конфігурації — локаль (values-uk), нічний режим (values-night), скомпільований у плагін шрифт та raw-файл ресурсу.</string>
+    <string name="config_apis">stringResource, FontFamily(Font(R.font.*)), context.resources.openRawResource</string>
+    <string name="config_mode">Режим: день</string>
+    <string name="config_locale_hint">Локаль — теж кваліфікатор: змініть мову застосунку на українську, і всі рядки тут перезавантажаться з values-uk — так само, як цей рядок режиму перезавантажується з values-night у темній темі.</string>
+    <string name="config_font_label">Шрифт плагіну (R.font.sample_font):</string>
+    <string name="config_raw_label">Raw-ресурс плагіну (R.raw.sample_note):</string>
+    <string name="config_font_sample">Швидка коричнева лисиця перескочила через ледачого пса — шрифт плагіну</string>
+    <string name="config_explainer">Увімкніть системний темний режим — іконка та рядок режиму вище переключаться на нічний варіант. Змініть мову застосунку на українську в Налаштуваннях — усі рядки переключаться на values-uk, демонструючи ресурси плагіну з кваліфікаторами конфігурації.</string>
+
+    <!-- Resources / Material -->
+    <string name="material_tool_name">M2-віджети та ізоляція popup</string>
+    <string name="material_desc">Демонстрація скомпільованих у плагін M2-віджетів та ізоляції контексту popup: сирий DropdownMenu показує, як LocalContext скидається в підкомпозиції, а ProvideWindowContext/ToolAlertDialog — як повторно надати його.</string>
+    <string name="material_apis">M2 Scaffold, SnackbarHost, Slider, DropdownMenu (скомпільовано у плагін), ProvideWindowContext, ToolAlertDialog, CompositionFallbackContext</string>
+    <string name="material_show_snackbar">Показати Snackbar</string>
+    <string name="material_show_dialog">Показати AlertDialog</string>
+    <string name="material_dialog_title">AlertDialog — композиція плагіну</string>
+    <string name="material_dialog_body">Цей діалог відображається кодом плагіну в CompositionFallbackContext.</string>
+    <string name="material_dropdown_label">Демонстрація DropdownMenu</string>
+    <string name="material_dropdown_isolation_note">Три пункти вище — це значення R.string плагіну, вирішені всередині підкомпозиції popup. Ви їх бачите, бо ProvideWindowContext повторно надав контекст інструмента — без нього popup успадкував би контекст хосту, і підписи були б порожні чи неправильні.</string>
+    <string name="material_slider_label">Демонстрація Slider</string>
+    <string name="material_explainer">Віджети M2 (Scaffold, SnackbarHost, AlertDialog, DropdownMenu, Slider) в коді плагіну. Якщо ID рядків хосту вирішуються без Resources$NotFoundException — ізоляція працює.</string>
+    <string name="material_ok">OK</string>
+    <string name="material_dropdown_open">Відкрити випадаюче меню</string>
+    <string name="material_dropdown_alpha">Альфа</string>
+    <string name="material_dropdown_beta">Бета</string>
+    <string name="material_dropdown_gamma">Гамма</string>
+    <string name="material_snackbar_message">Snackbar від плагіну — R хосту вирішено успішно</string>
+
+    <!-- Resources / Collision -->
+    <string name="collision_tool_name">Колізія R.string</string>
+    <string name="collision_desc">Значення R.string плагіну мають пріоритет над однойменними рядками хосту.</string>
+    <string name="collision_apis">CompositionFallbackContext, FallbackResources (внутрішній — прозорий для авторів плагінів)</string>
+    <string name="settings">Налаштування плагіна</string>
+    <string name="collision_explainer">І застосунок-хост, і цей плагін оголошують рядок з назвою settings. Кожен компілюється у власний ID у власному APK. Ось яке значення перемагає, коли плагін читає R.string.settings:</string>
+    <string name="collision_host_label">Хост (c4ds) оголошує</string>
+    <string name="collision_host_value">Налаштування</string>
+    <string name="collision_plugin_label">Цей плагін оголошує</string>
+    <string name="collision_resolved_label">Вирішується у</string>
+    <string name="collision_resolved_badge">перемагає плагін</string>
+    <string name="collision_plugin_first_caption">Плагін навіть не може прочитати значення хосту під час виконання — ізоляція між APK відгороджує його, тож рядок вище наведено лише для довідки. Саме ця межа й працює на ваших очах.</string>
+
+    <!-- Components — demo strings (used by folded demos in UI Catalog) -->
+    <!-- Components — section labels -->
+    <string name="components_buttons">Кнопки</string>
+    <string name="components_segmented">Сегментований контрол</string>
+    <string name="components_text_input">Текстове поле</string>
+    <string name="components_stepper">Цілочисельний степпер</string>
+    <string name="components_dropdowns">Випадаючі списки</string>
+    <string name="components_slider">Слайдер</string>
+    <string name="components_checkable">Чекбокс / Перемикач</string>
+    <string name="components_radio">Радіогрупа</string>
+    <string name="components_dialog">Діалог</string>
+    <string name="components_measurement">Поля вимірювань</string>
+    <string name="components_coordinates">Введення координат</string>
+    <string name="components_banner">Банер</string>
+    <string name="components_carousel">Карусель</string>
+    <string name="components_color_selector">Вибір кольору</string>
+    <string name="components_tooltip">Підказка</string>
+    <string name="components_fab">FAB</string>
+    <!-- Components — demo labels -->
+    <string name="components_btn_primary">Основна кнопка</string>
+    <string name="components_btn_outlined">Контурна кнопка</string>
+    <string name="components_btn_text">Текстова кнопка</string>
+    <string name="components_btn_destructive">Деструктивна кнопка</string>
+    <string name="components_btn_progress">Кнопка з прогресом</string>
+    <string name="components_text_input_label">Введіть текст</string>
+    <string name="components_stepper_label">Кількість</string>
+    <string name="components_checkbox_label">Варіант чекбокса</string>
+    <string name="components_switch_label">Варіант перемикача</string>
+    <string name="components_dialog_open">Відкрити діалог</string>
+    <string name="components_dialog_title">Приклад діалогу</string>
+    <string name="components_dialog_body">Це приклад AppDialog із заголовком та кнопкою підтвердження.</string>
+    <string name="components_dialog_close">Закрити</string>
+    <string name="components_measurement_distance">Дистанція</string>
+    <string name="components_measurement_speed">Швидкість</string>
+    <string name="components_measurement_altitude">Висота</string>
+    <string name="components_measurement_azimuth">Азимут</string>
+    <string name="components_banner_info">Інфо: це банер з MessageType.Info.</string>
+    <string name="components_banner_warning">Попередження: це банер з MessageType.Warning.</string>
+    <string name="components_banner_error">Помилка: банер з MessageType.Error та дією.</string>
+    <string name="components_banner_action">Повторити</string>
+    <string name="components_color_selector_label">Оберіть колір</string>
+    <string name="components_tooltip_desc">Натисніть кнопку, щоб переключити спливаючу підказку.</string>
+    <string name="components_tooltip_show">Перемкнути підказку</string>
+    <string name="components_tooltip_content">Привіт із Tooltip!</string>
+    <string name="components_fab_cd">Додати</string>
+    <!-- Components — dropdown options -->
+    <string name="components_dropdown_option_a">Альфа</string>
+    <string name="components_dropdown_option_b">Бета</string>
+    <string name="components_dropdown_option_c">Гамма</string>
+    <string name="components_dropdown_option_d">Дельта</string>
+    <!-- Components — radio options -->
+    <string name="components_radio_option_1">Варіант 1</string>
+    <string name="components_radio_option_2">Варіант 2</string>
+    <string name="components_radio_option_3">Варіант 3</string>
+    <!-- Components — carousel items -->
+    <string name="components_carousel_item_1">Карусель — перший слайд</string>
+    <string name="components_carousel_item_2">Карусель — другий слайд</string>
+    <string name="components_carousel_item_3">Карусель — третій слайд</string>
+
+    <!-- UI Catalog -->
+    <string name="ui_catalog_tool_name">Каталог UI-компонентів</string>
+    <string name="ui_catalog_desc">Навігаційний каталог винесених публічних SDK-компонентів: шість полів форми та групи Buttons, TopAppBar, Inputs, Selection, Feedback і Lists, кожен у кількох станах.</string>
+    <string name="ui_catalog_apis">InlineMessage, HeaderField, ExpandableField, FormFieldBox, NestedForm, HostilitySelector, Buttons, TopAppBar, Inputs, Selection, Feedback, Lists</string>
+    <!-- UI Catalog — entries -->
+    <string name="ui_catalog_inline_message_name">InlineMessage</string>
+    <string name="ui_catalog_inline_message_desc">Анімований вбудований підпис інфо / помилки, що з\'являється та зникає під полем.</string>
+    <string name="ui_catalog_header_field_name">HeaderField</string>
+    <string name="ui_catalog_header_field_desc">Клікабельний рядок-заголовок секції з підписом та слотом для іконки.</string>
+    <string name="ui_catalog_expandable_field_name">ExpandableField</string>
+    <string name="ui_catalog_expandable_field_desc">Заголовок, що розгортає та згортає вміст з анімованою стрілкою.</string>
+    <string name="ui_catalog_form_field_box_name">FormFieldBox</string>
+    <string name="ui_catalog_form_field_box_desc">Обгортка поля, що розміщує вміст разом з повідомленням про помилку або підказкою.</string>
+    <string name="ui_catalog_nested_form_name">NestedForm</string>
+    <string name="ui_catalog_nested_form_desc">Вкладена підформа з вертикальним роздільником на початковому краї.</string>
+    <string name="ui_catalog_hostility_selector_name">HostilitySelector</string>
+    <string name="ui_catalog_hostility_selector_desc">Горизонтальна прокручувана стрічка вибору іконок з винесеним слотом елемента.</string>
+    <!-- UI Catalog — state labels -->
+    <string name="ui_catalog_state_info">Інфо</string>
+    <string name="ui_catalog_state_error">Помилка</string>
+    <string name="ui_catalog_state_default">За замовчуванням</string>
+    <string name="ui_catalog_state_supporting">Допоміжний текст</string>
+    <string name="ui_catalog_state_enabled">Активний (одиночний вибір)</string>
+    <string name="ui_catalog_state_disabled">Вимкнено з помилкою</string>
+    <!-- UI Catalog — demo content -->
+    <string name="ui_catalog_inline_info_text">Це інформаційна підказка.</string>
+    <string name="ui_catalog_inline_error_text">Це значення є обов\'язковим.</string>
+    <string name="ui_catalog_toggle_message">Перемкнути повідомлення</string>
+    <string name="ui_catalog_header_label">Заголовок секції</string>
+    <string name="ui_catalog_header_clicks">Кліків по заголовку: %1$d</string>
+    <string name="ui_catalog_expandable_label">Розгортана секція</string>
+    <string name="ui_catalog_expandable_content">Прихований вміст, що відкривається при розгортанні.</string>
+    <string name="ui_catalog_field_label">Назва</string>
+    <string name="ui_catalog_field_value_default">Альфа</string>
+    <string name="ui_catalog_field_value_supporting">Чарлі</string>
+    <string name="ui_catalog_form_field_box_error">Назва не може бути порожньою.</string>
+    <string name="ui_catalog_form_field_box_supporting">Як показано на карті.</string>
+    <string name="ui_catalog_nested_parent_label">Батьківське поле</string>
+    <string name="ui_catalog_nested_parent_value">Батьківське</string>
+    <string name="ui_catalog_nested_child_label">Вкладене поле</string>
+    <string name="ui_catalog_nested_child_value">Вкладене</string>
+    <!-- HeaderField extra state labels -->
+    <string name="ui_catalog_header_label_custom_color">Заголовок з кастомним фоном</string>
+    <string name="ui_catalog_header_label_default_shape">Заголовок зі стандартною формою</string>
+    <!-- NestedForm extra state labels -->
+    <string name="ui_catalog_nested_state_one_level">Один рівень вкладення</string>
+    <string name="ui_catalog_nested_state_two_levels">Два рівні вкладення</string>
+    <string name="ui_catalog_nested_deep_label">Глибоке вкладене поле</string>
+    <string name="ui_catalog_nested_deep_value">Глибоке</string>
+    <string name="ui_catalog_hostility_label">Належність</string>
+    <string name="ui_catalog_hostility_readonly_label">Належність (лише читання)</string>
+    <string name="ui_catalog_hostility_error">Оберіть належність.</string>
+
+    <!-- UI Catalog — lists demo -->
+    <string name="ui_catalog_list_item">Елемент %1$d</string>
+
+    <!-- UI Catalog — folded showcase category entries -->
+    <string name="ui_catalog_buttons_name">Кнопки</string>
+    <string name="ui_catalog_buttons_desc">Button, OutlinedButton, TextButton, DestructiveButton, PrimaryProgressButton, AppFab.</string>
+    <string name="ui_catalog_top_app_bar_name">TopAppBar</string>
+    <string name="ui_catalog_top_app_bar_desc">Стабільна верхня панель SDK у різних станах: лише заголовок, кнопка назад, підзаголовок, текстова/іконкова дії, меню переповнення та пошук.</string>
+    <!-- UI Catalog — TopAppBar demo state labels -->
+    <string name="ui_catalog_top_app_bar_state_title_only">Лише заголовок (без навігації)</string>
+    <string name="ui_catalog_top_app_bar_state_back_nav">З кнопкою «Назад»</string>
+    <string name="ui_catalog_top_app_bar_state_subtitle">Із заголовком і підзаголовком</string>
+    <string name="ui_catalog_top_app_bar_state_text_action">З кінцевою текстовою кнопкою</string>
+    <string name="ui_catalog_top_app_bar_state_icon_action">З кінцевою кнопкою-іконкою</string>
+    <string name="ui_catalog_top_app_bar_state_overflow">З кількома діями та меню переповнення</string>
+    <string name="ui_catalog_top_app_bar_state_search">З пошуком</string>
+    <!-- UI Catalog — TopAppBar demo content -->
+    <string name="ui_catalog_top_app_bar_title">Панель інструмента</string>
+    <string name="ui_catalog_top_app_bar_subtitle">Другий рядок</string>
+    <string name="ui_catalog_top_app_bar_action_save">Зберегти</string>
+    <string name="ui_catalog_top_app_bar_action_edit">Редагувати</string>
+    <string name="ui_catalog_top_app_bar_action_add">Додати</string>
+    <string name="ui_catalog_top_app_bar_overflow_settings">Налаштування</string>
+    <string name="ui_catalog_top_app_bar_overflow_share">Поділитися</string>
+    <string name="ui_catalog_top_app_bar_search_placeholder">Пошук…</string>
+    <string name="ui_catalog_inputs_name">Поля введення</string>
+    <string name="ui_catalog_inputs_desc">OutlinedTextInputField, IntegerStepper, SimpleDropDownField, OutlinedDropDownField, measurement inputs (distance/speed/altitude/angle), coordinate input.</string>
+    <string name="ui_catalog_selection_name">Вибір</string>
+    <string name="ui_catalog_selection_desc">SegmentedButtonRow, SliderWithLabel, CheckBoxField, SwitchField, RadioGroup, ColorSelector.</string>
+    <string name="ui_catalog_feedback_name">Зворотній зв\'язок</string>
+    <string name="ui_catalog_feedback_desc">AppDialog, Banner (Info/Warning/Error), Carousel, Tooltip.</string>
+    <string name="ui_catalog_lists_name">Revealable Lists</string>
+    <string name="ui_catalog_lists_desc">RevealableLazyColumn з pull-to-refresh та swipe-to-reveal (редагування/видалення).</string>
+
+    <!-- Map Interactor -->
+    <string name="map_interactor_tool_name">Інтерактор карти</string>
+    <string name="map_interactor_desc">Демонстрація CommonMapInteractor: зчитування камери/lookAt, фокусування, режим відображення, закріплення курсору та геодезичні корекції.</string>
+    <string name="map_interactor_apis">CommonMapInteractor, mapNavigatorEvent, camera, lookAt, selectedPosition, isLookAtAboveHorizon, mapDisplayMode, updateMapDisplayMode, arDistanceLimit, setArDistanceLimit, isReticleVisible, setReticleVisible, isCursorPinned, pinCursor, unpinCursor, isMapVisible, setMapVisible, focusOnLocation, focusOnSector, getDeclination, getConvergence, getAngleCorrection, getDistanceAndAngle, getElevation</string>
+    <!-- Map Interactor — sections -->
+    <string name="map_interactor_section_camera">Камера та LookAt</string>
+    <string name="map_interactor_section_display_mode">Режим відображення</string>
+    <string name="map_interactor_section_controls">Приціл та курсор</string>
+    <string name="map_interactor_section_focus">Фокусування</string>
+    <string name="map_interactor_section_corrections">Корекції в точці LookAt</string>
+    <!-- Map Interactor — readout labels -->
+    <string name="map_interactor_camera_lat">Широта камери</string>
+    <string name="map_interactor_camera_lon">Довгота камери</string>
+    <string name="map_interactor_camera_alt">Висота камери</string>
+    <string name="map_interactor_camera_heading">Курс</string>
+    <string name="map_interactor_camera_tilt">Нахил</string>
+    <string name="map_interactor_lookat_lat">Широта LookAt</string>
+    <string name="map_interactor_lookat_lon">Довгота LookAt</string>
+    <string name="map_interactor_above_horizon">Вище горизонту</string>
+    <string name="map_interactor_selected_pos">Обрана позиція</string>
+    <!-- Map Interactor — display modes -->
+    <string name="map_interactor_mode_normal">Normal</string>
+    <string name="map_interactor_mode_ar">AR</string>
+    <string name="map_interactor_mode_vr">VR</string>
+    <string name="map_interactor_ar_distance">Ліміт дистанції AR (м)</string>
+    <!-- Map Interactor — controls -->
+    <string name="map_interactor_reticle">Приціл видимий</string>
+    <string name="map_interactor_map_visible">Карта видима</string>
+    <string name="map_interactor_pin_cursor">Закріпити курсор</string>
+    <string name="map_interactor_unpin_cursor">Відкріпити курсор</string>
+    <string name="map_interactor_cursor_pinned">Курсор закріплено</string>
+    <!-- Map Interactor — focus -->
+    <string name="map_interactor_focus_location">Фокус на Київ</string>
+    <string name="map_interactor_focus_sector">Фокус на сектор</string>
+    <!-- Map Interactor — corrections -->
+    <string name="map_interactor_declination">Магнітне схилення</string>
+    <string name="map_interactor_convergence">Збіжність меридіанів</string>
+    <string name="map_interactor_angle_correction">Кутова корекція</string>
+
+    <!-- Native (cross-APK) -->
+    <string name="native_cross_apk_title">Native / Cross-APK</string>
+    <string name="native_cross_apk_desc">Демонстрація ізоляції інструменту між APK: розділення classloader для кожного APK, native .so, завантажений з nativeLibraryDir плагіну, та AssetManager у межах плагіну.</string>
+    <string name="native_cross_apk_apis">ToolContext.assets (plugin AssetManager), System.loadLibrary from plugin nativeLibraryDir, ToolManager.resolveToolId, ToolComponent.Window</string>
+    <string name="native_cross_apk_not_installed">APK ізоляції не встановлено.</string>
+    <string name="catalog_cross_apk_install_label">Встановлення</string>
+    <string name="catalog_cross_apk_install_intro">Зберіть і встановіть обидва APK, потім відкрийте Галерею зразків у списку інструментів ComBat 4:</string>
+    <string name="catalog_cross_apk_install_commands">./gradlew :gallery:assembleRelease :isolation:assembleRelease\nadb install -r gallery/build/outputs/apk/release/gallery-release.apk\nadb install -r isolation/build/outputs/apk/release/isolation-release.apk</string>
+    <string name="catalog_cross_apk_install_status_installed">Статус: APK :isolation встановлено — поверніться до хабу та натисніть цей зразок для запуску.</string>
+    <string name="catalog_cross_apk_install_status_missing">Статус: APK :isolation ще не встановлено.</string>
+
+    <!-- Architecture / Bookmarks (cross-APK) -->
+    <string name="bookmarks_catalog_name">Закладки (мультимодульний)</string>
+    <string name="bookmarks_catalog_desc">Окремий мультимодульний зразок: модулі Gradle domain/data/app демонструють інверсію залежностей, Kodein DI та MVI, упаковані як окремий APK, що виявляється хостом.</string>
+    <string name="bookmarks_catalog_apis">AbstractTool, ToolDescriptor, ToolComponent.Window, Kodein subDI/import, tool-scoped Room database via CommonSessionStorageInteractor.getUserDirectoryPath, MVI StateFlow + Action + Channel</string>
+    <string name="bookmarks_cross_apk_not_installed">APK Закладок не встановлено.</string>
+    <string name="bookmarks_cross_apk_install_intro">Зберіть і встановіть APK Закладок, потім відкрийте Галерею зразків у списку інструментів ComBat 4:</string>
+    <string name="bookmarks_cross_apk_install_commands">./gradlew :bookmarks:app:installDebug</string>
+    <string name="bookmarks_cross_apk_install_status_installed">Статус: APK :bookmarks:app встановлено — поверніться до хабу та натисніть цей зразок для запуску.</string>
+    <string name="bookmarks_cross_apk_install_status_missing">Статус: APK :bookmarks:app ще не встановлено.</string>
+</resources>
+

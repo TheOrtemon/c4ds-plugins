@@ -1,0 +1,24 @@
+<resources>
+    <!-- Зразок renderable-обʼєктів: назва інструмента + метадані каталогу -->
+    <string name="renderable_tool_name">Renderable-обʼєкти</string>
+    <string name="renderable_desc">Малювання renderable-обʼєктів WorldWind — точки, лінії, полігона, кола, підпису — на карті.</string>
+    <string name="renderable_apis">AbstractMapTool.addRenderable/removeRenderable, WorldWind Placemark/Path/Polygon/Ellipse/Label, requestRedraw</string>
+
+    <!-- Елементи керування -->
+    <string name="renderable_add_point">Додати точку</string>
+    <string name="renderable_add_line">Додати лінію</string>
+    <string name="renderable_add_polygon">Додати полігон</string>
+    <string name="renderable_add_circle">Додати коло</string>
+    <string name="renderable_add_label">Додати підпис</string>
+    <string name="renderable_clear">Очистити</string>
+    <string name="renderable_hint">Натисніть кнопку, щоб додати фігуру в позиції курсора, або торкніться карти, щоб поставити точку там.</string>
+    <string name="renderable_count">Обʼєктів: %1$d</string>
+
+    <!-- Вибір кольору -->
+    <string name="renderable_color_label">Колір фігури:</string>
+    <string name="renderable_color_cyan">Блакитний</string>
+    <string name="renderable_color_red">Червоний</string>
+    <string name="renderable_color_green">Зелений</string>
+    <string name="renderable_color_yellow">Жовтий</string>
+    <string name="renderable_color_white">Білий</string>
+</resources>

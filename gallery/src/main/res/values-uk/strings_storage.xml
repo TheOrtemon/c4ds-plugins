@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Storage showcase hub — Ukrainian -->
+    <string name="storage_tool_name">Робота з даними</string>
+    <string name="storage_desc">Демонструє ізольований файловий I/O, SharedPreferences у контексті плагіну та ізольовану базу даних Room — три вітрини в одному хабі.</string>
+    <string name="storage_apis">CommonSessionStorageInteractor, SharedPreferences, Room, Dispatchers.IO</string>
+
+    <!-- Showcase list entries -->
+    <string name="storage_sc_file_name">Файловий I/O</string>
+    <string name="storage_sc_file_desc">Запис та читання файлу у директорії SDK за допомогою Dispatchers.IO.</string>
+    <string name="storage_sc_prefs_name">SharedPreferences</string>
+    <string name="storage_sc_prefs_desc">Ізольоване сховище ключ/значення плагіну: рядок та лічильник, що спостерігаються через StateFlow.</string>
+    <string name="storage_sc_room_name">База даних Room</string>
+    <string name="storage_sc_room_desc">Ізольована БД Room у директорії SDK: додавання, перегляд та очищення нотаток поза головним потоком.</string>
+
+    <!-- File showcase -->
+    <string name="storage_explainer">Показує шляхи до директорій сесійного сховища та демонструє запис/читання файлу в користувацькій директорії з використанням Dispatchers.IO для I/O поза головним потоком.</string>
+    <string name="storage_section_paths">Шляхи до директорій сесії</string>
+    <string name="storage_root_dir">Коренева директорія:</string>
+    <string name="storage_user_dir">Директорія користувача:</string>
+    <string name="storage_section_file_ops">Операції з файлами (gallery_sample.txt)</string>
+    <string name="storage_write">Записати файл</string>
+    <string name="storage_read">Прочитати файл</string>
+    <string name="storage_status_in_progress">Виконується…</string>
+    <string name="storage_status_write_success">Файл успішно записано.</string>
+    <string name="storage_status_read_success">Файл успішно прочитано.</string>
+    <string name="storage_status_file_not_found">Файл не знайдено — спочатку запишіть його.</string>
+    <string name="storage_status_error">Помилка:</string>
+    <string name="storage_file_content">Вміст файлу:</string>
+
+    <!-- Preferences showcase -->
+    <string name="storage_prefs_explainer">Демонструє ізольовані SharedPreferences плагіну. Файл налаштувань прив\'язаний до повного імені StorageToolDescriptor, тому не може конфліктувати з іншими інструментами.</string>
+    <string name="storage_prefs_section_current">Поточні збережені значення</string>
+    <string name="storage_prefs_saved_string">Збережений рядок</string>
+    <string name="storage_prefs_counter">Лічильник</string>
+    <string name="storage_prefs_section_string">Зберегти рядок</string>
+    <string name="storage_prefs_input_hint">Введіть значення</string>
+    <string name="storage_prefs_save">Зберегти рядок</string>
+    <string name="storage_prefs_section_counter">Лічильник</string>
+    <string name="storage_prefs_increment">Збільшити лічильник</string>
+
+    <!-- Error fallback — used by StorageViewModel when an exception carries no message -->
+    <string name="storage_error_unknown">Невідома помилка</string>
+
+    <!-- Room showcase -->
+    <string name="storage_room_explainer">Демонструє ізольовану базу даних Room за шляхом від CommonSessionStorageInteractor. Усі операції з БД виконуються на Dispatchers.IO.</string>
+    <string name="storage_room_section_add">Додати нотатку</string>
+    <string name="storage_room_input_hint">Текст нотатки</string>
+    <string name="storage_room_add">Додати нотатку</string>
+    <string name="storage_room_section_notes">Нотатки</string>
+    <string name="storage_room_clear">Очистити всі нотатки</string>
+    <string name="storage_room_empty">Нотаток ще немає — додайте одну вище.</string>
+</resources>

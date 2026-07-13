@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--
+        extractNativeLibs is controlled via android.packagingOptions.jniLibs.useLegacyPackaging
+        in build.gradle.kts (AGP 8+ deprecates the manifest attribute). Setting useLegacyPackaging
+        to true ensures .so files are extracted to nativeLibraryDir at install time so the host's
+        PathClassLoader (with libPath = nativeLibraryDir) can load libisolation_jni.so via
+        System.loadLibrary("isolation_jni") — see IsolationNative.kt
+    -->
+    <application
+        android:label="@string/app_name"
+        android:icon="@mipmap/ic_launcher">
+
+        <meta-data
+            android:name="vision.combat.c4.ds.sdk.DECLARED_TOOLS"
+            android:resource="@xml/combat_tools" />
+
+    </application>
+</manifest>
+

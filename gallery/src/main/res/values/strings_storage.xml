@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Storage showcase hub -->
+    <string name="storage_tool_name">Data Management</string>
+    <string name="storage_desc">Demonstrates isolated file I/O, plugin-scoped SharedPreferences, and an isolated Room database — three storage showcases in one hub.</string>
+    <string name="storage_apis">CommonSessionStorageInteractor, SharedPreferences, Room, Dispatchers.IO</string>
+
+    <!-- Showcase list entries -->
+    <string name="storage_sc_file_name">File I/O</string>
+    <string name="storage_sc_file_desc">Write and read a file in the SDK user directory using Dispatchers.IO.</string>
+    <string name="storage_sc_prefs_name">SharedPreferences</string>
+    <string name="storage_sc_prefs_desc">Plugin-isolated key/value storage: put a string and increment a counter, observed via StateFlow.</string>
+    <string name="storage_sc_room_name">Room Database</string>
+    <string name="storage_sc_room_desc">Isolated Room DB stored under the SDK user directory: add, list, and clear notes off the main thread.</string>
+
+    <!-- File showcase -->
+    <string name="storage_explainer">Shows the session storage paths and demonstrates writing/reading a file under the user directory using Dispatchers.IO for off-main-thread I/O.</string>
+    <string name="storage_section_paths">Session Directory Paths</string>
+    <string name="storage_root_dir">Root directory:</string>
+    <string name="storage_user_dir">User directory:</string>
+    <string name="storage_section_file_ops">File Operations (gallery_sample.txt)</string>
+    <string name="storage_write">Write File</string>
+    <string name="storage_read">Read File</string>
+    <string name="storage_status_in_progress">Working…</string>
+    <string name="storage_status_write_success">File written successfully.</string>
+    <string name="storage_status_read_success">File read successfully.</string>
+    <string name="storage_status_file_not_found">File not found — write it first.</string>
+    <string name="storage_status_error">Error:</string>
+    <string name="storage_file_content">File contents:</string>
+
+    <!-- Preferences showcase -->
+    <string name="storage_prefs_explainer">Demonstrates plugin-isolated SharedPreferences. The preferences file is scoped to the StorageToolDescriptor qualified name so it cannot collide with other tools.</string>
+    <string name="storage_prefs_section_current">Current Stored Values</string>
+    <string name="storage_prefs_saved_string">Saved string</string>
+    <string name="storage_prefs_counter">Counter</string>
+    <string name="storage_prefs_section_string">Put a String</string>
+    <string name="storage_prefs_input_hint">Enter a value</string>
+    <string name="storage_prefs_save">Save String</string>
+    <string name="storage_prefs_section_counter">Counter</string>
+    <string name="storage_prefs_increment">Increment Counter</string>
+
+    <!-- Error fallback — used by StorageViewModel when an exception carries no message -->
+    <string name="storage_error_unknown">Unknown error</string>
+
+    <!-- Room showcase -->
+    <string name="storage_room_explainer">Demonstrates an isolated Room database stored at the path provided by CommonSessionStorageInteractor. All DB operations run on Dispatchers.IO.</string>
+    <string name="storage_room_section_add">Add a Note</string>
+    <string name="storage_room_input_hint">Note text</string>
+    <string name="storage_room_add">Add Note</string>
+    <string name="storage_room_section_notes">Notes</string>
+    <string name="storage_room_clear">Clear All Notes</string>
+    <string name="storage_room_empty">No notes yet — add one above.</string>
+</resources>

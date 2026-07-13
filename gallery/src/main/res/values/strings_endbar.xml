@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- EndBar toggle state labels -->
+    <string name="endbar_toggle_on">ON</string>
+    <string name="endbar_toggle_off">OFF</string>
+</resources>
