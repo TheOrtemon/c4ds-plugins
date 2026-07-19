@@ -8,7 +8,7 @@ Soldier (C4DS) tools** — 24 runnable samples across 13 categories, launched fr
 
 [![Kotlin](https://img.shields.io/badge/Kotlin-2.4.0-7F52FF?logo=kotlin)](gradle/libs.versions.toml)
 [![AGP](https://img.shields.io/badge/AGP-9.2.1-3DDC84?logo=android)](gradle/libs.versions.toml)
-[![c4ds-sdk](https://img.shields.io/badge/c4ds--sdk-0.5.0-blue)](gradle/libs.versions.toml)
+[![c4ds-sdk](https://img.shields.io/badge/c4ds--sdk-0.5.1-blue)](gradle/libs.versions.toml)
 [![minSdk](https://img.shields.io/badge/minSdk-26-brightgreen)](gallery/build.gradle.kts)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue)](LICENSE)
 
@@ -37,7 +37,7 @@ Soldier (C4DS) tools** — 24 runnable samples across 13 categories, launched fr
 |---|---|
 | Host app | [ComBat 4 DS](https://play.google.com/store/apps/details?id=vision.combat.c4.ds) |
 | Maven access | [support@combat.vision](mailto:support@combat.vision) → [Nexus SDK](https://nexus.combat.vision/#browse/browse:maven-sdk:vision%2Fcombat%2Fc4ds-sdk) |
-| SDK | `c4ds-sdk` `0.5.0` (see `gradle/libs.versions.toml`) |
+| SDK | `c4ds-sdk` `0.5.1` (see `gradle/libs.versions.toml`) |
 | Kotlin | `2.4.0` — must match host for binary compatibility |
 | Compose | TBD — not pinned in this repo; use the Kotlin K2 Compose compiler shipped with `kotlin = "2.4.0"` |
 | NDK + CMake | Only for `:isolation` |

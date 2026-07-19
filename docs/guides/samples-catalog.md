@@ -2,8 +2,8 @@
 
 **[← README](../../README.md)** · **[Getting started](getting-started.md)** · **[Plugin isolation](plugin-isolation.md)**
 
-The developer guidebook for this repository: all 24 samples with a screenshot, description, SDK APIs,
-source path, and verification steps — grouped by the 13 catalog sections in on-screen order. Each
+The developer guidebook for this repository: all 26 samples with a screenshot, description, SDK APIs,
+source path, and verification steps — grouped by the 14 catalog sections in on-screen order. Each
 section below is collapsible; expand the ones you are extending.
 
 **Package root:** `vision.combat.c4.ds.sample.*`
@@ -22,8 +22,9 @@ section below is collapsible; expand the ones you are extending.
 [9 Model Management](#section-9-model-management) ·
 [10 Data Management](#section-10-data-management) ·
 [11 Lifecycle & Services](#section-11-lifecycle-services) ·
-[12 Resources & Isolation](#section-12-resources-isolation) ·
-[13 Architecture](#section-13-architecture)
+[12 Host Services](#section-12-host-services) ·
+[13 Resources & Isolation](#section-13-resources-isolation) ·
+[14 Architecture](#section-14-architecture)
 
 ---
 
@@ -33,13 +34,13 @@ The gallery uses a **3-level** navigation hierarchy:
 
 | Level | Screen | Description |
 |---|---|---|
-| 1 | **Category list** (root) | 13 category cards, each showing a title, description, and icon. Tap a card to drill into that category. |
+| 1 | **Category list** (root) | 14 category cards, each showing a title, description, and icon. Tap a card to drill into that category. |
 | 2 | **Category detail** | Filtered list of samples in the chosen category. Tap a sample row to activate/deactivate it; tap the **ⓘ** icon to see details. |
 | 3 | **Sample detail** | SDK APIs, source subpackage, and cross-APK install steps (where applicable). |
 
 | Action | Result |
 |---|---|
-| Open **Sample Gallery** from host Tools list | Category list with 13 section cards |
+| Open **Sample Gallery** from host Tools list | Category list with 14 section cards |
 | **Tap** a category card | Opens the category subscreen showing samples in that section |
 | **Tap** an inactive sample row | Activates that sample (`ToolManager.activate<T>(FLAG_COMPONENT_ON_TOP)`); name highlighted in accent color |
 | **Tap** an active sample row (accent color) | Deactivates that sample via `ToolManager.deactivate`; name returns to normal color |
@@ -47,6 +48,7 @@ The gallery uses a **3-level** navigation hierarchy:
 | **Info icon** (ⓘ) on a sample row | Navigates to the sample detail screen |
 | Install `:isolation` APK | Enables **Native / Cross-APK** row in the Resources & Isolation section |
 | Install `:bookmarks:app` APK | Enables **Bookmarks** row in the Architecture section |
+| Install `:openwith` APK | **Open With** appears directly in the host's own Tools list — not a hub row (see note above) |
 
 Registry implementation: [`CatalogEntry.kt`](../../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/catalog/ui/CatalogEntry.kt)
 
@@ -56,7 +58,7 @@ Registry implementation: [`CatalogEntry.kt`](../../gallery/src/main/kotlin/visio
 
 ```
 c4ds-tool-samples/
-├── gallery/                     # Main APK — Sample Gallery hub + 22 feature samples
+├── gallery/                     # Main APK — Sample Gallery hub + 23 feature samples
 │   └── src/main/kotlin/vision/combat/c4/ds/sample/gallery/
 │       ├── catalog/             # Hub: CatalogSection, CatalogEntry, CatalogTool (launcher-visible)
 │       ├── mapview/
@@ -80,6 +82,7 @@ c4ds-tool-samples/
 │       ├── model/               # Model Management — CommonModelInteractor
 │       ├── storage/             # Data Management — files, SharedPreferences, Room
 │       ├── service/             # Lifecycle & Services — AbstractToolService
+│       ├── hostservices/        # Host Services — ShareManager, LocalClipboard, InAppNotificationManager
 │       └── resources/
 │           ├── config/          # Config-Qualified Resources
 │           ├── material/        # M2 Widgets & Popup Isolation
@@ -87,19 +90,25 @@ c4ds-tool-samples/
 ├── isolation/                   # Second APK — JNI + asset isolation (cross-APK activation)
 │   └── src/main/kotlin/vision/combat/c4/ds/sample/isolation/
 │       └── nativelib/           # Native / Cross-APK — NativeToolDescriptor
-├── bookmarks/                    # Standalone multi-module sample — its own APK (see Section 13 — Architecture)
+├── openwith/                    # Third APK — host-owned shareable Uri via ShareManager (own host launcher entry)
+│   └── src/main/kotlin/vision/combat/c4/ds/sample/openwith/
+│                                 # Open With — OpenWithToolDescriptor, ShareManager.getShareableUri
+├── bookmarks/                    # Standalone multi-module sample — its own APK (see Section 14 — Architecture)
 │   ├── domain/                   # :bookmarks:domain — Bookmark, BookmarkRepository, BookmarkInteractor
 │   ├── data/                     # :bookmarks:data — BookmarkRepositoryImpl + Room DB (tool-scoped)
 │   └── app/                      # :bookmarks:app — BookmarksTool/Descriptor, Kodein DI, MVI UI (discoverable APK)
 └── docs/                        # This guidebook and the deep-dive docs
 ```
 
-Only **Sample Gallery** (`CatalogToolDescriptor`) appears in the host launcher. All other gallery
-tools use `categories = emptyList()` and launch from the hub via `ToolManager`.
+Only **Sample Gallery** (`CatalogToolDescriptor`) appears in the host launcher from `:gallery`. All
+other gallery tools use `categories = emptyList()` and launch from the hub via `ToolManager`. The
+**Open With** sample is the one exception across the whole repo: its descriptor deliberately does
+**not** override `categories`, so it inherits `CATEGORY_LAUNCHER` and appears directly in the
+host's own Tools list — it is not activated from the Sample Gallery hub.
 
 ---
 
-## The 13 sections
+## The 14 sections
 
 <a id="section-1-map-view"></a>
 <details>
@@ -640,9 +649,48 @@ callbacks as they fire.
 
 </details>
 
-<a id="section-12-resources-isolation"></a>
+<a id="section-12-host-services"></a>
 <details>
-<summary><strong>🔒 Section 12 — Resources &amp; Isolation</strong> · 4 samples — <em>Config-qualified resources, Material widgets, R.string collision, assets, native libraries (NDK), and cross-APK isolation.</em></summary>
+<summary><strong>🔗 Section 12 — Host Services</strong> · 1 sample — <em>Host-provided, plugin-accessible services: sharing, clipboard, and in-app notifications — no bundling required.</em></summary>
+
+#### Host Services
+
+<table>
+<tr>
+<td width="280" valign="top">
+
+*(screenshot pending — no `user-attachments` URL available for this sample yet)*
+
+</td>
+<td valign="top">
+
+Three host-provided services demonstrated with **zero bundling** — pure `compileOnly(c4ds-sdk)`.
+This tool's UI code runs in the HOST process (the normal case for plugin UI), so all three
+services are simply on the classpath: **Share** (link, coordinates, file, image) via
+`LocalShareManager`, provided by the host's `MainScreen` and re-exported from `c4ds-sdk-core:ui`
+through `c4ds-sdk`'s `api(...)` dependency; **Clipboard** via Compose's own `LocalClipboard`; and
+**In-app notification** via `InAppNotificationManager`, resolved through Kodein DI
+(`rememberInstance`) with the binding inherited from the host's DI graph.
+
+Its **Share file** button shares a file via the OS share sheet (`ShareManager.shareFile`) — for
+the alternative pattern of minting a Uri and building your own intent (`ShareManager.getShareableUri`
++ a custom `ACTION_VIEW` chooser), see the **`openwith`** sample (Section 13).
+
+**SDK APIs:** `ShareManager`/`LocalShareManager` (`shareLink`, `shareCoordinates`, `shareFile`, `shareImage`), Compose `LocalClipboard`/`ClipEntry`, `InAppNotificationManager` (`postTransientNotification`, `InAppNotificationModel`, `InAppNotificationData`), Kodein `rememberInstance`.
+
+**Source:** [`gallery/.../hostservices/`](../../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/hostservices) · **Descriptor:** `vision.combat.c4.ds.sample.gallery.hostservices.HostServicesToolDescriptor`
+
+**Verify:** Tap **Share link** / **Share coordinates** / **Share file** / **Share image** → chooser opens for each. Tap **Copy sample text** → clipboard confirmation appears. Tap **Post notification** → transient in-app notification appears and a posted confirmation is shown.
+
+</td>
+</tr>
+</table>
+
+</details>
+
+<a id="section-13-resources-isolation"></a>
+<details>
+<summary><strong>🔒 Section 13 — Resources &amp; Isolation</strong> · 5 samples — <em>Config-qualified resources, Material widgets, R.string collision, assets, native libraries (NDK), cross-APK isolation, and a host-owned shareable Uri for opening files in another app.</em></summary>
 
 Deep dive: **[Plugin isolation](plugin-isolation.md)** — smoke tests, isolation cases (a–e, g, h), and
 cross-APK activation.
@@ -744,11 +792,57 @@ is activated from the hub across the APK boundary. Isolation case
 </tr>
 </table>
 
+#### Open With (`:openwith`)
+
+<table>
+<tr>
+<td width="280" valign="top">
+
+*(screenshot pending — no `user-attachments` URL available for this sample yet)*
+
+</td>
+<td valign="top">
+
+Demonstrates the correct pattern for a plugin that needs to hand a file to another app: it does
+**not** declare its own `FileProvider`. A plugin-owned provider can never work for this, even if
+its library is bundled — this tool's *code* runs in the HOST process, and a process can only grant
+a `content://` Uri whose provider it itself owns; the host doesn't own a plugin's provider
+(different UID), so the grant is silently dropped and the target app gets a `SecurityException`.
+Instead, the tool writes a sample file under `toolContext.cacheDir/export/`, mints a **host-owned**
+Uri via `ShareManager.getShareableUri` (obtained through `LocalShareManager`), and opens it with a
+custom `ACTION_VIEW` chooser intent — or shows an "outside the host's shareable roots" message if
+`getShareableUri` returns `null`. Compare with the `hostservices` sample (Section 12), which shares
+the same kind of file via the OS share sheet (`ShareManager.shareFile`) instead of a custom intent.
+Unlike every other sample module in this repo, its descriptor does **not** override `categories`,
+so it appears directly in the host's own Tools list instead of being activated from the Sample
+Gallery hub. This module declares no manifest components of its own, so it bundles nothing extra —
+pure `compileOnly(c4ds-sdk)`.
+
+**SDK APIs:** `ShareManager.getShareableUri`, `LocalShareManager`, `ToolComponent.Window`,
+`requiredComponent`, `WindowScaffold`, `BackNavTopAppBar`.
+
+**Source:** [`openwith/.../openwith/`](../../openwith/src/main/kotlin/vision/combat/c4/ds/sample/openwith) · **Descriptor:** `vision.combat.c4.ds.sample.openwith.OpenWithToolDescriptor`
+
+**Verify:**
+
+1. Install the `:openwith` APK — `./gradlew :openwith:assembleRelease` then
+   `adb install -r openwith/build/outputs/apk/release/openwith-release.apk` (see
+   [Getting started](getting-started.md#never-declare-your-own-fileprovider-to-share-or-open-a-file)
+   for the full rationale).
+2. Open ComBat 4 → **Tools** → **Open With** directly (not via Sample Gallery).
+3. Tap **Open sample file with…** → a chooser opens for the freshly written sample file (or, if the
+   host is older than SDK 0.5.1 and lacks `getShareableUri`, the "outside the host's shareable
+   roots" message appears instead).
+
+</td>
+</tr>
+</table>
+
 </details>
 
-<a id="section-13-architecture"></a>
+<a id="section-14-architecture"></a>
 <details>
-<summary><strong>🏗️ Section 13 — Architecture</strong> · 1 sample — <em>Multi-module tool structure, launched from the hub via cross-APK activation.</em></summary>
+<summary><strong>🏗️ Section 14 — Architecture</strong> · 1 sample — <em>Multi-module tool structure, launched from the hub via cross-APK activation.</em></summary>
 
 This section shows a single card on the root category list (rendered directly, no drill-in) because
 it has exactly one entry. The card's title/description/icon come from the section itself; tapping it
@@ -831,7 +925,7 @@ See [Plugin isolation — case (d)](plugin-isolation.md#case-d-pinned-state-surv
 | Language | Kotlin `2.4.0` |
 | UI | Jetpack Compose (K2 Compose compiler bundled with Kotlin `2.4.0`) |
 | Build | Android Gradle Plugin `9.2.1`, Gradle `9.5.1` |
-| SDK | `c4ds-sdk` / `c4ds-sdk-runtime` `0.5.0` |
+| SDK | `c4ds-sdk` / `c4ds-sdk-runtime` `0.5.1` |
 | DI | Kodein (`subDI`, `diViewModel()`) |
 | Persistence | Room `2.8.4`, `SharedPreferences`, plugin-scoped file storage |
 | Annotation processing | KSP `2.3.9` |
