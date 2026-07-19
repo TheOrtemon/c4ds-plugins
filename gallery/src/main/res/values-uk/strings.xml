@@ -26,6 +26,8 @@
     <string name="section_data_management_desc">Ізольований файловий I/O, SharedPreferences у контексті плагіну та ізольована база даних Room.</string>
     <string name="section_lifecycle_services_title">Lifecycle &amp; Services</string>
     <string name="section_lifecycle_services_desc">Сеансовий AbstractToolService з фоновою роботою, значком непрочитаного на елементі списку та журналом життєвого циклу інструмента.</string>
+    <string name="section_host_services_title">Сервіси хоста</string>
+    <string name="section_host_services_desc">Сервіси, що надає хост і доступні плагінам: обмін даними, буфер обміну та внутрішні сповіщення — без жодного бандлінгу.</string>
     <string name="section_resources_isolation_title">Ресурси та ізоляція</string>
     <string name="section_resources_isolation_desc">Ресурси з кваліфікаторами, M2-віджети, колізія R.string, assets, нативні бібліотеки (NDK) та ізоляція між APK.</string>
     <string name="section_architecture_title">Архітектура</string>
@@ -176,6 +178,26 @@
     <string name="service_lifecycle_title">Журнал життєвого циклу</string>
     <string name="service_lifecycle_empty">Ще немає подій життєвого циклу.</string>
     <string name="service_lifecycle_caption">Ці колбеки спрацьовують, коли ви відкриваєте й закриваєте це вікно. Журнал зберігається в сеансовій службі, тож переживає закриття вікна — відкрийте знову, щоб побачити попередній запис «hidden».</string>
+
+    <!-- Host Services -->
+    <string name="host_services_tool_name">Сервіси хоста</string>
+    <string name="host_services_desc">Три сервіси, що надає хост і не потребують жодного бандлінгу: обмін даними через LocalShareManager, буфер обміну через LocalClipboard і внутрішні сповіщення через InAppNotificationManager.</string>
+    <string name="host_services_apis">LocalShareManager, ShareManager.shareLink/shareCoordinates/shareFile/shareImage, LocalClipboard, InAppNotificationManager.postTransientNotification</string>
+    <string name="host_services_share_title">Обмін даними</string>
+    <string name="host_services_share_link">Поділитися посиланням</string>
+    <string name="host_services_share_coordinates">Поділитися координатами</string>
+    <string name="host_services_share_file">Поділитися файлом</string>
+    <string name="host_services_share_image">Поділитися зображенням</string>
+    <string name="host_services_sample_link" translatable="false">https://combat.vision/tools/host-services-sample</string>
+    <string name="host_services_sample_file_content">Приклад з Галереї зразків — файл Host Services, надісланий через ShareManager.shareFile.</string>
+    <string name="host_services_clipboard_title">Буфер обміну</string>
+    <string name="host_services_copy_text">Скопіювати приклад тексту</string>
+    <string name="host_services_sample_text">Скопійовано з ComBat Галереї зразків — приклад Host Services.</string>
+    <string name="host_services_clipboard_copied">Скопійовано в буфер обміну.</string>
+    <string name="host_services_notification_title">Внутрішнє сповіщення</string>
+    <string name="host_services_post_notification">Показати сповіщення</string>
+    <string name="host_services_notification_content">Привіт від зразка Host Services!</string>
+    <string name="host_services_notification_posted">Сповіщення показано.</string>
 
     <!-- Resources / Config -->
     <string name="config_tool_name">Ресурси з кваліфікаторами</string>

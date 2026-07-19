@@ -4,6 +4,7 @@ import androidx.annotation.Keep
 import androidx.annotation.StringRes
 import vision.combat.c4.ds.sample.gallery.R
 import vision.combat.c4.ds.sample.gallery.dialog.DialogToolDescriptor
+import vision.combat.c4.ds.sample.gallery.hostservices.HostServicesToolDescriptor
 import vision.combat.c4.ds.sample.gallery.mapoverlays.endbar.EndBarToolDescriptor
 import vision.combat.c4.ds.sample.gallery.mapoverlays.expandablestatus.ExpandableStatusToolDescriptor
 import vision.combat.c4.ds.sample.gallery.mapview.map.MapToolDescriptor
@@ -237,6 +238,16 @@ internal enum class CatalogEntry(
         apisResId = R.string.service_apis,
         sourceSubpackage = "service",
         toolClassName = requireQualifiedName<ServiceToolDescriptor>(),
+    ),
+
+    // ── HOST SERVICES ────────────────────────────────────────────────────
+    HOST_SERVICES(
+        section = CatalogSection.HOST_SERVICES,
+        nameResId = R.string.host_services_tool_name,
+        descResId = R.string.host_services_desc,
+        apisResId = R.string.host_services_apis,
+        sourceSubpackage = "hostservices",
+        toolClassName = requireQualifiedName<HostServicesToolDescriptor>(),
     ),
 
     // ── RESOURCES & ISOLATION ─────────────────────────────────────────────

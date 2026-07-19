@@ -26,6 +26,8 @@
     <string name="section_data_management_desc">Isolated file I/O, plugin-scoped SharedPreferences, and an isolated Room database.</string>
     <string name="section_lifecycle_services_title">Lifecycle &amp; Services</string>
     <string name="section_lifecycle_services_desc">A session AbstractToolService doing background work, an unread badge on the tool list item, and a live tool lifecycle log.</string>
+    <string name="section_host_services_title">Host Services</string>
+    <string name="section_host_services_desc">Host-provided, plugin-accessible services: sharing, clipboard, and in-app notifications — no bundling required.</string>
     <string name="section_resources_isolation_title">Resources &amp; Isolation</string>
     <string name="section_resources_isolation_desc">Config-qualified resources, Material widgets, R.string collision, assets, native libraries (NDK), and cross-APK isolation.</string>
     <string name="section_architecture_title">Architecture</string>
@@ -176,6 +178,26 @@
     <string name="service_lifecycle_title">Tool lifecycle log</string>
     <string name="service_lifecycle_empty">No lifecycle events yet.</string>
     <string name="service_lifecycle_caption">These callbacks fire as you open and close this window. The log lives in the session service, so it survives closing the window — reopen to see the previous "hidden" entry.</string>
+
+    <!-- Host Services -->
+    <string name="host_services_tool_name">Host Services</string>
+    <string name="host_services_desc">Three host-provided services that need zero bundling: sharing via LocalShareManager, clipboard via LocalClipboard, and in-app notifications via InAppNotificationManager.</string>
+    <string name="host_services_apis">LocalShareManager, ShareManager.shareLink/shareCoordinates/shareFile/shareImage, LocalClipboard, InAppNotificationManager.postTransientNotification</string>
+    <string name="host_services_share_title">Share</string>
+    <string name="host_services_share_link">Share link</string>
+    <string name="host_services_share_coordinates">Share coordinates</string>
+    <string name="host_services_share_file">Share file</string>
+    <string name="host_services_share_image">Share image</string>
+    <string name="host_services_sample_link" translatable="false">https://combat.vision/tools/host-services-sample</string>
+    <string name="host_services_sample_file_content">Gallery sample — Host Services file, shared via ShareManager.shareFile.</string>
+    <string name="host_services_clipboard_title">Clipboard</string>
+    <string name="host_services_copy_text">Copy sample text</string>
+    <string name="host_services_sample_text">Copied from ComBat Gallery — Host Services sample.</string>
+    <string name="host_services_clipboard_copied">Copied to clipboard.</string>
+    <string name="host_services_notification_title">In-app notification</string>
+    <string name="host_services_post_notification">Post notification</string>
+    <string name="host_services_notification_content">Hello from the Host Services sample!</string>
+    <string name="host_services_notification_posted">Notification posted.</string>
 
     <!-- Resources / Config -->
     <string name="config_tool_name">Config-Qualified Resources</string>

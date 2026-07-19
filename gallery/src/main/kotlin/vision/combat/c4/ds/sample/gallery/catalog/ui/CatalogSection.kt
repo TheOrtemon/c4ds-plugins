@@ -73,6 +73,11 @@ enum class CatalogSection(
         descResId = R.string.section_lifecycle_services_desc,
         iconResId = R.drawable.ic_service,
     ),
+    HOST_SERVICES(
+        titleResId = R.string.section_host_services_title,
+        descResId = R.string.section_host_services_desc,
+        iconResId = R.drawable.ic_share,
+    ),
     RESOURCES_ISOLATION(
         titleResId = R.string.section_resources_isolation_title,
         descResId = R.string.section_resources_isolation_desc,
