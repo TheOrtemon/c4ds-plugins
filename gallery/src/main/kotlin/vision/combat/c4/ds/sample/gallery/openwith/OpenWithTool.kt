@@ -1,6 +1,7 @@
-package vision.combat.c4.ds.sample.openwith
+package vision.combat.c4.ds.sample.gallery.openwith
 
 import org.kodein.di.DI
+import vision.combat.c4.ds.sample.gallery.openwith.ui.OpenWithToolWindow
 import vision.combat.c4.ds.sdk.tool.AbstractTool
 import vision.combat.c4.ds.sdk.tool.ToolComponent
 import vision.combat.c4.ds.sdk.tool.ToolContext
@@ -10,7 +11,7 @@ import vision.combat.c4.ds.sdk.tool.requiredComponent
 
 /**
  * Minimal [AbstractTool] subclass that wires [OpenWithToolWindow], passing [toolContext] through
- * so the window can stage a small file under [ToolContext.cacheDir] and mint a shareable Uri for
+ * so the window can stage a small file under [ToolContext.getCacheDir] and mint a shareable Uri for
  * it via `ShareManager.getShareableUri`.
  */
 internal class OpenWithTool(

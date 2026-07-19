@@ -199,6 +199,17 @@
     <string name="host_services_notification_content">Hello from the Host Services sample!</string>
     <string name="host_services_notification_posted">Notification posted.</string>
 
+    <!-- Host Services / Open With -->
+    <string name="open_with_tool_name">Open With</string>
+    <string name="open_with_desc">Hands a file to another app the right way: mints a host-owned Uri via ShareManager.getShareableUri and opens it with a custom ACTION_VIEW chooser — never a plugin-owned FileProvider.</string>
+    <string name="open_with_apis">ShareManager.getShareableUri, LocalShareManager, Intent.ACTION_VIEW + FLAG_GRANT_READ_URI_PERMISSION, ToolComponent.Window</string>
+    <string name="open_with_explainer">A plugin must not declare its own FileProvider to open or share a file — this tool\'s code runs in the host process, and only the process that owns a provider can grant its content:// Uris. Instead, this sample writes a sample file, mints a host-owned Uri via ShareManager.getShareableUri, and opens it with a custom ACTION_VIEW chooser intent.</string>
+    <string name="open_with_button">Open sample file with…</string>
+    <string name="open_with_sample_file_content">Gallery sample — Open With file, opened via a host-owned Uri from ShareManager.getShareableUri.</string>
+    <string name="open_with_outside_roots">getShareableUri returned null — the file is outside the host\'s shareable FileProvider roots.</string>
+    <string name="open_with_chooser_title">Open with</string>
+    <string name="open_with_rule_caption">Rule: a plugin-owned FileProvider can never validly grant a Uri to another app, even if its library is bundled — grants can only be issued by the process that owns the provider, and a plugin\'s tool code runs in the host\'s process, not its own. Get a host-owned Uri from ShareManager.getShareableUri instead. Compare with the sibling Host Services sample, which shares the same kind of file via the share sheet (ShareManager.shareFile) rather than a custom intent.</string>
+
     <!-- Resources / Config -->
     <string name="config_tool_name">Config-Qualified Resources</string>
     <string name="config_desc">Demonstrates config-qualified resources — locale (values-uk), night mode (values-night), a plugin-compiled font, and a raw resource file.</string>

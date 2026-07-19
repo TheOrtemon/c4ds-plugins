@@ -386,7 +386,7 @@ manifest-component fix for this — the grant has to come from a process that ow
   `file` — a Uri the host process (where your tool code runs) can validly grant — or returns
   `null` if `file` is outside the host FileProvider's configured roots. Use this when you need to
   build your own intent (e.g. `ACTION_VIEW` to open a file in an external viewer). See the
-  **`openwith`** sample for the full pattern.
+  **`openwith`** sample (`:gallery`, Section 12) for the full pattern.
 - `ShareManager.shareFile(file, intentType)` / `shareFiles(files, intentType)` do the same Uri
   minting for you and launch the OS share sheet directly. See the **`hostservices`** sample
   (`:gallery`, Section 12).

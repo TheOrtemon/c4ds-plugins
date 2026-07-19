@@ -199,6 +199,17 @@
     <string name="host_services_notification_content">Привіт від зразка Host Services!</string>
     <string name="host_services_notification_posted">Сповіщення показано.</string>
 
+    <!-- Host Services / Open With -->
+    <string name="open_with_tool_name">Відкрити за допомогою</string>
+    <string name="open_with_desc">Правильно передає файл іншому застосунку: отримує Uri хоста через ShareManager.getShareableUri і відкриває його власним наміром ACTION_VIEW — ніколи через власний FileProvider плагіна.</string>
+    <string name="open_with_apis">ShareManager.getShareableUri, LocalShareManager, Intent.ACTION_VIEW + FLAG_GRANT_READ_URI_PERMISSION, ToolComponent.Window</string>
+    <string name="open_with_explainer">Плагін не повинен оголошувати власний FileProvider для відкриття або надсилання файлу — код цього інструменту виконується у процесі хоста, а надавати дозволи на content:// Uri може лише процес, що володіє провайдером. Натомість цей приклад записує файл, отримує Uri хоста через ShareManager.getShareableUri і відкриває його через власний намір ACTION_VIEW.</string>
+    <string name="open_with_button">Відкрити приклад файлу за допомогою…</string>
+    <string name="open_with_sample_file_content">Приклад з Галереї зразків — файл Open With, відкритий через Uri хоста з ShareManager.getShareableUri.</string>
+    <string name="open_with_outside_roots">getShareableUri повернув null — файл знаходиться поза межами дозволених коренів FileProvider хоста.</string>
+    <string name="open_with_chooser_title">Відкрити за допомогою</string>
+    <string name="open_with_rule_caption">Правило: власний FileProvider плагіна ніколи не може дійсно надати Uri іншому застосунку, навіть якщо його бібліотеку упаковано, — дозволи може видавати лише процес, що володіє провайдером, а код інструменту плагіна виконується у процесі хоста, а не у власному. Натомість отримуйте Uri хоста через ShareManager.getShareableUri. Порівняйте із сусіднім прикладом Host Services, який ділиться файлом того ж типу через вікно вибору (ShareManager.shareFile), а не через власний намір.</string>
+
     <!-- Resources / Config -->
     <string name="config_tool_name">Ресурси з кваліфікаторами</string>
     <string name="config_desc">Демонстрація ресурсів з кваліфікаторами конфігурації — локаль (values-uk), нічний режим (values-night), скомпільований у плагін шрифт та raw-файл ресурсу.</string>

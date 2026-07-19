@@ -27,7 +27,6 @@ rootProject.name = "c4ds-tool-samples"
 
 include(":gallery")
 include(":isolation")
-include(":openwith")
 include(":bookmarks:domain")
 include(":bookmarks:data")
 include(":bookmarks:app")

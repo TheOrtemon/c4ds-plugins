@@ -16,6 +16,7 @@
     <tool-descriptor name="vision.combat.c4.ds.sample.gallery.mapview.mapinteractor.MapInteractorToolDescriptor" />
     <tool-descriptor name="vision.combat.c4.ds.sample.gallery.service.ServiceToolDescriptor" />
     <tool-descriptor name="vision.combat.c4.ds.sample.gallery.hostservices.HostServicesToolDescriptor" />
+    <tool-descriptor name="vision.combat.c4.ds.sample.gallery.openwith.OpenWithToolDescriptor" />
     <tool-descriptor name="vision.combat.c4.ds.sample.gallery.resources.config.ConfigToolDescriptor" />
     <tool-descriptor name="vision.combat.c4.ds.sample.gallery.resources.material.MaterialToolDescriptor" />
     <tool-descriptor name="vision.combat.c4.ds.sample.gallery.resources.collision.CollisionToolDescriptor" />

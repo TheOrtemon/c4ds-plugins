@@ -10,6 +10,7 @@ import vision.combat.c4.ds.sample.gallery.mapoverlays.expandablestatus.Expandabl
 import vision.combat.c4.ds.sample.gallery.mapview.map.MapToolDescriptor
 import vision.combat.c4.ds.sample.gallery.mapview.mapinteractor.MapInteractorToolDescriptor
 import vision.combat.c4.ds.sample.gallery.model.ModelToolDescriptor
+import vision.combat.c4.ds.sample.gallery.openwith.OpenWithToolDescriptor
 import vision.combat.c4.ds.sample.gallery.mapoverlays.overlay.OverlayToolDescriptor
 import vision.combat.c4.ds.sample.gallery.mapoverlays.overlayisdefault.OverlayDefaultToolDescriptor
 import vision.combat.c4.ds.sample.gallery.panelstate.PanelStateToolDescriptor
@@ -248,6 +249,14 @@ internal enum class CatalogEntry(
         apisResId = R.string.host_services_apis,
         sourceSubpackage = "hostservices",
         toolClassName = requireQualifiedName<HostServicesToolDescriptor>(),
+    ),
+    OPEN_WITH(
+        section = CatalogSection.HOST_SERVICES,
+        nameResId = R.string.open_with_tool_name,
+        descResId = R.string.open_with_desc,
+        apisResId = R.string.open_with_apis,
+        sourceSubpackage = "openwith",
+        toolClassName = requireQualifiedName<OpenWithToolDescriptor>(),
     ),
 
     // ── RESOURCES & ISOLATION ─────────────────────────────────────────────

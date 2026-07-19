@@ -48,7 +48,6 @@ The gallery uses a **3-level** navigation hierarchy:
 | **Info icon** (ⓘ) on a sample row | Navigates to the sample detail screen |
 | Install `:isolation` APK | Enables **Native / Cross-APK** row in the Resources & Isolation section |
 | Install `:bookmarks:app` APK | Enables **Bookmarks** row in the Architecture section |
-| Install `:openwith` APK | **Open With** appears directly in the host's own Tools list — not a hub row (see note above) |
 
 Registry implementation: [`CatalogEntry.kt`](../../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/catalog/ui/CatalogEntry.kt)
 
@@ -58,7 +57,7 @@ Registry implementation: [`CatalogEntry.kt`](../../gallery/src/main/kotlin/visio
 
 ```
 c4ds-tool-samples/
-├── gallery/                     # Main APK — Sample Gallery hub + 23 feature samples
+├── gallery/                     # Main APK — Sample Gallery hub + 24 feature samples
 │   └── src/main/kotlin/vision/combat/c4/ds/sample/gallery/
 │       ├── catalog/             # Hub: CatalogSection, CatalogEntry, CatalogTool (launcher-visible)
 │       ├── mapview/
@@ -83,6 +82,7 @@ c4ds-tool-samples/
 │       ├── storage/             # Data Management — files, SharedPreferences, Room
 │       ├── service/             # Lifecycle & Services — AbstractToolService
 │       ├── hostservices/        # Host Services — ShareManager, LocalClipboard, InAppNotificationManager
+│       ├── openwith/            # Open With — ShareManager.getShareableUri + custom ACTION_VIEW chooser
 │       └── resources/
 │           ├── config/          # Config-Qualified Resources
 │           ├── material/        # M2 Widgets & Popup Isolation
@@ -90,9 +90,6 @@ c4ds-tool-samples/
 ├── isolation/                   # Second APK — JNI + asset isolation (cross-APK activation)
 │   └── src/main/kotlin/vision/combat/c4/ds/sample/isolation/
 │       └── nativelib/           # Native / Cross-APK — NativeToolDescriptor
-├── openwith/                    # Third APK — host-owned shareable Uri via ShareManager (own host launcher entry)
-│   └── src/main/kotlin/vision/combat/c4/ds/sample/openwith/
-│                                 # Open With — OpenWithToolDescriptor, ShareManager.getShareableUri
 ├── bookmarks/                    # Standalone multi-module sample — its own APK (see Section 14 — Architecture)
 │   ├── domain/                   # :bookmarks:domain — Bookmark, BookmarkRepository, BookmarkInteractor
 │   ├── data/                     # :bookmarks:data — BookmarkRepositoryImpl + Room DB (tool-scoped)
@@ -101,10 +98,8 @@ c4ds-tool-samples/
 ```
 
 Only **Sample Gallery** (`CatalogToolDescriptor`) appears in the host launcher from `:gallery`. All
-other gallery tools use `categories = emptyList()` and launch from the hub via `ToolManager`. The
-**Open With** sample is the one exception across the whole repo: its descriptor deliberately does
-**not** override `categories`, so it inherits `CATEGORY_LAUNCHER` and appears directly in the
-host's own Tools list — it is not activated from the Sample Gallery hub.
+other gallery tools — including **Open With** — use `categories = emptyList()` and launch from the
+hub via `ToolManager`.
 
 ---
 
@@ -651,7 +646,11 @@ callbacks as they fire.
 
 <a id="section-12-host-services"></a>
 <details>
-<summary><strong>🔗 Section 12 — Host Services</strong> · 1 sample — <em>Host-provided, plugin-accessible services: sharing, clipboard, and in-app notifications — no bundling required.</em></summary>
+<summary><strong>🔗 Section 12 — Host Services</strong> · 2 samples — <em>Host-provided, plugin-accessible services: sharing, clipboard, in-app notifications, and opening a file in another app — no bundling required.</em></summary>
+
+Both samples appear as rows in the **Host Services** catalog section:
+
+<img src="https://github.com/user-attachments/assets/486968c3-4446-4cee-9f22-2e2cc5a34033" width="260" alt="Sample Gallery — Host Services catalog section listing the Host Services and Open With sample rows">
 
 #### Host Services
 
@@ -659,7 +658,7 @@ callbacks as they fire.
 <tr>
 <td width="280" valign="top">
 
-*(screenshot pending — no `user-attachments` URL available for this sample yet)*
+<img src="https://github.com/user-attachments/assets/76d37a2c-5899-4355-b80b-92e8ccbf2fb1" width="260" alt="Host Services sample active — Share section with Share link, Share coordinates, Share file, and Share image buttons over the map">
 
 </td>
 <td valign="top">
@@ -674,7 +673,7 @@ through `c4ds-sdk`'s `api(...)` dependency; **Clipboard** via Compose's own `Loc
 
 Its **Share file** button shares a file via the OS share sheet (`ShareManager.shareFile`) — for
 the alternative pattern of minting a Uri and building your own intent (`ShareManager.getShareableUri`
-+ a custom `ACTION_VIEW` chooser), see the **`openwith`** sample (Section 13).
++ a custom `ACTION_VIEW` chooser), see the **Open With** sample below.
 
 **SDK APIs:** `ShareManager`/`LocalShareManager` (`shareLink`, `shareCoordinates`, `shareFile`, `shareImage`), Compose `LocalClipboard`/`ClipEntry`, `InAppNotificationManager` (`postTransientNotification`, `InAppNotificationModel`, `InAppNotificationData`), Kodein `rememberInstance`.
 
@@ -686,11 +685,48 @@ the alternative pattern of minting a Uri and building your own intent (`ShareMan
 </tr>
 </table>
 
+#### Open With
+
+<table>
+<tr>
+<td width="280" valign="top">
+
+<img src="https://github.com/user-attachments/assets/093d31d8-c197-4f16-be2e-33966e337f09" width="260" alt="Open With sample active — explainer text, an 'Open sample file with…' button, and the plugin-owned-FileProvider rule caption">
+
+</td>
+<td valign="top">
+
+Demonstrates the correct pattern for a plugin that needs to hand a file to another app: it does
+**not** declare its own `FileProvider`. A plugin-owned provider can never work for this, even if
+its library is bundled — this tool's *code* runs in the HOST process, and a process can only grant
+a `content://` Uri whose provider it itself owns; the host doesn't own a plugin's provider
+(different UID), so the grant is silently dropped and the target app gets a `SecurityException`.
+Instead, the tool writes a sample file under `toolContext.cacheDir/export/`, mints a **host-owned**
+Uri via `ShareManager.getShareableUri` (obtained through `LocalShareManager`), and opens it with a
+custom `ACTION_VIEW` chooser intent — or shows an "outside the host's shareable roots" message if
+`getShareableUri` returns `null`. Compare with the sibling **Host Services** sample above, which
+shares the same kind of file via the OS share sheet (`ShareManager.shareFile`) instead of a custom
+intent. Like every other gallery sample it uses `categories = emptyList()` and launches from the
+Sample Gallery hub, and it declares no manifest components of its own, so it bundles nothing extra —
+pure `compileOnly(c4ds-sdk)`.
+
+**SDK APIs:** `ShareManager.getShareableUri`, `LocalShareManager`, `Intent.ACTION_VIEW` +
+`FLAG_GRANT_READ_URI_PERMISSION`, `ToolComponent.Window`, `requiredComponent`, `WindowScaffold`,
+`BackNavTopAppBar`.
+
+**Source:** [`gallery/.../openwith/`](../../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/openwith) · **Descriptor:** `vision.combat.c4.ds.sample.gallery.openwith.OpenWithToolDescriptor`
+
+**Verify:** Open Sample Gallery → Host Services → **Open With** → tap **Open sample file with…** → a chooser opens for the freshly written sample file (or, if the host is older than SDK 0.5.1 and lacks `getShareableUri`, the "outside the host's shareable roots" message appears instead).
+
+</td>
+</tr>
+</table>
+
 </details>
 
 <a id="section-13-resources-isolation"></a>
 <details>
-<summary><strong>🔒 Section 13 — Resources &amp; Isolation</strong> · 5 samples — <em>Config-qualified resources, Material widgets, R.string collision, assets, native libraries (NDK), cross-APK isolation, and a host-owned shareable Uri for opening files in another app.</em></summary>
+<summary><strong>🔒 Section 13 — Resources &amp; Isolation</strong> · 4 samples — <em>Config-qualified resources, Material widgets, R.string collision, assets, native libraries (NDK), and cross-APK isolation.</em></summary>
 
 Deep dive: **[Plugin isolation](plugin-isolation.md)** — smoke tests, isolation cases (a–e, g, h), and
 cross-APK activation.
@@ -787,52 +823,6 @@ is activated from the hub across the APK boundary. Isolation case
 1. Install both `:gallery` and `:isolation` APKs (see **Details** on the hub card for install commands).
 2. Open Sample Gallery → Resources & Isolation → **Native / Cross-APK** → tap to launch.
 3. Window shows asset content prefix and JNI result `isolation-jni/1.0`.
-
-</td>
-</tr>
-</table>
-
-#### Open With (`:openwith`)
-
-<table>
-<tr>
-<td width="280" valign="top">
-
-*(screenshot pending — no `user-attachments` URL available for this sample yet)*
-
-</td>
-<td valign="top">
-
-Demonstrates the correct pattern for a plugin that needs to hand a file to another app: it does
-**not** declare its own `FileProvider`. A plugin-owned provider can never work for this, even if
-its library is bundled — this tool's *code* runs in the HOST process, and a process can only grant
-a `content://` Uri whose provider it itself owns; the host doesn't own a plugin's provider
-(different UID), so the grant is silently dropped and the target app gets a `SecurityException`.
-Instead, the tool writes a sample file under `toolContext.cacheDir/export/`, mints a **host-owned**
-Uri via `ShareManager.getShareableUri` (obtained through `LocalShareManager`), and opens it with a
-custom `ACTION_VIEW` chooser intent — or shows an "outside the host's shareable roots" message if
-`getShareableUri` returns `null`. Compare with the `hostservices` sample (Section 12), which shares
-the same kind of file via the OS share sheet (`ShareManager.shareFile`) instead of a custom intent.
-Unlike every other sample module in this repo, its descriptor does **not** override `categories`,
-so it appears directly in the host's own Tools list instead of being activated from the Sample
-Gallery hub. This module declares no manifest components of its own, so it bundles nothing extra —
-pure `compileOnly(c4ds-sdk)`.
-
-**SDK APIs:** `ShareManager.getShareableUri`, `LocalShareManager`, `ToolComponent.Window`,
-`requiredComponent`, `WindowScaffold`, `BackNavTopAppBar`.
-
-**Source:** [`openwith/.../openwith/`](../../openwith/src/main/kotlin/vision/combat/c4/ds/sample/openwith) · **Descriptor:** `vision.combat.c4.ds.sample.openwith.OpenWithToolDescriptor`
-
-**Verify:**
-
-1. Install the `:openwith` APK — `./gradlew :openwith:assembleRelease` then
-   `adb install -r openwith/build/outputs/apk/release/openwith-release.apk` (see
-   [Getting started](getting-started.md#never-declare-your-own-fileprovider-to-share-or-open-a-file)
-   for the full rationale).
-2. Open ComBat 4 → **Tools** → **Open With** directly (not via Sample Gallery).
-3. Tap **Open sample file with…** → a chooser opens for the freshly written sample file (or, if the
-   host is older than SDK 0.5.1 and lacks `getShareableUri`, the "outside the host's shareable
-   roots" message appears instead).
 
 </td>
 </tr>

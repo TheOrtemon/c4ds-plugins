@@ -1,4 +1,4 @@
-package vision.combat.c4.ds.sample.openwith
+package vision.combat.c4.ds.sample.gallery.openwith.ui
 
 import android.content.Intent
 import androidx.compose.foundation.layout.ColumnScope
@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import vision.combat.c4.ds.sample.gallery.R
 import vision.combat.c4.ds.sdk.tool.ToolContext
 import vision.combat.c4.ds.sdk.ui.component.WindowScaffold
 import vision.combat.c4.ds.sdk.ui.component.bar.BackNavTopAppBar
