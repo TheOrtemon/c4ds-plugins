@@ -28,7 +28,7 @@ To build and run these samples you need:
 | Item | This repo |
 |---|---|
 | Host app | ComBat 4 DS |
-| SDK | `c4ds-sdk` `0.5.0` (see `gradle/libs.versions.toml`) |
+| SDK | `c4ds-sdk` `0.5.1` (see `gradle/libs.versions.toml`) |
 | Kotlin | `2.4.0` |
 | AGP | `9.2.1` |
 | JVM | 17 |
@@ -327,6 +327,74 @@ host-provided (`compileOnly`) and needs its own runtime keep rules that aren't c
 SDK's centralized set, declare them in your own `proguard-rules.pro` — for example, `:gallery`
 adds a `-dontwarn` for an optional reference (`InputListener`) that isn't on its compile
 classpath.
+
+### Manifest components run in your plugin's process
+
+Everything above about `compileOnly` assumes your tool's own code — the `ToolDescriptor`,
+`AbstractTool`, ViewModels, Composables. The host loads **that** code into **its own process**
+via a parent-first classloader, so SDK/Compose/AndroidX/Coroutines are already present at
+runtime and stay `compileOnly`.
+
+That reasoning does **not** extend to anything you declare as a manifest component —
+a `<provider>`, `<service>`, or `<receiver>` in your `AndroidManifest.xml`. Android instantiates
+those in **your plugin's own process**, using **your APK's own classloader**, which has no
+visibility into the host's classes:
+
+| What | Runs in | Classloader | Library scope |
+|---|---|---|---|
+| Tool code (`ToolDescriptor`, `AbstractTool`, ViewModels, Composables) | Host process | Host's parent-first classloader | `compileOnly` — host provides SDK/Compose/AndroidX at runtime |
+| Manifest components (`<provider>`, `<service>`, `<receiver>`) | **Your plugin's own process** | **Your APK's own classloader** | **`implementation`** — must be bundled; the host cannot supply these classes |
+
+Get this backwards and you'll see it fail the same way a real third-party plugin once did: it
+declared `androidx.core.content.FileProvider` in its manifest but scoped `androidx.core`
+`compileOnly` ("the host provides it"). The class was never in the plugin APK, so the plugin's
+own process crashed on bind with `ClassNotFoundException: androidx.core.content.FileProvider` —
+taking the *whole plugin* down with it (it shows up in the host as "incompatible" / `Tools: 0`,
+not just a missing provider).
+
+**The rule generalizes past `androidx.core`.** Kotlin's stdlib is host-provided too — it's
+`compileOnly`/excluded from your APK — so a manifest component that touches a non-inlined stdlib
+helper (`runCatching`/`Result`, `InputStream.use { }`, `.copyTo()`, and similar `kotlin.io.*` /
+`kotlin.jvm.internal.*` classes) throws `NoClassDefFoundError` at process bind — the same failure
+shape as the `androidx.core` case. Keep manifest-component code to framework classes plus whatever
+you've explicitly bundled. (Your *tool* code has no such limit — it runs in the host process, where
+the full Kotlin stdlib is present.) If you legitimately own a manifest component — a `<receiver>`
+or `<service>` your plugin needs — apply this rule to it: bundle whatever library defines it.
+
+### Never declare your own `FileProvider` to share or open a file
+
+A plugin must **not** declare its own `androidx.core.content.FileProvider` (or any other
+`ContentProvider`) to share or open a file with another app. Bundling the provider's library
+(per the table above) is necessary but **not sufficient** — there is a second, independent
+blocker that bundling can never fix:
+
+- Your tool *code* runs in the **host's** process (that's the whole point of `compileOnly` in the
+  table above), not your plugin's own process.
+- A `content://` Uri can only be granted (`FLAG_GRANT_READ_URI_PERMISSION`) by the process that
+  **owns** the provider backing it.
+- The host does not own your plugin's provider — different UID, different process — so a grant
+  the host process attempts on your plugin's Uri is silently dropped, and the app you handed the
+  Uri to gets a `SecurityException` when it tries to open it.
+
+Bundling `androidx.core` fixes the classload crash above, but the grant still fails. There is no
+manifest-component fix for this — the grant has to come from a process that owns a provider the
+*host* can act on, which means it has to be the host's own provider.
+
+**Use the host's `ShareManager` instead**, obtained via `LocalShareManager` in Compose:
+
+- `ShareManager.getShareableUri(file: File): Uri?` mints a **host-owned** `content://` Uri for
+  `file` — a Uri the host process (where your tool code runs) can validly grant — or returns
+  `null` if `file` is outside the host FileProvider's configured roots. Use this when you need to
+  build your own intent (e.g. `ACTION_VIEW` to open a file in an external viewer). See the
+  **`openwith`** sample (`:gallery`, Section 12) for the full pattern.
+- `ShareManager.shareFile(file, intentType)` / `shareFiles(files, intentType)` do the same Uri
+  minting for you and launch the OS share sheet directly. See the **`hostservices`** sample
+  (`:gallery`, Section 12).
+
+Either way, write the file under one of the host FileProvider's configured roots — e.g.
+`File(toolContext.cacheDir, "export")` — not the cache dir root itself, which isn't covered by
+any declared path and makes `getShareableUri`/`shareFile` fail closed (`null`, no fallback to a
+`file://` Uri, which would throw `FileUriExposedException` if passed to another app).
 
 ### Using the Sample Gallery
 

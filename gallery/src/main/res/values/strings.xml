@@ -26,6 +26,8 @@
     <string name="section_data_management_desc">Isolated file I/O, plugin-scoped SharedPreferences, and an isolated Room database.</string>
     <string name="section_lifecycle_services_title">Lifecycle &amp; Services</string>
     <string name="section_lifecycle_services_desc">A session AbstractToolService doing background work, an unread badge on the tool list item, and a live tool lifecycle log.</string>
+    <string name="section_host_services_title">Host Services</string>
+    <string name="section_host_services_desc">Host-provided, plugin-accessible services: sharing, clipboard, and in-app notifications — no bundling required.</string>
     <string name="section_resources_isolation_title">Resources &amp; Isolation</string>
     <string name="section_resources_isolation_desc">Config-qualified resources, Material widgets, R.string collision, assets, native libraries (NDK), and cross-APK isolation.</string>
     <string name="section_architecture_title">Architecture</string>
@@ -176,6 +178,37 @@
     <string name="service_lifecycle_title">Tool lifecycle log</string>
     <string name="service_lifecycle_empty">No lifecycle events yet.</string>
     <string name="service_lifecycle_caption">These callbacks fire as you open and close this window. The log lives in the session service, so it survives closing the window — reopen to see the previous "hidden" entry.</string>
+
+    <!-- Host Services -->
+    <string name="host_services_tool_name">Host Services</string>
+    <string name="host_services_desc">Three host-provided services that need zero bundling: sharing via LocalShareManager, clipboard via LocalClipboard, and in-app notifications via InAppNotificationManager.</string>
+    <string name="host_services_apis">LocalShareManager, ShareManager.shareLink/shareCoordinates/shareFile/shareImage, LocalClipboard, InAppNotificationManager.postTransientNotification</string>
+    <string name="host_services_share_title">Share</string>
+    <string name="host_services_share_link">Share link</string>
+    <string name="host_services_share_coordinates">Share coordinates</string>
+    <string name="host_services_share_file">Share file</string>
+    <string name="host_services_share_image">Share image</string>
+    <string name="host_services_sample_link" translatable="false">https://combat.vision/tools/host-services-sample</string>
+    <string name="host_services_sample_file_content">Gallery sample — Host Services file, shared via ShareManager.shareFile.</string>
+    <string name="host_services_clipboard_title">Clipboard</string>
+    <string name="host_services_copy_text">Copy sample text</string>
+    <string name="host_services_sample_text">Copied from ComBat Gallery — Host Services sample.</string>
+    <string name="host_services_clipboard_copied">Copied to clipboard.</string>
+    <string name="host_services_notification_title">In-app notification</string>
+    <string name="host_services_post_notification">Post notification</string>
+    <string name="host_services_notification_content">Hello from the Host Services sample!</string>
+    <string name="host_services_notification_posted">Notification posted.</string>
+
+    <!-- Host Services / Open With -->
+    <string name="open_with_tool_name">Open With</string>
+    <string name="open_with_desc">Hands a file to another app the right way: mints a host-owned Uri via ShareManager.getShareableUri and opens it with a custom ACTION_VIEW chooser — never a plugin-owned FileProvider.</string>
+    <string name="open_with_apis">ShareManager.getShareableUri, LocalShareManager, Intent.ACTION_VIEW + FLAG_GRANT_READ_URI_PERMISSION, ToolComponent.Window</string>
+    <string name="open_with_explainer">A plugin must not declare its own FileProvider to open or share a file — this tool\'s code runs in the host process, and only the process that owns a provider can grant its content:// Uris. Instead, this sample writes a sample file, mints a host-owned Uri via ShareManager.getShareableUri, and opens it with a custom ACTION_VIEW chooser intent.</string>
+    <string name="open_with_button">Open sample file with…</string>
+    <string name="open_with_sample_file_content">Gallery sample — Open With file, opened via a host-owned Uri from ShareManager.getShareableUri.</string>
+    <string name="open_with_outside_roots">getShareableUri returned null — the file is outside the host\'s shareable FileProvider roots.</string>
+    <string name="open_with_chooser_title">Open with</string>
+    <string name="open_with_rule_caption">Rule: a plugin-owned FileProvider can never validly grant a Uri to another app, even if its library is bundled — grants can only be issued by the process that owns the provider, and a plugin\'s tool code runs in the host\'s process, not its own. Get a host-owned Uri from ShareManager.getShareableUri instead. Compare with the sibling Host Services sample, which shares the same kind of file via the share sheet (ShareManager.shareFile) rather than a custom intent.</string>
 
     <!-- Resources / Config -->
     <string name="config_tool_name">Config-Qualified Resources</string>

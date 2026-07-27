@@ -4,11 +4,13 @@ import androidx.annotation.Keep
 import androidx.annotation.StringRes
 import vision.combat.c4.ds.sample.gallery.R
 import vision.combat.c4.ds.sample.gallery.dialog.DialogToolDescriptor
+import vision.combat.c4.ds.sample.gallery.hostservices.HostServicesToolDescriptor
 import vision.combat.c4.ds.sample.gallery.mapoverlays.endbar.EndBarToolDescriptor
 import vision.combat.c4.ds.sample.gallery.mapoverlays.expandablestatus.ExpandableStatusToolDescriptor
 import vision.combat.c4.ds.sample.gallery.mapview.map.MapToolDescriptor
 import vision.combat.c4.ds.sample.gallery.mapview.mapinteractor.MapInteractorToolDescriptor
 import vision.combat.c4.ds.sample.gallery.model.ModelToolDescriptor
+import vision.combat.c4.ds.sample.gallery.openwith.OpenWithToolDescriptor
 import vision.combat.c4.ds.sample.gallery.mapoverlays.overlay.OverlayToolDescriptor
 import vision.combat.c4.ds.sample.gallery.mapoverlays.overlayisdefault.OverlayDefaultToolDescriptor
 import vision.combat.c4.ds.sample.gallery.panelstate.PanelStateToolDescriptor
@@ -237,6 +239,24 @@ internal enum class CatalogEntry(
         apisResId = R.string.service_apis,
         sourceSubpackage = "service",
         toolClassName = requireQualifiedName<ServiceToolDescriptor>(),
+    ),
+
+    // ── HOST SERVICES ────────────────────────────────────────────────────
+    HOST_SERVICES(
+        section = CatalogSection.HOST_SERVICES,
+        nameResId = R.string.host_services_tool_name,
+        descResId = R.string.host_services_desc,
+        apisResId = R.string.host_services_apis,
+        sourceSubpackage = "hostservices",
+        toolClassName = requireQualifiedName<HostServicesToolDescriptor>(),
+    ),
+    OPEN_WITH(
+        section = CatalogSection.HOST_SERVICES,
+        nameResId = R.string.open_with_tool_name,
+        descResId = R.string.open_with_desc,
+        apisResId = R.string.open_with_apis,
+        sourceSubpackage = "openwith",
+        toolClassName = requireQualifiedName<OpenWithToolDescriptor>(),
     ),
 
     // ── RESOURCES & ISOLATION ─────────────────────────────────────────────
