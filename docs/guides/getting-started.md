@@ -106,6 +106,9 @@ dependencies {
 
 The host app supplies Kotlin stdlib, Compose, and most AndroidX artifacts. Do **not** bundle duplicate runtime libraries in your plugin APK.
 
+For the concrete list — which libraries the SDK re-exports, at which versions, and which common ones
+it does *not* — see [Host-provided libraries](../reference/host-provided-libraries.md).
+
 ---
 
 ## Integration guide

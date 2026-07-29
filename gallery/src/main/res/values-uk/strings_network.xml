@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Network sample — Ukrainian -->
+    <string name="network_tool_name">Мережеві запити</string>
+    <string name="network_desc">Виконує справжній HTTPS-запит через Ktor-клієнт, наданий хостом: інструмент прив\'язує власний HttpClient, використовує ContentNegotiation з kotlinx-serialization і мапить DTO у доменну модель за інтерфейсом репозиторію.</string>
+    <string name="network_apis">HttpClient(Android), ContentNegotiation, kotlinx-serialization, CommonMapInteractor.selectedPosition, CommonLocaleSettingsInteractor</string>
+    <string name="network_explainer">Отримує поточну погоду для вибраної позиції на мапі з безключового API Open-Meteo. Інструмент прив\'язує власний Ktor HttpClient у своєму модулі Kodein; усі класи Ktor надає хост — в APK нічого мережевого не пакується.</string>
+
+    <string name="network_section_position">Вибрана позиція на мапі</string>
+    <string name="network_fetch">Отримати погоду</string>
+    <string name="network_fetching">Отримання…</string>
+    <string name="network_hint_empty">Даних ще немає — натисніть «Отримати погоду».</string>
+
+    <!-- Weather result card -->
+    <string name="network_section_weather">Поточна погода</string>
+    <string name="network_label_condition">Умови</string>
+    <string name="network_label_temperature">Температура</string>
+    <string name="network_label_humidity">Вологість</string>
+    <string name="network_label_wind">Швидкість вітру</string>
+    <string name="network_label_observed">Час спостереження (UTC)</string>
+    <string name="network_temperature_value">%1$s °C</string>
+    <string name="network_humidity_value">%1$d %%</string>
+    <string name="network_wind_value">%1$s км/год</string>
+    <string name="network_value_unknown">—</string>
+
+    <!-- Errors -->
+    <string name="network_error_prefix">Помилка запиту:</string>
+    <string name="network_error_unknown">Невідома помилка</string>
+
+    <!-- WMO weather-code buckets -->
+    <string name="network_condition_clear">Ясно</string>
+    <string name="network_condition_partly_cloudy">Мінлива хмарність</string>
+    <string name="network_condition_overcast">Хмарно</string>
+    <string name="network_condition_fog">Туман</string>
+    <string name="network_condition_drizzle">Мряка</string>
+    <string name="network_condition_rain">Дощ</string>
+    <string name="network_condition_snow">Сніг</string>
+    <string name="network_condition_thunderstorm">Гроза</string>
+    <string name="network_condition_unknown">Невідомо</string>
+</resources>

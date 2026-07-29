@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Network sample -->
+    <string name="network_tool_name">Network Requests</string>
+    <string name="network_desc">Makes a real HTTPS request with the host-provided Ktor client: the tool binds its own HttpClient, uses ContentNegotiation with kotlinx-serialization, and maps the DTO to a domain model behind a repository.</string>
+    <string name="network_apis">HttpClient(Android), ContentNegotiation, kotlinx-serialization, CommonMapInteractor.selectedPosition, CommonLocaleSettingsInteractor</string>
+    <string name="network_explainer">Fetches current weather for the selected map position from the keyless Open-Meteo API. The tool binds its own Ktor HttpClient in its Kodein module; every Ktor class is provided by the host — nothing network-related is bundled in the APK.</string>
+
+    <string name="network_section_position">Selected Map Position</string>
+    <string name="network_fetch">Fetch Weather</string>
+    <string name="network_fetching">Fetching…</string>
+    <string name="network_hint_empty">No data yet — tap Fetch Weather.</string>
+
+    <!-- Weather result card -->
+    <string name="network_section_weather">Current Weather</string>
+    <string name="network_label_condition">Condition</string>
+    <string name="network_label_temperature">Temperature</string>
+    <string name="network_label_humidity">Humidity</string>
+    <string name="network_label_wind">Wind speed</string>
+    <string name="network_label_observed">Observed (UTC)</string>
+    <string name="network_temperature_value">%1$s °C</string>
+    <string name="network_humidity_value">%1$d %%</string>
+    <string name="network_wind_value">%1$s km/h</string>
+    <string name="network_value_unknown">—</string>
+
+    <!-- Errors -->
+    <string name="network_error_prefix">Request failed:</string>
+    <string name="network_error_unknown">Unknown error</string>
+
+    <!-- WMO weather-code buckets -->
+    <string name="network_condition_clear">Clear</string>
+    <string name="network_condition_partly_cloudy">Partly cloudy</string>
+    <string name="network_condition_overcast">Overcast</string>
+    <string name="network_condition_fog">Fog</string>
+    <string name="network_condition_drizzle">Drizzle</string>
+    <string name="network_condition_rain">Rain</string>
+    <string name="network_condition_snow">Snow</string>
+    <string name="network_condition_thunderstorm">Thunderstorm</string>
+    <string name="network_condition_unknown">Unknown</string>
+</resources>

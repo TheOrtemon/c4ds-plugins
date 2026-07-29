@@ -128,7 +128,9 @@ Checklist:
   `ksp(androidx.room.compiler)` for codegen; the runtime comes from the host). Adding them
   again as `implementation`/`api` duplicates classes in the APK and risks runtime conflicts —
   use `compileOnly` for these instead. Reserve `implementation`/`api` for dependencies that
-  are genuinely unique to the tool and not already provided by the host or SDK.
+  are genuinely unique to the tool and not already provided by the host or SDK —
+  [Host-provided libraries](reference/host-provided-libraries.md) is the catalog to check a
+  dependency against before accepting it.
 - **Check the resolved release runtime classpath, not just the declared dependency lines.**
   A host-provided library can leak into the APK transitively through an unrelated
   third-party `implementation` dependency even when no line names it directly. Declared-line

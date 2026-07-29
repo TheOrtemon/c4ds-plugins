@@ -17,6 +17,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ClipEntry
 import androidx.compose.ui.platform.LocalClipboard
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import earth.worldwind.geom.Location
@@ -24,6 +25,7 @@ import kotlinx.coroutines.launch
 import org.kodein.di.compose.rememberInstance
 import vision.combat.c4.ds.sample.gallery.R
 import vision.combat.c4.ds.sdk.tool.ToolContext
+import vision.combat.c4.ds.sdk.ui.component.IconWithText
 import vision.combat.c4.ds.sdk.ui.component.WindowScaffold
 import vision.combat.c4.ds.sdk.ui.component.bar.BackNavTopAppBar
 import vision.combat.c4.ds.sdk.ui.component.button.Button
@@ -145,7 +147,6 @@ private fun ColumnScope.ClipboardSection() {
 @Composable
 private fun ColumnScope.NotificationSection() {
     val notificationManager by rememberInstance<InAppNotificationManager>()
-    val notificationContent = stringResource(R.string.host_services_notification_content)
     val postedLabel = stringResource(R.string.host_services_notification_posted)
     var posted by remember { mutableStateOf(false) }
 
@@ -161,7 +162,22 @@ private fun ColumnScope.NotificationSection() {
             notificationManager.postTransientNotification(
                 InAppNotificationManager.InAppNotificationModel(
                     data = SampleNotificationData,
-                    content = { Text(text = notificationContent) },
+                    // Resources are read INSIDE content, not hoisted into this window's
+                    // composition. The host composes this lambda itself, next to the map — but the
+                    // manager above came from this tool's DI graph (AbstractTool binds a
+                    // tool-scoped one), so the host wraps the content in this tool's environment:
+                    // LocalContext is the tool's context, and R.drawable/R.string resolve against
+                    // this plugin's own resource table. Passing the same ids to the host's context
+                    // would be a wrong resource at best and a Resources.NotFoundException at worst.
+                    // Reading them here also keeps the notification config-reactive: it re-resolves
+                    // when the host's app language or night mode changes while it is on screen.
+                    content = {
+                        IconWithText(
+                            painter = painterResource(R.drawable.ic_notification),
+                            text = stringResource(R.string.host_services_notification_content),
+                            contentDescription = stringResource(R.string.host_services_notification_icon_desc),
+                        )
+                    },
                 ),
             )
             posted = true

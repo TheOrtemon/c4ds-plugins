@@ -4,12 +4,14 @@ import androidx.annotation.Keep
 import androidx.annotation.StringRes
 import vision.combat.c4.ds.sample.gallery.R
 import vision.combat.c4.ds.sample.gallery.dialog.DialogToolDescriptor
+import vision.combat.c4.ds.sample.gallery.hostlibs.HostLibsToolDescriptor
 import vision.combat.c4.ds.sample.gallery.hostservices.HostServicesToolDescriptor
 import vision.combat.c4.ds.sample.gallery.mapoverlays.endbar.EndBarToolDescriptor
 import vision.combat.c4.ds.sample.gallery.mapoverlays.expandablestatus.ExpandableStatusToolDescriptor
 import vision.combat.c4.ds.sample.gallery.mapview.map.MapToolDescriptor
 import vision.combat.c4.ds.sample.gallery.mapview.mapinteractor.MapInteractorToolDescriptor
 import vision.combat.c4.ds.sample.gallery.model.ModelToolDescriptor
+import vision.combat.c4.ds.sample.gallery.network.NetworkToolDescriptor
 import vision.combat.c4.ds.sample.gallery.openwith.OpenWithToolDescriptor
 import vision.combat.c4.ds.sample.gallery.mapoverlays.overlay.OverlayToolDescriptor
 import vision.combat.c4.ds.sample.gallery.mapoverlays.overlayisdefault.OverlayDefaultToolDescriptor
@@ -230,6 +232,14 @@ internal enum class CatalogEntry(
         sourceSubpackage = "storage",
         toolClassName = requireQualifiedName<StorageToolDescriptor>(),
     ),
+    NETWORK(
+        section = CatalogSection.DATA_MANAGEMENT,
+        nameResId = R.string.network_tool_name,
+        descResId = R.string.network_desc,
+        apisResId = R.string.network_apis,
+        sourceSubpackage = "network",
+        toolClassName = requireQualifiedName<NetworkToolDescriptor>(),
+    ),
 
     // ── LIFECYCLE & SERVICES ──────────────────────────────────────────────
     SERVICE(
@@ -249,6 +259,14 @@ internal enum class CatalogEntry(
         apisResId = R.string.host_services_apis,
         sourceSubpackage = "hostservices",
         toolClassName = requireQualifiedName<HostServicesToolDescriptor>(),
+    ),
+    HOST_LIBS(
+        section = CatalogSection.HOST_SERVICES,
+        nameResId = R.string.host_libs_tool_name,
+        descResId = R.string.host_libs_desc,
+        apisResId = R.string.host_libs_apis,
+        sourceSubpackage = "hostlibs",
+        toolClassName = requireQualifiedName<HostLibsToolDescriptor>(),
     ),
     OPEN_WITH(
         section = CatalogSection.HOST_SERVICES,

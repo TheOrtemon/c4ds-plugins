@@ -23,7 +23,7 @@
     <string name="section_model_management_title">Model Management</string>
     <string name="section_model_management_desc">CommonModelInteractor create/consume/commit, symbol keys, and model selection events.</string>
     <string name="section_data_management_title">Data Management</string>
-    <string name="section_data_management_desc">Isolated file I/O, plugin-scoped SharedPreferences, and an isolated Room database.</string>
+    <string name="section_data_management_desc">Isolated file I/O, plugin-scoped SharedPreferences, an isolated Room database, and network requests with the host-provided Ktor client.</string>
     <string name="section_lifecycle_services_title">Lifecycle &amp; Services</string>
     <string name="section_lifecycle_services_desc">A session AbstractToolService doing background work, an unread badge on the tool list item, and a live tool lifecycle log.</string>
     <string name="section_host_services_title">Host Services</string>
@@ -182,7 +182,7 @@
     <!-- Host Services -->
     <string name="host_services_tool_name">Host Services</string>
     <string name="host_services_desc">Three host-provided services that need zero bundling: sharing via LocalShareManager, clipboard via LocalClipboard, and in-app notifications via InAppNotificationManager.</string>
-    <string name="host_services_apis">LocalShareManager, ShareManager.shareLink/shareCoordinates/shareFile/shareImage, LocalClipboard, InAppNotificationManager.postTransientNotification</string>
+    <string name="host_services_apis">LocalShareManager, ShareManager.shareLink/shareCoordinates/shareFile/shareImage, LocalClipboard, InAppNotificationManager.postTransientNotification, plugin painterResource/stringResource inside InAppNotificationModel.content</string>
     <string name="host_services_share_title">Share</string>
     <string name="host_services_share_link">Share link</string>
     <string name="host_services_share_coordinates">Share coordinates</string>
@@ -197,7 +197,21 @@
     <string name="host_services_notification_title">In-app notification</string>
     <string name="host_services_post_notification">Post notification</string>
     <string name="host_services_notification_content">Hello from the Host Services sample!</string>
+    <string name="host_services_notification_icon_desc">Sample notification</string>
     <string name="host_services_notification_posted">Notification posted.</string>
+
+    <string name="host_libs_tool_name">Host Libraries</string>
+    <string name="host_libs_desc">Three libraries the host provides but no other sample uses — Coil, Accompanist Permissions and mil-sym. They exist to prove those classes still resolve in a minified host build, where R8 would otherwise repackage them.</string>
+    <string name="host_libs_apis">coil3 AsyncImage, Accompanist rememberPermissionState/PermissionStatus, armyc2 SymbolUtilities</string>
+    <string name="host_libs_coil_title">Coil (SDK api)</string>
+    <string name="host_libs_coil_image_desc">Plugin drawable loaded by Coil</string>
+    <string name="host_libs_coil_caption">Loaded with coil3 AsyncImage — the model is this plugin\'s own drawable, resolved through the tool context.</string>
+    <string name="host_libs_permissions_title">Accompanist Permissions (SDK api)</string>
+    <string name="host_libs_permission_granted">Camera permission: granted.</string>
+    <string name="host_libs_permission_denied">Camera permission: not granted. The host declares CAMERA; tool code requests it on the host\'s behalf.</string>
+    <string name="host_libs_request_permission">Request camera permission</string>
+    <string name="host_libs_symbology_title">mil-sym symbology (SDK api)</string>
+    <string name="host_libs_symbology_result">SymbolUtilities.getBasicSymbolID2525C(%1$s) = %2$s</string>
 
     <!-- Host Services / Open With -->
     <string name="open_with_tool_name">Open With</string>

@@ -22,8 +22,13 @@ import vision.combat.c4.ds.sdk.tool.ToolParams
  *    `MainScreen`; the interface itself ships in `c4ds-sdk-core:ui`, which `c4ds-sdk` re-exports
  *    via `api(...)` — so it is visible to plugins even though `c4ds-sdk` itself is `compileOnly`.
  *  - `LocalClipboard` is a Compose platform composition local, already on the host's classpath.
- *  - `InAppNotificationManager` is resolved via Kodein DI (`rememberInstance`); the binding is
- *    inherited from the host's DI graph, so this plugin never has to bind it itself.
+ *  - `InAppNotificationManager` is resolved via Kodein DI (`rememberInstance`); this plugin never
+ *    binds it itself. `AbstractTool` binds a tool-scoped manager that forwards to the host's, and
+ *    the host composes the posted `InAppNotificationModel.content` inside this tool's environment —
+ *    tool `Context`, tool DI scope, tool `ViewModelStore`. That is why the notification content here
+ *    calls `painterResource`/`stringResource` on plugin ids directly: they resolve against this
+ *    APK's resource table (and re-resolve on locale / night-mode change), instead of against the
+ *    host's, where the same ids would be a wrong resource or a `Resources.NotFoundException`.
  *
  * SDK files:
  *   c4ds-sdk-core/ui/src/main/kotlin/vision/combat/c4/ds/sdk/ui/platform/ShareManager.kt

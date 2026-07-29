@@ -2,7 +2,7 @@
 
 **[← README](../../README.md)** · **[Getting started](getting-started.md)** · **[Plugin isolation](plugin-isolation.md)**
 
-The developer guidebook for this repository: all 26 samples with a screenshot, description, SDK APIs,
+The developer guidebook for this repository: all 28 samples with a screenshot, description, SDK APIs,
 source path, and verification steps — grouped by the 14 catalog sections in on-screen order. Each
 section below is collapsible; expand the ones you are extending.
 
@@ -57,7 +57,7 @@ Registry implementation: [`CatalogEntry.kt`](../../gallery/src/main/kotlin/visio
 
 ```
 c4ds-tool-samples/
-├── gallery/                     # Main APK — Sample Gallery hub + 24 feature samples
+├── gallery/                     # Main APK — Sample Gallery hub + 26 feature samples
 │   └── src/main/kotlin/vision/combat/c4/ds/sample/gallery/
 │       ├── catalog/             # Hub: CatalogSection, CatalogEntry, CatalogTool (launcher-visible)
 │       ├── mapview/
@@ -80,8 +80,10 @@ c4ds-tool-samples/
 │       ├── dialog/              # Tool Dialogs — ToolDialog variants
 │       ├── model/               # Model Management — CommonModelInteractor
 │       ├── storage/             # Data Management — files, SharedPreferences, Room
+│       ├── network/             # Data Management — network requests with the host-provided Ktor client
 │       ├── service/             # Lifecycle & Services — AbstractToolService
 │       ├── hostservices/        # Host Services — ShareManager, LocalClipboard, InAppNotificationManager
+│       ├── hostlibs/            # Host Libraries — Coil, Accompanist, mil-sym (obfuscation-safe)
 │       ├── openwith/            # Open With — ShareManager.getShareableUri + custom ACTION_VIEW chooser
 │       └── resources/
 │           ├── config/          # Config-Qualified Resources
@@ -578,7 +580,7 @@ Sub-screens:
 
 <a id="section-10-data-management"></a>
 <details>
-<summary><strong>💾 Section 10 — Data Management</strong> · 1 sample — <em>Isolated file I/O, plugin-scoped SharedPreferences, and an isolated Room database.</em></summary>
+<summary><strong>💾 Section 10 — Data Management</strong> · 2 samples — <em>Isolated file I/O, plugin-scoped SharedPreferences, an isolated Room database, and network requests with the host-provided Ktor client.</em></summary>
 
 #### Data Management
 
@@ -610,6 +612,32 @@ Sub-screens:
 <td align="center"><img src="https://github.com/user-attachments/assets/49258059-1f48-4590-a9c3-90e538c2e6f4" width="190" alt="File I/O — session directory paths with Write/Read File"><br><sub>File I/O</sub></td>
 <td align="center"><img src="https://github.com/user-attachments/assets/acfc70f2-b45a-4113-bbe1-5b0a3ac15bd8" width="190" alt="SharedPreferences — stored string and counter with Save String"><br><sub>SharedPreferences</sub></td>
 <td align="center"><img src="https://github.com/user-attachments/assets/d89793c7-3e6a-4c7e-9fb8-5d1020ba318f" width="190" alt="Room Database — Add a Note and Clear All Notes"><br><sub>Room Database</sub></td>
+</tr>
+</table>
+
+#### Network Requests
+
+<table>
+<tr>
+<td width="280" valign="top">
+<img src="https://github.com/user-attachments/assets/0b2786ad-74d6-488c-b243-d8e42845abbc" width="260" alt="Network Requests sample active — the tool window over the map showing the selected position and the Current Weather card fetched with the host-provided Ktor client">
+</td>
+<td valign="top">
+
+A real HTTPS request with the Ktor client the host already provides. The tool binds its **own**
+untagged `HttpClient` in its Kodein module — the SDK deliberately keeps that slot free (its shared
+client is bound under `SdkRemoteTags.HTTP_CLIENT`) — and fetches current weather for the map's
+selected position from the keyless Open-Meteo API. The response DTO is mapped to a domain model
+behind a `WeatherRepository` interface; every Ktor and serialization class comes from the host via
+`compileOnly(c4ds-sdk)`, so nothing network-related is bundled into the APK.
+
+**SDK APIs:** `HttpClient(Android)`, `ContentNegotiation` + kotlinx-serialization `json`, `CommonMapInteractor.selectedPosition`, `CommonLocaleSettingsInteractor.coordinateSystemFormat`, `diViewModel`.
+
+**Source:** [`gallery/.../network/`](../../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/network) · **Descriptor:** `vision.combat.c4.ds.sample.gallery.network.NetworkToolDescriptor`
+
+**Verify:** Select a position on the map → open **Network Requests** → the window shows that position → **Fetch Weather** shows a progress row, then the Current Weather card (condition, temperature, humidity, wind, observation time) → with connectivity off, **Fetch Weather** shows a "Request failed" toast instead of crashing.
+
+</td>
 </tr>
 </table>
 
@@ -646,7 +674,7 @@ callbacks as they fire.
 
 <a id="section-12-host-services"></a>
 <details>
-<summary><strong>🔗 Section 12 — Host Services</strong> · 2 samples — <em>Host-provided, plugin-accessible services: sharing, clipboard, in-app notifications, and opening a file in another app — no bundling required.</em></summary>
+<summary><strong>🔗 Section 12 — Host Services</strong> · 3 samples — <em>Host-provided, plugin-accessible services: sharing, clipboard, in-app notifications, opening a file in another app, and the libraries the host puts on your classpath — no bundling required.</em></summary>
 
 Both samples appear as rows in the **Host Services** catalog section:
 
@@ -669,17 +697,64 @@ services are simply on the classpath: **Share** (link, coordinates, file, image)
 `LocalShareManager`, provided by the host's `MainScreen` and re-exported from `c4ds-sdk-core:ui`
 through `c4ds-sdk`'s `api(...)` dependency; **Clipboard** via Compose's own `LocalClipboard`; and
 **In-app notification** via `InAppNotificationManager`, resolved through Kodein DI
-(`rememberInstance`) with the binding inherited from the host's DI graph.
+(`rememberInstance`).
+
+The notification also shows *where* plugin resources may be read. `InAppNotificationModel.content`
+is authored by the tool but composed by the **host**, next to the map — so the sample renders it
+with `painterResource(R.drawable.ic_notification)` and `stringResource(...)` called **inside** the
+content lambda rather than hoisted into the tool window. That is safe because `AbstractTool` binds a
+tool-scoped `InAppNotificationManager` that wraps posted content in the tool's environment (tool
+`Context`, DI scope, `ViewModelStore`): plugin ids resolve against this APK's resource table, and
+re-resolve when the host's app language or night mode changes. Read against the host's context, the
+same ids would be a wrong resource or a `Resources.NotFoundException`.
 
 Its **Share file** button shares a file via the OS share sheet (`ShareManager.shareFile`) — for
 the alternative pattern of minting a Uri and building your own intent (`ShareManager.getShareableUri`
 + a custom `ACTION_VIEW` chooser), see the **Open With** sample below.
 
-**SDK APIs:** `ShareManager`/`LocalShareManager` (`shareLink`, `shareCoordinates`, `shareFile`, `shareImage`), Compose `LocalClipboard`/`ClipEntry`, `InAppNotificationManager` (`postTransientNotification`, `InAppNotificationModel`, `InAppNotificationData`), Kodein `rememberInstance`.
+**SDK APIs:** `ShareManager`/`LocalShareManager` (`shareLink`, `shareCoordinates`, `shareFile`, `shareImage`), Compose `LocalClipboard`/`ClipEntry`, `InAppNotificationManager` (`postTransientNotification`, `InAppNotificationModel`, `InAppNotificationData`), `IconWithText`, plugin `painterResource`/`stringResource` inside notification content, Kodein `rememberInstance`.
 
 **Source:** [`gallery/.../hostservices/`](../../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/hostservices) · **Descriptor:** `vision.combat.c4.ds.sample.gallery.hostservices.HostServicesToolDescriptor`
 
-**Verify:** Tap **Share link** / **Share coordinates** / **Share file** / **Share image** → chooser opens for each. Tap **Copy sample text** → clipboard confirmation appears. Tap **Post notification** → transient in-app notification appears and a posted confirmation is shown.
+**Verify:** Tap **Share link** / **Share coordinates** / **Share file** / **Share image** → chooser opens for each. Tap **Copy sample text** → clipboard confirmation appears. Tap **Post notification** → a transient in-app notification appears over the map showing the plugin's own bell drawable next to the plugin's own string (no crash, no host resource), and a posted confirmation is shown.
+
+</td>
+</tr>
+</table>
+
+#### Host Libraries
+
+<table>
+<tr>
+<td width="280" valign="top">
+<img src="https://github.com/user-attachments/assets/13817b63-bed4-4156-b4c7-f75e4ce840e3" width="260" alt="Host Libraries sample active — Coil, Accompanist Permissions and mil-sym sections over the map">
+</td>
+<td valign="top">
+
+Uses the three host-provided libraries that no other sample touches — **Coil** (`AsyncImage` loading
+this plugin's own drawable), **Accompanist Permissions** (`rememberPermissionState` for CAMERA), and
+**mil-sym** (`SymbolUtilities.getBasicSymbolID2525C`). All three arrive through
+`compileOnly(c4ds-sdk)`; the module declares no dependency of its own.
+
+It exists as a **regression test you can see**. A plugin never contains host-provided classes — they
+are `compileOnly`, so the plugin APK carries only *references* to them. If R8 renames one of those
+classes on the host side, the reference resolves to nothing and the plugin crashes — in release
+only, because debug builds are not minified. Every other gallery sample uses Compose, Kodein,
+WorldWind, Ktor or Room, all of which sit under broad keep rules that were never at risk; these four
+did not, and were silently obfuscated until the SDK's consumer rules were fixed.
+
+See [Host-provided libraries](../reference/host-provided-libraries.md) for the full catalog and
+versions. Note what this sample deliberately does **not** cover: OkHttp also resolves against the
+host, but only so a pre-existing external plugin keeps working — **Ktor is the single network client
+for plugins**, and no sample in this repository uses anything else.
+
+**SDK APIs:** `coil3.compose.AsyncImage`, Accompanist `rememberPermissionState`/`PermissionStatus`, `armyc2.c5isr.renderer.utilities.SymbolUtilities`.
+
+**Source:** [`gallery/.../hostlibs/`](../../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/hostlibs) · **Descriptor:** `vision.combat.c4.ds.sample.gallery.hostlibs.HostLibsToolDescriptor`
+
+**Verify:** Open the sample → the Coil section shows the plugin's own layered icon; the permissions
+section reports CAMERA status with a request button; the symbology section prints a result string. The real test is doing this against a **release** host build — on a minified host
+with the old keep rules, the window crashed instead of rendering.
 
 </td>
 </tr>
