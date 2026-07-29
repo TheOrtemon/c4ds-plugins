@@ -85,7 +85,7 @@ Details: **[Getting started → Tool screen layout](docs/guides/getting-started.
 
 ## Sample catalog
 
-All 27 samples — with screenshots, SDK APIs, source paths, and verification steps — live in the
+All 28 samples — with screenshots, SDK APIs, source paths, and verification steps — live in the
 **[Samples guidebook](docs/guides/samples-catalog.md)**, one collapsible section per category in on-screen
 order. Registry source of truth:
 [`CatalogEntry.kt`](gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/catalog/ui/CatalogEntry.kt).
@@ -101,7 +101,7 @@ order. Registry source of truth:
 9. **[Model Management](docs/guides/samples-catalog.md#section-9-model-management)** — `CommonModelInteractor` create/consume/commit, symbol keys, and selection events · 1 sample
 10. **[Data Management](docs/guides/samples-catalog.md#section-10-data-management)** — isolated file I/O, plugin-scoped `SharedPreferences`, Room, and Ktor network requests · 2 samples
 11. **[Lifecycle & Services](docs/guides/samples-catalog.md#section-11-lifecycle-services)** — a session `AbstractToolService`, unread badge, and live lifecycle log · 1 sample
-12. **[Host Services](docs/guides/samples-catalog.md#section-12-host-services)** — sharing, clipboard, in-app notifications, and opening a file in another app · 2 samples
+12. **[Host Services](docs/guides/samples-catalog.md#section-12-host-services)** — sharing, clipboard, in-app notifications, and opening a file in another app, and the host-provided library surface · 3 samples
 13. **[Resources & Isolation](docs/guides/samples-catalog.md#section-13-resources-isolation)** — config-qualified resources, M2 widgets, `R.string` collision, and native/cross-APK · 4 samples
 14. **[Architecture](docs/guides/samples-catalog.md#section-14-architecture)** — a multi-module tool (domain/data/app) launched from the hub via cross-APK activation · 1 sample
 

@@ -200,6 +200,19 @@
     <string name="host_services_notification_icon_desc">Зразок сповіщення</string>
     <string name="host_services_notification_posted">Сповіщення показано.</string>
 
+    <string name="host_libs_tool_name">Бібліотеки хоста</string>
+    <string name="host_libs_desc">Три бібліотеки, які надає хост і які не використовує жоден інший зразок — Coil, Accompanist Permissions та mil-sym. Вони підтверджують, що ці класи доступні у зменшеній (minified) збірці хоста, де R8 інакше перепакував би їх.</string>
+    <string name="host_libs_apis">coil3 AsyncImage, Accompanist rememberPermissionState/PermissionStatus, armyc2 SymbolUtilities</string>
+    <string name="host_libs_coil_title">Coil (api SDK)</string>
+    <string name="host_libs_coil_image_desc">Зображення плагіна, завантажене через Coil</string>
+    <string name="host_libs_coil_caption">Завантажено через coil3 AsyncImage — модель це власний drawable цього плагіна, отриманий через контекст інструмента.</string>
+    <string name="host_libs_permissions_title">Accompanist Permissions (api SDK)</string>
+    <string name="host_libs_permission_granted">Дозвіл на камеру: надано.</string>
+    <string name="host_libs_permission_denied">Дозвіл на камеру: не надано. CAMERA оголошує хост; код інструмента запитує дозвіл від імені хоста.</string>
+    <string name="host_libs_request_permission">Запитати дозвіл на камеру</string>
+    <string name="host_libs_symbology_title">Символіка mil-sym (api SDK)</string>
+    <string name="host_libs_symbology_result">SymbolUtilities.getBasicSymbolID2525C(%1$s) = %2$s</string>
+
     <!-- Host Services / Open With -->
     <string name="open_with_tool_name">Відкрити за допомогою</string>
     <string name="open_with_desc">Правильно передає файл іншому застосунку: отримує Uri хоста через ShareManager.getShareableUri і відкриває його власним наміром ACTION_VIEW — ніколи через власний FileProvider плагіна.</string>

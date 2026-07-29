@@ -2,7 +2,7 @@
 
 **[← README](../../README.md)** · **[Getting started](getting-started.md)** · **[Plugin isolation](plugin-isolation.md)**
 
-The developer guidebook for this repository: all 27 samples with a screenshot, description, SDK APIs,
+The developer guidebook for this repository: all 28 samples with a screenshot, description, SDK APIs,
 source path, and verification steps — grouped by the 14 catalog sections in on-screen order. Each
 section below is collapsible; expand the ones you are extending.
 
@@ -57,7 +57,7 @@ Registry implementation: [`CatalogEntry.kt`](../../gallery/src/main/kotlin/visio
 
 ```
 c4ds-tool-samples/
-├── gallery/                     # Main APK — Sample Gallery hub + 25 feature samples
+├── gallery/                     # Main APK — Sample Gallery hub + 26 feature samples
 │   └── src/main/kotlin/vision/combat/c4/ds/sample/gallery/
 │       ├── catalog/             # Hub: CatalogSection, CatalogEntry, CatalogTool (launcher-visible)
 │       ├── mapview/
@@ -83,6 +83,7 @@ c4ds-tool-samples/
 │       ├── network/             # Data Management — network requests with the host-provided Ktor client
 │       ├── service/             # Lifecycle & Services — AbstractToolService
 │       ├── hostservices/        # Host Services — ShareManager, LocalClipboard, InAppNotificationManager
+│       ├── hostlibs/            # Host Libraries — Coil, Accompanist, mil-sym (obfuscation-safe)
 │       ├── openwith/            # Open With — ShareManager.getShareableUri + custom ACTION_VIEW chooser
 │       └── resources/
 │           ├── config/          # Config-Qualified Resources
@@ -673,7 +674,7 @@ callbacks as they fire.
 
 <a id="section-12-host-services"></a>
 <details>
-<summary><strong>🔗 Section 12 — Host Services</strong> · 2 samples — <em>Host-provided, plugin-accessible services: sharing, clipboard, in-app notifications, and opening a file in another app — no bundling required.</em></summary>
+<summary><strong>🔗 Section 12 — Host Services</strong> · 3 samples — <em>Host-provided, plugin-accessible services: sharing, clipboard, in-app notifications, opening a file in another app, and the libraries the host puts on your classpath — no bundling required.</em></summary>
 
 Both samples appear as rows in the **Host Services** catalog section:
 
@@ -716,6 +717,44 @@ the alternative pattern of minting a Uri and building your own intent (`ShareMan
 **Source:** [`gallery/.../hostservices/`](../../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/hostservices) · **Descriptor:** `vision.combat.c4.ds.sample.gallery.hostservices.HostServicesToolDescriptor`
 
 **Verify:** Tap **Share link** / **Share coordinates** / **Share file** / **Share image** → chooser opens for each. Tap **Copy sample text** → clipboard confirmation appears. Tap **Post notification** → a transient in-app notification appears over the map showing the plugin's own bell drawable next to the plugin's own string (no crash, no host resource), and a posted confirmation is shown.
+
+</td>
+</tr>
+</table>
+
+#### Host Libraries
+
+<table>
+<tr>
+<td width="280" valign="top">
+<img src="https://github.com/user-attachments/assets/13817b63-bed4-4156-b4c7-f75e4ce840e3" width="260" alt="Host Libraries sample active — Coil, Accompanist Permissions and mil-sym sections over the map">
+</td>
+<td valign="top">
+
+Uses the three host-provided libraries that no other sample touches — **Coil** (`AsyncImage` loading
+this plugin's own drawable), **Accompanist Permissions** (`rememberPermissionState` for CAMERA), and
+**mil-sym** (`SymbolUtilities.getBasicSymbolID2525C`). All three arrive through
+`compileOnly(c4ds-sdk)`; the module declares no dependency of its own.
+
+It exists as a **regression test you can see**. A plugin never contains host-provided classes — they
+are `compileOnly`, so the plugin APK carries only *references* to them. If R8 renames one of those
+classes on the host side, the reference resolves to nothing and the plugin crashes — in release
+only, because debug builds are not minified. Every other gallery sample uses Compose, Kodein,
+WorldWind, Ktor or Room, all of which sit under broad keep rules that were never at risk; these four
+did not, and were silently obfuscated until the SDK's consumer rules were fixed.
+
+See [Host-provided libraries](../reference/host-provided-libraries.md) for the full catalog and
+versions. Note what this sample deliberately does **not** cover: OkHttp also resolves against the
+host, but only so a pre-existing external plugin keeps working — **Ktor is the single network client
+for plugins**, and no sample in this repository uses anything else.
+
+**SDK APIs:** `coil3.compose.AsyncImage`, Accompanist `rememberPermissionState`/`PermissionStatus`, `armyc2.c5isr.renderer.utilities.SymbolUtilities`.
+
+**Source:** [`gallery/.../hostlibs/`](../../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/hostlibs) · **Descriptor:** `vision.combat.c4.ds.sample.gallery.hostlibs.HostLibsToolDescriptor`
+
+**Verify:** Open the sample → the Coil section shows the plugin's own layered icon; the permissions
+section reports CAMERA status with a request button; the symbology section prints a result string. The real test is doing this against a **release** host build — on a minified host
+with the old keep rules, the window crashed instead of rendering.
 
 </td>
 </tr>

@@ -200,6 +200,19 @@
     <string name="host_services_notification_icon_desc">Sample notification</string>
     <string name="host_services_notification_posted">Notification posted.</string>
 
+    <string name="host_libs_tool_name">Host Libraries</string>
+    <string name="host_libs_desc">Three libraries the host provides but no other sample uses — Coil, Accompanist Permissions and mil-sym. They exist to prove those classes still resolve in a minified host build, where R8 would otherwise repackage them.</string>
+    <string name="host_libs_apis">coil3 AsyncImage, Accompanist rememberPermissionState/PermissionStatus, armyc2 SymbolUtilities</string>
+    <string name="host_libs_coil_title">Coil (SDK api)</string>
+    <string name="host_libs_coil_image_desc">Plugin drawable loaded by Coil</string>
+    <string name="host_libs_coil_caption">Loaded with coil3 AsyncImage — the model is this plugin\'s own drawable, resolved through the tool context.</string>
+    <string name="host_libs_permissions_title">Accompanist Permissions (SDK api)</string>
+    <string name="host_libs_permission_granted">Camera permission: granted.</string>
+    <string name="host_libs_permission_denied">Camera permission: not granted. The host declares CAMERA; tool code requests it on the host\'s behalf.</string>
+    <string name="host_libs_request_permission">Request camera permission</string>
+    <string name="host_libs_symbology_title">mil-sym symbology (SDK api)</string>
+    <string name="host_libs_symbology_result">SymbolUtilities.getBasicSymbolID2525C(%1$s) = %2$s</string>
+
     <!-- Host Services / Open With -->
     <string name="open_with_tool_name">Open With</string>
     <string name="open_with_desc">Hands a file to another app the right way: mints a host-owned Uri via ShareManager.getShareableUri and opens it with a custom ACTION_VIEW chooser — never a plugin-owned FileProvider.</string>
