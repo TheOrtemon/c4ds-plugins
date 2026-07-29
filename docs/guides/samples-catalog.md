@@ -619,7 +619,7 @@ Sub-screens:
 <table>
 <tr>
 <td width="280" valign="top">
-<!-- TODO: screenshot — upload via a GitHub PR/issue comment to get a user-attachments URL and replace this comment with an <img>, matching the other samples -->
+<img src="https://github.com/user-attachments/assets/0b2786ad-74d6-488c-b243-d8e42845abbc" width="260" alt="Network Requests sample active — the tool window over the map showing the selected position and the Current Weather card fetched with the host-provided Ktor client">
 </td>
 <td valign="top">
 
