@@ -26,7 +26,7 @@ for what a reviewer checks.
 |-----------------------------------------------------|----------------------------------------------------------------|
 | Anything in the tables below                        | **nothing** — it arrives via `compileOnly(c4ds-sdk)`            |
 | An annotation processor for one of them (e.g. Room) | `ksp(...)` only — the runtime still comes from the host         |
-| OkHttp                                              | `compileOnly(...)` at the host's exact version — [why](#present-in-the-host-but-not-on-the-api-graph) |
+| An HTTP client                                      | **nothing** — use the host's Ktor, see [Networking](#networking-and-serialization) |
 | A library genuinely not on the list                 | `implementation(...)`, and read the R8/keep-rules notes first   |
 
 Adding a host-provided library as `implementation` puts a second copy of its classes in your APK.
@@ -86,9 +86,10 @@ The host is on **Material 2** (`androidx.compose.material`). Material 3 is *not*
 
 ## Networking and serialization
 
-Enough Ktor for a full client — see the **Network Requests** sample in the
-[samples guidebook](../guides/samples-catalog.md#section-10-data-management), which builds its own
-`HttpClient` out of these without adding a single dependency.
+**Ktor is the network client for plugins — use it and nothing else.** Enough of it is provided for a
+full client, so a plugin needs no HTTP dependency of its own. See the **Network Requests** sample in
+the [samples guidebook](../guides/samples-catalog.md#section-10-data-management), which builds its
+own `HttpClient` out of these without adding a single dependency.
 
 | Library                                  | Version |
 |------------------------------------------|---------|
@@ -115,27 +116,65 @@ Enough Ktor for a full client — see the **Network Requests** sample in the
 | `vision.combat:c4unit`                        | 1.15.8   |
 | `vision.combat:c4view-symbol`                 | 1.15.8   |
 | `io.github.missioncommand:mil-sym-android`    | 2.11.2   |
-| `io.matthewnelson.kmp-file:file`              | 0.6.1    |
+
+`io.matthewnelson.kmp-file:file` 0.6.1 is also on the api graph, but **none of its 41 classes are in
+the host APK** — do not use it. It is a KMP file abstraction that is mostly inline/`expect`-actual,
+so much of it compiles away, but anything that does emit a reference will fail at runtime.
 
 ---
 
 ## The declared surface vs. the whole classpath
 
 The tables above are the SDK's **declared** `api` surface — the part treated as a contract. Their
-own transitive dependencies are on your compile classpath too (≈230 modules in total for 0.5.1):
-`androidx.annotation` 1.10.0, `androidx.collection` 1.5.0, `androidx.sqlite` 2.6.2,
-`org.jetbrains.kotlinx:kotlinx-io-core` 0.9.0, `com.squareup.okio:okio` 3.17.0, and so on.
+own transitive dependencies are on your compile classpath too, 235 modules in total for 0.5.1.
 
-They compile — but **several of them do not survive to runtime**. The host is minified with
-`-repackageclasses`, and only the declared surface is kept by name. Measured against a release host
-build, these are renamed to `vision.combat.c4.ds.app.obf.*` and will throw `ClassNotFoundException`
-if your plugin names them: `okio.**`, `com.caverock.androidsvg.**`,
-`dev.icerock.moko.resources.**`, `app.softwork.uuid.**`.
+**They compile, but not all of them survive to runtime.** The host is minified with
+`-repackageclasses`, so a class that is not kept by name is renamed to
+`vision.combat.c4.ds.app.obf.*` — and a plugin referencing the original name gets
+`ClassNotFoundException`. Debug builds are not minified, so this **only shows up in release**, which
+is exactly when it is most expensive to find.
 
-Debug builds are not minified, so this class of bug **only appears in release** — which is exactly
-when it is most expensive to find. Note the trap in `okio`'s case: parts of Coil's own API surface
-(`DiskCache`, `ImageSource`) take okio types, so a plugin can reach an obfuscated class through a
-kept one.
+The lists below were produced by comparing every class in each resolved artifact against the classes
+actually present in a minified host APK, so they are measured rather than inferred.
+
+### Also resolvable (transitive, verified present in the host)
+
+Usable, but not part of the declared contract — a deeper transitive can change version or disappear
+in the next SDK release without that counting as a breaking change.
+
+| Library | Version | | Library | Version |
+|---|---|---|---|---|
+| `androidx.activity:activity` | 1.13.0 | | `androidx.appcompat:appcompat-resources` | 1.7.1 |
+| `androidx.annotation:annotation` | 1.10.0 | | `androidx.arch.core:core-runtime` | 2.2.0 |
+| `androidx.collection:collection` | 1.5.0 | | `androidx.core:core-ktx` | 1.18.0 |
+| `androidx.fragment:fragment` | 1.5.4 | | `androidx.lifecycle:lifecycle-livedata` | 2.11.0 |
+| `androidx.loader:loader` | 1.0.0 | | `androidx.room:room-common` | 2.8.4 |
+| `androidx.sqlite:sqlite` | 2.6.2 | | `androidx.savedstate:savedstate` | 1.4.0 |
+| `androidx.vectordrawable:vectordrawable` | 1.1.0 | | `androidx.viewpager:viewpager` | 1.0.0 |
+| `org.jetbrains.kotlinx:kotlinx-io-core` | 0.9.0 | | `org.jetbrains.kotlinx:kotlinx-serialization-core` | 1.11.0 |
+| `org.jetbrains.kotlinx:kotlinx-coroutines-android` | 1.11.0 | | `org.slf4j:slf4j-api` | 2.0.18 |
+
+### Not resolvable — do not use
+
+On your compile classpath, absent or renamed in the host. Naming any of these compiles cleanly and
+fails at runtime in release:
+
+| Library | Version | Why |
+|---|---|---|
+| `com.squareup.okio:okio` | 3.17.0 | renamed |
+| `com.caverock:androidsvg-aar` | 1.4 | renamed |
+| `dev.icerock.moko:resources` | 0.26.4 | renamed |
+| `app.softwork:kotlinx-uuid-core` | 0.1.7 | renamed |
+| `io.matthewnelson.kmp-file:file` | 0.6.1 | absent from the host APK |
+| `org.gavaghan:geodesy` | 1.1.3 | absent from the host APK |
+| `org.jetbrains:annotations` | 23.0.0 | absent (annotations, shrunk away) |
+| `org.jspecify:jspecify` | 1.0.0 | absent (annotations, shrunk away) |
+| `com.google.guava:listenablefuture` | 1.0 | absent from the host APK |
+
+The `okio` row is the subtle one: parts of Coil's own API take okio types (`DiskCache` takes an
+`okio.Path`, `ImageSource` wraps a `BufferedSource`), so a plugin can reach a renamed class *through*
+a kept one. Basic `AsyncImage(model = …)` stays clear of it; custom fetchers, decoders and
+disk-cache configuration do not.
 
 Beyond that, a deeper transitive can change version or disappear entirely in the next SDK release
 without that being a breaking change. Stick to the declared surface; if you lean on something
@@ -144,24 +183,22 @@ debug one.
 
 ## Present in the host, but not on the api graph
 
-One library is deliberately host-provided **without** being re-exported: **OkHttp**.
+Two libraries are resolvable at runtime without being re-exported by the SDK, because the SDK's
+consumer ProGuard rules keep their names so a plugin can reach them parent-first.
 
-| Library                        | Version |
-|--------------------------------|---------|
-| `com.squareup.okhttp3:okhttp`  | 5.4.0   |
+| Library                        | Version | Status |
+|--------------------------------|---------|--------|
+| `org.slf4j:slf4j-api`          | 2.0.18  | usable; already on your compile classpath via Ktor, so no dependency line needed |
+| `com.squareup.okhttp3:okhttp`  | 5.4.0   | **compatibility only — do not use in new plugins** |
 
-It reaches the host APK transitively and the SDK's consumer ProGuard rules keep `okhttp3.**` by
-name specifically so plugins can resolve it parent-first at runtime — but nothing in the SDK's `api`
-graph names it, so it is not on your compile classpath. If you need it, declare it **`compileOnly`
-at exactly the host's version**:
+**OkHttp is not a supported choice for new work.** Its name is kept because an existing external
+plugin already depends on it, not because plugins are meant to. **Ktor is the single network client
+for plugins** — it is on the api graph, needs no dependency line, and is what the Network Requests
+sample demonstrates. Nothing in this repository uses OkHttp, deliberately.
 
-```kotlin
-compileOnly("com.squareup.okhttp3:okhttp:5.4.0")
-```
-
-`implementation` would bundle a second copy and R8 would repackage it, which is the exact failure
-the host's keep rule exists to prevent. The host pins this version strictly, so treat a mismatch as
-a build error waiting to happen rather than something conflict resolution will sort out.
+If you are maintaining that pre-existing plugin, the only workable form is `compileOnly` at exactly
+the host's pinned version: `implementation` would bundle a second copy for R8 to repackage, which is
+the precise failure the host's keep rule exists to prevent.
 
 ## What is not provided
 
@@ -174,8 +211,9 @@ them (with the bundling caveats above):
 - **`androidx.room:room-compiler`** — a build-time KSP processor, never a runtime class. Declare
   `ksp(androidx.room.compiler)` yourself; the runtime stays host-provided.
 - **`com.android.tools:desugar_jdk_libs`** — declare `coreLibraryDesugaring(...)` in your own module.
-- **Retrofit / Moshi / Gson** — Ktor + kotlinx-serialization are the provided stack. (OkHttp is a
-  special case — see [Present in the host, but not on the api graph](#present-in-the-host-but-not-on-the-api-graph).)
+- **Retrofit / Moshi / Gson / OkHttp** — Ktor + kotlinx-serialization are the provided stack, and
+  the only one plugins should use. OkHttp resolves at runtime for legacy reasons but is not a
+  supported choice; see [Present in the host, but not on the api graph](#present-in-the-host-but-not-on-the-api-graph).
 - **DataStore, WorkManager, CameraX**, and most other AndroidX artifacts outside the tables above.
 - **Test libraries** (JUnit 5, MockK, Turbine) — your own `testImplementation`, see
   [Testing your tool](../testing/testing-your-tool.md).
