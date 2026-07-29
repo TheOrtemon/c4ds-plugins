@@ -23,11 +23,7 @@ internal val networkModule = DI.Module("networkModule") {
     bindSingleton {
         HttpClient(Android) {
             install(ContentNegotiation) {
-                json(
-                    Json {
-                        ignoreUnknownKeys = true
-                    }
-                )
+                json(Json { ignoreUnknownKeys = true })
             }
         }
     }

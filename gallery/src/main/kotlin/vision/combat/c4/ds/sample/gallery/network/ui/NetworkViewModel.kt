@@ -7,13 +7,11 @@ import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.receiveAsFlow
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import vision.combat.c4.ds.sample.gallery.network.domain.WeatherInteractor
@@ -28,17 +26,17 @@ internal class NetworkViewModel(
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(UiState())
-
-    val uiState: StateFlow<UiState> = _uiState
-        .onStart { observeSelectedPosition() }
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5_000),
-            initialValue = _uiState.value,
-        )
+    val uiState: StateFlow<UiState> = _uiState.asStateFlow()
 
     private val _event = Channel<Event>(Channel.BUFFERED)
     val event: Flow<Event> = _event.receiveAsFlow()
+
+    // Observation starts here, not from a lazy `onStart` on the exposed flow: `launchIn` binds the
+    // collector to viewModelScope, which outlives any single subscription, so an onStart hook would
+    // start a *new* collector every time the UI resubscribes and never cancel the previous ones.
+    init {
+        observeSelectedPosition()
+    }
 
     private fun observeSelectedPosition() {
         weatherInteractor.selectedPosition

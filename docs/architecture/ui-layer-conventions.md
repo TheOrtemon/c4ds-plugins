@@ -102,6 +102,30 @@ If a ViewModel genuinely has nothing to do until the UI subscribes (e.g. the cou
 above), leave `init` empty and say so with a comment — it documents the choice was
 intentional, not an oversight.
 
+**The anti-pattern this rule exists to prevent** — starting observation from an `onStart` hook
+on the exposed flow:
+
+```kotlin
+// WRONG: leaks a collector on every resubscribe
+val uiState: StateFlow<UiState> = _uiState
+    .onStart { observeData() }                       // runs again on each 0 -> 1 subscriber
+    .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), _uiState.value)
+
+private fun observeData() {
+    interactor.something.launchIn(viewModelScope)    // tied to viewModelScope, never cancelled
+}
+```
+
+`WhileSubscribed` restarts the upstream every time the subscriber count goes 0 → 1 — which
+happens on every configuration change, and each time the window is hidden for longer than the
+timeout. `onStart` therefore fires repeatedly, while the `launchIn` collectors it starts are
+bound to `viewModelScope` and live until the ViewModel dies. They accumulate: after *n*
+resubscribes the ViewModel has *n* live collectors all writing the same state.
+
+Observation belongs in `init`, which runs exactly once per ViewModel. `onStart` is only for work
+that genuinely should repeat per subscription — and even then, scope it to the collection, not to
+`viewModelScope`.
+
 ---
 
 ## Composable entry point + `EventHandler`
