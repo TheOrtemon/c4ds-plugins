@@ -3,7 +3,7 @@
 <img width="1000" alt="Sample Gallery hub in ComBat 4" src="https://github.com/user-attachments/assets/bf1b3f82-b4e5-46ed-bfe9-7cb2cdddd0f1" />
 
 **A copy-pasteable reference for every public SDK surface exposed to external ComBat 4 Dismounted
-Soldier (C4DS) tools** — 24 runnable samples across 13 categories, launched from an in-app
+Soldier (C4DS) tools** — 27 runnable samples across 14 categories, launched from an in-app
 **Sample Gallery** hub.
 
 [![Kotlin](https://img.shields.io/badge/Kotlin-2.4.0-7F52FF?logo=kotlin)](gradle/libs.versions.toml)
@@ -22,6 +22,8 @@ Soldier (C4DS) tools** — 24 runnable samples across 13 categories, launched fr
   `CommonSessionStorageInteractor`, `CommonLocaleSettingsInteractor`) used the way a real tool would.
 - **Tool lifecycle & management** — `AbstractToolService`, `ToolManager`, `PanelManager`, and
   session-scoped storage (files, `SharedPreferences`, Room).
+- **Remote data** — a tool-owned Ktor `HttpClient` (all classes host-provided, nothing bundled)
+  fetching JSON and mapping it to a domain model behind a repository.
 - **UI building blocks** — the promoted public SDK Compose component catalog plus all four
   `ToolDialog` variants.
 - **Plugin isolation** — per-APK `ClassLoader`, resource resolution, Material 2 composition
@@ -83,7 +85,7 @@ Details: **[Getting started → Tool screen layout](docs/guides/getting-started.
 
 ## Sample catalog
 
-All 24 samples — with screenshots, SDK APIs, source paths, and verification steps — live in the
+All 27 samples — with screenshots, SDK APIs, source paths, and verification steps — live in the
 **[Samples guidebook](docs/guides/samples-catalog.md)**, one collapsible section per category in on-screen
 order. Registry source of truth:
 [`CatalogEntry.kt`](gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/catalog/ui/CatalogEntry.kt).
@@ -97,10 +99,11 @@ order. Registry source of truth:
 7. **[Tool Dialogs](docs/guides/samples-catalog.md#section-7-tool-dialogs)** — `ToolDialog` variants: Confirmation, Destructive, Info, and Custom · 1 sample
 8. **[Tool Management](docs/guides/samples-catalog.md#section-8-tool-management)** — activate, deactivate, and inspect tools via `ToolManager` · 1 sample
 9. **[Model Management](docs/guides/samples-catalog.md#section-9-model-management)** — `CommonModelInteractor` create/consume/commit, symbol keys, and selection events · 1 sample
-10. **[Data Management](docs/guides/samples-catalog.md#section-10-data-management)** — isolated file I/O, plugin-scoped `SharedPreferences`, and Room · 1 sample
+10. **[Data Management](docs/guides/samples-catalog.md#section-10-data-management)** — isolated file I/O, plugin-scoped `SharedPreferences`, Room, and Ktor network requests · 2 samples
 11. **[Lifecycle & Services](docs/guides/samples-catalog.md#section-11-lifecycle-services)** — a session `AbstractToolService`, unread badge, and live lifecycle log · 1 sample
-12. **[Resources & Isolation](docs/guides/samples-catalog.md#section-12-resources-isolation)** — config-qualified resources, M2 widgets, `R.string` collision, and native/cross-APK · 4 samples
-13. **[Architecture](docs/guides/samples-catalog.md#section-13-architecture)** — a multi-module tool (domain/data/app) launched from the hub via cross-APK activation · 1 sample
+12. **[Host Services](docs/guides/samples-catalog.md#section-12-host-services)** — sharing, clipboard, in-app notifications, and opening a file in another app · 2 samples
+13. **[Resources & Isolation](docs/guides/samples-catalog.md#section-13-resources-isolation)** — config-qualified resources, M2 widgets, `R.string` collision, and native/cross-APK · 4 samples
+14. **[Architecture](docs/guides/samples-catalog.md#section-14-architecture)** — a multi-module tool (domain/data/app) launched from the hub via cross-APK activation · 1 sample
 
 ---
 

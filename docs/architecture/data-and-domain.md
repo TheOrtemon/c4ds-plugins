@@ -109,6 +109,44 @@ internal val myToolModule = DI.Module("myToolModule") {
 }
 ```
 
+### Remote data — Ktor
+
+For remote data, wrap a Ktor service the same way: the repository interface stays
+storage-agnostic, and the impl owns the transport plus the DTO → domain mapping. The host
+already ships the full Ktor client stack (core, Android engine, ContentNegotiation,
+kotlinx-serialization json) and the SDK exposes it via `api`, so `compileOnly(c4ds-sdk)`
+gives you every class at compile time and the host provides them at runtime — declare
+**no** Ktor dependency of your own.
+
+```kotlin
+internal val myToolModule = DI.Module("myToolModule") {
+    // The SDK deliberately leaves the untagged HttpClient slot free (its shared client is
+    // bound under SdkRemoteTags.HTTP_CLIENT), so a tool can bind its own configured client
+    // without a Kodein OverridingException.
+    bindSingleton {
+        HttpClient(Android) {
+            install(ContentNegotiation) {
+                json(Json { ignoreUnknownKeys = true })
+            }
+        }
+    }
+    // HttpClient creation is heavy; inject a provider so the service resolves it lazily on
+    // the first request.
+    bindSingleton { MyApiService(provider()) }
+}
+```
+
+- Prefer binding your **own** untagged `HttpClient` configured for your API. If the host's
+  default configuration suits you, resolve the shared one instead:
+  `instance<HttpClient>(tag = SdkRemoteTags.HTTP_CLIENT)`.
+- Keep the service pure transport (build request, deserialize response) and map DTOs to
+  domain models at the repository boundary, mirroring the storage patterns above.
+- Run requests off the main thread (`withContext(Dispatchers.IO)` in the repository impl).
+
+The runnable version of this pattern is the **Network Requests** sample —
+[`gallery/.../network/`](../../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/network)
+(see [Samples guidebook — Section 10](../guides/samples-catalog.md#section-10-data-management)).
+
 ---
 
 ## Interactor — the domain layer

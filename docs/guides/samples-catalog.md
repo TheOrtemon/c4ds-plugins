@@ -2,7 +2,7 @@
 
 **[← README](../../README.md)** · **[Getting started](getting-started.md)** · **[Plugin isolation](plugin-isolation.md)**
 
-The developer guidebook for this repository: all 26 samples with a screenshot, description, SDK APIs,
+The developer guidebook for this repository: all 27 samples with a screenshot, description, SDK APIs,
 source path, and verification steps — grouped by the 14 catalog sections in on-screen order. Each
 section below is collapsible; expand the ones you are extending.
 
@@ -57,7 +57,7 @@ Registry implementation: [`CatalogEntry.kt`](../../gallery/src/main/kotlin/visio
 
 ```
 c4ds-tool-samples/
-├── gallery/                     # Main APK — Sample Gallery hub + 24 feature samples
+├── gallery/                     # Main APK — Sample Gallery hub + 25 feature samples
 │   └── src/main/kotlin/vision/combat/c4/ds/sample/gallery/
 │       ├── catalog/             # Hub: CatalogSection, CatalogEntry, CatalogTool (launcher-visible)
 │       ├── mapview/
@@ -80,6 +80,7 @@ c4ds-tool-samples/
 │       ├── dialog/              # Tool Dialogs — ToolDialog variants
 │       ├── model/               # Model Management — CommonModelInteractor
 │       ├── storage/             # Data Management — files, SharedPreferences, Room
+│       ├── network/             # Data Management — network requests with the host-provided Ktor client
 │       ├── service/             # Lifecycle & Services — AbstractToolService
 │       ├── hostservices/        # Host Services — ShareManager, LocalClipboard, InAppNotificationManager
 │       ├── openwith/            # Open With — ShareManager.getShareableUri + custom ACTION_VIEW chooser
@@ -578,7 +579,7 @@ Sub-screens:
 
 <a id="section-10-data-management"></a>
 <details>
-<summary><strong>💾 Section 10 — Data Management</strong> · 1 sample — <em>Isolated file I/O, plugin-scoped SharedPreferences, and an isolated Room database.</em></summary>
+<summary><strong>💾 Section 10 — Data Management</strong> · 2 samples — <em>Isolated file I/O, plugin-scoped SharedPreferences, an isolated Room database, and network requests with the host-provided Ktor client.</em></summary>
 
 #### Data Management
 
@@ -610,6 +611,32 @@ Sub-screens:
 <td align="center"><img src="https://github.com/user-attachments/assets/49258059-1f48-4590-a9c3-90e538c2e6f4" width="190" alt="File I/O — session directory paths with Write/Read File"><br><sub>File I/O</sub></td>
 <td align="center"><img src="https://github.com/user-attachments/assets/acfc70f2-b45a-4113-bbe1-5b0a3ac15bd8" width="190" alt="SharedPreferences — stored string and counter with Save String"><br><sub>SharedPreferences</sub></td>
 <td align="center"><img src="https://github.com/user-attachments/assets/d89793c7-3e6a-4c7e-9fb8-5d1020ba318f" width="190" alt="Room Database — Add a Note and Clear All Notes"><br><sub>Room Database</sub></td>
+</tr>
+</table>
+
+#### Network Requests
+
+<table>
+<tr>
+<td width="280" valign="top">
+<!-- TODO: screenshot — upload via a GitHub PR/issue comment to get a user-attachments URL and replace this comment with an <img>, matching the other samples -->
+</td>
+<td valign="top">
+
+A real HTTPS request with the Ktor client the host already provides. The tool binds its **own**
+untagged `HttpClient` in its Kodein module — the SDK deliberately keeps that slot free (its shared
+client is bound under `SdkRemoteTags.HTTP_CLIENT`) — and fetches current weather for the map's
+selected position from the keyless Open-Meteo API. The response DTO is mapped to a domain model
+behind a `WeatherRepository` interface; every Ktor and serialization class comes from the host via
+`compileOnly(c4ds-sdk)`, so nothing network-related is bundled into the APK.
+
+**SDK APIs:** `HttpClient(Android)`, `ContentNegotiation` + kotlinx-serialization `json`, `CommonMapInteractor.selectedPosition`, `CommonLocaleSettingsInteractor.coordinateSystemFormat`, `diViewModel`.
+
+**Source:** [`gallery/.../network/`](../../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/network) · **Descriptor:** `vision.combat.c4.ds.sample.gallery.network.NetworkToolDescriptor`
+
+**Verify:** Select a position on the map → open **Network Requests** → the window shows that position → **Fetch Weather** shows a progress row, then the Current Weather card (condition, temperature, humidity, wind, observation time) → with connectivity off, **Fetch Weather** shows a "Request failed" toast instead of crashing.
+
+</td>
 </tr>
 </table>
 

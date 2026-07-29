@@ -10,6 +10,7 @@ import vision.combat.c4.ds.sample.gallery.mapoverlays.expandablestatus.Expandabl
 import vision.combat.c4.ds.sample.gallery.mapview.map.MapToolDescriptor
 import vision.combat.c4.ds.sample.gallery.mapview.mapinteractor.MapInteractorToolDescriptor
 import vision.combat.c4.ds.sample.gallery.model.ModelToolDescriptor
+import vision.combat.c4.ds.sample.gallery.network.NetworkToolDescriptor
 import vision.combat.c4.ds.sample.gallery.openwith.OpenWithToolDescriptor
 import vision.combat.c4.ds.sample.gallery.mapoverlays.overlay.OverlayToolDescriptor
 import vision.combat.c4.ds.sample.gallery.mapoverlays.overlayisdefault.OverlayDefaultToolDescriptor
@@ -229,6 +230,14 @@ internal enum class CatalogEntry(
         apisResId = R.string.storage_apis,
         sourceSubpackage = "storage",
         toolClassName = requireQualifiedName<StorageToolDescriptor>(),
+    ),
+    NETWORK(
+        section = CatalogSection.DATA_MANAGEMENT,
+        nameResId = R.string.network_tool_name,
+        descResId = R.string.network_desc,
+        apisResId = R.string.network_apis,
+        sourceSubpackage = "network",
+        toolClassName = requireQualifiedName<NetworkToolDescriptor>(),
     ),
 
     // ── LIFECYCLE & SERVICES ──────────────────────────────────────────────
