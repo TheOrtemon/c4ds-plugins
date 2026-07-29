@@ -23,6 +23,7 @@ internal implementation.
 | Adding or changing a repository, interactor, or mapper                         | [`docs/architecture/data-and-domain.md`](docs/architecture/data-and-domain.md) — repository/interactor patterns, isolated storage                                                                                   |
 | Writing or updating unit tests                                                 | [`docs/testing/testing-your-tool.md`](docs/testing/testing-your-tool.md) — JUnit 5, MockK, Turbine; what to test and what not to                                                                          |
 | Bundling resources, assets, or native (`.so`) libraries in your plugin APK     | [`docs/reference/resource-and-isolation.md`](docs/reference/resource-and-isolation.md) — plugin-scoped resources, assets, native libs                                                                         |
+| Wondering whether a library is already on the classpath, or at which version   | [`docs/reference/host-provided-libraries.md`](docs/reference/host-provided-libraries.md) — what `compileOnly(c4ds-sdk)` re-exports, with versions, and what it doesn't                                        |
 | Reviewing a change before it merges                                            | [`docs/review-rules.md`](docs/review-rules.md) — architecture/MVI/DI, threading/lifecycle/Compose, resources/locale, testing, dependency hygiene checklist                                |
 
 ---
