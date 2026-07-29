@@ -696,17 +696,26 @@ services are simply on the classpath: **Share** (link, coordinates, file, image)
 `LocalShareManager`, provided by the host's `MainScreen` and re-exported from `c4ds-sdk-core:ui`
 through `c4ds-sdk`'s `api(...)` dependency; **Clipboard** via Compose's own `LocalClipboard`; and
 **In-app notification** via `InAppNotificationManager`, resolved through Kodein DI
-(`rememberInstance`) with the binding inherited from the host's DI graph.
+(`rememberInstance`).
+
+The notification also shows *where* plugin resources may be read. `InAppNotificationModel.content`
+is authored by the tool but composed by the **host**, next to the map — so the sample renders it
+with `painterResource(R.drawable.ic_notification)` and `stringResource(...)` called **inside** the
+content lambda rather than hoisted into the tool window. That is safe because `AbstractTool` binds a
+tool-scoped `InAppNotificationManager` that wraps posted content in the tool's environment (tool
+`Context`, DI scope, `ViewModelStore`): plugin ids resolve against this APK's resource table, and
+re-resolve when the host's app language or night mode changes. Read against the host's context, the
+same ids would be a wrong resource or a `Resources.NotFoundException`.
 
 Its **Share file** button shares a file via the OS share sheet (`ShareManager.shareFile`) — for
 the alternative pattern of minting a Uri and building your own intent (`ShareManager.getShareableUri`
 + a custom `ACTION_VIEW` chooser), see the **Open With** sample below.
 
-**SDK APIs:** `ShareManager`/`LocalShareManager` (`shareLink`, `shareCoordinates`, `shareFile`, `shareImage`), Compose `LocalClipboard`/`ClipEntry`, `InAppNotificationManager` (`postTransientNotification`, `InAppNotificationModel`, `InAppNotificationData`), Kodein `rememberInstance`.
+**SDK APIs:** `ShareManager`/`LocalShareManager` (`shareLink`, `shareCoordinates`, `shareFile`, `shareImage`), Compose `LocalClipboard`/`ClipEntry`, `InAppNotificationManager` (`postTransientNotification`, `InAppNotificationModel`, `InAppNotificationData`), `IconWithText`, plugin `painterResource`/`stringResource` inside notification content, Kodein `rememberInstance`.
 
 **Source:** [`gallery/.../hostservices/`](../../gallery/src/main/kotlin/vision/combat/c4/ds/sample/gallery/hostservices) · **Descriptor:** `vision.combat.c4.ds.sample.gallery.hostservices.HostServicesToolDescriptor`
 
-**Verify:** Tap **Share link** / **Share coordinates** / **Share file** / **Share image** → chooser opens for each. Tap **Copy sample text** → clipboard confirmation appears. Tap **Post notification** → transient in-app notification appears and a posted confirmation is shown.
+**Verify:** Tap **Share link** / **Share coordinates** / **Share file** / **Share image** → chooser opens for each. Tap **Copy sample text** → clipboard confirmation appears. Tap **Post notification** → a transient in-app notification appears over the map showing the plugin's own bell drawable next to the plugin's own string (no crash, no host resource), and a posted confirmation is shown.
 
 </td>
 </tr>
