@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name" translatable="false">Sight</string>
+    <string name="sight_tool_name">Sight</string>
+    <string name="is_pilot">Pilot mode</string>
+</resources>
