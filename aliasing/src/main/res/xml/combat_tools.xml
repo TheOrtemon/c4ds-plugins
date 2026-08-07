@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <combat-tools>
-    <tool-descriptor name="vision.combat.c4.ds.example.tool.aliasing.AliasingToolDescriptor" />
+    <tool-descriptor name="vision.combat.c4.ds.sample.aliasing.AliasingToolDescriptor" />
 </combat-tools>

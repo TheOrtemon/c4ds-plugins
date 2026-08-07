@@ -2,8 +2,9 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.google.ksp)
 }
 
 kotlin {
@@ -13,13 +14,13 @@ kotlin {
 }
 
 android {
-    namespace = "vision.combat.c4.ds.tool.sample.aliasing"
-    compileSdk = 35
+    namespace = "vision.combat.c4.ds.sample.aliasing"
+    compileSdk = 37
 
     defaultConfig {
-        applicationId = "vision.combat.c4.ds.tool.sample.aliasing"
+        applicationId = "vision.combat.c4.ds.sample.aliasing"
         minSdk = 26
-        targetSdk = 35
+        targetSdk = 37
         versionCode = 1
         versionName = "1.0"
 
@@ -40,6 +41,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 
@@ -52,7 +54,12 @@ configurations {
 
 dependencies {
     compileOnly(libs.combat.ds.sdk)
-    runtimeOnly(libs.combat.ds.sdk.runtine)
+    runtimeOnly(libs.combat.ds.sdk.runtime)
 
     coreLibraryDesugaring(libs.android.tools.desugar)
+
+    // Room now arrives transitively via compileOnly(libs.combat.ds.sdk) — the host provides
+    // it, same as Compose/coroutines. Only the annotation processor is declared here.
+    ksp(libs.androidx.room.compiler)
 }
+
