@@ -3,6 +3,7 @@ package vision.combat.c4.ds.sample.sight
 import org.kodein.di.DI
 import org.kodein.di.bindSingleton
 import org.kodein.di.instance
+import vision.combat.c4.ds.example.tool.sight.SightToolRepository
 import vision.combat.c4.ds.sdk.tool.AbstractTool
 import vision.combat.c4.ds.sdk.tool.ToolComponent
 import vision.combat.c4.ds.sdk.tool.ToolContext
